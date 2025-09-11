@@ -5,7 +5,7 @@ const Skills = () => {
     {
       title: "Fashion Design",
       icon: <Scissors className="w-6 h-6" />,
-      color: "bg-pink-100 text-pink-600",
+      color: "bg-pink-500/20 text-pink-400",
       skills: [
         "Pattern Drafting",
         "Garment Construction", 
@@ -18,7 +18,7 @@ const Skills = () => {
     {
       title: "Product Design",
       icon: <Smartphone className="w-6 h-6" />,
-      color: "bg-blue-100 text-blue-600",
+      color: "bg-blue-500/20 text-blue-400",
       skills: [
         "UI/UX Design",
         "Wireframing",
@@ -31,7 +31,7 @@ const Skills = () => {
     {
       title: "Research & Strategy",
       icon: <Search className="w-6 h-6" />,
-      color: "bg-green-100 text-green-600",
+      color: "bg-green-500/20 text-green-400",
       skills: [
         "User Research",
         "Usability Testing",
@@ -44,7 +44,7 @@ const Skills = () => {
     {
       title: "Project Management",
       icon: <Users className="w-6 h-6" />,
-      color: "bg-purple-100 text-purple-600",
+      color: "bg-purple-500/20 text-purple-400",
       skills: [
         "Team Coordination",
         "Timeline Management",

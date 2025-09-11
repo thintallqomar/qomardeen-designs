@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Sparkles, Zap, Heart } from 'lucide-react';
 import profileImage from '@/assets/qomardeen-profile.jpg';
 
 const Hero = () => {
@@ -17,90 +17,168 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center hero-gradient">
-      <div className="container-custom">
+    <section id="home" className="min-h-screen flex items-center hero-gradient relative">
+      {/* Floating Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="floating-element absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
+        <div className="floating-element absolute top-40 right-20 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
+        <div className="floating-element absolute bottom-40 left-1/4 w-16 h-16 bg-primary/10 rounded-full blur-xl"></div>
+        
+        {/* Geometric shapes */}
+        <div className="floating-element absolute top-1/3 right-10 w-24 h-24 border border-primary/20 rounded-lg rotate-45 blur-sm"></div>
+        <div className="floating-element absolute bottom-1/3 left-16 w-12 h-12 bg-gradient-primary rounded-full opacity-20"></div>
+      </div>
+
+      <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center px-4 py-2 bg-primary-light rounded-full text-sm font-medium text-primary-dark">
-                <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                Available for new opportunities
+            {/* Status Badge */}
+            <div className="inline-flex items-center px-6 py-3 hero-badge rounded-full text-sm font-semibold text-primary-dark animate-pulse">
+              <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-ping"></div>
+              <Sparkles className="w-4 h-4 mr-2" />
+              Available for new opportunities
+            </div>
+            
+            {/* Main Heading */}
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h1 className="hero-text">
+                  Hi, I'm
+                </h1>
+                <h1 className="hero-name animate-fade-in">
+                  Qomardeen Tyler Tijani
+                </h1>
               </div>
               
-              <h1 className="hero-text">
-                Hi, I'm <br />
-                <span className="text-primary">Qomardeen Tyler Tijani</span>
-              </h1>
-              
-              <h2 className="text-xl md:text-2xl text-muted-foreground font-medium">
-                From Fashion to Tech: Crafting Human-Centered Digital Experiences
-              </h2>
+              <div className="relative">
+                <h2 className="text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed">
+                  From <span className="relative inline-block">
+                    <span className="text-primary font-semibold">Fashion</span>
+                    <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-primary"></div>
+                  </span> to{' '}
+                  <span className="relative inline-block">
+                    <span className="text-primary font-semibold">Tech</span>
+                    <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-primary"></div>
+                  </span>
+                </h2>
+                <h3 className="text-lg md:text-xl text-muted-foreground mt-2">
+                  Crafting Human-Centered Digital Experiences
+                </h3>
+              </div>
               
               <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Nigerian product designer transitioning from fashion design, bringing creativity, 
-                attention to detail, and a unique perspective to digital product experiences.
+                Nigerian product designer bringing creativity, attention to detail, 
+                and a fresh perspective from fashion design to digital product experiences.
               </p>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button 
                 onClick={scrollToPortfolio}
-                className="btn-primary inline-flex items-center justify-center gap-2"
+                className="modern-btn inline-flex items-center justify-center gap-3 group"
               >
+                <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 View Portfolio
-                <ArrowRight size={20} />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               
               <button 
                 onClick={scrollToContact}
-                className="btn-outline inline-flex items-center justify-center gap-2"
+                className="outline-btn inline-flex items-center justify-center gap-3 group"
               >
-                Contact Me
-                <Download size={20} />
+                <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Let's Connect
               </button>
             </div>
 
-            {/* Quick Stats */}
+            {/* Enhanced Stats */}
             <div className="flex items-center gap-8 pt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">2+</div>
+              <div className="text-center group">
+                <div className="glass-card p-4 mb-2">
+                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">2+</div>
+                </div>
                 <div className="text-sm text-muted-foreground">Years in Fashion</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">1</div>
-                <div className="text-sm text-muted-foreground">Career Transition</div>
+              <div className="text-center group">
+                <div className="glass-card p-4 mb-2">
+                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">1</div>
+                </div>
+                <div className="text-sm text-muted-foreground">Career Pivot</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">∞</div>
+              <div className="text-center group">
+                <div className="glass-card p-4 mb-2">
+                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">∞</div>
+                </div>
                 <div className="text-sm text-muted-foreground">Creative Ideas</div>
               </div>
             </div>
+
+            {/* Skills Preview Tags */}
+            <div className="flex flex-wrap gap-2 pt-4">
+              {['UI/UX Design', 'Fashion Design', 'Project Management'].map((skill, index) => (
+                <span 
+                  key={index}
+                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Profile Image */}
+          {/* Enhanced Profile Section */}
           <div className="relative lg:order-2">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110"></div>
-              <div className="relative bg-card rounded-3xl p-8 border border-border shadow-elegant">
-                <img
-                  src={profileImage}
-                  alt="Qomardeen Tyler Tijani - Product Designer"
-                  className="w-full h-auto rounded-2xl"
-                />
+            <div className="relative group">
+              {/* Main Image Container */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110 group-hover:opacity-30 transition-opacity"></div>
+                <div className="glass-card p-8 relative">
+                  <img
+                    src={profileImage}
+                    alt="Qomardeen Tyler Tijani - Product Designer"
+                    className="w-full h-auto rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                  />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-8 rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+              </div>
+              
+              {/* Floating Elements */}
+              <div className="absolute -top-6 -right-6 glass-card p-4 animate-bounce">
+                <div className="text-2xl">🎨</div>
+              </div>
+              
+              <div className="absolute -bottom-6 -left-6 glass-card p-4 floating-element">
+                <div className="text-2xl">💡</div>
+              </div>
+
+              <div className="absolute top-1/4 -left-8 glass-card p-3 floating-element">
+                <div className="text-xl">✨</div>
+              </div>
+
+              <div className="absolute bottom-1/4 -right-8 glass-card p-3 floating-element">
+                <div className="text-xl">🚀</div>
               </div>
             </div>
             
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 bg-primary text-primary-foreground p-4 rounded-full shadow-lg animate-bounce">
-              <span className="text-2xl">🎨</span>
-            </div>
-            
-            <div className="absolute -bottom-4 -left-4 bg-card border border-border p-4 rounded-full shadow-md">
-              <span className="text-2xl">💡</span>
+            {/* Achievement Badge */}
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
+              <div className="glass-card px-6 py-3 text-center">
+                <div className="text-sm font-semibold text-primary">AltSchool Student</div>
+                <div className="text-xs text-muted-foreground">Product Design</div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

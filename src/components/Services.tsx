@@ -102,7 +102,7 @@ const Services = () => {
                 )}
                 
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 bg-primary-light rounded-lg text-primary group-hover:scale-110 transition-transform">
+                  <div className="p-3 bg-secondary rounded-lg text-foreground group-hover:scale-110 transition-transform">
                     {service.icon}
                   </div>
                   <div className="flex-1">
@@ -142,8 +142,8 @@ const Services = () => {
               {process.map((item, index) => (
                 <div key={index} className="text-center group">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-                      <span className="text-xl font-bold text-primary">{item.step}</span>
+                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                      <span className="text-xl font-bold text-foreground">{item.step}</span>
                     </div>
                     {index < process.length - 1 && (
                       <div className="hidden md:block absolute top-8 left-full w-full h-px bg-border -ml-8"></div>

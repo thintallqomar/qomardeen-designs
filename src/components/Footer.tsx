@@ -60,7 +60,7 @@ const Footer = () => {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="p-2 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
+                    className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                     aria-label={link.label}
                   >
                     {link.icon}
@@ -94,11 +94,11 @@ const Footer = () => {
                 <div>+234 XXX XXX XXXX</div>
               </div>
               
-              <div className="mt-4 p-3 bg-primary-light rounded-lg">
-                <div className="text-sm font-medium text-primary-dark mb-1">
+              <div className="mt-4 p-3 bg-secondary rounded-lg">
+                <div className="text-sm font-medium text-foreground mb-1">
                   Available for opportunities
                 </div>
-                <div className="text-xs text-primary-dark/80">
+                <div className="text-xs text-muted-foreground">
                   Open to freelance & full-time positions
                 </div>
               </div>
@@ -115,7 +115,7 @@ const Footer = () => {
             
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <span>Made with</span>
-              <Heart className="w-4 h-4 text-red-500 fill-current" />
+              <Heart className="w-4 h-4 text-primary fill-current" />
               <span>and dedication to great design</span>
             </div>
           </div>

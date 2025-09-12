@@ -94,7 +94,7 @@ const Contact = () => {
                 {contactInfo.map((item, index) => (
                   <div key={index} className="card-elegant">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 bg-primary-light rounded-lg text-primary">
+                      <div className="p-3 bg-secondary rounded-lg text-foreground">
                         {item.icon}
                       </div>
                       <div className="flex-1">
@@ -120,7 +120,7 @@ const Contact = () => {
               {/* Availability */}
               <div className="bg-gradient-subtle p-6 rounded-xl border border-border">
                 <div className="flex items-center gap-2 mb-3">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <CheckCircle className="w-5 h-5 text-primary" />
                   <span className="font-medium">Currently Available</span>
                 </div>
                 <p className="text-sm text-muted-foreground">

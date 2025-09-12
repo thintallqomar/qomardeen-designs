@@ -43,7 +43,7 @@ const Portfolio = () => {
           {/* Current Status */}
           <div className="bg-gradient-subtle rounded-2xl p-8 mb-12 text-center border border-border">
             <div className="max-w-3xl mx-auto">
-              <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Clock className="w-8 h-8 text-primary" />
               </div>
               
@@ -71,10 +71,10 @@ const Portfolio = () => {
                     <h4 className="font-semibold">{project.title}</h4>
                     <span className={`text-xs px-2 py-1 rounded-full ${
                       project.status === 'In Progress' 
-                        ? 'bg-primary-light text-primary-dark' 
+                        ? 'bg-primary/20 text-primary' 
                         : project.status === 'Planning'
-                        ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-blue-100 text-blue-700'
+                        ? 'bg-secondary text-secondary-foreground'
+                        : 'bg-accent text-accent-foreground'
                     }`}>
                       {project.status}
                     </span>

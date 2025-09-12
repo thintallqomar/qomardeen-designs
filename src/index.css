@@ -161,9 +161,16 @@
 }
 
 @layer components {
-  /* Hero Section Styles */
+  /* Hero Section Styles - Modern Dark Mode */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary-light)) 50%, hsl(var(--background)) 100%);
+    background: 
+      linear-gradient(135deg, 
+        hsl(var(--background)) 0%, 
+        hsl(220 26% 8%) 25%, 
+        hsl(217 32% 12%) 50%, 
+        hsl(220 26% 8%) 75%, 
+        hsl(var(--background)) 100%
+      );
     position: relative;
     overflow: hidden;
   }
@@ -176,9 +183,24 @@
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 80%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, hsl(var(--primary) / 0.05) 0%, transparent 50%);
+      radial-gradient(ellipse at top left, hsl(var(--primary) / 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, hsl(185 84% 65% / 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at center, hsl(var(--primary) / 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-gradient::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(45deg, transparent 49%, hsl(var(--primary) / 0.03) 50%, transparent 51%),
+      linear-gradient(-45deg, transparent 49%, hsl(var(--primary) / 0.02) 50%, transparent 51%);
+    background-size: 60px 60px;
+    opacity: 0.3;
     pointer-events: none;
   }
 

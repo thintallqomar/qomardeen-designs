@@ -1,5 +1,5 @@
 import { ArrowRight, Download, Sparkles, Zap, Heart } from 'lucide-react';
-import profileImage from '@/assets/qomardeen-profile.jpg';
+import profileImage from '@/assets/new-profile.jpg';
 
 const Hero = () => {
   const scrollToPortfolio = () => {
@@ -35,7 +35,7 @@ const Hero = () => {
           <div className="space-y-8">
             {/* Status Badge */}
             <div className="inline-flex items-center px-6 py-3 hero-badge rounded-full text-sm font-semibold text-primary-dark animate-pulse">
-              <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-ping"></div>
+              <div className="w-3 h-3 bg-success rounded-full mr-3 animate-ping"></div>
               <Sparkles className="w-4 h-4 mr-2" />
               Available for new opportunities
             </div>

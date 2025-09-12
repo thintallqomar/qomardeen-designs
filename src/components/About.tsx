@@ -17,7 +17,7 @@ const About = () => {
           <div className="mb-12">
             <div className="card-elegant">
               <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-primary-light rounded-lg">
+                <div className="p-3 bg-primary/20 rounded-lg">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -39,7 +39,7 @@ const About = () => {
             {/* Education */}
             <div className="card-elegant">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary-light rounded-lg">
+                <div className="p-3 bg-primary/20 rounded-lg">
                   <GraduationCap className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Education</h3>
@@ -49,7 +49,7 @@ const About = () => {
                 <div className="border-l-2 border-primary pl-4">
                   <div className="flex justify-between items-start mb-2">
                     <h4 className="font-medium">AltSchool Africa</h4>
-                    <span className="text-sm bg-primary-light text-primary-dark px-2 py-1 rounded">Current</span>
+                    <span className="text-sm bg-primary/20 text-primary px-2 py-1 rounded">Current</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-1">School of Product Design</p>
                   <p className="text-xs text-muted-foreground">
@@ -73,7 +73,7 @@ const About = () => {
             {/* Experience */}
             <div className="card-elegant">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary-light rounded-lg">
+                <div className="p-3 bg-primary/20 rounded-lg">
                   <Briefcase className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Experience</h3>
@@ -83,7 +83,7 @@ const About = () => {
                 <div className="border-l-2 border-primary pl-4">
                   <div className="flex justify-between items-start mb-2">
                     <h4 className="font-medium">Project Manager</h4>
-                    <span className="text-sm bg-primary-light text-primary-dark px-2 py-1 rounded">Current</span>
+                    <span className="text-sm bg-primary/20 text-primary px-2 py-1 rounded">Current</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-1">O'ladel Global Resources Limited</p>
                   <p className="text-xs text-muted-foreground">

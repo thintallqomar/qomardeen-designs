@@ -5,7 +5,7 @@ const Skills = () => {
     {
       title: "Fashion Design",
       icon: <Scissors className="w-6 h-6" />,
-      color: "bg-pink-500/20 text-pink-400",
+      color: "bg-primary/20 text-primary",
       skills: [
         "Pattern Drafting",
         "Garment Construction", 
@@ -18,7 +18,7 @@ const Skills = () => {
     {
       title: "Product Design",
       icon: <Smartphone className="w-6 h-6" />,
-      color: "bg-blue-500/20 text-blue-400",
+      color: "bg-primary/15 text-primary",
       skills: [
         "UI/UX Design",
         "Wireframing",
@@ -31,7 +31,7 @@ const Skills = () => {
     {
       title: "Research & Strategy",
       icon: <Search className="w-6 h-6" />,
-      color: "bg-green-500/20 text-green-400",
+      color: "bg-accent/30 text-accent-foreground",
       skills: [
         "User Research",
         "Usability Testing",
@@ -44,7 +44,7 @@ const Skills = () => {
     {
       title: "Project Management",
       icon: <Users className="w-6 h-6" />,
-      color: "bg-purple-500/20 text-purple-400",
+      color: "bg-secondary text-secondary-foreground",
       skills: [
         "Team Coordination",
         "Timeline Management",
@@ -136,7 +136,7 @@ const Skills = () => {
               <h3 className="text-2xl font-semibold mb-6">What Makes Me Different</h3>
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="space-y-3">
-                  <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Palette className="w-6 h-6 text-primary" />
                   </div>
                   <h4 className="font-medium">Fashion Eye</h4>
@@ -146,7 +146,7 @@ const Skills = () => {
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Users className="w-6 h-6 text-primary" />
                   </div>
                   <h4 className="font-medium">Human-Centered</h4>
@@ -156,7 +156,7 @@ const Skills = () => {
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
                     <Layers className="w-6 h-6 text-primary" />
                   </div>
                   <h4 className="font-medium">Systems Thinking</h4>

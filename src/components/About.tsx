@@ -1,8 +1,6 @@
 import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
-
 const About = () => {
-  return (
-    <section id="about" className="section-padding bg-muted/30">
+  return <section id="about" className="section-padding bg-muted/30">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
@@ -22,13 +20,7 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">My Story</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    As a Nigerian designer, I've always been passionate about creating beautiful, functional experiences. 
-                    My journey began in fashion design, where I honed my eye for detail, understanding of human form, 
-                    and appreciation for craftsmanship. This unique background gives me a distinctive approach to 
-                    product design—one that considers not just usability, but also the emotional and aesthetic 
-                    impact of every interaction.
-                  </p>
+                  <p className="text-muted-foreground leading-relaxed">As a Product designer, I've always been passionate about creating beautiful, functional experiences. My journey began in fashion design, where I honed my eye for detail, understanding of human form, and appreciation for craftsmanship. This unique background gives me a distinctive approach to product design—one that considers not just usability, but also the emotional and aesthetic impact of every interaction.</p>
                 </div>
               </div>
             </div>
@@ -130,8 +122,6 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;

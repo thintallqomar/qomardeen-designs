@@ -99,7 +99,7 @@ const Hero = () => {
                 <div className="glass-card p-4 mb-2">
                   <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">2+</div>
                 </div>
-                <div className="text-sm text-muted-foreground">Years in Fashion</div>
+                <div className="text-sm text-muted-foreground">Years in UX/UI Design</div>
               </div>
               <div className="text-center group">
                 <div className="glass-card p-4 mb-2">
@@ -113,11 +113,17 @@ const Hero = () => {
                 </div>
                 <div className="text-sm text-muted-foreground">Creative Ideas</div>
               </div>
+              <div className="text-center group">
+                <div className="glass-card p-4 mb-2">
+                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">4</div>
+                </div>
+                <div className="text-sm text-muted-foreground">Years in Fashion</div>
+              </div>
             </div>
 
             {/* Skills Preview Tags */}
             <div className="flex flex-wrap gap-2 pt-4">
-              {['UI/UX Design', 'Fashion Design', 'Project Management'].map((skill, index) => (
+              {['2+ years in UX/UI Design', '1 career pivot', '∞ creative ideas', '4 years in fashion'].map((skill, index) => (
                 <span 
                   key={index}
                   className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default"
@@ -138,7 +144,7 @@ const Hero = () => {
                   <img
                     src={profileImage}
                     alt="Qomardeen Tyler Tijani - Product Designer"
-                    className="w-full h-auto rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-96 object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500"
                   />
                   
                   {/* Overlay gradient */}

@@ -3,19 +3,6 @@ import { Palette, Smartphone, Search, Scissors, Layers, Users } from 'lucide-rea
 const Skills = () => {
   const skillCategories = [
     {
-      title: "Fashion Design",
-      icon: <Scissors className="w-6 h-6" />,
-      color: "bg-primary/20 text-primary",
-      skills: [
-        "Pattern Drafting",
-        "Garment Construction", 
-        "Creative Direction",
-        "Fabric Knowledge",
-        "Client Consultation",
-        "Trend Analysis"
-      ]
-    },
-    {
       title: "Product Design",
       icon: <Smartphone className="w-6 h-6" />,
       color: "bg-primary/15 text-primary",
@@ -52,6 +39,19 @@ const Skills = () => {
         "Resource Planning",
         "Risk Assessment",
         "Quality Assurance"
+      ]
+    },
+    {
+      title: "Fashion Design",
+      icon: <Scissors className="w-6 h-6" />,
+      color: "bg-primary/20 text-primary",
+      skills: [
+        "Pattern Drafting",
+        "Garment Construction", 
+        "Creative Direction",
+        "Fabric Knowledge",
+        "Client Consultation",
+        "Trend Analysis"
       ]
     }
   ];

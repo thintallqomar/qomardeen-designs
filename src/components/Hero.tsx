@@ -121,17 +121,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Skills Preview Tags */}
-            <div className="flex flex-wrap gap-2 pt-4">
-              {['2+ years in UX/UI Design', '1 career pivot', '∞ creative ideas', '4 years in fashion'].map((skill, index) => (
-                <span 
-                  key={index}
-                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Enhanced Profile Section */}

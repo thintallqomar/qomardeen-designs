@@ -59,7 +59,7 @@ const Footer = () => {
                 <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
               </div>
               <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-                Nigerian product designer transitioning from fashion design. 
+                A Nigerian product designer transitioning from fashion design. 
                 Crafting human-centered digital experiences with creativity and precision.
               </p>
               <div className="flex items-center gap-4">

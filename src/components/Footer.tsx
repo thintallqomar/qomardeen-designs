@@ -11,13 +11,22 @@ const Footer = () => {
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      href: "mailto:qomardeen.tijani@example.com",
+      href: "mailto:qomardeentylertijani@gmail.com",
       label: "Email"
     },
     {
       icon: <Phone className="w-5 h-5" />,
-      href: "tel:+234XXXXXXXXX",
+      href: "tel:+2348139469192",
       label: "Phone"
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      ),
+      href: "https://x.com/the_Qomardeen",
+      label: "X (Twitter)"
     }
   ];
 
@@ -90,8 +99,8 @@ const Footer = () => {
               <h3 className="font-semibold mb-4">Get In Touch</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div>Nigeria</div>
-                <div>qomardeen.tijani@example.com</div>
-                <div>+234 XXX XXX XXXX</div>
+                <div>qomardeentylertijani@gmail.com</div>
+                <div>+2348139469192</div>
               </div>
               
               <div className="mt-4 p-3 bg-secondary rounded-lg">
@@ -114,9 +123,7 @@ const Footer = () => {
             </div>
             
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-primary fill-current" />
-              <span>and dedication to great design</span>
+              <span>Got a complex challenge you're ready to tackle? I'm all ears. Let's dig in and craft a solution that's both intuitive and innovative.</span>
             </div>
           </div>
         </div>

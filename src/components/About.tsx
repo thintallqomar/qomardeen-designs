@@ -20,7 +20,7 @@ const About = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">My Story</h3>
-                  <p className="text-muted-foreground leading-relaxed">As a Product designer, I've always been passionate about creating beautiful, functional experiences. My journey began in fashion design, where I honed my eye for detail, understanding of human form, and appreciation for craftsmanship. This unique background gives me a distinctive approach to product design—one that considers not just usability, but also the emotional and aesthetic impact of every interaction.</p>
+                  <p className="text-muted-foreground leading-relaxed">I transform complex problems into seamless digital solutions. My approach to design is a blend of empathy and logic—meticulously deconstructing challenges to reveal simple, elegant pathways forward. I'm passionate about crafting user-centric products that are not only easy to use but also delightful to discover.</p>
                 </div>
               </div>
             </div>

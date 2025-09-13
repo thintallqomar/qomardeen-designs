@@ -1,23 +1,23 @@
 import { ArrowRight, Download, Sparkles, Zap, Heart } from 'lucide-react';
 import profileImage from '@/assets/new-profile.jpg';
-
 const Hero = () => {
   const scrollToPortfolio = () => {
     const element = document.querySelector('#portfolio');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
   const scrollToContact = () => {
     const element = document.querySelector('#contact');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
-  return (
-    <section id="home" className="min-h-screen flex items-center hero-gradient relative">
+  return <section id="home" className="min-h-screen flex items-center hero-gradient relative">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="floating-element absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
@@ -67,27 +67,18 @@ const Hero = () => {
                 </h3>
               </div>
               
-              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Product designer bringing creativity, attention to detail, 
-                and a fresh perspective from fashion design to digital product experiences.
-              </p>
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">A product designer bringing creativity, attention to detail, and a fresh perspective from fashion design to digital product experiences.</p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button 
-                onClick={scrollToPortfolio}
-                className="modern-btn inline-flex items-center justify-center gap-3 group"
-              >
+              <button onClick={scrollToPortfolio} className="modern-btn inline-flex items-center justify-center gap-3 group">
                 <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 View Portfolio
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button 
-                onClick={scrollToContact}
-                className="outline-btn inline-flex items-center justify-center gap-3 group"
-              >
+              <button onClick={scrollToContact} className="outline-btn inline-flex items-center justify-center gap-3 group">
                 <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 Let's Connect
               </button>
@@ -99,7 +90,7 @@ const Hero = () => {
                 <div className="glass-card p-4 mb-2">
                   <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">2+</div>
                 </div>
-                <div className="text-sm text-muted-foreground">Years in UX/UI Design</div>
+                <div className="text-sm text-muted-foreground">Years in Fashion</div>
               </div>
               <div className="text-center group">
                 <div className="glass-card p-4 mb-2">
@@ -113,14 +104,14 @@ const Hero = () => {
                 </div>
                 <div className="text-sm text-muted-foreground">Creative Ideas</div>
               </div>
-              <div className="text-center group">
-                <div className="glass-card p-4 mb-2">
-                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">4</div>
-                </div>
-                <div className="text-sm text-muted-foreground">Years in Fashion</div>
-              </div>
             </div>
 
+            {/* Skills Preview Tags */}
+            <div className="flex flex-wrap gap-2 pt-4">
+              {['UI/UX Design', 'Fashion Design', 'Project Management'].map((skill, index) => <span key={index} className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
+                  {skill}
+                </span>)}
+            </div>
           </div>
 
           {/* Enhanced Profile Section */}
@@ -130,11 +121,7 @@ const Hero = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110 group-hover:opacity-30 transition-opacity"></div>
                 <div className="glass-card p-8 relative">
-                  <img
-                    src={profileImage}
-                    alt="Qomardeen Tyler Tijani - Product Designer"
-                    className="w-full h-96 object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500"
-                  />
+                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full h-auto rounded-2xl group-hover:scale-105 transition-transform duration-500" />
                   
                   {/* Overlay gradient */}
                   <div className="absolute inset-8 rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -162,7 +149,8 @@ const Hero = () => {
             {/* Achievement Badge */}
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
               <div className="glass-card px-6 py-3 text-center">
-                <div className="text-sm font-semibold text-primary">Product Designer</div>
+                <div className="text-sm font-semibold text-primary">AltSchool Student</div>
+                <div className="text-xs text-muted-foreground">Product Design</div>
               </div>
             </div>
           </div>
@@ -175,8 +163,6 @@ const Hero = () => {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;

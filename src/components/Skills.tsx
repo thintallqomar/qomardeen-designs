@@ -58,13 +58,13 @@ const Skills = () => {
 
   const tools = [
     { name: "Figma", level: 85 },
-    { name: "Adobe XD", level: 75 },
-    { name: "Sketch", level: 70 },
-    { name: "Photoshop", level: 80 },
-    { name: "Illustrator", level: 75 },
-    { name: "Principle", level: 65 },
-    { name: "Miro", level: 90 },
-    { name: "Notion", level: 85 }
+    { name: "Framer", level: 70 },
+    { name: "Adobe XD", level: 50 },
+    { name: "Notion", level: 50 },
+    { name: "", level: 0 },
+    { name: "", level: 0 },
+    { name: "", level: 0 },
+    { name: "", level: 0 }
   ];
 
   return (

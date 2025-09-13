@@ -68,7 +68,7 @@ const Hero = () => {
               </div>
               
               <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Nigerian product designer bringing creativity, attention to detail, 
+                Product designer bringing creativity, attention to detail, 
                 and a fresh perspective from fashion design to digital product experiences.
               </p>
             </div>
@@ -167,8 +167,7 @@ const Hero = () => {
             {/* Achievement Badge */}
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
               <div className="glass-card px-6 py-3 text-center">
-                <div className="text-sm font-semibold text-primary">AltSchool Student</div>
-                <div className="text-xs text-muted-foreground">Product Design</div>
+                <div className="text-sm font-semibold text-primary">Product Designer</div>
               </div>
             </div>
           </div>

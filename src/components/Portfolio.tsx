@@ -3,22 +3,22 @@ import { ExternalLink, Github, Clock, ArrowRight } from 'lucide-react';
 const Portfolio = () => {
   const upcomingProjects = [
     {
-      title: "AltSchool Project 1",
-      description: "Currently working on my first comprehensive UX case study as part of the AltSchool curriculum",
-      status: "In Progress",
-      expectedDate: "December 2024"
+      title: "Project Placeholder 1",
+      description: "Exciting project in development - details coming soon",
+      status: "Coming Soon",
+      expectedDate: "Q4 2025"
     },
     {
-      title: "Fashion Brand Redesign",
-      description: "Redesigning the digital experience for a Nigerian fashion brand, combining my fashion background with UX principles",
-      status: "Planning",
-      expectedDate: "January 2025"
+      title: "Project Placeholder 2", 
+      description: "Another amazing project in the pipeline - stay tuned",
+      status: "Coming Soon",
+      expectedDate: "Q4 2025"
     },
     {
-      title: "Mobile App Concept",
-      description: "Developing a mobile app concept that bridges fashion discovery with e-commerce functionality",
-      status: "Research Phase",
-      expectedDate: "February 2025"
+      title: "Project Placeholder 3",
+      description: "Third innovative project being planned - more details to follow",
+      status: "Coming Soon", 
+      expectedDate: "Q4 2025"
     }
   ];
 
@@ -56,7 +56,7 @@ const Portfolio = () => {
               
               <div className="inline-flex items-center gap-2 text-primary font-medium">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                Expected launch: Q1 2025
+                Expected launch: Q4 2025
               </div>
             </div>
           </div>

@@ -67,7 +67,7 @@ const Hero = () => {
                 </h3>
               </div>
               
-              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">A product designer bringing creativity, attention to detail, and a fresh perspective from fashion design to digital product experiences.</p>
+              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">A Product Designer bringing creativity, attention to detail, and a fresh perspective from fashion design to digital product experiences.</p>
             </div>
 
             {/* CTAs */}

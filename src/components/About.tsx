@@ -54,7 +54,7 @@ const About = () => {
                     <h4 className="font-medium">LAUTECH</h4>
                     <span className="text-sm text-muted-foreground">2014</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-1">B.Sc. Human Anatomy</p>
+                  <p className="text-sm text-muted-foreground mb-1">B.Tech. Human Anatomy</p>
                   <p className="text-xs text-muted-foreground">
                     Deep understanding of human form and function—invaluable for user-centered design
                   </p>

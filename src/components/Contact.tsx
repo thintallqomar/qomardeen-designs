@@ -170,10 +170,10 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="card-elegant">
+            <div className="card-elegant h-full flex flex-col">
               <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
@@ -222,7 +222,7 @@ const Contact = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 flex-1 flex flex-col">
                   <label htmlFor="message" className="text-sm font-medium">
                     Message *
                   </label>
@@ -232,9 +232,8 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell me about your project or just say hello..."
-                    rows={5}
                     required
-                    className="border-border focus:border-primary resize-none"
+                    className="border-border focus:border-primary resize-none flex-1 min-h-[120px]"
                   />
                 </div>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,12 +28,10 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // EmailJS configuration
       const serviceId = 'service_rzan6ys';
       const templateId = 'template_qr2qk7j';
       const publicKey = '4uu54qdOq-iAYRu50';
       
-      // Send email using EmailJS
       await emailjs.send(
         serviceId,
         templateId,
@@ -52,7 +50,6 @@ const Contact = () => {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
       
-      // Reset form
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('EmailJS error:', error);
@@ -100,6 +97,12 @@ const Contact = () => {
       label: "X (Twitter)",
       value: "@the_Qomardeen",
       href: "https://x.com/the_Qomardeen"
+    },
+    {
+      icon: <Globe className="w-5 h-5" />,
+      label: "Portfolio",
+      value: "qomardeen-design-portfolio.lovable.app",
+      href: "https://qomardeen-design-portfolio.lovable.app"
     }
   ];
 
@@ -111,8 +114,7 @@ const Contact = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Connect</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Ready to discuss your project or just want to say hello? 
-              I'd love to hear from you and explore how we can work together.
+              Open to full-time roles, contract opportunities, and collaborative projects.
             </p>
           </div>
 
@@ -123,8 +125,7 @@ const Contact = () => {
                 <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
                 <p className="text-muted-foreground mb-8 leading-relaxed">
                   Whether you have a project in mind, want to discuss opportunities, 
-                  or are curious about my journey from fashion design to product design, 
-                  I'm always open to meaningful conversations.
+                  or just want to connect, I'm always open to meaningful conversations.
                 </p>
               </div>
 
@@ -163,8 +164,7 @@ const Contact = () => {
                   <span className="font-medium">Currently Available</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Open to freelance projects, internship opportunities, and full-time positions 
-                  in product design. Let's discuss how we can create something amazing together.
+                  Open to full-time roles, contract opportunities, and collaborative projects.
                 </p>
               </div>
             </div>
@@ -256,17 +256,6 @@ const Contact = () => {
                   )}
                 </Button>
               </form>
-            </div>
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-16 pt-16 border-t border-border">
-            <div className="max-w-2xl mx-auto">
-              <h3 className="text-2xl font-semibold mb-4">Let's Build Something Great Together</h3>
-              <p className="text-muted-foreground">
-                Every great product starts with a conversation. Whether you're looking for a designer 
-                who brings a fresh perspective or want to learn more about my journey, I'm here to connect.
-              </p>
             </div>
           </div>
         </div>

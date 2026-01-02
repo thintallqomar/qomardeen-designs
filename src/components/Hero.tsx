@@ -1,5 +1,6 @@
-import { ArrowRight, Download, Sparkles, Zap, Heart } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Heart } from 'lucide-react';
 import profileImage from '@/assets/new-profile.jpg';
+
 const Hero = () => {
   const scrollToPortfolio = () => {
     const element = document.querySelector('#portfolio');
@@ -9,6 +10,7 @@ const Hero = () => {
       });
     }
   };
+  
   const scrollToContact = () => {
     const element = document.querySelector('#contact');
     if (element) {
@@ -17,7 +19,9 @@ const Hero = () => {
       });
     }
   };
-  return <section id="home" className="min-h-screen flex items-center hero-gradient relative">
+  
+  return (
+    <section id="home" className="min-h-screen flex items-center hero-gradient relative">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="floating-element absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
@@ -43,74 +47,44 @@ const Hero = () => {
             {/* Main Heading */}
             <div className="space-y-6">
               <div className="space-y-2">
-                <h1 className="hero-text">
-                  Hi, I'm
-                </h1>
                 <h1 className="hero-name animate-fade-in">
                   Qomardeen Tyler Tijani
                 </h1>
-              </div>
-              
-              <div className="relative">
-                <h2 className="text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed">
-                  From <span className="relative inline-block">
-                    <span className="text-primary font-semibold">Fashion</span>
-                    <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-primary"></div>
-                  </span> to{' '}
-                  <span className="relative inline-block">
-                    <span className="text-primary font-semibold">Tech</span>
-                    <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-primary"></div>
-                  </span>
+                <h2 className="text-2xl md:text-3xl font-semibold text-primary">
+                  Product Designer (UI/UX)
                 </h2>
-                <h3 className="text-lg md:text-xl text-muted-foreground mt-2">
-                  Crafting Human-Centered Digital Experiences
-                </h3>
               </div>
               
-              <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">A Product Designer bringing creativity, attention to detail, and a fresh perspective from fashion design to digital product experiences.</p>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+                I design intuitive, scalable digital products by combining user research, visual clarity, and structured problem-solving.
+              </p>
+              
+              <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
+                Experience delivering live products across dashboards, SaaS platforms, landing pages, and system-driven interfaces.
+              </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button onClick={scrollToPortfolio} className="modern-btn inline-flex items-center justify-center gap-3 group">
                 <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                View Portfolio
+                View Case Studies
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               
               <button onClick={scrollToContact} className="outline-btn inline-flex items-center justify-center gap-3 group">
                 <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                Let's Connect
+                Contact Me
               </button>
-            </div>
-
-            {/* Enhanced Stats */}
-            <div className="flex items-center gap-8 pt-8">
-              <div className="text-center group">
-                <div className="glass-card p-4 mb-2">
-                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">2+</div>
-                </div>
-                <div className="text-sm text-muted-foreground">Years in Fashion</div>
-              </div>
-              <div className="text-center group">
-                <div className="glass-card p-4 mb-2">
-                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">1</div>
-                </div>
-                <div className="text-sm text-muted-foreground">Career Pivot</div>
-              </div>
-              <div className="text-center group">
-                <div className="glass-card p-4 mb-2">
-                  <div className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent group-hover:scale-110 transition-transform">∞</div>
-                </div>
-                <div className="text-sm text-muted-foreground">Creative Ideas</div>
-              </div>
             </div>
 
             {/* Skills Preview Tags */}
             <div className="flex flex-wrap gap-2 pt-4">
-              {['UI/UX Design', 'Fashion Design', 'Project Management'].map((skill, index) => <span key={index} className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
+              {['UI Design', 'UX Research', 'Product Design', 'Design Systems', 'Dashboards'].map((skill, index) => (
+                <span key={index} className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
                   {skill}
-                </span>)}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -149,8 +123,7 @@ const Hero = () => {
             {/* Achievement Badge */}
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
               <div className="glass-card px-6 py-3 text-center">
-                <div className="text-sm font-semibold text-primary">AltSchool Student</div>
-                <div className="text-xs text-muted-foreground">Product Design</div>
+                <div className="text-sm font-semibold text-primary">Product Designer</div>
               </div>
             </div>
           </div>
@@ -163,6 +136,8 @@ const Hero = () => {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;

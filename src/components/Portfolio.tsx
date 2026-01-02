@@ -140,13 +140,50 @@ const Portfolio = () => {
                       )}
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 mb-4">
                         {project.technologies.map((tech, index) => (
                           <span key={index} className="text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
                             {tech}
                           </span>
                         ))}
                       </div>
+                      
+                      {/* Behance Embed for UpTime Project */}
+                      {project.id === 1 && (
+                        <div className="mt-4 pt-4 border-t border-border">
+                          <p className="text-sm text-muted-foreground mb-3">Preview Case Study</p>
+                          <div className="relative w-full" style={{ paddingBottom: '78.2%' }}>
+                            <iframe 
+                              src="https://www.behance.net/embed/project/239892845?ilo0=1"
+                              className="absolute inset-0 w-full h-full rounded-lg"
+                              allowFullScreen
+                              loading="lazy"
+                              frameBorder="0"
+                              allow="clipboard-write"
+                              referrerPolicy="strict-origin-when-cross-origin"
+                              title="UpTime Asset Management Case Study on Behance"
+                            />
+                          </div>
+                          <noscript>
+                            <a 
+                              href="https://www.behance.net/gallery/239892845/UpTime"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm text-primary hover:underline"
+                            >
+                              View full case study on Behance
+                            </a>
+                          </noscript>
+                          <a 
+                            href="https://www.behance.net/gallery/239892845/UpTime"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block mt-3 text-sm text-primary hover:underline"
+                          >
+                            View full case study on Behance →
+                          </a>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 ))}

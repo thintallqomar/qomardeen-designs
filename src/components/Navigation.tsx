@@ -12,9 +12,6 @@ const Navigation = () => {
     name: 'Skills',
     href: '#skills'
   }, {
-    name: 'Services',
-    href: '#services'
-  }, {
     name: 'Portfolio',
     href: '#portfolio'
   }, {

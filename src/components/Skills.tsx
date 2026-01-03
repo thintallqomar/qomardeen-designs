@@ -38,10 +38,10 @@ const Skills = () => {
   ];
 
   const tools = [
-    { name: "Figma", level: 85 },
-    { name: "Framer", level: 70 },
-    { name: "Adobe XD", level: 50 },
-    { name: "Notion", level: 50 }
+    { name: "Figma", level: 90 },
+    { name: "Adobe XD", level: 75 },
+    { name: "Illustrator", level: 70 },
+    { name: "AI Tools (ChatGPT, Gemini, Cursor, Claude)", level: 85 }
   ];
 
   return (

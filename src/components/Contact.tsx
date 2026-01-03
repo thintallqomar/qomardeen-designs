@@ -100,9 +100,9 @@ const Contact = () => {
     },
     {
       icon: <Globe className="w-5 h-5" />,
-      label: "Portfolio",
-      value: "qomardeen-design-portfolio.lovable.app",
-      href: "https://qomardeen-design-portfolio.lovable.app"
+      label: "Book a Call",
+      value: "Schedule a meeting",
+      href: "https://cal.com/the_Qomardeen"
     }
   ];
 

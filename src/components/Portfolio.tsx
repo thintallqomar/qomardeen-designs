@@ -110,17 +110,20 @@ const Portfolio = () => {
                           </span>
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                        <a 
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-primary inline-flex items-center gap-2"
-                        >
-                          <ExternalLink size={16} />
-                          View Case Study
-                        </a>
-                      </div>
+                      {/* Only show external link overlay for non-UpTime projects */}
+                      {project.id !== 1 && project.liveUrl !== '#' && (
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                          <a 
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-primary inline-flex items-center gap-2"
+                          >
+                            <ExternalLink size={16} />
+                            View Case Study
+                          </a>
+                        </div>
+                      )}
                     </div>
                     <CardHeader>
                       <div className="flex items-center justify-between flex-wrap gap-2">

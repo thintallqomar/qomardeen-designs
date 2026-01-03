@@ -95,7 +95,7 @@ const Hero = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110 group-hover:opacity-30 transition-opacity"></div>
                 <div className="glass-card p-8 relative">
-                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full max-h-[350px] object-cover object-top rounded-2xl group-hover:scale-105 transition-transform duration-500" />
+                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500" />
                   
                   {/* Overlay gradient */}
                   <div className="absolute left-8 right-8 bottom-8 top-[45%] rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>

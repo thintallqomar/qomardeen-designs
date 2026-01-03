@@ -36,52 +36,52 @@ const Hero = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 flex flex-col justify-center h-full max-h-[500px]">
             {/* Status Badge */}
-            <div className="inline-flex items-center px-6 py-3 hero-badge rounded-full text-sm font-semibold text-primary-dark animate-pulse">
-              <div className="w-3 h-3 bg-success rounded-full mr-3 animate-ping"></div>
+            <div className="inline-flex items-center px-5 py-2.5 hero-badge rounded-full text-sm font-semibold text-primary-dark animate-pulse w-fit">
+              <div className="w-2.5 h-2.5 bg-success rounded-full mr-2.5 animate-ping"></div>
               <Sparkles className="w-4 h-4 mr-2" />
               Available for new opportunities
             </div>
             
             {/* Main Heading */}
-            <div className="space-y-6">
-              <div className="space-y-2">
+            <div className="space-y-4">
+              <div className="space-y-1">
                 <h1 className="hero-name animate-fade-in">
                   Qomardeen Tyler Tijani
                 </h1>
-                <h2 className="text-2xl md:text-3xl font-semibold text-primary">
+                <h2 className="text-xl md:text-2xl font-semibold text-primary">
                   Product Designer (UI/UX)
                 </h2>
               </div>
               
-              <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
                 I design intuitive, scalable digital products by combining user research, visual clarity, and structured problem-solving.
               </p>
               
-              <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
+              <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
                 Experience delivering live products across dashboards, SaaS platforms, landing pages, and system-driven interfaces.
               </p>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button onClick={scrollToPortfolio} className="modern-btn inline-flex items-center justify-center gap-3 group">
-                <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <button onClick={scrollToPortfolio} className="modern-btn inline-flex items-center justify-center gap-2.5 group">
+                <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                 View Case Studies
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button onClick={scrollToContact} className="outline-btn inline-flex items-center justify-center gap-3 group">
-                <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <button onClick={scrollToContact} className="outline-btn inline-flex items-center justify-center gap-2.5 group">
+                <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 Contact Me
               </button>
             </div>
 
             {/* Skills Preview Tags */}
-            <div className="flex flex-wrap gap-2 pt-4">
+            <div className="flex flex-wrap gap-2 pt-2">
               {['UI Design', 'UX Research', 'Product Design', 'Design Systems', 'Dashboards'].map((skill, index) => (
-                <span key={index} className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
+                <span key={index} className="px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-xs font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
                   {skill}
                 </span>
               ))}

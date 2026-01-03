@@ -98,7 +98,7 @@ const Hero = () => {
                   <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full h-auto rounded-2xl group-hover:scale-105 transition-transform duration-500" />
                   
                   {/* Overlay gradient */}
-                  <div className="absolute inset-8 rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute left-8 right-8 bottom-8 top-[45%] rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
               </div>
               

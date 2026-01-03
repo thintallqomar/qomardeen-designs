@@ -1,5 +1,6 @@
 import { ExternalLink, ArrowRight, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import uptimeCover from '@/assets/uptime-cover.png';
 
 const Portfolio = () => {
   const projects = [
@@ -7,7 +8,7 @@ const Portfolio = () => {
       id: 1,
       title: "UpTime Asset Management — CMMS Web App",
       description: "A CMMS web application designed to streamline asset tracking, maintenance workflows, and operational decision-making through structured dashboards and clear information hierarchy.",
-      thumbnail: "/placeholder.svg",
+      thumbnail: uptimeCover,
       liveUrl: "https://www.behance.net/gallery/239892845/UpTime",
       technologies: ["UI/UX", "SaaS", "Dashboard", "CMMS"],
       category: "UI/UX Case Study",

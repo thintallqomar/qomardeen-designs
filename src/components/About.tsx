@@ -7,7 +7,7 @@ const About = () => {
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">My Story</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me & My Journey</h2>
           </div>
 
           {/* Personal Story */}
@@ -19,16 +19,19 @@ const About = () => {
                 </div>
                 <div className="space-y-4">
                   <p className="text-muted-foreground leading-relaxed">
-                    I am a product designer focused on creating clear, structured, and usable digital products across SaaS platforms, internal tools, and consumer-facing interfaces. My approach combines product thinking, UX reasoning, and visual execution to design experiences that help users complete tasks efficiently and with confidence.
+                    I am a product designer who builds clear, structured, and high-impact digital products across SaaS platforms, internal tools, and consumer-facing experiences. I combine product thinking, UX reasoning, and strong visual execution to design interfaces that help users complete tasks efficiently and with confidence.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    I treat design as a problem-solving discipline rather than a purely visual one. Before moving into high-fidelity design, I spend time understanding user goals, workflows, and product constraints. This allows me to create interfaces that are intuitive, logically organized, and scalable over time.
+                    I approach design as a problem-solving discipline, not decoration. Before moving into high-fidelity design, I focus on understanding user goals, workflows, constraints, and edge cases. This allows me to create solutions that are intuitive, logically organized, and scalable as products grow.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    My recent projects include CMMS platforms, dashboards, landing pages, and fintech-related products, giving me experience across both data-heavy systems and conversion-focused surfaces. Across these projects, I focus on information hierarchy, layout structure, and interaction clarity—especially in environments where users need to scan information quickly and make accurate decisions.
+                    My experience spans CMMS platforms, dashboards, fintech products, and website design, with a strong focus on landing pages and their supporting website flows. I design conversion-focused entry points and ensure visual and structural consistency across related pages, from first impression to deeper product interactions.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    I am particularly interested in design systems, reusable components, dashboard design, and mobile-first UI. I value iteration, feedback, and collaboration, and I am seeking a junior–mid level product design role where I can contribute to real products, grow within a team, and continue refining my craft.
+                    Before transitioning fully into product design, I worked in fashion design, where I learned to balance aesthetics, structure, constraints, and user expectations. That foundation sharpened my systems thinking and attention to detail, which now directly informs my digital work.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    I am seeking a junior–mid level product design role where I can contribute immediately, collaborate closely, and continue growing as a designer.
                   </p>
                 </div>
               </div>

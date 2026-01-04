@@ -118,19 +118,11 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
             {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Get In Touch</h3>
-                <p className="text-muted-foreground mb-8 leading-relaxed">
-                  Whether you have a project in mind, want to discuss opportunities, 
-                  or just want to connect, I'm always open to meaningful conversations.
-                </p>
-              </div>
-
+            <div className="flex flex-col">
               {/* Contact Methods */}
-              <div className="space-y-4">
+              <div className="space-y-4 flex-1">
                 {contactInfo.map((item, index) => (
                   <div key={index} className="card-elegant">
                     <div className="flex items-center gap-4">
@@ -158,7 +150,7 @@ const Contact = () => {
               </div>
 
               {/* Availability */}
-              <div className="bg-gradient-subtle p-6 rounded-xl border border-border">
+              <div className="bg-gradient-subtle p-6 rounded-xl border border-border mt-4">
                 <div className="flex items-center gap-2 mb-3">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   <span className="font-medium">Currently Available</span>
@@ -170,78 +162,79 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="card-elegant">
+            <div className="card-elegant flex flex-col h-full">
               <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+                <div className="space-y-6 flex-1 flex flex-col">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium">
+                        Name *
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        required
+                        className="border-border focus:border-primary"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium">
+                        Email *
+                      </label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@example.com"
+                        required
+                        className="border-border focus:border-primary"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      Name *
+                    <label htmlFor="subject" className="text-sm font-medium">
+                      Subject *
                     </label>
                     <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Your full name"
+                      placeholder="What's this about?"
                       required
                       className="border-border focus:border-primary"
                     />
                   </div>
-                  
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email *
+
+                  <div className="space-y-2 flex-1 flex flex-col">
+                    <label htmlFor="message" className="text-sm font-medium">
+                      Message *
                     </label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
-                      placeholder="your.email@example.com"
+                      placeholder="Tell me about your project or just say hello..."
                       required
-                      className="border-border focus:border-primary"
+                      className="border-border focus:border-primary resize-none flex-1 min-h-[120px]"
                     />
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">
-                    Subject *
-                  </label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="What's this about?"
-                    required
-                    className="border-border focus:border-primary"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Message *
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell me about your project or just say hello..."
-                    rows={4}
-                    required
-                    className="border-border focus:border-primary resize-none"
-                  />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full btn-primary disabled:opacity-50"
+                  className="w-full btn-primary disabled:opacity-50 mt-6"
                 >
                   {isSubmitting ? (
                     <>

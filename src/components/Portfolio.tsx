@@ -84,6 +84,19 @@ const Portfolio = () => {
       category: "Coming Soon",
       status: "coming-soon",
       featured: false
+    },
+    {
+      id: 7,
+      title: "Project Placeholder 07",
+      context: "Case study coming soon",
+      role: "",
+      keyDecisions: "",
+      thumbnail: "/placeholder.svg",
+      liveUrl: "#",
+      technologies: [],
+      category: "Coming Soon",
+      status: "coming-soon",
+      featured: false
     }
   ];
 
@@ -136,20 +149,20 @@ const Portfolio = () => {
                         </div>
                       )}
                     </div>
-                    <CardHeader className="py-3 px-4">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <CardTitle className="text-base leading-tight">{project.title}</CardTitle>
+                    <CardHeader className="py-4 px-5">
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <CardTitle className="text-lg leading-snug">{project.title}</CardTitle>
                       </div>
-                      <p className="text-xs text-muted-foreground leading-snug">{project.context}</p>
-                      <div className="mt-2 space-y-0.5 text-[11px] text-muted-foreground/80">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{project.context}</p>
+                      <div className="space-y-1.5 text-xs text-muted-foreground/80">
                         {project.role && <p><span className="font-medium text-foreground/70">Role:</span> {project.role}</p>}
                         {project.keyDecisions && <p><span className="font-medium text-foreground/70">Key Decisions:</span> {project.keyDecisions}</p>}
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0 px-4 pb-3">
-                      <div className="flex flex-wrap gap-1.5">
+                    <CardContent className="pt-0 px-5 pb-4">
+                      <div className="flex flex-wrap gap-2">
                         {project.technologies.slice(0, 3).map((tech, index) => (
-                          <span key={index} className="text-[10px] bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
+                          <span key={index} className="text-xs bg-secondary text-secondary-foreground px-2.5 py-1 rounded-full">
                             {tech}
                           </span>
                         ))}

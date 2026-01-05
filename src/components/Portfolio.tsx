@@ -7,24 +7,26 @@ const Portfolio = () => {
     {
       id: 1,
       title: "UpTime Asset Management — CMMS Web App",
-      description: "A CMMS web application designed to streamline asset tracking, maintenance workflows, and operational decision-making through structured dashboards and clear information hierarchy.",
+      context: "CMMS platform for asset tracking & maintenance workflows",
+      role: "Product Designer (UI/UX)",
+      keyDecisions: "Structured dashboards, clear information hierarchy, scalable SaaS patterns",
       thumbnail: uptimeCover,
       liveUrl: "https://www.behance.net/gallery/239892845/UpTime",
       technologies: ["UI/UX", "SaaS", "Dashboard", "CMMS"],
       category: "UI/UX Case Study",
       status: "completed",
       featured: true,
-      isLive: true,
-      role: "Product Designer (UI/UX)",
-      focus: "Dashboards, SaaS workflows, system clarity"
+      isLive: true
     },
     {
       id: 2,
       title: "Fintech Website & Mobile App Design",
-      description: "Web and mobile design focused on conversion, trust, and usability for a fintech platform.",
+      context: "Fintech platform focused on conversion & trust",
+      role: "Product Designer",
+      keyDecisions: "Mobile-first flows, trust signals, conversion-focused landing pages",
       thumbnail: "/placeholder.svg",
       liveUrl: "#",
-      technologies: ["Web Design", "Mobile Design", "Fintech", "Conversion"],
+      technologies: ["Web Design", "Mobile", "Fintech"],
       category: "UI/UX Case Study",
       status: "completed",
       featured: true,
@@ -32,19 +34,24 @@ const Portfolio = () => {
     },
     {
       id: 3,
-      title: "Project Placeholder 03",
-      description: "Case study coming soon",
+      title: "E-Commerce Dashboard Redesign",
+      context: "Analytics dashboard for online retail platform",
+      role: "UI/UX Designer",
+      keyDecisions: "Data visualization clarity, actionable insights hierarchy",
       thumbnail: "/placeholder.svg",
       liveUrl: "#",
-      technologies: [],
-      category: "Coming Soon",
-      status: "coming-soon",
-      featured: false
+      technologies: ["Dashboard", "E-Commerce", "Analytics"],
+      category: "UI/UX Case Study",
+      status: "completed",
+      featured: true,
+      isLive: false
     },
     {
       id: 4,
       title: "Project Placeholder 04",
-      description: "Case study coming soon",
+      context: "Case study coming soon",
+      role: "",
+      keyDecisions: "",
       thumbnail: "/placeholder.svg",
       liveUrl: "#",
       technologies: [],
@@ -55,7 +62,9 @@ const Portfolio = () => {
     {
       id: 5,
       title: "Project Placeholder 05",
-      description: "Case study coming soon",
+      context: "Case study coming soon",
+      role: "",
+      keyDecisions: "",
       thumbnail: "/placeholder.svg",
       liveUrl: "#",
       technologies: [],
@@ -66,7 +75,9 @@ const Portfolio = () => {
     {
       id: 6,
       title: "Project Placeholder 06",
-      description: "Case study coming soon",
+      context: "Case study coming soon",
+      role: "",
+      keyDecisions: "",
       thumbnail: "/placeholder.svg",
       liveUrl: "#",
       technologies: [],
@@ -95,96 +106,65 @@ const Portfolio = () => {
           {featuredProjects.length > 0 && (
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center">Featured Work</h3>
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-3 gap-6">
                 {featuredProjects.map((project) => (
                   <Card key={project.id} className="group hover:shadow-elegant transition-all duration-300 overflow-hidden">
-                    <div className="aspect-video bg-muted relative overflow-hidden">
+                    <div className="aspect-[16/10] bg-muted relative overflow-hidden">
                       <img 
                         src={project.thumbnail} 
                         alt={project.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       {project.isLive && (
-                        <div className="absolute top-3 left-3">
-                          <span className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded-full font-medium">
-                            Live Product
+                        <div className="absolute top-2 left-2">
+                          <span className="text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">
+                            Live
                           </span>
                         </div>
                       )}
-                      {/* Only show external link overlay for non-UpTime projects */}
                       {project.id !== 1 && project.liveUrl !== '#' && (
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                           <a 
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn-primary inline-flex items-center gap-2"
+                            className="btn-primary inline-flex items-center gap-2 text-sm"
                           >
-                            <ExternalLink size={16} />
-                            View Case Study
+                            <ExternalLink size={14} />
+                            View
                           </a>
                         </div>
                       )}
                     </div>
-                    <CardHeader>
-                      <div className="flex items-center justify-between flex-wrap gap-2">
-                        <CardTitle className="text-xl">{project.title}</CardTitle>
-                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                          {project.category}
-                        </span>
+                    <CardHeader className="py-3 px-4">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <CardTitle className="text-base leading-tight">{project.title}</CardTitle>
                       </div>
-                      <CardDescription className="leading-relaxed">
-                        {project.description}
-                      </CardDescription>
-                      {project.role && (
-                        <div className="mt-2 space-y-1">
-                          <p className="text-xs text-muted-foreground"><strong>Role:</strong> {project.role}</p>
-                          <p className="text-xs text-muted-foreground"><strong>Focus:</strong> {project.focus}</p>
-                        </div>
-                      )}
+                      <p className="text-xs text-muted-foreground leading-snug">{project.context}</p>
+                      <div className="mt-2 space-y-0.5 text-[11px] text-muted-foreground/80">
+                        {project.role && <p><span className="font-medium text-foreground/70">Role:</span> {project.role}</p>}
+                        {project.keyDecisions && <p><span className="font-medium text-foreground/70">Key Decisions:</span> {project.keyDecisions}</p>}
+                      </div>
                     </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.technologies.map((tech, index) => (
-                          <span key={index} className="text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
+                    <CardContent className="pt-0 px-4 pb-3">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.technologies.slice(0, 3).map((tech, index) => (
+                          <span key={index} className="text-[10px] bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
                             {tech}
                           </span>
                         ))}
                       </div>
                       
-                      {/* Behance Embed for UpTime Project */}
                       {project.id === 1 && (
-                        <div className="mt-4 pt-4 border-t border-border">
-                          <p className="text-sm text-muted-foreground mb-3">Preview Case Study</p>
-                          <div className="relative w-full" style={{ paddingBottom: '78.2%' }}>
-                            <iframe 
-                              src="https://www.behance.net/embed/project/239892845?ilo0=1"
-                              className="absolute inset-0 w-full h-full rounded-lg"
-                              allowFullScreen
-                              loading="lazy"
-                              frameBorder="0"
-                              allow="clipboard-write"
-                              referrerPolicy="strict-origin-when-cross-origin"
-                              title="UpTime Asset Management Case Study on Behance"
-                            />
-                          </div>
-                          <noscript>
-                            <a 
-                              href="https://www.behance.net/gallery/239892845/UpTime"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm text-primary hover:underline"
-                            >
-                              View full case study on Behance
-                            </a>
-                          </noscript>
+                        <div className="mt-3 pt-3 border-t border-border">
                           <a 
                             href="https://www.behance.net/gallery/239892845/UpTime"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block mt-3 text-sm text-primary hover:underline"
+                            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
                           >
-                            View full case study on Behance →
+                            View Case Study
+                            <ExternalLink size={12} />
                           </a>
                         </div>
                       )}
@@ -208,7 +188,7 @@ const Portfolio = () => {
                     <CardHeader className="pb-3">
                       <CardTitle className="text-base text-muted-foreground">{project.title}</CardTitle>
                       <CardDescription className="text-sm">
-                        {project.description}
+                        {project.context}
                       </CardDescription>
                     </CardHeader>
                   </Card>

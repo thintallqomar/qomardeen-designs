@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { ExternalLink, ArrowRight, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import uptimeCover from '@/assets/uptime-cover.png';
+import UptimeCaseStudyModal from './UptimeCaseStudyModal';
 
 const Portfolio = () => {
+  const [uptimeModalOpen, setUptimeModalOpen] = useState(false);
+
   const projects = [
     {
       id: 1,
@@ -102,6 +106,12 @@ const Portfolio = () => {
 
   const featuredProjects = projects.filter(project => project.featured && project.status === 'completed');
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
+
+  const handleCardClick = (projectId: number) => {
+    if (projectId === 1) {
+      setUptimeModalOpen(true);
+    }
+  };
   
   return (
     <section id="portfolio" className="section-padding">
@@ -121,7 +131,13 @@ const Portfolio = () => {
               <h3 className="text-2xl font-semibold mb-8 text-center">Featured Work</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 {featuredProjects.map((project) => (
-                  <Card key={project.id} className="group hover:shadow-elegant transition-all duration-300 overflow-hidden">
+                  <Card 
+                    key={project.id} 
+                    className={`group hover:shadow-elegant transition-all duration-300 overflow-hidden ${
+                      project.id === 1 ? 'cursor-pointer' : ''
+                    }`}
+                    onClick={() => handleCardClick(project.id)}
+                  >
                     <div className="aspect-[16/10] bg-muted relative overflow-hidden">
                       <img 
                         src={project.thumbnail} 
@@ -135,6 +151,11 @@ const Portfolio = () => {
                           </span>
                         </div>
                       )}
+                      {project.id === 1 && (
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="text-white font-medium text-sm">View Case Study</span>
+                        </div>
+                      )}
                       {project.id !== 1 && project.liveUrl !== '#' && (
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                           <a 
@@ -142,6 +163,7 @@ const Portfolio = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn-primary inline-flex items-center gap-2 text-sm"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <ExternalLink size={14} />
                             View
@@ -169,14 +191,18 @@ const Portfolio = () => {
                       </div>
                       
                       {project.id === 1 && (
-                        <div className="mt-3 pt-3 border-t border-border">
+                        <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
+                          <span className="text-xs text-primary font-medium">
+                            Click to view case study
+                          </span>
                           <a 
                             href="https://www.behance.net/gallery/239892845/UpTime"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                            onClick={(e) => e.stopPropagation()}
                           >
-                            View Case Study
+                            Behance
                             <ExternalLink size={12} />
                           </a>
                         </div>
@@ -231,6 +257,12 @@ const Portfolio = () => {
           </div>
         </div>
       </div>
+
+      {/* UpTime Case Study Modal */}
+      <UptimeCaseStudyModal 
+        open={uptimeModalOpen} 
+        onOpenChange={setUptimeModalOpen} 
+      />
     </section>
   );
 };

@@ -6,7 +6,7 @@ const Hero = () => {
   const navigate = useNavigate();
   
   return (
-    <section id="home" className="min-h-screen flex items-center hero-gradient relative">
+    <section id="home" className="min-h-screen flex items-center hero-gradient relative pb-20">
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="floating-element absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>

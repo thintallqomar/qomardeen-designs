@@ -1,24 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, Zap, Heart } from 'lucide-react';
 import profileImage from '@/assets/new-profile.jpg';
 
 const Hero = () => {
-  const scrollToPortfolio = () => {
-    const element = document.querySelector('#portfolio');
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  };
-  
-  const scrollToContact = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  };
+  const navigate = useNavigate();
   
   return (
     <section id="home" className="min-h-screen flex items-center hero-gradient relative">
@@ -66,13 +51,13 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <button onClick={scrollToPortfolio} className="modern-btn inline-flex items-center justify-center gap-2.5 group">
+              <button onClick={() => navigate('/projects')} className="modern-btn inline-flex items-center justify-center gap-2.5 group">
                 <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                 View Case Studies
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button onClick={scrollToContact} className="outline-btn inline-flex items-center justify-center gap-2.5 group">
+              <button onClick={() => navigate('/contact')} className="outline-btn inline-flex items-center justify-center gap-2.5 group">
                 <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 Contact Me
               </button>

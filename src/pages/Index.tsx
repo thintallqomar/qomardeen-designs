@@ -1,29 +1,15 @@
-import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import DesignPhilosophy from '@/components/DesignPhilosophy';
-import Skills from '@/components/Skills';
-import Portfolio from '@/components/Portfolio';
-import WhyImAGoodFit from '@/components/WhyImAGoodFit';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+// Redirect old index to new home page
 const Index = () => {
-  return (
-    <div className="min-h-screen">
-      <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <DesignPhilosophy />
-        <Skills />
-        <Portfolio />
-        <WhyImAGoodFit />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  );
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    navigate('/', { replace: true });
+  }, [navigate]);
+  
+  return null;
 };
 
 export default Index;

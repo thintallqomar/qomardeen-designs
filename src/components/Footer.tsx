@@ -1,4 +1,5 @@
-import { Heart, Linkedin, Mail, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Linkedin, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -31,19 +32,11 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '/' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' }
   ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className="bg-card border-t border-border">
@@ -83,13 +76,13 @@ const Footer = () => {
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-2">
                 {quickLinks.map((link, index) => (
-                  <button
+                  <Link
                     key={index}
-                    onClick={() => scrollToSection(link.href)}
+                    to={link.href}
                     className="block text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>

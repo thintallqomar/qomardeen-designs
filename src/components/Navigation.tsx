@@ -1,36 +1,25 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
   
-  const navItems = [{
-    name: 'Home',
-    href: '#home'
-  }, {
-    name: 'About',
-    href: '#about'
-  }, {
-    name: 'Skills',
-    href: '#skills'
-  }, {
-    name: 'Portfolio',
-    href: '#portfolio'
-  }, {
-    name: 'Contact',
-    href: '#contact'
-  }];
+  const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+  ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      });
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return location.pathname === '/';
     }
-    setIsOpen(false);
+    return location.pathname.startsWith(href);
   };
 
   return (
@@ -38,20 +27,24 @@ const Navigation = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">DesignQit</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map(item => (
-              <button
+              <Link
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="nav-link"
+                to={item.href}
+                className={`nav-link transition-colors ${
+                  isActive(item.href) 
+                    ? 'text-primary font-medium' 
+                    : 'text-foreground hover:text-primary'
+                }`}
               >
                 {item.name}
-              </button>
+              </Link>
             ))}
             
             {/* Theme Toggle */}
@@ -87,13 +80,18 @@ const Navigation = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
               {navItems.map(item => (
-                <button
+                <Link
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block px-3 py-2 text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors w-full text-left"
+                  to={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`block px-3 py-2 rounded-md transition-colors w-full text-left ${
+                    isActive(item.href)
+                      ? 'text-primary font-medium bg-secondary'
+                      : 'text-foreground hover:text-primary hover:bg-secondary'
+                  }`}
                 >
                   {item.name}
-                </button>
+                </Link>
               ))}
             </div>
           </div>

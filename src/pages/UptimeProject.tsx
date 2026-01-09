@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import Navigation from '@/components/Navigation';
@@ -38,13 +38,6 @@ const UptimeProject = () => {
 
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set([...prev, index]));
-  };
-
-  const scrollToDesigns = () => {
-    const element = document.getElementById('case-study-content');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -97,7 +90,7 @@ const UptimeProject = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <a
                     href="https://www.behance.net/gallery/239892845/UpTime"
                     target="_blank"
@@ -107,14 +100,6 @@ const UptimeProject = () => {
                     <ExternalLink className="w-4 h-4" />
                     View on Behance
                   </a>
-                  <Button
-                    variant="outline"
-                    onClick={scrollToDesigns}
-                    className="inline-flex items-center gap-2 h-11 px-6"
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                    Scroll to Designs
-                  </Button>
                 </div>
               </div>
             </div>
@@ -147,10 +132,12 @@ const UptimeProject = () => {
                         src={image.src}
                         alt={image.alt}
                         loading="lazy"
+                        decoding="async"
                         onLoad={() => handleImageLoad(index)}
-                        className={`w-full h-auto transition-opacity duration-300 ${
+                        className={`w-full h-auto transition-opacity duration-300 image-rendering-crisp ${
                           loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
                         }`}
+                        style={{ imageRendering: 'auto' }}
                       />
                     </div>
                   </div>

@@ -20,16 +20,16 @@ import frame09 from '@/assets/uptime/frame-09.png';
 import frame10 from '@/assets/uptime/frame-10.png';
 
 const caseStudyImages = [
-  { src: frame01, alt: 'UpTime Cover - UI/UX Case Study', label: 'Project Overview' },
+  { src: frame01, alt: 'UpTime Cover - UI/UX Case Study', label: 'Cover' },
   { src: frame02, alt: 'Product Overview - Frustrations and Solutions', label: 'Product Overview' },
   { src: frame03, alt: 'Design Approach - Core Features', label: 'Design Approach' },
   { src: frame04, alt: 'Project Timeline', label: 'Project Timeline' },
   { src: frame05, alt: 'User Persona', label: 'User Persona' },
   { src: frame06, alt: 'Empathy Map', label: 'Empathy Map' },
-  { src: frame07, alt: 'User Flow', label: 'User Flow' },
-  { src: frame08, alt: 'Brand Identity', label: 'Brand Identity' },
-  { src: frame09, alt: 'Dashboard Design', label: 'Dashboard' },
-  { src: frame10, alt: 'Features - Equipment Registry, Task Management, Settings', label: 'Key Features' },
+  { src: frame07, alt: 'Brand Identity', label: 'Brand Identity' },
+  { src: frame08, alt: 'Dashboard Design', label: 'Dashboard' },
+  { src: frame09, alt: 'Equipment Registry & Task Management', label: 'Key Features' },
+  { src: frame10, alt: 'Settings & Integration', label: 'Settings & Integration' },
 ];
 
 const UptimeProject = () => {
@@ -102,7 +102,7 @@ const UptimeProject = () => {
                     href="https://www.behance.net/gallery/239892845/UpTime"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center justify-center gap-2"
+                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
                   >
                     <ExternalLink className="w-4 h-4" />
                     View on Behance
@@ -110,7 +110,7 @@ const UptimeProject = () => {
                   <Button
                     variant="outline"
                     onClick={scrollToDesigns}
-                    className="inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-2 h-11 px-6"
                   >
                     <ChevronDown className="w-4 h-4" />
                     Scroll to Designs
@@ -174,7 +174,7 @@ const UptimeProject = () => {
                     href="https://www.behance.net/gallery/239892845/UpTime"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center justify-center gap-2"
+                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
                   >
                     <ExternalLink className="w-4 h-4" />
                     View on Behance
@@ -182,6 +182,7 @@ const UptimeProject = () => {
                   <Button
                     variant="outline"
                     onClick={() => navigate('/contact')}
+                    className="h-11 px-6"
                   >
                     Get in Touch
                   </Button>

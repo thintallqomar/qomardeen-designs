@@ -431,13 +431,4 @@
   .nav-link:hover::after {
     width: 100%;
   }
-
-  /* Crisp image rendering for project images */
-  .image-rendering-crisp {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    -webkit-font-smoothing: antialiased;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-  }
 }

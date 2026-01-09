@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Progress } from '@/components/ui/progress';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -35,6 +36,20 @@ const caseStudyImages = [
 const UptimeProject = () => {
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set([...prev, index]));
@@ -43,6 +58,11 @@ const UptimeProject = () => {
   return (
     <PageTransition>
       <div className="min-h-screen">
+        {/* Reading Progress Bar */}
+        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
+          <Progress value={scrollProgress} className="h-1 rounded-none" />
+        </div>
+        
         <Navigation />
         
         {/* Back to Projects - Fixed */}
@@ -134,10 +154,9 @@ const UptimeProject = () => {
                         loading="lazy"
                         decoding="async"
                         onLoad={() => handleImageLoad(index)}
-                        className={`w-full h-auto transition-opacity duration-300 image-rendering-crisp ${
+                        className={`w-full h-auto transition-opacity duration-300 ${
                           loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
                         }`}
-                        style={{ imageRendering: 'auto' }}
                       />
                     </div>
                   </div>

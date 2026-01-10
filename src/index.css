@@ -104,7 +104,7 @@
 
     /* Muted tones - Clear hierarchy with WCAG AA compliance */
     --muted: 40 10% 92%;
-    --muted-foreground: 220 18% 35%;
+    --muted-foreground: 220 20% 28%;
 
     /* Accent - Soft warm accent */
     --accent: 40 15% 88%;

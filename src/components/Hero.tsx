@@ -73,22 +73,42 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image Section */}
-          <div className="relative lg:order-2 flex items-center justify-center lg:justify-end order-first lg:order-2">
-            <div className="relative w-full max-w-sm lg:max-w-md">
-              {/* Image Container with 4:5 aspect ratio */}
-              <div className="relative aspect-[4/5] overflow-visible">
-                {/* Main Image - allows subtle vertical overflow */}
-                <div className="absolute inset-x-0 -top-[8%] -bottom-[8%] lg:-top-[10%] lg:-bottom-[10%]">
-                  <img 
-                    src={profileImage} 
-                    alt="Qomardeen Tyler Tijani - Product Designer" 
-                    className="w-full h-full object-cover object-top"
-                    style={{ transform: 'scaleX(-1)' }}
-                  />
-                  {/* Subtle gradient overlay for blending */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-background/5 pointer-events-none"></div>
+          {/* Enhanced Profile Section */}
+          <div className="relative lg:order-2">
+            <div className="relative group">
+              {/* Main Image Container */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110 group-hover:opacity-30 transition-opacity"></div>
+                <div className="glass-card p-8 relative">
+                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500" />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute left-8 right-8 bottom-8 top-[45%] rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
+              </div>
+              
+              {/* Floating Elements */}
+              <div className="absolute -top-6 -right-6 glass-card p-4 animate-bounce">
+                <div className="text-2xl">🎨</div>
+              </div>
+              
+              <div className="absolute -bottom-6 -left-6 glass-card p-4 floating-element">
+                <div className="text-2xl">💡</div>
+              </div>
+
+              <div className="absolute top-1/4 -left-8 glass-card p-3 floating-element">
+                <div className="text-xl">✨</div>
+              </div>
+
+              <div className="absolute bottom-1/4 -right-8 glass-card p-3 floating-element">
+                <div className="text-xl">🚀</div>
+              </div>
+            </div>
+            
+            {/* Achievement Badge */}
+            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
+              <div className="glass-card px-6 py-3 text-center">
+                <div className="text-sm font-semibold text-primary">Product Designer</div>
               </div>
             </div>
           </div>

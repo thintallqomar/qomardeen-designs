@@ -1,45 +1,40 @@
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Phone } from 'lucide-react';
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      href: "https://linkedin.com/in/qomardeen-tijani",
-      label: "LinkedIn"
-    },
-    {
-      icon: <Mail className="w-5 h-5" />,
-      href: "mailto:qomardeentylertijani@gmail.com",
-      label: "Email"
-    },
-    {
-      icon: <Phone className="w-5 h-5" />,
-      href: "tel:+2348139469192",
-      label: "Phone"
-    },
-    {
-      icon: (
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-      ),
-      href: "https://x.com/the_Qomardeen",
-      label: "X (Twitter)"
-    }
-  ];
-
-  const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
-  ];
-
-  return (
-    <footer className="bg-card border-t border-border">
+  const socialLinks = [{
+    icon: <Linkedin className="w-5 h-5" />,
+    href: "https://linkedin.com/in/qomardeen-tijani",
+    label: "LinkedIn"
+  }, {
+    icon: <Mail className="w-5 h-5" />,
+    href: "mailto:qomardeentylertijani@gmail.com",
+    label: "Email"
+  }, {
+    icon: <Phone className="w-5 h-5" />,
+    href: "tel:+2348139469192",
+    label: "Phone"
+  }, {
+    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>,
+    href: "https://x.com/the_Qomardeen",
+    label: "X (Twitter)"
+  }];
+  const quickLinks = [{
+    name: 'Home',
+    href: '/'
+  }, {
+    name: 'Projects',
+    href: '/projects'
+  }, {
+    name: 'About',
+    href: '/about'
+  }, {
+    name: 'Contact',
+    href: '/contact'
+  }];
+  return <footer className="bg-card border-t border-border">
       <div className="container-custom">
         <div className="py-12">
           <div className="grid md:grid-cols-4 gap-8">
@@ -51,23 +46,11 @@ const Footer = () => {
                 </span>
                 <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-                A Nigerian product designer transitioning from fashion design. 
-                Crafting human-centered digital experiences with creativity and precision.
-              </p>
+              <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">A product designer with a background in fashion design, building thoughtful, human-centered digital experiences through strong systems thinking and visual precision.</p>
               <div className="flex items-center gap-4">
-                {socialLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-                    aria-label={link.label}
-                  >
+                {socialLinks.map((link, index) => <a key={index} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors" aria-label={link.label}>
                     {link.icon}
-                  </a>
-                ))}
+                  </a>)}
               </div>
             </div>
 
@@ -75,15 +58,9 @@ const Footer = () => {
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <div className="space-y-2">
-                {quickLinks.map((link, index) => (
-                  <Link
-                    key={index}
-                    to={link.href}
-                    className="block text-muted-foreground hover:text-primary transition-colors"
-                  >
+                {quickLinks.map((link, index) => <Link key={index} to={link.href} className="block text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
-                  </Link>
-                ))}
+                  </Link>)}
               </div>
             </div>
 
@@ -121,8 +98,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

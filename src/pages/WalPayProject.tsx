@@ -1,0 +1,266 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Progress } from '@/components/ui/progress';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import PageTransition from '@/components/PageTransition';
+
+// Import all case study frames
+import frame01 from '@/assets/walpay/frame-01.png';
+import frame02 from '@/assets/walpay/frame-02.png';
+import frame03 from '@/assets/walpay/frame-03.png';
+import frame04 from '@/assets/walpay/frame-04.png';
+import frame05 from '@/assets/walpay/frame-05.png';
+import frame06 from '@/assets/walpay/frame-06.png';
+import frame07 from '@/assets/walpay/frame-07.png';
+import frame08 from '@/assets/walpay/frame-08.png';
+import frame09 from '@/assets/walpay/frame-09.png';
+import frame10 from '@/assets/walpay/frame-10.png';
+
+const caseStudyImages = [
+  { src: frame01, alt: 'WalPay Cover - UI/UX Case Study', label: 'Cover' },
+  { src: frame02, alt: 'Product Overview - Digital Wallet Platform', label: 'Product Overview' },
+  { src: frame03, alt: 'Frustrations and Solutions', label: 'Frustrations & Solutions' },
+  { src: frame04, alt: 'Design Process - Double Diamond', label: 'Design Process' },
+  { src: frame05, alt: 'User Persona - Sarah Jenkins', label: 'User Persona' },
+  { src: frame06, alt: 'Empathy Mapping', label: 'Empathy Mapping' },
+  { src: frame07, alt: 'User Flow', label: 'User Flow' },
+  { src: frame08, alt: 'Website Design', label: 'Website Design' },
+  { src: frame09, alt: 'Style Guide - Typography & Colors', label: 'Style Guide' },
+  { src: frame10, alt: 'High Fidelity Mobile Designs', label: 'Mobile Designs' },
+];
+
+const BEHANCE_URL = "https://www.behance.net/gallery/242927925/WalPay-UI-UX-Case-Study";
+
+const WalPayProject = () => {
+  const navigate = useNavigate();
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [embedError, setEmbedError] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set([...prev, index]));
+  };
+
+  return (
+    <PageTransition>
+      <div className="min-h-screen">
+        {/* Reading Progress Bar */}
+        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
+          <Progress value={scrollProgress} className="h-1 rounded-none" />
+        </div>
+        
+        <Navigation />
+        
+        {/* Back to Projects - Fixed */}
+        <div className="fixed top-20 left-4 z-40">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/projects')}
+            className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Projects
+          </Button>
+        </div>
+
+        <main className="pt-20">
+          {/* Project Hero */}
+          <section className="section-padding bg-gradient-subtle">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
+                  UI/UX Case Study
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                  WalPay
+                </h1>
+                
+                <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  A digital wallet and currency exchange platform designed to remove the friction from international finance, enabling instant transfers with institutional-grade rates.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                    <span className="text-xs text-muted-foreground block">Role</span>
+                    <span className="font-medium">Product Designer (UI/UX)</span>
+                  </div>
+                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                    <span className="text-xs text-muted-foreground block">Timeline</span>
+                    <span className="font-medium">8 Weeks</span>
+                  </div>
+                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                    <span className="text-xs text-muted-foreground block">Platform</span>
+                    <span className="font-medium">iOS App & Website</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <a
+                    href={BEHANCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View on Behance
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Case Study Content */}
+          <section id="case-study-content" className="py-12 md:py-20">
+            <div className="container-custom">
+              <div className="max-w-5xl mx-auto space-y-8 md:space-y-12">
+                {caseStudyImages.map((image, index) => (
+                  <div key={index} className="relative">
+                    {/* Section Label */}
+                    {image.label && (
+                      <div className="mb-4 flex items-center gap-3">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-sm font-medium text-muted-foreground">
+                          {image.label}
+                        </span>
+                      </div>
+                    )}
+                    
+                    {/* Image Container */}
+                    <div className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+                      {!loadedImages.has(index) && (
+                        <Skeleton className="w-full aspect-[16/9]" />
+                      )}
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        loading="lazy"
+                        decoding="async"
+                        onLoad={() => handleImageLoad(index)}
+                        className={`w-full h-auto transition-opacity duration-300 ${
+                          loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                        }`}
+                      />
+                    </div>
+                  </div>
+                ))}
+
+                {/* Behance Embed Section */}
+                <div className="relative">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                      11
+                    </span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                      Full Case Study
+                    </span>
+                  </div>
+                  
+                  <div className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm p-6">
+                    {!embedError ? (
+                      <div className="flex flex-col items-center">
+                        <div className="w-full max-w-md mx-auto mb-6">
+                          <iframe 
+                            src="https://www.behance.net/embed/project/242927925?ilo0=1" 
+                            height="316" 
+                            width="404" 
+                            allowFullScreen 
+                            frameBorder="0" 
+                            allow="clipboard-write" 
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            className="w-full max-w-[404px] mx-auto"
+                            onError={() => setEmbedError(true)}
+                          />
+                        </div>
+                        <a
+                          href={BEHANCE_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          View Full Case Study on Behance
+                        </a>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center py-8">
+                        <p className="text-muted-foreground mb-4 text-center">
+                          View the complete case study with all design details and iterations.
+                        </p>
+                        <a
+                          href={BEHANCE_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          View Full Case Study on Behance
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Bottom CTA */}
+          <section className="section-padding bg-muted/30">
+            <div className="container-custom">
+              <div className="max-w-2xl mx-auto text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                  Want to see more?
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  View the full case study on Behance or get in touch to discuss your project.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href={BEHANCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View on Behance
+                  </a>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/contact')}
+                    className="h-11 px-6"
+                  >
+                    Get in Touch
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <Footer />
+      </div>
+    </PageTransition>
+  );
+};
+
+export default WalPayProject;

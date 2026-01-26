@@ -9,6 +9,7 @@ import Projects from "./pages/Projects";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import UptimeProject from "./pages/UptimeProject";
+import WalPayProject from "./pages/WalPayProject";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/uptime" element={<UptimeProject />} />
+        <Route path="/projects/walpay" element={<WalPayProject />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

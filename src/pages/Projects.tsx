@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import uptimeCover from '@/assets/uptime-cover.png';
+import walpayCover from '@/assets/walpay/frame-01.png';
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -23,22 +24,24 @@ const Projects = () => {
       status: "completed",
       featured: true,
       isLive: true,
-      hasPage: true
+      hasPage: true,
+      route: '/projects/uptime'
     },
     {
       id: 2,
-      title: "Fintech Website & Mobile App Design",
-      context: "Fintech platform focused on conversion & trust",
-      role: "Product Designer",
+      title: "WalPay — Digital Wallet & Currency Exchange",
+      context: "Fintech platform for seamless international transfers",
+      role: "Product Designer (UI/UX)",
       keyDecisions: "Mobile-first flows, trust signals, conversion-focused landing pages",
-      thumbnail: "/placeholder.svg",
-      liveUrl: "#",
-      technologies: ["Web Design", "Mobile", "Fintech"],
+      thumbnail: walpayCover,
+      liveUrl: "https://www.behance.net/gallery/242927925/WalPay-UI-UX-Case-Study",
+      technologies: ["UX Design", "UI Design", "Fintech", "iOS App"],
       category: "UI/UX Case Study",
       status: "completed",
       featured: true,
-      isLive: false,
-      hasPage: false
+      isLive: true,
+      hasPage: true,
+      route: '/projects/walpay'
     },
     {
       id: 3,
@@ -53,7 +56,8 @@ const Projects = () => {
       status: "completed",
       featured: true,
       isLive: false,
-      hasPage: false
+      hasPage: false,
+      route: ''
     },
     {
       id: 4,
@@ -67,7 +71,8 @@ const Projects = () => {
       category: "Coming Soon",
       status: "coming-soon",
       featured: false,
-      hasPage: false
+      hasPage: false,
+      route: ''
     },
     {
       id: 5,
@@ -81,7 +86,8 @@ const Projects = () => {
       category: "Coming Soon",
       status: "coming-soon",
       featured: false,
-      hasPage: false
+      hasPage: false,
+      route: ''
     },
     {
       id: 6,
@@ -95,7 +101,8 @@ const Projects = () => {
       category: "Coming Soon",
       status: "coming-soon",
       featured: false,
-      hasPage: false
+      hasPage: false,
+      route: ''
     },
     {
       id: 7,
@@ -109,7 +116,8 @@ const Projects = () => {
       category: "Coming Soon",
       status: "coming-soon",
       featured: false,
-      hasPage: false
+      hasPage: false,
+      route: ''
     }
   ];
 
@@ -117,8 +125,8 @@ const Projects = () => {
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
 
   const handleCardClick = (project: typeof projects[0]) => {
-    if (project.hasPage) {
-      navigate('/projects/uptime');
+    if (project.hasPage && project.route) {
+      navigate(project.route);
     }
   };
 
@@ -195,7 +203,7 @@ const Projects = () => {
                                   Click to view case study
                                 </span>
                                 <a 
-                                  href="https://www.behance.net/gallery/239892845/UpTime"
+                                  href={project.liveUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"

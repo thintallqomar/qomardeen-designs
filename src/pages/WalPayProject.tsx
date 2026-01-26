@@ -19,6 +19,9 @@ import frame07 from '@/assets/walpay/frame-07.png';
 import frame08 from '@/assets/walpay/frame-08.png';
 import frame09 from '@/assets/walpay/frame-09.png';
 import frame10 from '@/assets/walpay/frame-10.png';
+import frame11 from '@/assets/walpay/frame-11.png';
+import frame12 from '@/assets/walpay/frame-12.png';
+import frame13 from '@/assets/walpay/frame-13.png';
 
 const caseStudyImages = [
   { src: frame01, alt: 'WalPay Cover - UI/UX Case Study', label: 'Cover' },
@@ -30,7 +33,10 @@ const caseStudyImages = [
   { src: frame07, alt: 'User Flow', label: 'User Flow' },
   { src: frame08, alt: 'Website Design', label: 'Website Design' },
   { src: frame09, alt: 'Style Guide - Typography & Colors', label: 'Style Guide' },
-  { src: frame10, alt: 'High Fidelity Mobile Designs', label: 'Mobile Designs' },
+  { src: frame10, alt: 'High Fidelity Mobile Designs - Onboarding', label: 'Onboarding Screens' },
+  { src: frame11, alt: 'Send Money & Wallet Transactions', label: 'Send Money & Transactions' },
+  { src: frame12, alt: 'Profile Settings & Preferences', label: 'Profile & Settings' },
+  { src: frame13, alt: 'KYC Verification Flow', label: 'KYC Flow' },
 ];
 
 const BEHANCE_URL = "https://www.behance.net/gallery/242927925/WalPay-UI-UX-Case-Study";
@@ -169,7 +175,7 @@ const WalPayProject = () => {
                 <div className="relative">
                   <div className="mb-4 flex items-center gap-3">
                     <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                      11
+                      14
                     </span>
                     <span className="text-sm font-medium text-muted-foreground">
                       Full Case Study

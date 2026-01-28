@@ -128,7 +128,7 @@ const UptimeProject = () => {
           {/* Case Study Content */}
           <section id="case-study-content" className="py-12 md:py-20">
             <div className="container-custom">
-              <div className="max-w-5xl mx-auto space-y-8 md:space-y-12">
+              <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
                 {caseStudyImages.map((image, index) => (
                   <div key={index} className="relative">
                     {/* Section Label */}
@@ -143,7 +143,7 @@ const UptimeProject = () => {
                       </div>
                     )}
                     
-                    {/* Image Container */}
+                    {/* Image Container - Full resolution rendering */}
                     <div className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm">
                       {!loadedImages.has(index) && (
                         <Skeleton className="w-full aspect-[16/9]" />
@@ -154,7 +154,8 @@ const UptimeProject = () => {
                         loading="lazy"
                         decoding="async"
                         onLoad={() => handleImageLoad(index)}
-                        className={`w-full h-auto transition-opacity duration-300 ${
+                        style={{ imageRendering: 'auto' }}
+                        className={`w-full h-auto max-w-none transition-opacity duration-300 ${
                           loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
                         }`}
                       />

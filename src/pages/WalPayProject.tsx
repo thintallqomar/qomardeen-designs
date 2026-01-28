@@ -159,7 +159,7 @@ const WalPayProject = () => {
           {/* Case Study Content */}
           <section id="case-study-content" className="py-12 md:py-20">
             <div className="container-custom">
-              <div className="max-w-7xl mx-auto space-y-8 md:space-y-12">
+              <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
                 {caseStudyImages.map((image, index) => <div key={index} className="relative">
                     {/* Section Label */}
                     {image.label && <div className="mb-4 flex items-center gap-3">

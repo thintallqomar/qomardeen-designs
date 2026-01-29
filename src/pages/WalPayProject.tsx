@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
+import ImageViewer from '@/components/ImageViewer';
 
 // Import all case study frames
 import frame01 from '@/assets/walpay/frame-01.png';
@@ -81,6 +82,14 @@ const WalPayProject = () => {
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
   const [embedError, setEmbedError] = useState(false);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerIndex, setViewerIndex] = useState(0);
+
+  const openViewer = (index: number) => {
+    setViewerIndex(index);
+    setViewerOpen(true);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -172,7 +181,11 @@ const WalPayProject = () => {
                       </div>}
                     
                     {/* Image Container - Full resolution rendering */}
-                    <div className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+                    <button
+                      onClick={() => openViewer(index)}
+                      className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      aria-label={`View ${image.alt} in fullscreen`}
+                    >
                       {!loadedImages.has(index) && <Skeleton className="w-full aspect-[16/9]" />}
                       <img 
                         src={image.src} 
@@ -183,7 +196,7 @@ const WalPayProject = () => {
                         style={{ imageRendering: 'auto' }}
                         className={`w-full h-auto max-w-none transition-opacity duration-300 ${loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'}`} 
                       />
-                    </div>
+                    </button>
                   </div>)}
 
                 {/* Behance Embed Section */}
@@ -217,6 +230,14 @@ const WalPayProject = () => {
         </main>
 
         <Footer />
+
+        <ImageViewer
+          images={caseStudyImages}
+          currentIndex={viewerIndex}
+          isOpen={viewerOpen}
+          onClose={() => setViewerOpen(false)}
+          onNavigate={setViewerIndex}
+        />
       </div>
     </PageTransition>;
 };

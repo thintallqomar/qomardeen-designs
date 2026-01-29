@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
+import ImageViewer from '@/components/ImageViewer';
 
 // Import all case study frames
 import frame01 from '@/assets/uptime/frame-01.png';
@@ -37,6 +38,13 @@ const UptimeProject = () => {
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerIndex, setViewerIndex] = useState(0);
+
+  const openViewer = (index: number) => {
+    setViewerIndex(index);
+    setViewerOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -144,7 +152,11 @@ const UptimeProject = () => {
                     )}
                     
                     {/* Image Container - Full resolution rendering */}
-                    <div className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+                    <button
+                      onClick={() => openViewer(index)}
+                      className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      aria-label={`View ${image.alt} in fullscreen`}
+                    >
                       {!loadedImages.has(index) && (
                         <Skeleton className="w-full aspect-[16/9]" />
                       )}
@@ -159,7 +171,7 @@ const UptimeProject = () => {
                           loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
                         }`}
                       />
-                    </div>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -200,6 +212,14 @@ const UptimeProject = () => {
         </main>
 
         <Footer />
+
+        <ImageViewer
+          images={caseStudyImages}
+          currentIndex={viewerIndex}
+          isOpen={viewerOpen}
+          onClose={() => setViewerOpen(false)}
+          onNavigate={setViewerIndex}
+        />
       </div>
     </PageTransition>
   );

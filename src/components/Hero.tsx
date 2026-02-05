@@ -1,9 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, Zap, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import profileImage from '@/assets/new-profile.jpg';
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { trackCTAClick } = useAnalytics();
+
+  const handleViewCaseStudies = () => {
+    trackCTAClick('View Case Studies', '/projects');
+    navigate('/projects');
+  };
+
+  const handleContactMe = () => {
+    trackCTAClick('Contact Me', '/contact');
+    navigate('/contact');
+  };
   
   return (
     <section id="home" className="min-h-screen flex items-center hero-gradient relative pt-24 md:pt-28 pb-20 mt-16">
@@ -21,18 +34,33 @@ const Hero = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-6 flex flex-col justify-center h-full max-h-[500px]">
+          <motion.div 
+            className="space-y-6 flex flex-col justify-center h-full max-h-[500px]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             {/* Status Badge */}
-            <div className="inline-flex items-center px-5 py-2.5 hero-badge rounded-full text-sm font-semibold text-primary-dark animate-pulse w-fit">
+            <motion.div 
+              className="inline-flex items-center px-5 py-2.5 hero-badge rounded-full text-sm font-semibold text-primary w-fit"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <div className="w-2.5 h-2.5 bg-success rounded-full mr-2.5 animate-ping"></div>
               <Sparkles className="w-4 h-4 mr-2" />
               Available for new opportunities
-            </div>
+            </motion.div>
             
             {/* Main Heading */}
-            <div className="space-y-4">
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div className="space-y-1">
-                <h1 className="hero-name animate-fade-in">
+                <h1 className="hero-name">
                   Qomardeen Tyler Tijani
                 </h1>
                 <h2 className="text-xl md:text-2xl font-semibold text-primary">
@@ -47,40 +75,68 @@ const Hero = () => {
               <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
                 Experience delivering live products across dashboards, SaaS platforms, landing pages, and system-driven interfaces.
               </p>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <button onClick={() => navigate('/projects')} className="modern-btn inline-flex items-center justify-center gap-2.5 group">
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-3 pt-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <button 
+                onClick={handleViewCaseStudies} 
+                className="modern-btn inline-flex items-center justify-center gap-2.5 group"
+              >
                 <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                 View Case Studies
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               
-              <button onClick={() => navigate('/contact')} className="outline-btn inline-flex items-center justify-center gap-2.5 group">
+              <button 
+                onClick={handleContactMe} 
+                className="outline-btn inline-flex items-center justify-center gap-2.5 group"
+              >
                 <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 Contact Me
               </button>
-            </div>
+            </motion.div>
 
             {/* Skills Preview Tags */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <motion.div 
+              className="flex flex-wrap gap-2 pt-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               {['UI Design', 'UX Research', 'Product Design', 'Design Systems', 'Dashboards'].map((skill, index) => (
-                <span key={index} className="px-3 py-1.5 bg-secondary border border-border rounded-full text-xs font-medium text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all cursor-default">
+                <span 
+                  key={index} 
+                  className="px-3 py-1.5 bg-secondary border border-border rounded-full text-xs font-medium text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all cursor-default"
+                >
                   {skill}
                 </span>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Enhanced Profile Section */}
-          <div className="relative lg:order-2">
+          <motion.div 
+            className="relative lg:order-2"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="relative group">
               {/* Main Image Container */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-3xl opacity-20 scale-110 group-hover:opacity-30 transition-opacity"></div>
                 <div className="glass-card p-8 relative">
-                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500" />
+                  <img 
+                    src={profileImage} 
+                    alt="Qomardeen Tyler Tijani - Product Designer" 
+                    className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-105 transition-transform duration-500" 
+                  />
                   
                   {/* Overlay gradient */}
                   <div className="absolute left-8 right-8 bottom-8 top-[45%] rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -111,7 +167,7 @@ const Hero = () => {
                 <div className="text-sm font-semibold text-primary">Product Designer</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

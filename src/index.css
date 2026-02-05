@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Modern Portfolio Design System - Light Mode */
+/* Modern Portfolio Design System - Warm Amber Accent */
 
 @layer base {
   :root {
@@ -18,11 +18,11 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    /* Primary - Professional teal */
-    --primary: 185 84% 55%;
+    /* Primary - Warm amber */
+    --primary: 38 92% 50%;
     --primary-foreground: 222.2 84% 4.9%;
-    --primary-light: 185 84% 75%;
-    --primary-dark: 185 84% 35%;
+    --primary-light: 38 92% 65%;
+    --primary-dark: 30 85% 40%;
 
     /* Secondary - Dark gray */
     --secondary: 217.2 32.6% 17.5%;
@@ -32,8 +32,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    /* Accent - Dark blue */
-    --accent: 217.2 32.6% 17.5%;
+    /* Accent - Dark with amber tint */
+    --accent: 30 15% 15%;
     --accent-foreground: 210 40% 98%;
 
     /* Status colors */
@@ -45,14 +45,14 @@
     /* Border and input */
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 185 84% 55%;
+    --ring: 38 92% 50%;
 
     /* Design tokens */
     --radius: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
 
-    /* Gradients - Dark mode */
+    /* Gradients - Dark mode with amber */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
     --gradient-subtle: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary-light) / 0.1), hsl(var(--background)));
@@ -71,49 +71,49 @@
     /* Sidebar - Dark mode */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 38 92% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 38 92% 50%;
   }
 
   .light {
     /* Base colors - Light neutral background (WCAG compliant) */
-    --background: 40 18% 95%;
-    --foreground: 220 30% 10%;
+    --background: 40 18% 97%;
+    --foreground: 30 20% 12%;
 
     /* Card system - Pure white for elevation */
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 10%;
+    --card-foreground: 30 20% 12%;
 
     /* Popover system */
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 10%;
+    --popover-foreground: 30 20% 12%;
 
-    /* Primary - Navy blue (aligned with dark mode intent, WCAG AAA) */
-    --primary: 220 70% 35%;
+    /* Primary - Warm amber (WCAG compliant) */
+    --primary: 30 85% 38%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 220 60% 50%;
-    --primary-dark: 220 75% 25%;
+    --primary-light: 38 80% 50%;
+    --primary-dark: 25 90% 30%;
 
     /* Secondary - Warm neutral surfaces */
-    --secondary: 40 12% 90%;
-    --secondary-foreground: 220 25% 18%;
+    --secondary: 40 12% 92%;
+    --secondary-foreground: 30 20% 18%;
 
     /* Muted tones - Clear hierarchy with WCAG AA compliance */
-    --muted: 40 10% 92%;
-    --muted-foreground: 220 20% 28%;
+    --muted: 40 10% 94%;
+    --muted-foreground: 30 15% 35%;
 
     /* Accent - Soft warm accent */
-    --accent: 40 15% 88%;
-    --accent-foreground: 220 30% 12%;
+    --accent: 38 20% 90%;
+    --accent-foreground: 30 25% 15%;
 
     /* Text tokens for semantic hierarchy */
-    --text-primary: 220 30% 10%;
-    --text-secondary: 220 22% 22%;
-    --text-tertiary: 220 15% 42%;
+    --text-primary: 30 20% 12%;
+    --text-secondary: 30 18% 25%;
+    --text-tertiary: 30 12% 45%;
 
     /* Status colors - WCAG compliant */
     --destructive: 0 72% 40%;
@@ -122,30 +122,30 @@
     --warning: 38 85% 40%;
 
     /* Border and input - Visible but not harsh */
-    --border: 220 18% 80%;
+    --border: 30 15% 82%;
     --input: 0 0% 100%;
-    --ring: 220 70% 35%;
+    --ring: 30 85% 38%;
 
-    /* Gradients - Light mode (navy-based) */
+    /* Gradients - Light mode (amber-based) */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
     --gradient-subtle: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
-    --gradient-hero: linear-gradient(135deg, hsl(40 20% 97%), hsl(var(--background)));
+    --gradient-hero: linear-gradient(135deg, hsl(40 20% 98%), hsl(var(--background)));
 
     /* Shadows - Light mode with real depth */
-    --shadow-sm: 0 1px 3px hsl(220 25% 15% / 0.08), 0 1px 2px hsl(220 25% 15% / 0.06);
-    --shadow-md: 0 4px 12px hsl(220 25% 15% / 0.1), 0 2px 4px hsl(220 25% 15% / 0.06);
-    --shadow-lg: 0 10px 25px hsl(220 25% 15% / 0.12), 0 4px 10px hsl(220 25% 15% / 0.08);
-    --shadow-elegant: 0 8px 30px hsl(220 25% 15% / 0.15), 0 4px 12px hsl(220 25% 15% / 0.08);
+    --shadow-sm: 0 1px 3px hsl(30 20% 20% / 0.06), 0 1px 2px hsl(30 20% 20% / 0.04);
+    --shadow-md: 0 4px 12px hsl(30 20% 20% / 0.08), 0 2px 4px hsl(30 20% 20% / 0.04);
+    --shadow-lg: 0 10px 25px hsl(30 20% 20% / 0.1), 0 4px 10px hsl(30 20% 20% / 0.06);
+    --shadow-elegant: 0 8px 30px hsl(30 20% 20% / 0.12), 0 4px 12px hsl(30 20% 20% / 0.06);
 
     /* Sidebar - Light mode */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 25% 15%;
-    --sidebar-primary: 220 70% 35%;
+    --sidebar-foreground: 30 20% 15%;
+    --sidebar-primary: 30 85% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 40 12% 94%;
-    --sidebar-accent-foreground: 220 25% 15%;
-    --sidebar-border: 220 15% 85%;
-    --sidebar-ring: 220 70% 35%;
+    --sidebar-accent-foreground: 30 20% 15%;
+    --sidebar-border: 30 12% 88%;
+    --sidebar-ring: 30 85% 38%;
   }
 }
 
@@ -171,9 +171,9 @@
     background: 
       linear-gradient(135deg, 
         hsl(var(--background)) 0%, 
-        hsl(220 26% 8%) 25%, 
-        hsl(217 32% 12%) 50%, 
-        hsl(220 26% 8%) 75%, 
+        hsl(25 30% 8%) 25%, 
+        hsl(30 25% 10%) 50%, 
+        hsl(25 30% 8%) 75%, 
         hsl(var(--background)) 100%
       );
     position: relative;
@@ -184,9 +184,9 @@
     background: 
       linear-gradient(135deg, 
         hsl(var(--background)) 0%, 
-        hsl(40 15% 93%) 25%, 
-        hsl(40 18% 96%) 50%, 
-        hsl(40 15% 93%) 75%, 
+        hsl(38 18% 94%) 25%, 
+        hsl(40 20% 96%) 50%, 
+        hsl(38 18% 94%) 75%, 
         hsl(var(--background)) 100%
       );
   }
@@ -199,17 +199,17 @@
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(ellipse at top left, hsl(var(--primary) / 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse at bottom right, hsl(185 84% 65% / 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at top left, hsl(var(--primary) / 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, hsl(38 90% 55% / 0.1) 0%, transparent 60%),
       radial-gradient(ellipse at center, hsl(var(--primary) / 0.05) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .light .hero-gradient::before {
     background: 
-      radial-gradient(ellipse at top left, hsl(220 60% 40% / 0.05) 0%, transparent 60%),
-      radial-gradient(ellipse at bottom right, hsl(220 50% 45% / 0.04) 0%, transparent 60%),
-      radial-gradient(ellipse at center, hsl(220 40% 50% / 0.02) 0%, transparent 70%);
+      radial-gradient(ellipse at top left, hsl(38 80% 50% / 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, hsl(30 70% 45% / 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at center, hsl(38 60% 50% / 0.02) 0%, transparent 70%);
   }
 
   .hero-gradient::after {
@@ -229,8 +229,8 @@
 
   .light .hero-gradient::after {
     background: 
-      linear-gradient(45deg, transparent 49%, hsl(220 40% 50% / 0.02) 50%, transparent 51%),
-      linear-gradient(-45deg, transparent 49%, hsl(220 40% 50% / 0.015) 50%, transparent 51%);
+      linear-gradient(45deg, transparent 49%, hsl(38 50% 50% / 0.02) 50%, transparent 51%),
+      linear-gradient(-45deg, transparent 49%, hsl(38 50% 50% / 0.015) 50%, transparent 51%);
     background-size: 60px 60px;
     opacity: 0.2;
   }

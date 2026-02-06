@@ -1,69 +1,64 @@
 import { CheckCircle, Lightbulb, Users, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
+import ScrollReveal from './ScrollReveal';
+import StaggeredReveal from './StaggeredReveal';
 
 const WhyImAGoodFit = () => {
+  const strengths = [
+    { icon: <Lightbulb className="w-6 h-6 text-primary" />, title: "Structured Thinking", desc: "Comfortable with complex interfaces and data-heavy dashboards" },
+    { icon: <Users className="w-6 h-6 text-primary" />, title: "Collaborative", desc: "Clear communication and openness to feedback" },
+    { icon: <TrendingUp className="w-6 h-6 text-primary" />, title: "Growth-Oriented", desc: "Proactive about learning and improving my process" },
+  ];
+
   return (
     <section id="why-me" className="section-padding bg-muted/30">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why I'm a Good Fit</h2>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why I'm a Good Fit</h2>
+            </div>
+          </ScrollReveal>
 
-          <div className="card-elegant">
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                  <CheckCircle className="w-6 h-6 text-primary" />
+          <ScrollReveal delay={0.1}>
+            <div className="card-elegant">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    I would be a strong fit for this role because I combine structured thinking with a practical, hands-on approach to design. I am comfortable working on complex interfaces such as dashboards and operational tools, while also understanding the importance of clarity and visual hierarchy on user-facing pages.
+                  </p>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  I would be a strong fit for this role because I combine structured thinking with a practical, hands-on approach to design. I am comfortable working on complex interfaces such as dashboards and operational tools, while also understanding the importance of clarity and visual hierarchy on user-facing pages.
-                </p>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                  <TrendingUp className="w-6 h-6 text-primary" />
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
+                    <TrendingUp className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    As a junior–mid level designer, I am proactive about learning, open to feedback, and intentional about improving my process. I value collaboration, communicate design decisions clearly, and design with scalability in mind—making me well-suited to contribute meaningfully while continuing to grow within a product-focused team.
+                  </p>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  As a junior–mid level designer, I am proactive about learning, open to feedback, and intentional about improving my process. I value collaboration, communicate design decisions clearly, and design with scalability in mind—making me well-suited to contribute meaningfully while continuing to grow within a product-focused team.
-                </p>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Key Strengths */}
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <div className="text-center p-6 card-elegant">
-              <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Lightbulb className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Structured Thinking</h4>
-              <p className="text-sm text-muted-foreground">
-                Comfortable with complex interfaces and data-heavy dashboards
-              </p>
-            </div>
-
-            <div className="text-center p-6 card-elegant">
-              <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Collaborative</h4>
-              <p className="text-sm text-muted-foreground">
-                Clear communication and openness to feedback
-              </p>
-            </div>
-
-            <div className="text-center p-6 card-elegant">
-              <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="font-medium mb-2">Growth-Oriented</h4>
-              <p className="text-sm text-muted-foreground">
-                Proactive about learning and improving my process
-              </p>
-            </div>
-          </div>
+          <StaggeredReveal className="grid md:grid-cols-3 gap-6 mt-12" staggerDelay={0.12}>
+            {strengths.map((item, index) => (
+              <motion.div
+                key={index}
+                className="text-center p-6 card-elegant"
+                whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  {item.icon}
+                </div>
+                <h4 className="font-medium mb-2">{item.title}</h4>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </StaggeredReveal>
         </div>
       </div>
     </section>

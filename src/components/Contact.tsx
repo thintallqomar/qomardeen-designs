@@ -5,8 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import emailjs from '@emailjs/browser';
-import ScrollReveal from './ScrollReveal';
-import StaggeredReveal from './StaggeredReveal';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -113,21 +111,18 @@ const Contact = () => {
       <div className="container-custom">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <ScrollReveal className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-              <Mail className="w-4 h-4" />
-              Contact
-            </div>
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Connect</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Open to full-time roles, contract opportunities, and collaborative projects.
             </p>
-          </ScrollReveal>
+          </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-stretch">
-            <ScrollReveal delay={0.1} className="flex flex-col">
+            {/* Contact Information */}
+            <div className="flex flex-col">
               {/* Contact Methods */}
-              <StaggeredReveal staggerDelay={0.1} className="space-y-4 flex-1">
+              <div className="space-y-4 flex-1">
                 {contactInfo.map((item, index) => (
                   <div key={index} className="card-elegant">
                     <div className="flex items-center gap-4">
@@ -152,7 +147,7 @@ const Contact = () => {
                     </div>
                   </div>
                 ))}
-              </StaggeredReveal>
+              </div>
 
               {/* Availability */}
               <div className="bg-gradient-subtle p-6 rounded-xl border border-border mt-4">
@@ -164,10 +159,10 @@ const Contact = () => {
                   Open to full-time roles, contract opportunities, and collaborative projects.
                 </p>
               </div>
-            </ScrollReveal>
+            </div>
 
             {/* Contact Form */}
-            <ScrollReveal delay={0.2} className="card-elegant flex flex-col h-full">
+            <div className="card-elegant flex flex-col h-full">
               <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
               
               <form onSubmit={handleSubmit} className="flex flex-col flex-1">
@@ -254,7 +249,7 @@ const Contact = () => {
                   )}
                 </Button>
               </form>
-            </ScrollReveal>
+            </div>
           </div>
         </div>
       </div>

@@ -4,9 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
-import ScrollReveal from '@/components/ScrollReveal';
-import StaggeredReveal from '@/components/StaggeredReveal';
-import { useAnalytics } from '@/hooks/useAnalytics';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 
@@ -126,11 +123,9 @@ const Projects = () => {
 
   const featuredProjects = projects.filter(project => project.featured && project.status === 'completed');
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
-  const { trackCTAClick } = useAnalytics();
 
   const handleCardClick = (project: typeof projects[0]) => {
     if (project.hasPage && project.route) {
-      trackCTAClick(`Project: ${project.title}`, project.route);
       navigate(project.route);
     }
   };
@@ -144,22 +139,18 @@ const Projects = () => {
             <div className="container-custom">
               <div className="max-w-6xl mx-auto">
                 {/* Section Header */}
-                <ScrollReveal className="text-center mb-16">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-                    Case Studies
-                  </div>
+                <div className="text-center mb-16">
                   <h1 className="text-3xl md:text-4xl font-bold mb-4">Selected Case Studies</h1>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Real-world projects showcasing product design across dashboards, SaaS platforms, and user-focused interfaces.
                   </p>
-                </ScrollReveal>
+                </div>
 
+                {/* Featured Projects */}
                 {featuredProjects.length > 0 && (
                   <div className="mb-16">
-                    <ScrollReveal delay={0.1}>
-                      <h2 className="text-2xl font-semibold mb-8 text-center">Featured Work</h2>
-                    </ScrollReveal>
-                    <StaggeredReveal staggerDelay={0.15} className="grid md:grid-cols-3 gap-6">
+                    <h2 className="text-2xl font-semibold mb-8 text-center">Featured Work</h2>
+                    <div className="grid md:grid-cols-3 gap-6">
                       {featuredProjects.map((project) => (
                         <Card 
                           key={project.id} 
@@ -226,13 +217,13 @@ const Projects = () => {
                           </CardContent>
                         </Card>
                       ))}
-                    </StaggeredReveal>
+                    </div>
                   </div>
                 )}
 
                 {/* Placeholder Projects */}
                 {placeholderProjects.length > 0 && (
-                  <ScrollReveal delay={0.2} className="mb-16">
+                  <div className="mb-16">
                     <h2 className="text-2xl font-semibold mb-8 text-center">More Projects</h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {placeholderProjects.map((project) => (
@@ -249,27 +240,24 @@ const Projects = () => {
                         </Card>
                       ))}
                     </div>
-                  </ScrollReveal>
+                  </div>
                 )}
 
                 {/* CTA */}
-                <ScrollReveal delay={0.3} className="text-center">
+                <div className="text-center">
                   <div className="max-w-2xl mx-auto">
                     <h3 className="text-2xl font-semibold mb-4">Interested in Working Together?</h3>
                     <p className="text-muted-foreground mb-8">
                       I'm always open to discussing new projects and opportunities.
                     </p>
                     <button 
-                      onClick={() => {
-                        trackCTAClick('Get In Touch', '/contact');
-                        navigate('/contact');
-                      }}
+                      onClick={() => navigate('/contact')}
                       className="btn-primary inline-flex items-center gap-2"
                     >
                       Get In Touch
                     </button>
                   </div>
-                </ScrollReveal>
+                </div>
               </div>
             </div>
           </section>

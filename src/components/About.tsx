@@ -1,14 +1,4 @@
 import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
-import StaggeredReveal from './StaggeredReveal';
-
-const aboutParagraphs = [
-  "I am a product designer who builds clear, structured, and high-impact digital products across SaaS platforms, internal tools, and consumer-facing experiences. I combine product thinking, UX reasoning, and strong visual execution to design interfaces that help users complete tasks efficiently and with confidence.",
-  "I approach design as a problem-solving discipline, not decoration. Before moving into high-fidelity design, I focus on understanding user goals, workflows, constraints, and edge cases. This allows me to create solutions that are intuitive, logically organized, and scalable as products grow.",
-  "My experience spans CMMS platforms, dashboards, fintech products, and website design, with a strong focus on landing pages and their supporting website flows. I design conversion-focused entry points and ensure visual and structural consistency across related pages, from first impression to deeper product interactions.",
-  "Before transitioning fully into product design, I worked in fashion design, where I learned to balance aesthetics, structure, constraints, and user expectations. That foundation sharpened my systems thinking and attention to detail, which now directly informs my digital work.",
-  "I am seeking a junior–mid level product design role where I can contribute immediately, collaborate closely, and continue growing as a designer."
-];
 
 const About = () => {
   return (
@@ -16,39 +6,45 @@ const About = () => {
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <ScrollReveal className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-4">
-              <MapPin className="w-4 h-4" />
-              About
-            </div>
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me & My Journey</h2>
-          </ScrollReveal>
+          </div>
 
           {/* Personal Story */}
-          <ScrollReveal delay={0.1} className="mb-12">
+          <div className="mb-12">
             <div className="card-elegant">
               <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-primary/10 rounded-lg shrink-0">
+                <div className="p-3 bg-primary/20 rounded-lg">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
-                <StaggeredReveal staggerDelay={0.08} className="space-y-4">
-                  {aboutParagraphs.map((paragraph, index) => (
-                    <p key={index} className="text-muted-foreground leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
-                </StaggeredReveal>
+                <div className="space-y-4">
+                  <p className="text-muted-foreground leading-relaxed">
+                    I am a product designer who builds clear, structured, and high-impact digital products across SaaS platforms, internal tools, and consumer-facing experiences. I combine product thinking, UX reasoning, and strong visual execution to design interfaces that help users complete tasks efficiently and with confidence.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    I approach design as a problem-solving discipline, not decoration. Before moving into high-fidelity design, I focus on understanding user goals, workflows, constraints, and edge cases. This allows me to create solutions that are intuitive, logically organized, and scalable as products grow.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    My experience spans CMMS platforms, dashboards, fintech products, and website design, with a strong focus on landing pages and their supporting website flows. I design conversion-focused entry points and ensure visual and structural consistency across related pages, from first impression to deeper product interactions.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Before transitioning fully into product design, I worked in fashion design, where I learned to balance aesthetics, structure, constraints, and user expectations. That foundation sharpened my systems thinking and attention to detail, which now directly informs my digital work.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    I am seeking a junior–mid level product design role where I can contribute immediately, collaborate closely, and continue growing as a designer.
+                  </p>
+                </div>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* Education & Experience Grid */}
-          <StaggeredReveal staggerDelay={0.2} className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {/* Education */}
-            <div className="card-elegant group hover:border-primary/20 transition-all duration-300">
+            <div className="card-elegant">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 text-primary">
-                  <GraduationCap className="w-6 h-6" />
+                <div className="p-3 bg-primary/20 rounded-lg">
+                  <GraduationCap className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Education</h3>
               </div>
@@ -67,10 +63,10 @@ const About = () => {
             </div>
 
             {/* Experience */}
-            <div className="card-elegant group hover:border-primary/20 transition-all duration-300">
+            <div className="card-elegant">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 text-primary">
-                  <Briefcase className="w-6 h-6" />
+                <div className="p-3 bg-primary/20 rounded-lg">
+                  <Briefcase className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Experience</h3>
               </div>
@@ -103,7 +99,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </StaggeredReveal>
+          </div>
         </div>
       </div>
     </section>

@@ -11,11 +11,13 @@ import Contact from "./pages/Contact";
 import UptimeProject from "./pages/UptimeProject";
 import WalPayProject from "./pages/WalPayProject";
 import NotFound from "./pages/NotFound";
+import { useVisitorTracking } from "./hooks/useVisitorTracking";
 
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  useVisitorTracking();
   
   return (
     <AnimatePresence mode="wait">

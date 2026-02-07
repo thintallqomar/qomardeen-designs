@@ -112,9 +112,10 @@ const Projects = () => {
                           <motion.div
                             whileHover={{ y: -6 }}
                             transition={{ duration: 0.3, ease }}
+                            className="h-full"
                           >
                             <Card
-                              className={`group hover:shadow-elegant transition-all duration-300 overflow-hidden ${project.hasPage ? 'cursor-pointer' : ''}`}
+                              className={`group hover:shadow-elegant transition-all duration-300 overflow-hidden h-full flex flex-col ${project.hasPage ? 'cursor-pointer' : ''}`}
                               onClick={() => handleCardClick(project)}
                             >
                               <div className="aspect-[16/10] bg-muted relative overflow-hidden">
@@ -134,7 +135,7 @@ const Projects = () => {
                                   </div>
                                 )}
                               </div>
-                              <CardHeader className="py-4 px-5">
+                              <CardHeader className="py-4 px-5 flex-1">
                                 <div className="flex items-center justify-between gap-2 mb-2">
                                   <CardTitle className="text-lg leading-snug">{project.title}</CardTitle>
                                 </div>
@@ -144,7 +145,7 @@ const Projects = () => {
                                   {project.keyDecisions && <p><span className="font-medium text-foreground/70">Key Decisions:</span> {project.keyDecisions}</p>}
                                 </div>
                               </CardHeader>
-                              <CardContent className="pt-0 px-5 pb-4">
+                              <CardContent className="pt-0 px-5 pb-4 mt-auto">
                                 <div className="flex flex-wrap gap-2">
                                   {project.technologies.slice(0, 3).map((tech, i) => (
                                     <span key={i} className="text-xs bg-secondary text-secondary-foreground px-2.5 py-1 rounded-full">{tech}</span>

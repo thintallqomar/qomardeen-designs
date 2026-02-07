@@ -29,7 +29,7 @@ const Footer = () => {
                   <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">QTT</span>
                   <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
                 </div>
-                <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">A product designer with a background in fashion design, building thoughtful, human-centered digital experiences through strong systems thinking and visual precision.</p>
+                <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">Product Designer focused on building scalable, user-centered digital products. Experienced in shipping real-world projects from discovery to production.</p>
                 <div className="flex items-center gap-4">
                   {socialLinks.map((link, index) => (
                     <motion.a

@@ -1,37 +1,66 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle, Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle, Globe, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
-import emailjs from '@emailjs/browser';
+import { z } from 'zod';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100),
+  email: z.string().trim().email('Invalid email address').max(255),
+  subject: z.string().trim().min(1, 'Subject is required').max(200),
+  message: z.string().trim().min(1, 'Message is required').max(2000),
+});
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors(prev => { const n = { ...prev }; delete n[e.target.name]; return n; });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.errors.forEach(err => {
+        if (err.path[0]) fieldErrors[err.path[0] as string] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      await emailjs.send('service_rzan6ys', 'template_qr2qk7j', {
-        from_name: formData.name, from_email: formData.email,
-        subject: formData.subject, message: formData.message, to_name: 'Qomardeen Tijani',
-      }, '4uu54qdOq-iAYRu50');
-      toast({ title: "Message sent successfully!", description: "Thank you for reaching out. I'll get back to you soon." });
+      const { error } = await supabase.from('contact_submissions').insert({
+        name: result.data.name,
+        email: result.data.email,
+        subject: result.data.subject,
+        message: result.data.message,
+      });
+
+      if (error) throw error;
+
+      setIsSuccess(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
+      toast({ title: "Message sent!", description: "Thank you for reaching out. I'll get back to you soon." });
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Submission error:', error);
       toast({ title: "Failed to send message", description: "Something went wrong. Please try again or contact me directly.", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
@@ -103,38 +132,67 @@ const Contact = () => {
 
             <ScrollReveal direction="right" delay={0.15}>
               <div className="card-elegant flex flex-col h-full">
-                <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
-                <form onSubmit={handleSubmit} className="flex flex-col flex-1">
-                  <div className="space-y-6 flex-1 flex flex-col">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-medium">Name *</label>
-                        <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Your full name" required className="border-border focus:border-primary" />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm font-medium">Email *</label>
-                        <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" required className="border-border focus:border-primary" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="subject" className="text-sm font-medium">Subject *</label>
-                      <Input id="subject" name="subject" value={formData.subject} onChange={handleChange} placeholder="What's this about?" required className="border-border focus:border-primary" />
-                    </div>
-                    <div className="space-y-2 flex-1 flex flex-col">
-                      <label htmlFor="message" className="text-sm font-medium">Message *</label>
-                      <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Tell me about your project or just say hello..." required className="border-border focus:border-primary resize-none flex-1 min-h-[120px]" />
-                    </div>
-                  </div>
-                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
-                    <Button type="submit" disabled={isSubmitting} className="w-full btn-primary disabled:opacity-50 mt-6">
-                      {isSubmitting ? (
-                        <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>Sending...</>
-                      ) : (
-                        <><Send className="w-4 h-4 mr-2" />Send Message</>
-                      )}
-                    </Button>
-                  </motion.div>
-                </form>
+                <AnimatePresence mode="wait">
+                  {isSuccess ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex flex-col items-center justify-center flex-1 py-12 text-center"
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
+                        className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6"
+                      >
+                        <CheckCircle className="w-8 h-8 text-primary" />
+                      </motion.div>
+                      <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
+                      <p className="text-muted-foreground mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+                      <Button variant="outline" onClick={() => setIsSuccess(false)}>Send Another Message</Button>
+                    </motion.div>
+                  ) : (
+                    <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col flex-1">
+                      <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+                      <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+                        <div className="space-y-6 flex-1 flex flex-col">
+                          <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <label htmlFor="name" className="text-sm font-medium">Name *</label>
+                              <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Your full name" className={`border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`} />
+                              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
+                            </div>
+                            <div className="space-y-2">
+                              <label htmlFor="email" className="text-sm font-medium">Email *</label>
+                              <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="your.email@example.com" className={`border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`} />
+                              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="subject" className="text-sm font-medium">Subject *</label>
+                            <Input id="subject" name="subject" value={formData.subject} onChange={handleChange} placeholder="What's this about?" className={`border-border focus:border-primary ${errors.subject ? 'border-destructive' : ''}`} />
+                            {errors.subject && <p className="text-xs text-destructive">{errors.subject}</p>}
+                          </div>
+                          <div className="space-y-2 flex-1 flex flex-col">
+                            <label htmlFor="message" className="text-sm font-medium">Message *</label>
+                            <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Tell me about your project or just say hello..." className={`border-border focus:border-primary resize-none flex-1 min-h-[120px] ${errors.message ? 'border-destructive' : ''}`} />
+                            {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
+                          </div>
+                        </div>
+                        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
+                          <Button type="submit" disabled={isSubmitting} className="w-full btn-primary disabled:opacity-50 mt-6">
+                            {isSubmitting ? (
+                              <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sending...</>
+                            ) : (
+                              <><Send className="w-4 h-4 mr-2" />Send Message</>
+                            )}
+                          </Button>
+                        </motion.div>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </ScrollReveal>
           </div>

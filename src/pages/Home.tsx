@@ -9,10 +9,10 @@ const Home = () => {
     <PageTransition>
       <div className="min-h-screen">
         <Navigation />
-        <main>
-          <Hero />
-          <Skills />
-        </main>
+         <main className="pt-16">
+           <Hero />
+           <Skills />
+         </main>
         <Footer />
       </div>
     </PageTransition>

@@ -40,6 +40,7 @@ const StaggeredReveal = ({
       {items.map((child, index) => (
         <motion.div
           key={index}
+          className="h-full"
           initial={{
             opacity: 0,
             x: x * distance,

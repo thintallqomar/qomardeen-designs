@@ -53,7 +53,7 @@ const About = () => {
           <StaggeredReveal className="grid md:grid-cols-2 gap-8" staggerDelay={0.15}>
             {/* Education */}
             <motion.div
-              className="card-elegant"
+              className="card-elegant h-full flex flex-col"
               whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
               transition={{ duration: 0.3, ease }}
             >
@@ -77,7 +77,7 @@ const About = () => {
 
             {/* Experience */}
             <motion.div
-              className="card-elegant"
+              className="card-elegant h-full flex flex-col"
               whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
               transition={{ duration: 0.3, ease }}
             >

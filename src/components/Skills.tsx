@@ -49,7 +49,7 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <motion.div
                 key={index}
-                className="card-elegant group h-full flex flex-col"
+                className="card-elegant group"
                 whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >

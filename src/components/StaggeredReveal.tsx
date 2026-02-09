@@ -10,6 +10,7 @@ interface StaggeredRevealProps {
   direction?: 'up' | 'down' | 'left' | 'right';
   distance?: number;
   once?: boolean;
+  equalHeight?: boolean;
 }
 
 const directionMap = {
@@ -28,6 +29,7 @@ const StaggeredReveal = ({
   direction = 'up',
   distance = 24,
   once = true,
+  equalHeight = false,
 }: StaggeredRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: '-40px' });
@@ -40,7 +42,7 @@ const StaggeredReveal = ({
       {items.map((child, index) => (
         <motion.div
           key={index}
-          className="h-full"
+          className={equalHeight ? "h-full" : undefined}
           initial={{
             opacity: 0,
             x: x * distance,

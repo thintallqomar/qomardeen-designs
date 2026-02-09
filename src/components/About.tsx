@@ -50,7 +50,7 @@ const About = () => {
             </motion.div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-2 gap-8" staggerDelay={0.15}>
+          <StaggeredReveal className="grid md:grid-cols-2 gap-8" staggerDelay={0.15} equalHeight>
             {/* Education */}
             <motion.div
               className="card-elegant h-full flex flex-col"

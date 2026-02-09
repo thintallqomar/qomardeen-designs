@@ -47,7 +47,7 @@ const WhyImAGoodFit = () => {
             {strengths.map((item, index) => (
               <motion.div
                 key={index}
-                className="text-center p-6 card-elegant"
+                className="text-center p-6 card-elegant h-full flex flex-col items-center"
                 whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >

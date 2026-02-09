@@ -43,7 +43,7 @@ const WhyImAGoodFit = () => {
             </div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-3 gap-6 mt-12" staggerDelay={0.12}>
+          <StaggeredReveal className="grid md:grid-cols-3 gap-6 mt-12" staggerDelay={0.12} equalHeight>
             {strengths.map((item, index) => (
               <motion.div
                 key={index}

@@ -45,7 +45,7 @@ const Skills = () => {
             </div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-3 gap-6 mb-16" staggerDelay={0.12}>
+          <StaggeredReveal className="grid md:grid-cols-3 gap-6 mb-16" staggerDelay={0.12} equalHeight>
             {skillCategories.map((category, index) => (
               <motion.div
                 key={index}

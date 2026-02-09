@@ -184,12 +184,13 @@ const Projects = () => {
                       {placeholderProjects.map((project, index) => (
                         <motion.div
                           key={project.id}
+                          className="h-full"
                           initial={{ opacity: 0, y: 16 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: index * 0.08, duration: 0.4, ease }}
                         >
-                          <Card className="group transition-all duration-300 overflow-hidden opacity-70">
+                          <Card className="group transition-all duration-300 overflow-hidden opacity-70 h-full flex flex-col">
                             <div className="aspect-video bg-muted/50 relative overflow-hidden flex items-center justify-center">
                               <Clock className="w-8 h-8 text-muted-foreground" />
                             </div>

@@ -6,18 +6,20 @@ import DesignPhilosophy from '@/components/DesignPhilosophy';
 import WhyImAGoodFit from '@/components/WhyImAGoodFit';
 
 const About = () => {
-  return (
-    <PageTransition>
-      <div className="min-h-screen">
-        <Navigation />
-        <main className="pt-20">
-          <AboutSection />
-          <DesignPhilosophy />
-          <WhyImAGoodFit />
-        </main>
-        <Footer />
-      </div>
-    </PageTransition>
+    return (
+    <>
+      <Navigation />
+      <PageTransition>
+        <div className="min-h-screen">
+          <main className="pt-20">
+            <AboutSection />
+            <DesignPhilosophy />
+            <WhyImAGoodFit />
+          </main>
+          <Footer />
+        </div>
+      </PageTransition>
+    </>
   );
 };
 

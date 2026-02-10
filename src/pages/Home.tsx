@@ -5,17 +5,19 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 
 const Home = () => {
-  return (
-    <PageTransition>
-      <div className="min-h-screen">
-        <Navigation />
-        <main className="pt-16">
-          <Hero />
-          <Skills />
-        </main>
-        <Footer />
-      </div>
-    </PageTransition>
+    return (
+    <>
+      <Navigation />
+      <PageTransition>
+        <div className="min-h-screen">
+          <main className="pt-16">
+            <Hero />
+            <Skills />
+          </main>
+          <Footer />
+        </div>
+      </PageTransition>
+    </>
   );
 };
 

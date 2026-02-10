@@ -106,14 +106,16 @@ const WalPayProject = () => {
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set([...prev, index]));
   };
-  return <PageTransition>
+  return <>
+      <Navigation />
+      <PageTransition>
       <div className="min-h-screen">
         {/* Reading Progress Bar */}
         <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
           <Progress value={scrollProgress} className="h-1 rounded-none" />
         </div>
         
-        <Navigation />
+        
         
         {/* Back to Projects - Fixed */}
         <div className="fixed top-20 left-4 z-40">
@@ -239,6 +241,7 @@ const WalPayProject = () => {
           onNavigate={setViewerIndex}
         />
       </div>
-    </PageTransition>;
+    </PageTransition>
+    </>;
 };
 export default WalPayProject;

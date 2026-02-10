@@ -88,7 +88,7 @@ const UptimeProject = () => {
           </Button>
         </div>
 
-        <main className="pt-20">
+        <main className="pt-14">
           {/* Project Hero */}
           <section className="section-padding bg-gradient-subtle">
             <div className="container-custom">

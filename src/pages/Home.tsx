@@ -10,7 +10,7 @@ const Home = () => {
       <Navigation />
       <PageTransition>
         <div className="min-h-screen">
-          <main className="pt-16">
+          <main className="pt-14">
             <Hero />
             <Skills />
           </main>

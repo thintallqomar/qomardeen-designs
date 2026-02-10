@@ -11,7 +11,7 @@ const About = () => {
       <Navigation />
       <PageTransition>
         <div className="min-h-screen">
-          <main className="pt-20">
+          <main className="pt-14">
             <AboutSection />
             <DesignPhilosophy />
             <WhyImAGoodFit />

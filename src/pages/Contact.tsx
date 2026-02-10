@@ -9,7 +9,7 @@ const Contact = () => {
       <Navigation />
       <PageTransition>
         <div className="min-h-screen">
-          <main className="pt-20">
+          <main className="pt-14">
             <ContactSection />
           </main>
           <Footer />

@@ -1,6 +1,11 @@
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
-import Skills from '@/components/Skills';
+import FeaturedProjects from '@/components/FeaturedProjects';
+import DesignPhilosophy from '@/components/DesignPhilosophy';
+import ArchitecturePreview from '@/components/ArchitecturePreview';
+import AIAssistantPreview from '@/components/AIAssistantPreview';
+import LatestInsights from '@/components/LatestInsights';
+import HireCTA from '@/components/HireCTA';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 
@@ -12,7 +17,12 @@ const Home = () => {
         <div className="min-h-screen">
           <main className="pt-14">
             <Hero />
-            <Skills />
+            <FeaturedProjects />
+            <DesignPhilosophy />
+            <ArchitecturePreview />
+            <AIAssistantPreview />
+            <LatestInsights />
+            <HireCTA />
           </main>
           <Footer />
         </div>

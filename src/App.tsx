@@ -10,6 +10,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import UptimeProject from "./pages/UptimeProject";
 import WalPayProject from "./pages/WalPayProject";
+import Architecture from "./pages/Architecture";
+import Blog from "./pages/Blog";
+import Thinking from "./pages/Thinking";
+import Hire from "./pages/Hire";
 import NotFound from "./pages/NotFound";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
 
@@ -28,6 +32,10 @@ const AnimatedRoutes = () => {
         <Route path="/projects/walpay" element={<WalPayProject />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/architecture" element={<Architecture />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/thinking" element={<Thinking />} />
+        <Route path="/hire" element={<Hire />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

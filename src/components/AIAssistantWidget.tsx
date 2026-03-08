@@ -496,6 +496,49 @@ const AIAssistantWidget = () => {
                 </div>
               ))}
 
+              {/* Blog draft confirmation card */}
+              {pendingBlogDraft && !blogPublishing && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mx-1 p-3 rounded-2xl border border-primary/30 bg-primary/5"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <FileText className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-semibold text-foreground">Blog Draft Ready</span>
+                  </div>
+                  <p className="text-[12px] text-muted-foreground mb-1 font-medium">{pendingBlogDraft.title}</p>
+                  <p className="text-[11px] text-muted-foreground/70 mb-3">{pendingBlogDraft.excerpt}</p>
+                  <div className="flex gap-2">
+                    <motion.button
+                      onClick={handleConfirmBlog}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-medium"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      Publish
+                    </motion.button>
+                    <motion.button
+                      onClick={handleRejectBlog}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-border text-foreground/70 text-xs font-medium"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <XCircle className="w-3.5 h-3.5" />
+                      Discard
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+
+              {blogPublishing && (
+                <div className="flex items-center gap-2 mx-1 p-3 rounded-2xl border border-primary/30 bg-primary/5">
+                  <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                  <span className="text-xs text-foreground/70">Publishing blog post...</span>
+                </div>
+              )}
+
               {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
                 <div className="flex justify-start">
                   <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">

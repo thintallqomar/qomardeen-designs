@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Ilé",
+    "projects": "Iṣẹ́",
+    "architecture": "Ìlànà Ètò",
+    "blog": "Àkọsílẹ̀",
+    "thinking": "Ìrònú",
+    "hire": "Gbà Mí",
+    "about": "Nípa Mi",
+    "explore": "Ṣàwárí",
+    "architectureDesc": "Àpẹẹrẹ ètò & ìlànà",
+    "thinkingDesc": "Àkọlé & ìlànà ìrònú",
+    "aboutDesc": "Ìtàn àti ìrírí"
+  },
+  "hero": {
+    "available": "Wà fún iṣẹ́ tuntun",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Olùṣe Àpẹẹrẹ Ọja",
+    "description": "Ṣíṣe àpẹẹrẹ ọja oníṣirò tó ń gbòòrò ní àárín UX, AI, àti ìrònú ètò.",
+    "cta_explore": "Wo Àwọn Ìwádìí",
+    "cta_hire": "Gbà Mí",
+    "skills": ["Àpẹẹrẹ UI", "Ìwádìí UX", "Àpẹẹrẹ Ọja", "Ìrònú Ètò", "Ìdapọ̀ AI"],
+    "badge": "Olùṣe Àpẹẹrẹ Ọja"
+  },
+  "metrics": {
+    "projects": "Iṣẹ́ Tí A Fi Ránṣẹ́",
+    "experience": "Ọdún Ìrírí",
+    "users": "Àwọn Olùlò Tí A Kàn",
+    "satisfaction": "Ìtẹ́lọ́rùn Aṣàmúlò"
+  },
+  "featured": {
+    "title": "Àwọn Iṣẹ́ Pàtàkì",
+    "subtitle": "Àwọn ìwádìí tó ṣe àfihàn àpẹẹrẹ ọja tó ń gbòòrò",
+    "viewCase": "Wo Ìwádìí",
+    "uptime": {
+      "industry": "SaaS Iléeṣẹ́",
+      "problem": "Ìṣàkóso dúkìá tó nira kò ní ìmọ́lẹ̀ àti àgbékalẹ̀"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Ìfiranse owó àgbáyé nílò ìgbẹ́kẹ̀lé àti ìlànà fóònù"
+    },
+    "ecommerce": {
+      "industry": "Àtúpalẹ̀ Tita",
+      "problem": "Àwọn pánẹ́ẹ̀lì dátà nílò ètò ìmọ̀ tó wúlò"
+    }
+  },
+  "philosophy": {
+    "title": "Ìmọ̀ Àpẹẹrẹ",
+    "items": [
+      "Ìmọ̀ àpẹẹrẹ mi dá lórí ìmọ́lẹ̀, ète, àti lílò. Mo gbàgbọ́ pé àpẹẹrẹ tó dára gbọdọ̀ rọrùn—kì í ṣe nítorí pé ó rọrùn, ṣùgbọ́n nítorí pé a ti ṣètò rẹ̀ dáadáa.",
+      "Mo fi pàtàkì sí yíyanjú ìṣòro tó tọ́ kí n tó rí ẹwà. Ẹwà ṣe pàtàkì, ṣùgbọ́n lẹ́yìn tí a bá ti yanjú ètò, ìtòlẹ́sẹẹsẹ, àti lílò.",
+      "Mo ṣe àpẹẹrẹ pẹ̀lú ìmọ̀ pé àwọn olùlò kì í ka àwọn atọ́kùn ní àlàyé—wọ́n máa ń wo lásán. Èyí ló ń darí bí mo ṣe ń ṣètò àwọn pánẹ́ẹ̀lì.",
+      "Mo tún rònú ju àwọn ojú ìbòjú kọ̀ọ̀kan lọ, mo sì ń dojú kọ àwọn ètò. Àwọn ẹ̀rọ tó bára mu, ìlànà àlàfo, àti ìwọ̀n lẹ́tà máa ń mú ìrírí olùlò àti iṣẹ́ ẹgbẹ́ dára sí i.",
+      "Ju gbogbo rẹ̀ lọ, mo rí àpẹẹrẹ gẹ́gẹ́ bí ìlànà ẹ̀kọ́ tó ń tẹ̀síwájú, tí a ń mú dára sí i nípasẹ̀ èsì, àtúnṣe, àti lílò gidi."
+    ]
+  },
+  "architecture": {
+    "title": "Ìlànà Ètò & Àpẹẹrẹ",
+    "subtitle": "Bí mo ṣe ń rònú nípa àwọn ètò ọja ju atọ́kùn lọ",
+    "explore": "Ṣàwárí Ìlànà Ètò",
+    "database": {
+      "title": "Àpẹẹrẹ Ìlànà Dátà",
+      "desc": "Àpẹẹrẹ ìlànà tó ń gbòòrò fún àwọn ọja SaaS àti fintech"
+    },
+    "flows": {
+      "title": "Ìṣàn Ètò & APIs",
+      "desc": "Ìlànà ètò láti ìbẹ̀rẹ̀ dé òpin fún àwọn iṣẹ́ ọja tó nira"
+    },
+    "scaling": {
+      "title": "Ìlànà Àgbékalẹ̀",
+      "desc": "Àwọn ìpinnu àti ìyàtọ̀ lẹ́yìn àwọn ètò tó ṣetán fún lílo"
+    }
+  },
+  "atlas": {
+    "title": "Pàdé Atlas",
+    "subtitle": "Ìtọ́sọ́nà àpamọ́ tí AI ń ṣe — ṣàwárí àwọn iṣẹ́, béèrè ìbéèrè, kí o sì lọ ní ọ̀fẹ́",
+    "prompt1": "Ṣàlàyé iṣẹ́ fintech",
+    "prompt2": "Fi àwọn ìwádìí hàn",
+    "prompt3": "Bí a ṣe lè gbà mí",
+    "hint": "Tẹ orb ní igun ìsàlẹ̀ ọ̀tún láti bẹ̀rẹ̀"
+  },
+  "insights": {
+    "title": "Àwọn Ìmọ̀ Tuntun",
+    "subtitle": "Ìrònú lórí àpẹẹrẹ ọja, ìrònú ètò, àti AI",
+    "read": "Ka",
+    "viewAll": "Wo Gbogbo Àkọsílẹ̀"
+  },
+  "hireCta": {
+    "available": "Wà fún iṣẹ́",
+    "title": "Jẹ́ Ká Kọ́ Nǹkan Ńlá",
+    "subtitle": "Ṣé o ń wá olùṣe àpẹẹrẹ ọja tó mọ̀ nípa àwọn ètò, tó ń fi ọja ránṣẹ́ gidi, tó sì ń bá ènìyàn sọ̀rọ̀ dáadáa? Jẹ́ ká sọ̀rọ̀.",
+    "cta": "Gbà Mí",
+    "schedule": "Ṣètò Ìpè"
+  },
+  "footer": {
+    "description": "Olùṣe Àpẹẹrẹ Ọja tó dojú kọ kíkọ́ àwọn ọja oníṣirò tó ń gbòòrò tó sì dá lórí olùlò. Ó ní ìrírí nínú fífi àwọn iṣẹ́ gidi ránṣẹ́ láti ìwádìí dé iṣẹ́.",
+    "quickLinks": "Àwọn Ìjápọ̀ Kíákíá",
+    "getInTouch": "Kàn Sí Wa",
+    "location": "Nàìjíríà",
+    "availableTitle": "Wà fún àwọn àǹfààní",
+    "availableDesc": "Ṣí sílẹ̀ fún iṣẹ́ aládàáṣe àti ipò pípé",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Gbogbo ẹ̀tọ́ ni a pamọ́.",
+    "tagline": "Ṣé o ní ìpèníjà tó nira tó fẹ́ yanjú? Mo ṣetán láti gbọ́. Jẹ́ ká wá ojútùú tó rọrùn tó sì ṣe tuntun."
+  },
+  "newsletter": {
+    "title": "Dúró Ní Ìmúdójúìwọ̀n",
+    "placeholder": "Tẹ ìmeèlì rẹ",
+    "subscribe": "Forúkọsílẹ̀"
+  }
+}

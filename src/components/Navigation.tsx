@@ -51,7 +51,7 @@ const Navigation = () => {
   ];
 
   const isActive = (href: string) => {
-    const currentPath = location.pathname.replace(/^\/(en|fr|es)/, '') || '/';
+    const currentPath = location.pathname.replace(/^\/(en|fr|es|yo|ha|ig|pcm|ar)/, '') || '/';
     if (href === '/') return currentPath === '/';
     return currentPath.startsWith(href);
   };
@@ -59,7 +59,7 @@ const Navigation = () => {
   const isExploreActive = exploreItems.some(item => isActive(item.href));
 
   const switchLanguage = (newLang: SupportedLanguage) => {
-    const currentPath = location.pathname.replace(/^\/(en|fr|es)/, '') || '';
+    const currentPath = location.pathname.replace(/^\/(en|fr|es|yo|ha|ig|pcm|ar)/, '') || '';
     i18n.changeLanguage(newLang);
     navigate(`/${newLang}${currentPath}`);
     setLangOpen(false);

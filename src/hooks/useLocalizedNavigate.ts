@@ -2,6 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
+const LANG_PREFIX_RE = /^\/(en|fr|es|yo|ha|ig|pcm|ar)/;
+
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
   const { lang } = useParams<{ lang: string }>();
@@ -10,13 +12,11 @@ export const useLocalizedNavigate = () => {
 
   const localizedNavigate = useCallback(
     (path: string) => {
-      // Don't prefix admin routes or absolute URLs
       if (path.startsWith('/admin') || path.startsWith('http')) {
         navigate(path);
         return;
       }
-      // Strip any existing language prefix
-      const cleanPath = path.replace(/^\/(en|fr|es)/, '') || '/';
+      const cleanPath = path.replace(LANG_PREFIX_RE, '') || '/';
       navigate(`/${currentLang}${cleanPath === '/' ? '' : cleanPath}`);
     },
     [navigate, currentLang]
@@ -33,7 +33,7 @@ export const useLocalizedPath = () => {
   return useCallback(
     (path: string) => {
       if (path.startsWith('/admin') || path.startsWith('http')) return path;
-      const cleanPath = path.replace(/^\/(en|fr|es)/, '') || '/';
+      const cleanPath = path.replace(LANG_PREFIX_RE, '') || '/';
       return `/${currentLang}${cleanPath === '/' ? '' : cleanPath}`;
     },
     [currentLang]

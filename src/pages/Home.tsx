@@ -18,6 +18,7 @@ const Home = () => {
         <div className="min-h-screen">
           <main className="pt-14">
             <Hero />
+            <AnimatedMetrics />
             <FeaturedProjects />
             <DesignPhilosophy />
             <ArchitecturePreview />

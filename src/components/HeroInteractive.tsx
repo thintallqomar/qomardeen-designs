@@ -156,7 +156,7 @@ const HeroInteractive = () => {
                     <span className="text-muted-foreground text-sm">QT</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent translate-x-[400px]" />
               </div>
               <div className="absolute -right-6 -bottom-4 md:-right-8 md:-bottom-5 w-16 h-16 md:w-20 md:h-20 rounded-full border border-border bg-background flex items-center justify-center">
                 <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground tracking-widest uppercase leading-tight text-center">

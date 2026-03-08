@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
-import { supportedLanguages, languageNames, languageFlags, type SupportedLanguage } from '@/i18n';
+import { supportedLanguages, languageNames, getFlagUrl, type SupportedLanguage } from '@/i18n';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {

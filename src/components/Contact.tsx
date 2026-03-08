@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 import { z } from 'zod';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
@@ -47,7 +48,6 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      // Save to database
       const { error } = await supabase.from('contact_submissions').insert({
         name: result.data.name,
         email: result.data.email,
@@ -57,7 +57,6 @@ const Contact = () => {
 
       if (error) throw error;
 
-      // Send email notification
       const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: result.data.name,
@@ -69,7 +68,6 @@ const Contact = () => {
 
       if (emailError) {
         console.error('Email notification error:', emailError);
-        // Don't fail the whole submission if email fails
       }
 
       setIsSuccess(true);
@@ -84,12 +82,12 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: <Mail className="w-5 h-5" />, label: "Email", value: "qomardeentylertijani@gmail.com", href: "mailto:qomardeentylertijani@gmail.com" },
-    { icon: <Phone className="w-5 h-5" />, label: "Phone", value: "+2348139469192", href: "tel:+2348139469192" },
-    { icon: <MapPin className="w-5 h-5" />, label: "Location", value: "Nigeria", href: null },
-    { icon: <Linkedin className="w-5 h-5" />, label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com/in/qomardeen-tijani" },
-    { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>, label: "X (Twitter)", value: "@the_Qomardeen", href: "https://x.com/the_Qomardeen" },
-    { icon: <Globe className="w-5 h-5" />, label: "Book a Call", value: "Schedule a meeting", href: "https://cal.com/the_Qomardeen" },
+    { icon: <Mail />, variant: 'blue' as const, label: "Email", value: "qomardeentylertijani@gmail.com", href: "mailto:qomardeentylertijani@gmail.com" },
+    { icon: <Phone />, variant: 'emerald' as const, label: "Phone", value: "+2348139469192", href: "tel:+2348139469192" },
+    { icon: <MapPin />, variant: 'rose' as const, label: "Location", value: "Nigeria", href: null },
+    { icon: <Linkedin />, variant: 'accent' as const, label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com/in/qomardeen-tijani" },
+    { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>, variant: 'primary' as const, label: "X (Twitter)", value: "@the_Qomardeen", href: "https://x.com/the_Qomardeen" },
+    { icon: <Globe />, variant: 'teal' as const, label: "Book a Call", value: "Schedule a meeting", href: "https://cal.com/the_Qomardeen" },
   ];
 
   return (
@@ -116,7 +114,9 @@ const Contact = () => {
                     transition={{ duration: 0.25, ease }}
                   >
                     <div className="flex items-center gap-4">
-                      <div className="p-3 bg-secondary rounded-lg text-foreground">{item.icon}</div>
+                      <Icon3D variant={item.variant} size="md">
+                        {item.icon}
+                      </Icon3D>
                       <div className="flex-1">
                         <div className="text-sm text-muted-foreground">{item.label}</div>
                         {item.href ? (
@@ -135,8 +135,10 @@ const Contact = () => {
 
               <ScrollReveal delay={0.3}>
                 <div className="bg-gradient-subtle p-6 rounded-xl border border-border mt-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <CheckCircle className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-3 mb-3">
+                    <Icon3D variant="success" size="sm">
+                      <CheckCircle />
+                    </Icon3D>
                     <span className="font-medium">Currently Available</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -160,9 +162,10 @@ const Contact = () => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
-                        className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6"
                       >
-                        <CheckCircle className="w-8 h-8 text-primary" />
+                        <Icon3D variant="success" size="xl" className="mb-6">
+                          <CheckCircle />
+                        </Icon3D>
                       </motion.div>
                       <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
                       <p className="text-muted-foreground mb-6">Thank you for reaching out. I'll get back to you soon.</p>

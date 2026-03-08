@@ -2,12 +2,13 @@ import { CheckCircle, Lightbulb, Users, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const WhyImAGoodFit = () => {
   const strengths = [
-    { icon: <Lightbulb className="w-6 h-6 text-primary" />, title: "Structured Thinking", desc: "Comfortable with complex interfaces and data-heavy dashboards" },
-    { icon: <Users className="w-6 h-6 text-primary" />, title: "Collaborative", desc: "Clear communication and openness to feedback" },
-    { icon: <TrendingUp className="w-6 h-6 text-primary" />, title: "Growth-Oriented", desc: "Proactive about learning and improving my process" },
+    { icon: <Lightbulb />, variant: 'amber' as const, title: "Structured Thinking", desc: "Comfortable with complex interfaces and data-heavy dashboards" },
+    { icon: <Users />, variant: 'blue' as const, title: "Collaborative", desc: "Clear communication and openness to feedback" },
+    { icon: <TrendingUp />, variant: 'emerald' as const, title: "Growth-Oriented", desc: "Proactive about learning and improving my process" },
   ];
 
   return (
@@ -24,17 +25,17 @@ const WhyImAGoodFit = () => {
             <div className="card-elegant">
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                    <CheckCircle className="w-6 h-6 text-primary" />
-                  </div>
+                  <Icon3D variant="success" size="md">
+                    <CheckCircle />
+                  </Icon3D>
                   <p className="text-muted-foreground leading-relaxed">
                     I would be a strong fit for this role because I combine structured thinking with a practical, hands-on approach to design. I am comfortable working on complex interfaces such as dashboards and operational tools, while also understanding the importance of clarity and visual hierarchy on user-facing pages.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">
-                    <TrendingUp className="w-6 h-6 text-primary" />
-                  </div>
+                  <Icon3D variant="rose" size="md">
+                    <TrendingUp />
+                  </Icon3D>
                   <p className="text-muted-foreground leading-relaxed">
                     As a junior–mid level designer, I am proactive about learning, open to feedback, and intentional about improving my process. I value collaboration, communicate design decisions clearly, and design with scalability in mind—making me well-suited to contribute meaningfully while continuing to grow within a product-focused team.
                   </p>
@@ -51,9 +52,9 @@ const WhyImAGoodFit = () => {
                 whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Icon3D variant={item.variant} size="lg" className="mx-auto mb-4">
                   {item.icon}
-                </div>
+                </Icon3D>
                 <h4 className="font-medium mb-2">{item.title}</h4>
                 <p className="text-sm text-muted-foreground">{item.desc}</p>
               </motion.div>

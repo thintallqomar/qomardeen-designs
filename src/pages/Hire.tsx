@@ -3,11 +3,11 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import StaggeredReveal from '@/components/StaggeredReveal';
+import Icon3D from '@/components/Icon3D';
 import {
   Linkedin, Mail, Calendar, Sparkles, Zap, Users, Layers,
   ArrowRight, CheckCircle, Target, Lightbulb, Rocket,
-  Clock, Globe, MessageSquare, Palette, Code2, BarChart3,
-  Heart, Star
+  Clock, Code2,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -18,22 +18,26 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 /* ── Value Props ── */
 const valueProps = [
   {
-    icon: <Target className="w-6 h-6 text-primary" />,
+    icon: <Target />,
+    variant: 'rose' as const,
     title: 'Product-Led Thinking',
     description: 'I don\'t just design screens — I understand business goals, user pain points, and how design drives measurable outcomes.',
   },
   {
-    icon: <Layers className="w-6 h-6 text-primary" />,
+    icon: <Layers />,
+    variant: 'violet' as const,
     title: 'Systems Over Screens',
     description: 'Every component I create fits into a scalable system. Design tokens, reusable patterns, and consistent logic across surfaces.',
   },
   {
-    icon: <Code2 className="w-6 h-6 text-primary" />,
+    icon: <Code2 />,
+    variant: 'teal' as const,
     title: 'Design ↔ Dev Bridge',
     description: 'I understand how engineers think. I deliver specs they can actually build from — clear handoffs, logical component structures, and AI-assisted prototyping.',
   },
   {
-    icon: <Zap className="w-6 h-6 text-primary" />,
+    icon: <Zap />,
+    variant: 'amber' as const,
     title: 'Ship Fast, Ship Right',
     description: 'From discovery to deployment in weeks, not months. I move quickly without sacrificing quality or user experience.',
   },
@@ -41,10 +45,10 @@ const valueProps = [
 
 /* ── Process Steps ── */
 const processSteps = [
-  { icon: <Lightbulb className="w-5 h-5" />, step: '01', title: 'Discovery', description: 'Understand the problem, users, business context, and constraints.' },
-  { icon: <Palette className="w-5 h-5" />, step: '02', title: 'Design', description: 'Wireframes → high-fidelity UI → interactive prototypes with real data thinking.' },
-  { icon: <Rocket className="w-5 h-5" />, step: '03', title: 'Build & Handoff', description: 'Design system specs, developer-ready documentation, and AI-assisted prototyping for seamless implementation.' },
-  { icon: <Rocket className="w-5 h-5" />, step: '04', title: 'Deliver', description: 'QA, iteration, launch support, and documentation for long-term maintainability.' },
+  { icon: <Lightbulb />, variant: 'amber' as const, step: '01', title: 'Discovery', description: 'Understand the problem, users, business context, and constraints.' },
+  { icon: <Target />, variant: 'rose' as const, step: '02', title: 'Design', description: 'Wireframes → high-fidelity UI → interactive prototypes with real data thinking.' },
+  { icon: <Rocket />, variant: 'blue' as const, step: '03', title: 'Build & Handoff', description: 'Design system specs, developer-ready documentation, and AI-assisted prototyping for seamless implementation.' },
+  { icon: <Rocket />, variant: 'emerald' as const, step: '04', title: 'Deliver', description: 'QA, iteration, launch support, and documentation for long-term maintainability.' },
 ];
 
 /* ── Services ── */
@@ -61,12 +65,12 @@ const services = [
 
 /* ── What You Get ── */
 const deliverables = [
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Pixel-perfect Figma files with auto-layout and variants' },
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Interactive prototypes for stakeholder buy-in' },
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Developer-ready design specs and component documentation' },
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Design system tokens (colors, typography, spacing)' },
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Responsive layouts across all breakpoints' },
-  { icon: <CheckCircle className="w-4 h-4 text-primary" />, text: 'Motion design specs for micro-interactions' },
+  { text: 'Pixel-perfect Figma files with auto-layout and variants' },
+  { text: 'Interactive prototypes for stakeholder buy-in' },
+  { text: 'Developer-ready design specs and component documentation' },
+  { text: 'Design system tokens (colors, typography, spacing)' },
+  { text: 'Responsive layouts across all breakpoints' },
+  { text: 'Motion design specs for micro-interactions' },
 ];
 
 /* ── Top Projects ── */
@@ -170,7 +174,9 @@ const Hire = () => {
                       transition={{ duration: 0.3, ease }}
                     >
                       <div className="flex items-start gap-4">
-                        <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">{item.icon}</div>
+                        <Icon3D variant={item.variant} size="md">
+                          {item.icon}
+                        </Icon3D>
                         <div>
                           <h3 className="font-semibold mb-1">{item.title}</h3>
                           <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -203,9 +209,9 @@ const Hire = () => {
                       transition={{ delay: i * 0.12, duration: 0.5, ease }}
                     >
                       <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                        <Icon3D variant={step.variant} size="lg">
                           {step.icon}
-                        </div>
+                        </Icon3D>
                         {i < processSteps.length - 1 && (
                           <div className="w-px flex-1 bg-border mt-2" />
                         )}
@@ -242,7 +248,9 @@ const Hire = () => {
                       <div className="space-y-3">
                         {deliverables.map((d, i) => (
                           <div key={i} className="flex items-start gap-3">
-                            {d.icon}
+                            <Icon3D variant="success" size="sm">
+                              <CheckCircle />
+                            </Icon3D>
                             <span className="text-sm text-muted-foreground">{d.text}</span>
                           </div>
                         ))}

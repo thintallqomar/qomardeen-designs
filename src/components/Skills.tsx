@@ -2,25 +2,26 @@ import { Palette, Smartphone, Users, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Product Design",
-      icon: <Smartphone className="w-6 h-6" />,
-      color: "bg-primary/15 text-primary",
+      icon: <Smartphone />,
+      variant: 'blue' as const,
       skills: ["UI Design", "UX Research", "Wireframing", "Prototyping", "Interaction Design"]
     },
     {
       title: "Systems & Process",
-      icon: <Layers className="w-6 h-6" />,
-      color: "bg-accent/30 text-accent-foreground",
+      icon: <Layers />,
+      variant: 'violet' as const,
       skills: ["Design Systems", "Component Libraries", "Information Architecture", "Dashboard Design"]
     },
     {
       title: "Collaboration",
-      icon: <Users className="w-6 h-6" />,
-      color: "bg-secondary text-secondary-foreground",
+      icon: <Users />,
+      variant: 'emerald' as const,
       skills: ["Cross-functional Communication", "Stakeholder Alignment", "Iterative Design"]
     }
   ];
@@ -53,9 +54,9 @@ const Skills = () => {
                 whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <div className={`inline-flex p-3 rounded-lg ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <Icon3D variant={category.variant} size="lg" className="mb-4 group-hover:scale-110 transition-transform duration-300">
                   {category.icon}
-                </div>
+                </Icon3D>
                 <h3 className="text-lg font-semibold mb-4">{category.title}</h3>
                 <div className="space-y-2">
                   {category.skills.map((skill, skillIndex) => (
@@ -69,8 +70,10 @@ const Skills = () => {
           <ScrollReveal delay={0.1}>
             <div className="bg-muted/30 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 mb-4">
-                  <Palette className="w-6 h-6 text-primary" />
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <Icon3D variant="rose" size="sm">
+                    <Palette />
+                  </Icon3D>
                   <h3 className="text-2xl font-semibold">Tools & Software</h3>
                 </div>
                 <p className="text-muted-foreground">

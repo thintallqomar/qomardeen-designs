@@ -165,7 +165,7 @@ const HeroInteractive = () => {
                     <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
                   </defs>
                   <text className="fill-foreground" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' }}>
-                    <textPath href="#circlePath" startOffset="0%">{"LET'S WORK TOGETHER •"}</textPath>
+                    <textPath href="#circlePath" startOffset="0%">{"LET'S WORK TOGETHER • LET'S WORK TOGETHER •"}</textPath>
                   </text>
                 </svg>
                 <span className="absolute text-primary text-lg">↗</span>

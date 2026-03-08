@@ -131,7 +131,6 @@ const GuidedWalkthrough = ({
                       alt={step.imageAlt}
                       className="w-full h-full object-contain"
                     />
-                    />
 
                     {/* Hotspots */}
                     {step.hotspots?.map((hotspot, i) => (

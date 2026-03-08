@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import profileImage from '@/assets/new-profile.jpg';
+import profileImage from '@/assets/qomardeen-profile.jpg';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

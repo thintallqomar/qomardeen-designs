@@ -92,7 +92,7 @@ const HeroInteractive = () => {
 
       <div className="relative z-10 w-full">
         {/* "Hello, I'm" */}
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+        <div className="w-fit px-6 md:px-10">
           <motion.div custom={0} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
             <span
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"

@@ -6,6 +6,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
+import { getRelatedPosts } from '@/data/articles';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {
@@ -39,6 +40,7 @@ interface ArticleLayoutProps {
 const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
   const navigate = useNavigate();
   const backPath = post.section === 'thinking' ? '/thinking' : '/blog';
+  const relatedPosts = getRelatedPosts(post.slug, post.category, 3);
 
   return (
     <article className="min-h-screen">
@@ -206,8 +208,45 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                   )}
                 </div>
 
+                {/* Related articles */}
+                {relatedPosts.length > 0 && (
+                  <div className="mt-14 pt-10 border-t border-border">
+                    <h3 className="text-lg font-semibold text-foreground mb-6">Related Articles</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {relatedPosts.map((related) => (
+                        <motion.button
+                          key={related.slug}
+                          onClick={() => navigate(`/article/${related.slug}`)}
+                          className="card-elegant text-left group p-5"
+                          whileHover={{ y: -3 }}
+                        >
+                          {related.heroImage && (
+                            <div className="rounded-lg overflow-hidden mb-3 aspect-[16/9]">
+                              <img
+                                src={related.heroImage}
+                                alt={related.title}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                          )}
+                          <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">
+                            {related.category}
+                          </span>
+                          <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2 block mt-1.5">
+                            {related.title}
+                          </span>
+                          <span className="text-xs text-muted-foreground mt-2 block">
+                            {related.readTime} read
+                          </span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* CTA */}
-                <div className="mt-16 pt-10 border-t border-border">
+                <div className="mt-14 pt-10 border-t border-border">
                   <div className="card-elegant p-8 text-center">
                     <p className="text-muted-foreground mb-5">
                       Enjoyed this article? Let's connect and discuss ideas.

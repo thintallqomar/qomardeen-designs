@@ -178,6 +178,10 @@ const Blog = () => {
                     ))}
                   </div>
                 </div>
+
+                {/* Newsletter */}
+                <NewsletterCapture />
+                </div>
               </div>
             </section>
           </main>

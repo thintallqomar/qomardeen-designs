@@ -100,7 +100,7 @@ const Navigation = () => {
           }}>
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </motion.button>
-            <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary hover:bg-secondary transition-colors">
+            <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary hover:bg-secondary transition-colors" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>

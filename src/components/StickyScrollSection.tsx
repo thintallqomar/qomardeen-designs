@@ -24,7 +24,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
   });
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 55}vh` }}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 45}vh` }}>
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">
         <div className="container-custom w-full">
@@ -89,20 +89,25 @@ function StickyTextBlock({
   const segmentSize = 1 / total;
   const start = index * segmentSize;
   const end = start + segmentSize;
+  const isLast = index === total - 1;
 
-  const opacity = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.1,
-    end - segmentSize * 0.1,
-    end,
-  ], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, 
+    isLast 
+      ? [start, start + segmentSize * 0.1, 1] 
+      : [start, start + segmentSize * 0.1, end - segmentSize * 0.1, end],
+    isLast 
+      ? [0, 1, 1] 
+      : [0, 1, 1, 0]
+  );
 
-  const y = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.1,
-    end - segmentSize * 0.1,
-    end,
-  ], [30, 0, 0, -30]);
+  const y = useTransform(scrollYProgress,
+    isLast
+      ? [start, start + segmentSize * 0.1, 1]
+      : [start, start + segmentSize * 0.1, end - segmentSize * 0.1, end],
+    isLast
+      ? [30, 0, 0]
+      : [30, 0, 0, -30]
+  );
 
   return (
     <motion.div
@@ -149,20 +154,25 @@ function StickyImageBlock({
   const segmentSize = 1 / total;
   const start = index * segmentSize;
   const end = start + segmentSize;
+  const isLast = index === total - 1;
 
-  const opacity = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.12,
-    end - segmentSize * 0.12,
-    end,
-  ], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress,
+    isLast
+      ? [start, start + segmentSize * 0.12, 1]
+      : [start, start + segmentSize * 0.12, end - segmentSize * 0.12, end],
+    isLast
+      ? [0, 1, 1]
+      : [0, 1, 1, 0]
+  );
 
-  const scale = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.12,
-    end - segmentSize * 0.12,
-    end,
-  ], [0.95, 1, 1, 0.95]);
+  const scale = useTransform(scrollYProgress,
+    isLast
+      ? [start, start + segmentSize * 0.12, 1]
+      : [start, start + segmentSize * 0.12, end - segmentSize * 0.12, end],
+    isLast
+      ? [0.95, 1, 1]
+      : [0.95, 1, 1, 0.95]
+  );
 
   return (
     <motion.div
@@ -176,7 +186,6 @@ function StickyImageBlock({
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
       </div>
     </motion.div>

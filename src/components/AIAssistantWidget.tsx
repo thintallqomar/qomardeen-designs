@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Bot, X, Send, Volume2, VolumeX, Mic, MicOff, Loader2 } from 'lucide-react';
+import { Bot, X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 declare global {
@@ -16,10 +17,18 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 
 const SUGGESTED_PROMPTS = [
-  "What projects has Qomardeen worked on?",
+  "Show me Qomardeen's projects",
   "Tell me about his fintech experience",
-  "How can I hire this designer?",
+  "Take me to the hire page",
 ];
+
+// Extract [[NAVIGATE:/path]] commands and clean the display text
+function parseNavigation(content: string): { displayContent: string; navPath: string | null } {
+  const navMatch = content.match(/\[\[NAVIGATE:(\/[^\]]*)\]\]/);
+  const navPath = navMatch ? navMatch[1] : null;
+  const displayContent = content.replace(/\[\[NAVIGATE:\/[^\]]*\]\]/g, '').trim();
+  return { displayContent, navPath };
+}
 
 async function streamChat({
   messages,
@@ -103,16 +112,33 @@ const AIAssistantWidget = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Check for navigation commands in the latest assistant message
+  useEffect(() => {
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg?.role === 'assistant' && !isLoading) {
+      const { navPath } = parseNavigation(lastMsg.content);
+      if (navPath) {
+        // Small delay so user can read the message first
+        const timer = setTimeout(() => {
+          navigate(navPath);
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [messages, isLoading, navigate]);
+
   const playTTS = useCallback(async (text: string) => {
     if (!voiceEnabled) return;
     try {
       setIsSpeaking(true);
-      const cleanText = text.replace(/[#*_`~\[\]()>]/g, '').slice(0, 1000);
+      const { displayContent } = parseNavigation(text);
+      const cleanText = displayContent.replace(/[#*_`~\[\]()>]/g, '').slice(0, 1000);
       const response = await fetch(TTS_URL, {
         method: "POST",
         headers: {
@@ -207,6 +233,12 @@ const AIAssistantWidget = () => {
     }
   };
 
+  // Render message content, stripping navigation commands
+  const renderContent = (content: string) => {
+    const { displayContent } = parseNavigation(content);
+    return displayContent;
+  };
+
   return (
     <>
       {/* Floating Button */}
@@ -220,9 +252,9 @@ const AIAssistantWidget = () => {
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
             className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-            aria-label="Open AI Assistant"
+            aria-label="Open Persius AI Assistant"
           >
-            <Bot className="w-6 h-6" />
+            <Sparkles className="w-6 h-6" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -241,11 +273,11 @@ const AIAssistantWidget = () => {
             <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-secondary/50">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-primary" />
+                  <Sparkles className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">AI Assistant</p>
-                  <p className="text-xs text-muted-foreground">Ask about projects & skills</p>
+                  <p className="text-sm font-semibold text-foreground">Persius</p>
+                  <p className="text-xs text-muted-foreground">AI Portfolio Guide</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -267,8 +299,8 @@ const AIAssistantWidget = () => {
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <div className="text-center py-4">
-                    <Bot className="w-10 h-10 text-primary mx-auto mb-2 opacity-60" />
-                    <p className="text-sm text-muted-foreground">Hi! I'm Qomardeen's AI assistant. Ask me anything about his work.</p>
+                    <Sparkles className="w-10 h-10 text-primary mx-auto mb-2 opacity-60" />
+                    <p className="text-sm text-muted-foreground">Hi! I'm <strong>Persius</strong>, Qomardeen's AI guide. Ask me anything or let me take you anywhere on the portfolio.</p>
                   </div>
                   <div className="space-y-2">
                     {SUGGESTED_PROMPTS.map((prompt, i) => (
@@ -293,7 +325,7 @@ const AIAssistantWidget = () => {
                   }`}>
                     {msg.role === 'assistant' ? (
                       <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>ul]:my-1 [&>ol]:my-1">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                        <ReactMarkdown>{renderContent(msg.content)}</ReactMarkdown>
                       </div>
                     ) : msg.content}
                   </div>
@@ -326,7 +358,7 @@ const AIAssistantWidget = () => {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && send(input)}
-                  placeholder={isListening ? "Listening..." : "Ask about projects, skills..."}
+                  placeholder={isListening ? "Listening..." : "Ask Persius anything..."}
                   className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
                   disabled={isLoading}
                 />

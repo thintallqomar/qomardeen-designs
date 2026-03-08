@@ -1,0 +1,240 @@
+import { useRef, useState, useCallback, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowDown, ArrowRight, Briefcase } from 'lucide-react';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { useIsMobile } from '@/hooks/use-mobile';
+import profileImage from '@/assets/new-profile.jpg';
+
+const headlineLines = [
+  { text: "Hello, I'm", accent: false },
+  { text: "Qomardeen Tijani", accent: true },
+  { text: "Product Designer", accent: false },
+];
+
+const lineVariant = {
+  hidden: { opacity: 0, y: 30, filter: 'blur(6px)' },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, delay: 0.15 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] },
+  }),
+};
+
+const fadeIn = (delay: number) => ({
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] } },
+});
+
+const skills = ["UI Design", "UX Research", "Product Design", "Systems Thinking", "AI Integration"];
+
+const HeroInteractive = () => {
+  const navigate = useLocalizedNavigate();
+  const isMobile = useIsMobile();
+  const heroRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [cursorPos, setCursorPos] = useState({ x: 0.5, y: 0.5 });
+  const [cardTilt, setCardTilt] = useState({ x: 0, y: 0 });
+  const [imgError, setImgError] = useState(false);
+
+  // Cursor-reactive background (desktop only)
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      if (isMobile) return;
+      const rect = heroRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setCursorPos({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      });
+    },
+    [isMobile]
+  );
+
+  // Profile card tilt (desktop only)
+  const handleCardMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isMobile) return;
+      const rect = cardRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const cx = (e.clientX - rect.left) / rect.width - 0.5;
+      const cy = (e.clientY - rect.top) / rect.height - 0.5;
+      setCardTilt({ x: cy * -4, y: cx * 4 });
+    },
+    [isMobile]
+  );
+
+  const resetCardTilt = useCallback(() => setCardTilt({ x: 0, y: 0 }), []);
+
+  const scrollToNext = useCallback(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const next = hero.nextElementSibling as HTMLElement | null;
+    next?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const cursorGradient = useMemo(
+    () =>
+      isMobile
+        ? 'none'
+        : `radial-gradient(600px circle at ${cursorPos.x * 100}% ${cursorPos.y * 100}%, hsl(var(--primary) / 0.06), transparent 60%)`,
+    [cursorPos, isMobile]
+  );
+
+  return (
+    <section
+      ref={heroRef}
+      id="home"
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-end pb-16 md:pb-24 pt-28 md:pt-32 overflow-hidden"
+      style={{ background: 'hsl(var(--background))' }}
+    >
+      {/* Cursor-reactive gradient overlay */}
+      {!isMobile && (
+        <div
+          className="absolute inset-0 pointer-events-none will-change-[background]"
+          style={{ background: cursorGradient }}
+        />
+      )}
+
+      <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-10">
+        {/* Main grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-end">
+          {/* LEFT — Headline + Profile Card */}
+          <div className="space-y-10 md:space-y-14">
+            {/* Headline */}
+            <div>
+              {headlineLines.map((line, i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  variants={lineVariant}
+                  initial="hidden"
+                  animate="visible"
+                  className="overflow-hidden"
+                >
+                  <h1
+                    className={`font-display font-bold leading-[1.05] tracking-[-0.03em] ${
+                      line.accent ? 'text-primary' : 'text-foreground'
+                    }`}
+                    style={{
+                      fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
+                    }}
+                  >
+                    {line.text}
+                  </h1>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Profile card — bottom left */}
+            <motion.div
+              ref={cardRef}
+              variants={fadeIn(0.6)}
+              initial="hidden"
+              animate="visible"
+              onMouseMove={handleCardMove}
+              onMouseLeave={resetCardTilt}
+              className="relative w-fit"
+              style={{
+                transform: `perspective(600px) rotateX(${cardTilt.x}deg) rotateY(${cardTilt.y}deg)`,
+                transition: 'transform 0.25s ease-out',
+              }}
+            >
+              <div className="relative w-[160px] h-[200px] md:w-[200px] md:h-[250px] rounded-2xl overflow-hidden shadow-elegant">
+                {!imgError ? (
+                  <img
+                    src={profileImage}
+                    alt="Portrait of Qomardeen Tijani"
+                    loading="lazy"
+                    onError={() => setImgError(true)}
+                    className="w-full h-full object-cover object-center"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-secondary flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm">QT</span>
+                  </div>
+                )}
+                {/* Gradient overlay on photo */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+              </div>
+
+              {/* Circular badge */}
+              <div className="absolute -right-6 -bottom-4 md:-right-8 md:-bottom-5 w-16 h-16 md:w-20 md:h-20 rounded-full border border-border bg-background flex items-center justify-center">
+                <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground tracking-widest uppercase leading-tight text-center">
+                  Let's<br />Work
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* RIGHT — Description + CTAs + Skills */}
+          <motion.div
+            variants={fadeIn(0.45)}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col justify-end space-y-8"
+          >
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
+              I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <motion.button
+                onClick={() => navigate('/projects')}
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity group"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                View My Work
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+              <motion.button
+                onClick={() => navigate('/hire')}
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors group"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <Briefcase className="w-4 h-4" />
+                Start a Project
+              </motion.button>
+            </div>
+
+            {/* Skill tags */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {skills.map((skill, i) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7 + i * 0.06, duration: 0.3 }}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors cursor-default"
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        onClick={scrollToNext}
+        aria-label="Scroll to next section"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{
+          opacity: { delay: 1, duration: 0.4 },
+          y: { delay: 1.2, duration: 2, repeat: Infinity, ease: 'easeInOut' },
+        }}
+      >
+        <ArrowDown className="w-4 h-4" />
+      </motion.button>
+    </section>
+  );
+};
+
+export default HeroInteractive;

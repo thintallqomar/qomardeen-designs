@@ -4,18 +4,14 @@ import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import { Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { blogPosts } from '@/data/articles';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
-const posts = [
-  { title: "Why Systems Thinking Matters in Product Design", excerpt: "How thinking beyond screens creates more scalable and consistent user experiences.", readTime: "5 min", tag: "Systems", date: "2025-03-01" },
-  { title: "Designing Trust in Fintech Interfaces", excerpt: "Key patterns that help users feel confident when moving money digitally.", readTime: "4 min", tag: "Fintech", date: "2025-02-15" },
-  { title: "AI-Assisted Design Workflows", excerpt: "How I use AI tools to accelerate research, ideation, and iteration.", readTime: "6 min", tag: "AI", date: "2025-02-01" },
-  { title: "Dashboard Design: Clarity Over Complexity", excerpt: "Principles for building data-heavy interfaces that users actually understand.", readTime: "5 min", tag: "Dashboard", date: "2025-01-20" },
-  { title: "From Fashion to Product Design", excerpt: "How my background in fashion design shaped my approach to digital products.", readTime: "4 min", tag: "Career", date: "2025-01-10" },
-];
-
 const Blog = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Navigation />
@@ -35,15 +31,16 @@ const Blog = () => {
                   </ScrollReveal>
 
                   <div className="space-y-6">
-                    {posts.map((post, index) => (
+                    {blogPosts.map((post, index) => (
                       <motion.article
-                        key={index}
+                        key={post.slug}
                         className="card-elegant group cursor-pointer"
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.08, duration: 0.4, ease }}
                         whileHover={{ y: -2 }}
+                        onClick={() => navigate(`/article/${post.slug}`)}
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
@@ -64,12 +61,6 @@ const Blog = () => {
                       </motion.article>
                     ))}
                   </div>
-
-                  <ScrollReveal>
-                    <p className="text-center text-muted-foreground mt-12 text-sm">
-                      More articles coming soon — stay tuned.
-                    </p>
-                  </ScrollReveal>
                 </div>
               </div>
             </section>

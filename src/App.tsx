@@ -14,6 +14,7 @@ import Architecture from "./pages/Architecture";
 import Blog from "./pages/Blog";
 import Thinking from "./pages/Thinking";
 import Hire from "./pages/Hire";
+import ArticlePage from "./pages/ArticlePage";
 import NotFound from "./pages/NotFound";
 import AIAssistantWidget from "./components/AIAssistantWidget";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
@@ -37,6 +38,7 @@ const AnimatedRoutes = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/thinking" element={<Thinking />} />
         <Route path="/hire" element={<Hire />} />
+        <Route path="/article/:slug" element={<ArticlePage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

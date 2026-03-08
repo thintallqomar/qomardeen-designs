@@ -6,6 +6,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
+import { getRelatedPosts } from '@/data/articles';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {

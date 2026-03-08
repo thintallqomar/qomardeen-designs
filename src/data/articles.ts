@@ -891,6 +891,12 @@ export function getBlogPosts(): BlogPost[] {
   return blogPosts;
 }
 
+export function getRelatedPosts(slug: string, category: BlogCategory, limit = 3): BlogPost[] {
+  return allPosts
+    .filter(post => post.slug !== slug && post.category === category)
+    .slice(0, limit);
+}
+
 export function getAdjacentPosts(slug: string, section: 'blog' | 'thinking'): { prev?: BlogPost; next?: BlogPost } {
   const posts = section === 'blog' ? blogPosts : thinkingPosts;
   const idx = posts.findIndex(p => p.slug === slug);

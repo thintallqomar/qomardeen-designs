@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "projects": "Projekte",
+    "architecture": "Architektur",
+    "blog": "Blog",
+    "thinking": "Denkweise",
+    "hire": "Beauftragen",
+    "about": "Über mich",
+    "explore": "Entdecken",
+    "architectureDesc": "Systemdesign & Muster",
+    "thinkingDesc": "Essays & Frameworks",
+    "aboutDesc": "Hintergrund & Erfahrung"
+  },
+  "hero": {
+    "available": "Verfügbar für neue Möglichkeiten",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Produktdesigner",
+    "description": "Ich gestalte skalierbare digitale Produkte an der Schnittstelle von UX, KI und Systemdenken.",
+    "cta_explore": "Fallstudien ansehen",
+    "cta_hire": "Mich beauftragen",
+    "skills": ["UI-Design", "UX-Forschung", "Produktdesign", "Systemdenken", "KI-Integration"],
+    "badge": "Produktdesigner"
+  },
+  "metrics": {
+    "projects": "Abgeschlossene Projekte",
+    "experience": "Jahre Erfahrung",
+    "users": "Erreichte Nutzer",
+    "satisfaction": "Kundenzufriedenheit"
+  },
+  "featured": {
+    "title": "Ausgewählte Projekte",
+    "subtitle": "Flaggschiff-Fallstudien für skalierbares Produktdesign über Branchen hinweg",
+    "viewCase": "Fallstudie ansehen",
+    "uptime": {
+      "industry": "Enterprise SaaS",
+      "problem": "Komplexe Asset-Tracking-Workflows fehlten Klarheit und Skalierbarkeit"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Internationale Überweisungen brauchten Vertrauensaufbau und Mobile-First-Abläufe"
+    },
+    "ecommerce": {
+      "industry": "Einzelhandelsanalytik",
+      "problem": "Datenintensive Dashboards brauchten eine Hierarchie umsetzbarer Erkenntnisse"
+    }
+  },
+  "philosophy": {
+    "title": "Designphilosophie",
+    "items": [
+      "Meine Designphilosophie basiert auf Klarheit, Absicht und Benutzerfreundlichkeit. Ich glaube, gutes Design sollte sich selbstverständlich anfühlen — nicht weil es einfach ist, sondern weil es gut strukturiert und durchdacht ist.",
+      "Ich priorisiere die Lösung des richtigen Problems, bevor ich mich auf Ästhetik konzentriere. Visueller Feinschliff ist wichtig, aber erst nachdem Layout, Hierarchie und Benutzerfreundlichkeit gelöst sind.",
+      "Ich gestalte mit dem Verständnis, dass Nutzer Interfaces selten im Detail lesen — sie scannen. Das beeinflusst, wie ich Dashboards strukturiere, Inhalte organisiere und Interaktionsmuster definiere.",
+      "Ich denke auch über einzelne Bildschirme hinaus und konzentriere mich auf Systeme. Konsistente Komponenten, Abstandsregeln und Typografie-Skalen verbessern sowohl die Nutzererfahrung als auch die Teameffizienz.",
+      "Vor allem sehe ich Design als einen kontinuierlichen Lernprozess, der durch Feedback, Iteration und praktische Anwendung verfeinert wird."
+    ]
+  },
+  "architecture": {
+    "title": "Architektur & Systemdesign",
+    "subtitle": "Wie ich über Produktsysteme jenseits der Oberfläche denke",
+    "explore": "Architektur entdecken",
+    "database": {
+      "title": "Datenbank-Designmuster",
+      "desc": "Skalierbares Schema-Design für SaaS- und Fintech-Produkte"
+    },
+    "flows": {
+      "title": "Systemabläufe & APIs",
+      "desc": "End-to-End-Architektur für komplexe Produktworkflows"
+    },
+    "scaling": {
+      "title": "Skalierungsstrategien",
+      "desc": "Kompromisse und Entscheidungen hinter produktionsreifen Systemen"
+    }
+  },
+  "atlas": {
+    "title": "Atlas kennenlernen",
+    "subtitle": "KI-gestützter Portfolio-Guide — Projekte erkunden, Fragen stellen und freihändig navigieren",
+    "prompt1": "Fintech-Arbeit erklären",
+    "prompt2": "Fallstudien zeigen",
+    "prompt3": "Wie beauftragen",
+    "hint": "Klicken Sie auf die Kugel unten rechts, um zu beginnen"
+  },
+  "insights": {
+    "title": "Neueste Einblicke",
+    "subtitle": "Gedanken zu Produktdesign, Systemdenken und KI",
+    "read": "Lesen",
+    "viewAll": "Alle Beiträge"
+  },
+  "hireCta": {
+    "available": "Verfügbar für Aufträge",
+    "title": "Lassen Sie uns etwas Großartiges bauen",
+    "subtitle": "Suchen Sie einen Produktdesigner, der Systeme versteht, echte Produkte liefert und klar kommuniziert? Lassen Sie uns reden.",
+    "cta": "Mich beauftragen",
+    "schedule": "Gespräch planen"
+  },
+  "footer": {
+    "description": "Produktdesigner, der sich auf den Aufbau skalierbarer, nutzerzentrierter digitaler Produkte konzentriert.",
+    "quickLinks": "Schnelllinks",
+    "getInTouch": "Kontakt",
+    "location": "Nigeria",
+    "availableTitle": "Verfügbar für Möglichkeiten",
+    "availableDesc": "Offen für Freelance- & Festanstellungen",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Alle Rechte vorbehalten.",
+    "tagline": "Haben Sie eine komplexe Herausforderung? Ich höre gerne zu. Lassen Sie uns eine intuitive und innovative Lösung entwickeln."
+  },
+  "newsletter": {
+    "title": "Auf dem Laufenden bleiben",
+    "placeholder": "E-Mail eingeben",
+    "subscribe": "Abonnieren"
+  }
+}

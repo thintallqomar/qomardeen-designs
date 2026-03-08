@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Início",
+    "projects": "Projetos",
+    "architecture": "Arquitetura",
+    "blog": "Blog",
+    "thinking": "Pensamento",
+    "hire": "Contratar",
+    "about": "Sobre",
+    "explore": "Explorar",
+    "architectureDesc": "Design de sistemas & padrões",
+    "thinkingDesc": "Ensaios & frameworks",
+    "aboutDesc": "Experiência & trajetória"
+  },
+  "hero": {
+    "available": "Disponível para novas oportunidades",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Designer de Produto",
+    "description": "Projetando produtos digitais escaláveis na interseção de UX, IA e pensamento sistêmico.",
+    "cta_explore": "Ver Estudos de Caso",
+    "cta_hire": "Contratar-me",
+    "skills": ["Design de UI", "Pesquisa UX", "Design de Produto", "Pensamento Sistêmico", "Integração de IA"],
+    "badge": "Designer de Produto"
+  },
+  "metrics": {
+    "projects": "Projetos Entregues",
+    "experience": "Anos de Experiência",
+    "users": "Usuários Impactados",
+    "satisfaction": "Satisfação do Cliente"
+  },
+  "featured": {
+    "title": "Projetos em Destaque",
+    "subtitle": "Estudos de caso emblemáticos de design de produto escalável em diversas indústrias",
+    "viewCase": "Ver Estudo de Caso",
+    "uptime": {
+      "industry": "SaaS Empresarial",
+      "problem": "Fluxos complexos de rastreamento de ativos careciam de clareza e escalabilidade"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Transferências internacionais precisavam de confiança e fluxos mobile-first"
+    },
+    "ecommerce": {
+      "industry": "Análise de Varejo",
+      "problem": "Dashboards com muitos dados precisavam de hierarquia de insights acionáveis"
+    }
+  },
+  "philosophy": {
+    "title": "Filosofia de Design",
+    "items": [
+      "Minha filosofia de design é fundamentada em clareza, intenção e usabilidade. Acredito que bom design deve parecer óbvio — não porque é simples, mas porque é bem estruturado e cuidadosamente pensado.",
+      "Priorizo resolver o problema certo antes de focar na estética. O polimento visual é importante, mas apenas depois que layout, hierarquia e usabilidade estão resolvidos.",
+      "Projeto com o entendimento de que usuários raramente leem interfaces em detalhe — eles escaneiam. Isso influencia como estruturo dashboards, organizo conteúdo e defino padrões de interação.",
+      "Também penso além de telas individuais e foco em sistemas. Componentes consistentes, regras de espaçamento e escalas tipográficas melhoram tanto a experiência do usuário quanto a eficiência da equipe.",
+      "Acima de tudo, vejo design como um processo contínuo de aprendizado, refinado através de feedback, iteração e aplicação no mundo real."
+    ]
+  },
+  "architecture": {
+    "title": "Arquitetura & Design de Sistemas",
+    "subtitle": "Como penso sobre sistemas de produto além da interface",
+    "explore": "Explorar Arquitetura",
+    "database": {
+      "title": "Padrões de Design de Banco de Dados",
+      "desc": "Design de esquema escalável para produtos SaaS e fintech"
+    },
+    "flows": {
+      "title": "Fluxos de Sistema & APIs",
+      "desc": "Arquitetura end-to-end para fluxos de produto complexos"
+    },
+    "scaling": {
+      "title": "Estratégias de Escalabilidade",
+      "desc": "Trade-offs e decisões por trás de sistemas prontos para produção"
+    }
+  },
+  "atlas": {
+    "title": "Conheça o Atlas",
+    "subtitle": "Guia de portfólio com IA — explore projetos, faça perguntas e navegue livremente",
+    "prompt1": "Explicar trabalho fintech",
+    "prompt2": "Mostrar estudos de caso",
+    "prompt3": "Como contratar",
+    "hint": "Clique na esfera no canto inferior direito para começar"
+  },
+  "insights": {
+    "title": "Últimos Insights",
+    "subtitle": "Reflexões sobre design de produto, pensamento sistêmico e IA",
+    "read": "Ler",
+    "viewAll": "Ver Todos os Posts"
+  },
+  "hireCta": {
+    "available": "Disponível para contratação",
+    "title": "Vamos Construir Algo Incrível",
+    "subtitle": "Procurando um designer de produto que entende sistemas, entrega produtos reais e comunica com clareza? Vamos conversar.",
+    "cta": "Contratar-me",
+    "schedule": "Agendar uma Chamada"
+  },
+  "footer": {
+    "description": "Designer de Produto focado em construir produtos digitais escaláveis e centrados no usuário.",
+    "quickLinks": "Links Rápidos",
+    "getInTouch": "Entre em Contato",
+    "location": "Nigéria",
+    "availableTitle": "Disponível para oportunidades",
+    "availableDesc": "Aberto para freelance e posições fixas",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Todos os direitos reservados.",
+    "tagline": "Tem um desafio complexo? Estou pronto para ouvir. Vamos criar uma solução intuitiva e inovadora."
+  },
+  "newsletter": {
+    "title": "Fique Atualizado",
+    "placeholder": "Digite seu email",
+    "subscribe": "Inscrever-se"
+  }
+}

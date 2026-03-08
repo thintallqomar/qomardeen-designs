@@ -10,14 +10,20 @@ import ha from './locales/ha.json';
 import ig from './locales/ig.json';
 import pcm from './locales/pcm.json';
 import ar from './locales/ar.json';
+import de from './locales/de.json';
+import pt from './locales/pt.json';
+import ru from './locales/ru.json';
 
-export const supportedLanguages = ['en', 'fr', 'es', 'yo', 'ha', 'ig', 'pcm', 'ar'] as const;
+export const supportedLanguages = ['en', 'fr', 'es', 'de', 'pt', 'ru', 'yo', 'ha', 'ig', 'pcm', 'ar'] as const;
 export type SupportedLanguage = typeof supportedLanguages[number];
 
 export const languageNames: Record<SupportedLanguage, string> = {
   en: 'English',
   fr: 'Français',
   es: 'Español',
+  de: 'Deutsch',
+  pt: 'Português',
+  ru: 'Русский',
   yo: 'Yorùbá',
   ha: 'Hausa',
   ig: 'Igbo',
@@ -29,6 +35,9 @@ export const languageFlags: Record<SupportedLanguage, string> = {
   en: 'gb',
   fr: 'fr',
   es: 'es',
+  de: 'de',
+  pt: 'pt',
+  ru: 'ru',
   yo: 'ng',
   ha: 'ng',
   ig: 'ng',
@@ -49,6 +58,9 @@ i18n
       en: { translation: en },
       fr: { translation: fr },
       es: { translation: es },
+      de: { translation: de },
+      pt: { translation: pt },
+      ru: { translation: ru },
       yo: { translation: yo },
       ha: { translation: ha },
       ig: { translation: ig },

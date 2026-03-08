@@ -152,34 +152,41 @@ const Navigation = () => {
             <div className="w-px h-5 bg-border mx-1" />
 
             {/* Language Switcher */}
-            <div className="relative" ref={langRef}>
+            <div
+              className="relative"
+              ref={langRef}
+              onMouseEnter={() => setLangOpen(true)}
+              onMouseLeave={() => setLangOpen(false)}
+            >
               <button
-                onClick={() => setLangOpen(!langOpen)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors text-sm"
                 aria-label="Change language"
               >
                 <Globe size={15} />
                 <span className="text-xs font-medium uppercase">{currentLang}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
               <AnimatePresence>
                 {langOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 bg-background border border-border rounded-xl shadow-lg overflow-hidden min-w-[140px] z-50"
+                    exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                    transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="absolute right-0 top-full mt-3 w-[200px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
                   >
-                    {supportedLanguages.map((lng) => (
-                      <button
-                        key={lng}
-                        onClick={() => switchLanguage(lng)}
-                        className={`flex items-center gap-2.5 w-full px-4 py-2.5 text-sm hover:bg-secondary transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/5' : 'text-foreground'}`}
-                      >
-                        <span>{languageFlags[lng]}</span>
-                        <span>{languageNames[lng]}</span>
-                      </button>
-                    ))}
+                    <div className="p-2">
+                      {supportedLanguages.map((lng) => (
+                        <button
+                          key={lng}
+                          onClick={() => switchLanguage(lng)}
+                          className={`flex items-center gap-3 w-full p-3 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
+                        >
+                          <span className="text-lg">{languageFlags[lng]}</span>
+                          <span>{languageNames[lng]}</span>
+                        </button>
+                      ))}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>

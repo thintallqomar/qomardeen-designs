@@ -261,7 +261,7 @@ const Navigation = () => {
                     onClick={() => switchLanguage(lng)}
                     className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
                   >
-                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                     <span>{languageNames[lng]}</span>
                   </button>
                 ))}

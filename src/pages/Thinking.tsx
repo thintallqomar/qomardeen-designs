@@ -40,7 +40,7 @@ const Thinking = () => {
                   </ScrollReveal>
 
                   <div className="space-y-6">
-                    {thinkingPosts.map((article, index) => (
+                    {localizedPosts.map((article, index) => (
                       <motion.div
                         key={article.slug}
                         className="card-elegant group cursor-pointer"

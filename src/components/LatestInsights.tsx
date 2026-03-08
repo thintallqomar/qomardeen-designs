@@ -13,6 +13,7 @@ const latestPostsRaw = blogPosts.slice(0, 3);
 const LatestInsights = () => {
   const navigate = useLocalizedNavigate();
   const { t } = useTranslation();
+  const latestPosts = useLocalizedPosts(latestPostsRaw);
 
   return (
     <section className="section-padding bg-muted/30">

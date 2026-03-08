@@ -20,7 +20,7 @@ const Blog = () => {
   const featured = localizedPosts[0];
 
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
+    return localizedPosts.filter(post => {
       if (post.slug === featured.slug && !search && activeCategory === 'All') return false; // hide featured from list
       const matchesSearch = !search ||
         post.title.toLowerCase().includes(search.toLowerCase()) ||

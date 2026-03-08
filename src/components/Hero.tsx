@@ -73,7 +73,7 @@ const Hero = () => {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div className="flex flex-row gap-3 pt-2 w-fit" variants={fadeUp}>
+            <motion.div className="flex flex-col sm:flex-row gap-3 pt-2 sm:w-fit" variants={fadeUp}>
               <motion.button
                 onClick={() => navigate('/projects/uptime')}
                 className="modern-btn inline-flex items-center justify-center gap-2.5 group px-8"

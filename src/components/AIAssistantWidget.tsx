@@ -286,6 +286,7 @@ const AIAssistantWidget = () => {
     try {
       await streamChat({
         messages: [...messages, userMsg],
+        isAdmin,
         onDelta: upsertAssistant,
         onDone: () => {
           setIsLoading(false);

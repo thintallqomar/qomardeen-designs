@@ -127,7 +127,7 @@ const HeroInteractive = () => {
 
         {/* Bottom: profile card left + description right */}
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-start">
             {/* Profile card */}
             <motion.div
               ref={cardRef}
@@ -166,7 +166,7 @@ const HeroInteractive = () => {
             </motion.div>
 
             {/* Description + CTAs */}
-            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-end items-start space-y-8 w-fit ml-auto">
+            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-start items-start space-y-8 w-fit ml-auto">
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
                 I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
               </p>

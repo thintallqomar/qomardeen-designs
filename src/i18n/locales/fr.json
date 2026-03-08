@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "architecture": "Architecture",
+    "blog": "Blog",
+    "thinking": "Réflexions",
+    "hire": "Embaucher",
+    "about": "À propos"
+  },
+  "hero": {
+    "available": "Disponible pour de nouvelles opportunités",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Designer Produit",
+    "description": "Conception de produits numériques évolutifs à l'intersection de l'UX, de l'IA et de la pensée systémique.",
+    "cta_explore": "Explorer les Études de Cas",
+    "cta_hire": "Embauchez-moi",
+    "skills": ["Design UI", "Recherche UX", "Design Produit", "Pensée Systémique", "Intégration IA"],
+    "badge": "Designer Produit"
+  },
+  "metrics": {
+    "projects": "Projets Livrés",
+    "experience": "Années d'Expérience",
+    "users": "Utilisateurs Impactés",
+    "satisfaction": "Satisfaction Client"
+  },
+  "featured": {
+    "title": "Projets Phares",
+    "subtitle": "Études de cas phares démontrant un design produit évolutif à travers les industries",
+    "viewCase": "Voir l'Étude de Cas",
+    "uptime": {
+      "industry": "SaaS Entreprise",
+      "problem": "Les flux de suivi d'actifs complexes manquaient de clarté et d'évolutivité"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Les transferts internationaux nécessitaient la confiance et des flux mobile-first"
+    },
+    "ecommerce": {
+      "industry": "Analytique Retail",
+      "problem": "Les tableaux de bord riches en données nécessitaient une hiérarchie d'insights actionnables"
+    }
+  },
+  "philosophy": {
+    "title": "Philosophie de Design",
+    "items": [
+      "Ma philosophie de design repose sur la clarté, l'intention et l'utilisabilité. Je crois qu'un bon design doit sembler évident — non pas parce qu'il est simple, mais parce qu'il est bien structuré et soigneusement réfléchi.",
+      "Je priorise la résolution du bon problème avant de me concentrer sur l'esthétique. Le polish visuel est important, mais seulement après que la mise en page, la hiérarchie et l'utilisabilité sont résolues.",
+      "Je conçois en sachant que les utilisateurs lisent rarement les interfaces en détail — ils les parcourent. Cela guide ma façon de structurer les tableaux de bord, d'organiser le contenu et de définir les patterns d'interaction.",
+      "Je pense aussi au-delà des écrans individuels et je me concentre sur les systèmes. Des composants cohérents, des règles d'espacement et des échelles typographiques améliorent à la fois l'expérience utilisateur et l'efficacité de l'équipe.",
+      "Par-dessus tout, je considère le design comme un processus d'apprentissage continu, affiné par le feedback, l'itération et l'application réelle."
+    ]
+  },
+  "architecture": {
+    "title": "Architecture & Conception Système",
+    "subtitle": "Comment je pense les systèmes produit au-delà de l'interface",
+    "explore": "Explorer l'Architecture",
+    "database": {
+      "title": "Patterns de Base de Données",
+      "desc": "Conception de schémas évolutifs pour les produits SaaS et fintech"
+    },
+    "flows": {
+      "title": "Flux Système & APIs",
+      "desc": "Architecture bout en bout pour des flux produit complexes"
+    },
+    "scaling": {
+      "title": "Stratégies de Mise à l'Échelle",
+      "desc": "Compromis et décisions derrière les systèmes prêts pour la production"
+    }
+  },
+  "atlas": {
+    "title": "Rencontrez Atlas",
+    "subtitle": "Guide de portfolio propulsé par l'IA — explorez les projets, posez des questions et naviguez mains libres",
+    "prompt1": "Expliquer le travail fintech",
+    "prompt2": "Montrer les études de cas",
+    "prompt3": "Comment embaucher",
+    "hint": "Cliquez sur l'orbe en bas à droite pour commencer"
+  },
+  "insights": {
+    "title": "Dernières Réflexions",
+    "subtitle": "Réflexions sur le design produit, la pensée systémique et l'IA",
+    "read": "Lire",
+    "viewAll": "Voir Tous les Articles"
+  },
+  "hireCta": {
+    "available": "Disponible à l'embauche",
+    "title": "Construisons Quelque Chose de Grand",
+    "subtitle": "Vous cherchez un designer produit qui comprend les systèmes, livre de vrais produits et communique clairement ? Parlons-en.",
+    "cta": "Embauchez-moi",
+    "schedule": "Planifier un Appel"
+  },
+  "footer": {
+    "description": "Designer Produit axé sur la création de produits numériques évolutifs et centrés sur l'utilisateur. Expérimenté dans la livraison de projets réels de la découverte à la production.",
+    "quickLinks": "Liens Rapides",
+    "getInTouch": "Contact",
+    "location": "Nigeria",
+    "availableTitle": "Disponible pour des opportunités",
+    "availableDesc": "Ouvert au freelance et aux postes à temps plein",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Tous droits réservés.",
+    "tagline": "Vous avez un défi complexe à relever ? Je suis tout ouïe. Creusons ensemble et créons une solution intuitive et innovante."
+  },
+  "newsletter": {
+    "title": "Restez Informé",
+    "placeholder": "Entrez votre email",
+    "subscribe": "S'abonner"
+  }
+}

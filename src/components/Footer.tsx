@@ -1,25 +1,31 @@
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import NewsletterCapture from './NewsletterCapture';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
+  const localizedPath = useLocalizedPath();
+
   const socialLinks = [
     { icon: <Linkedin className="w-5 h-5" />, href: "https://linkedin.com/in/qomardeen-tijani", label: "LinkedIn" },
     { icon: <Mail className="w-5 h-5" />, href: "mailto:qomardeentylertijani@gmail.com", label: "Email" },
     { icon: <Phone className="w-5 h-5" />, href: "tel:+2348139469192", label: "Phone" },
     { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>, href: "https://x.com/the_Qomardeen", label: "X (Twitter)" },
   ];
+
   const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Architecture', href: '/architecture' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Thinking', href: '/thinking' },
-    { name: 'Hire', href: '/hire' },
-    { name: 'About', href: '/about' },
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.projects'), href: '/projects' },
+    { name: t('nav.architecture'), href: '/architecture' },
+    { name: t('nav.blog'), href: '/blog' },
+    { name: t('nav.thinking'), href: '/thinking' },
+    { name: t('nav.hire'), href: '/hire' },
+    { name: t('nav.about'), href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -34,20 +40,10 @@ const Footer = () => {
                   <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent" aria-hidden="true">QTT</span>
                   <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
                 </div>
-                <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">Product Designer focused on building scalable, user-centered digital products. Experienced in shipping real-world projects from discovery to production.</p>
+                <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">{t('footer.description')}</p>
                 <div className="flex items-center gap-4">
                   {socialLinks.map((link, index) => (
-                    <motion.a
-                      key={index}
-                      href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-                      aria-label={link.label}
-                      whileHover={{ y: -2, scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.a key={index} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors" aria-label={link.label} whileHover={{ y: -2, scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
                       {link.icon}
                     </motion.a>
                   ))}
@@ -55,10 +51,10 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-4">Quick Links</h3>
+                <h3 className="font-semibold mb-4">{t('footer.quickLinks')}</h3>
                 <div className="space-y-2">
                   {quickLinks.map((link, index) => (
-                    <Link key={index} to={link.href} className="block text-muted-foreground hover:text-primary transition-colors">
+                    <Link key={index} to={localizedPath(link.href)} className="block text-muted-foreground hover:text-primary transition-colors">
                       {link.name}
                     </Link>
                   ))}
@@ -66,30 +62,29 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-4">Get In Touch</h3>
+                <h3 className="font-semibold mb-4">{t('footer.getInTouch')}</h3>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <div>Nigeria</div>
+                  <div>{t('footer.location')}</div>
                   <div>qomardeentylertijani@gmail.com</div>
                   <div>+2348139469192</div>
                 </div>
                 <div className="mt-4 p-3 bg-secondary rounded-lg">
-                  <div className="text-sm font-medium text-foreground mb-1">Available for opportunities</div>
-                  <div className="text-xs text-muted-foreground">Open to freelance & full-time positions</div>
+                  <div className="text-sm font-medium text-foreground mb-1">{t('footer.availableTitle')}</div>
+                  <div className="text-xs text-muted-foreground">{t('footer.availableDesc')}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Newsletter */}
           <div className="border-t border-border">
             <NewsletterCapture />
           </div>
 
           <div className="py-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-sm text-muted-foreground">© {currentYear} Qomardeen Tyler Tijani. All rights reserved.</div>
+              <div className="text-sm text-muted-foreground">{t('footer.copyright', { year: currentYear })}</div>
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                <span>Got a complex challenge you're ready to tackle? I'm all ears. Let's dig in and craft a solution that's both intuitive and innovative.</span>
+                <span>{t('footer.tagline')}</span>
               </div>
             </div>
           </div>

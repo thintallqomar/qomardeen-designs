@@ -56,7 +56,7 @@ const services = [
   'Mobile-First Design',
   'Prototyping & User Testing',
   'AI-Powered Product Interfaces',
-  'Design-to-Code Implementation',
+  'AI-Assisted Prototyping',
 ];
 
 /* ── What You Get ── */

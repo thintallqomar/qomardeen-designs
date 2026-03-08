@@ -141,8 +141,8 @@ const ArticlePage = () => {
                   <div className="max-w-3xl flex-1 min-w-0">
                     <div className="prose prose-lg prose-invert max-w-none
                       prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-24
-                      prose-h2:text-[1.65rem] prose-h2:mt-16 prose-h2:mb-6
-                      prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4
+                      prose-h2:text-[1.65rem] prose-h2:mt-20 prose-h2:mb-6 prose-h2:pt-4
+                      prose-h3:text-xl prose-h3:mt-16 prose-h3:mb-4 prose-h3:pt-2
                       prose-p:text-muted-foreground prose-p:leading-[1.85] prose-p:mb-6
                       prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                       prose-strong:text-foreground

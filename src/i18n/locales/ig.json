@@ -104,8 +104,14 @@
     "tagline": "Ị nwere ihe ịma aka siri ike ị chọrọ idozi? Ana m ege ntị. Ka anyị mụbaa ma wuo ihe dị mfe ma bụrụkwa nke ọhụrụ."
   },
   "newsletter": {
-    "title": "Nọrọ Na-Enweta Ozi",
-    "placeholder": "Tinye email gị",
-    "subscribe": "Debanye Aha"
+    "badge": "Nọrọ n'ịkọrọ",
+    "title": "Nweta nghọta imewe",
+    "subtitle": "Enweghị spam — naanị edemede a tụgharịrị uche banyere imewe ngwaahịa, echiche usoro, na iru ụlọ site na AI.",
+    "placeholder": "email@gị.com",
+    "subscribe": "Debanye aha",
+    "success": "Ị nọ na ndepụta!",
+    "alreadySubscribed": "Ị debanyela aha!",
+    "successToast": "Edebanyela aha! Nnọọ.",
+    "errorToast": "Ihe mere. Biko nwaa ọzọ."
   }
 }

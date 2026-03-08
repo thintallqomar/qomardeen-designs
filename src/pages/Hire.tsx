@@ -94,7 +94,7 @@ const Hire = () => {
               <div className="container-custom">
                 <div className="max-w-5xl mx-auto">
                   <ScrollReveal>
-                    <div className="grid md:grid-cols-[1fr_auto] gap-10 items-center">
+                    <div className="grid md:grid-cols-[1fr_auto] gap-10 items-stretch">
                       <div>
                         <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
                           <div className="w-2 h-2 bg-success rounded-full mr-2 animate-pulse" />

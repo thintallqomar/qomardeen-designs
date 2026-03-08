@@ -101,9 +101,13 @@ const Navigation = () => {
             ))}
 
             {/* Explore Mega Dropdown */}
-            <div className="relative" ref={exploreRef}>
+            <div
+              className="relative"
+              ref={exploreRef}
+              onMouseEnter={() => setExploreOpen(true)}
+              onMouseLeave={() => setExploreOpen(false)}
+            >
               <button
-                onClick={() => setExploreOpen(!exploreOpen)}
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${isExploreActive ? 'text-primary font-medium' : 'text-foreground hover:text-primary hover:bg-secondary/50'}`}
               >
                 {t('nav.explore', { defaultValue: 'Explore' })}

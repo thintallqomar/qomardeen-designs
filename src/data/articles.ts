@@ -1,4 +1,11 @@
 import profileImg from '@/assets/new-profile.jpg';
+import imgDesignSystems from '@/assets/blog/design-systems.jpg';
+import imgAiNative from '@/assets/blog/ai-native-products.jpg';
+import imgAiWorkflows from '@/assets/blog/ai-workflows.jpg';
+import imgDashboard from '@/assets/blog/dashboard-design.jpg';
+import imgFintech from '@/assets/blog/fintech-trust.jpg';
+import imgSystems from '@/assets/blog/systems-thinking.jpg';
+import imgFashion from '@/assets/blog/fashion-to-design.jpg';
 
 export type BlogCategory =
   | 'Product Design'
@@ -18,6 +25,7 @@ export interface BlogPost {
   tags: string[];
   publishDate: string;
   lastUpdated?: string;
+  heroImage?: string;
   author: {
     name: string;
     avatar: string;

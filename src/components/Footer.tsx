@@ -80,6 +80,11 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Newsletter */}
+          <div className="border-t border-border">
+            <NewsletterCapture />
+          </div>
+
           <div className="py-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-sm text-muted-foreground">© {currentYear} Qomardeen Tyler Tijani. All rights reserved.</div>

@@ -29,7 +29,25 @@ const SUGGESTED_PROMPTS = [
   "Show me projects",
   "Fintech experience",
   "How to hire",
+  "Write a blog post",
 ];
+
+function parseBlogPost(content: string): { displayContent: string; blogDraft: BlogDraft | null } {
+  const blogMatch = content.match(/\[\[BLOG_POST\]\]([\s\S]*?)\[\[\/BLOG_POST\]\]/);
+  if (!blogMatch) return { displayContent: content, blogDraft: null };
+  
+  try {
+    const blogData = JSON.parse(blogMatch[1].trim());
+    const displayContent = content.replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '').trim();
+    return { displayContent, blogDraft: blogData };
+  } catch {
+    return { displayContent: content, blogDraft: null };
+  }
+}
+
+function hasPublishCommand(content: string): boolean {
+  return content.includes('[[PUBLISH_BLOG]]');
+}
 
 function parseNavigation(content: string): { displayContent: string; navPath: string | null } {
   const navMatch = content.match(/\[\[NAVIGATE:(\/[^\]]*)\]\]/);

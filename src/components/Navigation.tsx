@@ -233,7 +233,7 @@ const Navigation = () => {
               onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
               className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
             >
-              <span className="text-base leading-none">{languageFlags[currentLang]}</span>
+              <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
             </button>
             <motion.button onClick={toggleTheme} className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors" whileTap={{ scale: 0.9 }}>
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}

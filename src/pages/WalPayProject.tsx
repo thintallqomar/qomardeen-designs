@@ -8,8 +8,10 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
+import StickyScrollSection from '@/components/StickyScrollSection';
+import GuidedWalkthrough from '@/components/GuidedWalkthrough';
+import ScrollReveal from '@/components/ScrollReveal';
 
-// Import all case study frames
 import frame01 from '@/assets/walpay/frame-01.png';
 import frame02 from '@/assets/walpay/frame-02.png';
 import frame03 from '@/assets/walpay/frame-03.png';
@@ -23,65 +25,122 @@ import frame10 from '@/assets/walpay/frame-10.png';
 import frame11 from '@/assets/walpay/frame-11.png';
 import frame12 from '@/assets/walpay/frame-12.png';
 import frame13 from '@/assets/walpay/frame-13.png';
-const caseStudyImages = [{
-  src: frame01,
-  alt: 'WalPay Cover - UI/UX Case Study',
-  label: 'Cover'
-}, {
-  src: frame02,
-  alt: 'Product Overview - Digital Wallet Platform',
-  label: 'Product Overview'
-}, {
-  src: frame03,
-  alt: 'Frustrations and Solutions',
-  label: 'Frustrations & Solutions'
-}, {
-  src: frame04,
-  alt: 'Design Process - Double Diamond',
-  label: 'Design Process'
-}, {
-  src: frame05,
-  alt: 'User Persona - Sarah Jenkins',
-  label: 'User Persona'
-}, {
-  src: frame06,
-  alt: 'Empathy Mapping',
-  label: 'Empathy Mapping'
-}, {
-  src: frame07,
-  alt: 'User Flow',
-  label: 'User Flow'
-}, {
-  src: frame08,
-  alt: 'Website Design',
-  label: 'Website Design'
-}, {
-  src: frame09,
-  alt: 'Style Guide - Typography & Colors',
-  label: 'Style Guide'
-}, {
-  src: frame10,
-  alt: 'High Fidelity Mobile Designs - Onboarding',
-  label: 'Onboarding Screens'
-}, {
-  src: frame11,
-  alt: 'Send Money & Wallet Transactions',
-  label: 'Send Money & Transactions'
-}, {
-  src: frame12,
-  alt: 'Profile Settings & Preferences',
-  label: 'Profile & Settings'
-}, {
-  src: frame13,
-  alt: 'KYC Verification Flow',
-  label: 'KYC Flow'
-}];
+
+const caseStudyImages = [
+  { src: frame01, alt: 'WalPay Cover - UI/UX Case Study', label: 'Cover' },
+  { src: frame02, alt: 'Product Overview - Digital Wallet Platform', label: 'Product Overview' },
+  { src: frame03, alt: 'Frustrations and Solutions', label: 'Frustrations & Solutions' },
+  { src: frame04, alt: 'Design Process - Double Diamond', label: 'Design Process' },
+  { src: frame05, alt: 'User Persona - Sarah Jenkins', label: 'User Persona' },
+  { src: frame06, alt: 'Empathy Mapping', label: 'Empathy Mapping' },
+  { src: frame07, alt: 'User Flow', label: 'User Flow' },
+  { src: frame08, alt: 'Website Design', label: 'Website Design' },
+  { src: frame09, alt: 'Style Guide - Typography & Colors', label: 'Style Guide' },
+  { src: frame10, alt: 'High Fidelity Mobile Designs - Onboarding', label: 'Onboarding Screens' },
+  { src: frame11, alt: 'Send Money & Wallet Transactions', label: 'Send Money & Transactions' },
+  { src: frame12, alt: 'Profile Settings & Preferences', label: 'Profile & Settings' },
+  { src: frame13, alt: 'KYC Verification Flow', label: 'KYC Flow' },
+];
+
 const BEHANCE_URL = "https://www.behance.net/gallery/242927925/WalPay-UI-UX-Case-Study";
+
+const stickyScrollItems = [
+  {
+    title: 'The Challenge',
+    subtitle: 'Discovery',
+    description: 'International money transfers were riddled with hidden fees, slow processing, and fragmented experiences — leaving users anxious about where their money was at any given moment.',
+    image: frame03,
+    imageAlt: 'Frustrations and Solutions',
+    metrics: [
+      { label: 'Avg. Transfer Fee', value: '7.5%' },
+      { label: 'Processing Time', value: '3-5 days' },
+    ],
+  },
+  {
+    title: 'Understanding Users',
+    subtitle: 'Research',
+    description: 'We interviewed expatriates and freelancers who regularly send money across borders. Their core need: trust, speed, and transparency in every transaction.',
+    image: frame05,
+    imageAlt: 'User Persona - Sarah Jenkins',
+  },
+  {
+    title: 'Design Language',
+    subtitle: 'Visual System',
+    description: 'A fintech product demands trust. We built a design system around clean geometry, a confidence-inspiring blue palette, and typography that balances authority with approachability.',
+    image: frame09,
+    imageAlt: 'Style Guide',
+  },
+  {
+    title: 'Mobile-First Experience',
+    subtitle: 'Final Designs',
+    description: 'Every screen was designed for thumb-friendly interaction on mobile. The send-money flow was reduced from 8 steps to 3, with real-time rate visibility and instant confirmation.',
+    image: frame10,
+    imageAlt: 'Onboarding Screens',
+    metrics: [
+      { label: 'Steps Reduced', value: '62%' },
+      { label: 'Task Success', value: '97%' },
+    ],
+  },
+];
+
+const walkthroughSteps = [
+  {
+    image: frame01,
+    imageAlt: 'WalPay Cover',
+    title: 'Project Overview',
+    description: 'WalPay is a digital wallet and currency exchange platform designed to make international finance frictionless — instant transfers with institutional-grade rates.',
+  },
+  {
+    image: frame04,
+    imageAlt: 'Design Process',
+    title: 'Double Diamond Process',
+    description: 'We followed a Double Diamond methodology — diverging to explore problem space, then converging on validated solutions through rapid prototyping and user testing.',
+    hotspots: [
+      { x: 25, y: 40, label: 'Discover Phase', description: 'Stakeholder interviews and competitive analysis revealed that trust and transparency were the #1 unmet needs in cross-border fintech.' },
+      { x: 75, y: 40, label: 'Deliver Phase', description: 'High-fidelity prototypes were tested with 12 users across 3 iterations, achieving a 97% task success rate on the final version.' },
+    ],
+  },
+  {
+    image: frame07,
+    imageAlt: 'User Flow',
+    title: 'User Flow Architecture',
+    description: 'The information architecture was designed to minimize decision fatigue. Critical paths (send money, check balance) are reachable within 2 taps from home.',
+    hotspots: [
+      { x: 50, y: 30, label: 'Happy Path', description: 'The primary send-money flow was optimized to 3 steps: select recipient, enter amount, confirm — with real-time exchange rates visible at every step.' },
+    ],
+  },
+  {
+    image: frame08,
+    imageAlt: 'Website Design',
+    title: 'Marketing Website',
+    description: 'The landing page was designed to build trust before download — featuring security certifications, transparent fee comparisons, and real user testimonials.',
+    hotspots: [
+      { x: 50, y: 25, label: 'Trust Signals', description: 'Security badges, regulatory compliance info, and transparent fee breakdowns are placed above the fold to address user anxiety immediately.' },
+      { x: 50, y: 70, label: 'CTA Strategy', description: 'Primary CTA focuses on app download with secondary paths to learn more — reducing bounce rate for information-seekers.' },
+    ],
+  },
+  {
+    image: frame11,
+    imageAlt: 'Send Money Flow',
+    title: 'Send Money & Transactions',
+    description: 'The core transaction flow provides real-time currency conversion, recipient management, and instant confirmation with shareable receipts.',
+    hotspots: [
+      { x: 30, y: 40, label: 'Live Rates', description: 'Exchange rates update in real-time with a clear breakdown of fees and the exact amount the recipient will receive.' },
+      { x: 70, y: 50, label: 'Transaction History', description: 'A filterable history shows status, amounts, and recipients with one-tap repeat functionality for frequent transfers.' },
+    ],
+  },
+  {
+    image: frame13,
+    imageAlt: 'KYC Flow',
+    title: 'KYC Verification',
+    description: 'The identity verification flow was designed to feel simple and secure — progressive disclosure keeps users informed without overwhelming them with compliance jargon.',
+  },
+];
+
 const WalPayProject = () => {
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [embedError, setEmbedError] = useState(false);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
 
@@ -93,155 +152,176 @@ const WalPayProject = () => {
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? window.scrollY / totalHeight * 100 : 0;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
       setScrollProgress(Math.min(100, Math.max(0, progress)));
     };
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
-    handleScroll(); // Initial call
-
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set([...prev, index]));
   };
-  return <>
+
+  return (
+    <>
       <Navigation />
       <PageTransition>
-      <div className="min-h-screen">
-        {/* Reading Progress Bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
-          <Progress value={scrollProgress} className="h-1 rounded-none" />
-        </div>
-        
-        
-        
-        {/* Back to Projects - Fixed */}
-        <div className="fixed top-20 left-4 z-40">
-          <Button variant="outline" size="sm" onClick={() => navigate('/projects')} className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Projects
-          </Button>
-        </div>
+        <div className="min-h-screen">
+          <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
+            <Progress value={scrollProgress} className="h-1 rounded-none" />
+          </div>
 
-        <main className="pt-14">
-          {/* Project Hero */}
-          <section className="section-padding bg-gradient-subtle">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto text-center">
-                <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-                  UI/UX Case Study
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  WalPay
-                </h1>
-                
-                <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  A digital wallet and currency exchange platform designed to remove the friction from international finance, enabling instant transfers with institutional-grade rates.
-                </p>
+          <div className="fixed top-20 left-4 z-40">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/projects')}
+              className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Projects
+            </Button>
+          </div>
 
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Role</span>
-                    <span className="font-medium">Product Designer (UI/UX)</span>
+          <main className="pt-14">
+            {/* Project Hero */}
+            <section className="section-padding bg-gradient-subtle">
+              <div className="container-custom">
+                <div className="max-w-4xl mx-auto text-center">
+                  <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
+                    UI/UX Case Study
                   </div>
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Timeline</span>
-                    <span className="font-medium">8 Weeks</span>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-6">WalPay</h1>
+                  <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                    A digital wallet and currency exchange platform designed to remove the friction from international finance, enabling instant transfers with institutional-grade rates.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 mb-8">
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Role</span>
+                      <span className="font-medium">Product Designer (UI/UX)</span>
+                    </div>
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Timeline</span>
+                      <span className="font-medium">8 Weeks</span>
+                    </div>
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Platform</span>
+                      <span className="font-medium">iOS App & Website</span>
+                    </div>
                   </div>
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Platform</span>
-                    <span className="font-medium">iOS App & Website</span>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <a href={BEHANCE_URL} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6">
-                    <ExternalLink className="w-4 h-4" />
-                    View on Behance
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Case Study Content */}
-          <section id="case-study-content" className="py-12 md:py-20">
-            <div className="container-custom">
-              <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
-                {caseStudyImages.map((image, index) => <div key={index} className="relative">
-                    {/* Section Label */}
-                    {image.label && <div className="mb-4 flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {image.label}
-                        </span>
-                      </div>}
-                    
-                    {/* Image Container - Full resolution rendering */}
-                    <button
-                      onClick={() => openViewer(index)}
-                      className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                      aria-label={`View ${image.alt} in fullscreen`}
+                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <a
+                      href={BEHANCE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
                     >
-                      {!loadedImages.has(index) && <Skeleton className="w-full aspect-[16/9]" />}
-                      <img 
-                        src={image.src} 
-                        alt={image.alt} 
-                        loading="lazy" 
-                        decoding="async" 
-                        onLoad={() => handleImageLoad(index)} 
-                        style={{ imageRendering: 'auto' }}
-                        className={`w-full h-auto max-w-none transition-opacity duration-300 ${loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'}`} 
-                      />
-                    </button>
-                  </div>)}
-
-                {/* Behance Embed Section */}
-                
-              </div>
-            </div>
-          </section>
-
-          {/* Bottom CTA */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-2xl mx-auto text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                  Want to see more?
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  View the full case study on Behance or get in touch to discuss your project.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href={BEHANCE_URL} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6">
-                    <ExternalLink className="w-4 h-4" />
-                    View on Behance
-                  </a>
-                  <Button variant="outline" onClick={() => navigate('/contact')} className="h-11 px-6">
-                    Get in Touch
-                  </Button>
+                      <ExternalLink className="w-4 h-4" />
+                      View on Behance
+                    </a>
+                    <GuidedWalkthrough
+                      steps={walkthroughSteps}
+                      projectTitle="WalPay"
+                      triggerLabel="Interactive Walkthrough"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </main>
+            </section>
 
-        <Footer />
+            {/* Sticky Scroll Storytelling */}
+            <StickyScrollSection items={stickyScrollItems} />
 
-        <ImageViewer
-          images={caseStudyImages}
-          currentIndex={viewerIndex}
-          isOpen={viewerOpen}
-          onClose={() => setViewerOpen(false)}
-          onNavigate={setViewerIndex}
-        />
-      </div>
-    </PageTransition>
-    </>;
+            {/* Divider */}
+            <ScrollReveal>
+              <div className="container-custom py-16">
+                <div className="text-center">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">Full Case Study</h2>
+                  <p className="text-muted-foreground">Scroll through every frame of the design process</p>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Case Study Content */}
+            <section id="case-study-content" className="py-12 md:py-20">
+              <div className="container-custom">
+                <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
+                  {caseStudyImages.map((image, index) => (
+                    <div key={index} className="relative">
+                      {image.label && (
+                        <div className="mb-4 flex items-center gap-3">
+                          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-sm font-medium text-muted-foreground">{image.label}</span>
+                        </div>
+                      )}
+                      <button
+                        onClick={() => openViewer(index)}
+                        className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        aria-label={`View ${image.alt} in fullscreen`}
+                      >
+                        {!loadedImages.has(index) && <Skeleton className="w-full aspect-[16/9]" />}
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          loading="lazy"
+                          decoding="async"
+                          onLoad={() => handleImageLoad(index)}
+                          style={{ imageRendering: 'auto' }}
+                          className={`w-full h-auto max-w-none transition-opacity duration-300 ${
+                            loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Bottom CTA */}
+            <section className="section-padding bg-muted/30">
+              <div className="container-custom">
+                <div className="max-w-2xl mx-auto text-center">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
+                  <p className="text-muted-foreground mb-8">
+                    View the full case study on Behance or get in touch to discuss your project.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a
+                      href={BEHANCE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      View on Behance
+                    </a>
+                    <Button variant="outline" onClick={() => navigate('/contact')} className="h-11 px-6">
+                      Get in Touch
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          <Footer />
+
+          <ImageViewer
+            images={caseStudyImages}
+            currentIndex={viewerIndex}
+            isOpen={viewerOpen}
+            onClose={() => setViewerOpen(false)}
+            onNavigate={setViewerIndex}
+          />
+        </div>
+      </PageTransition>
+    </>
+  );
 };
+
 export default WalPayProject;

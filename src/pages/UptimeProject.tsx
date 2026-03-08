@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
 import StickyScrollSection from '@/components/StickyScrollSection';
-import GuidedWalkthrough from '@/components/GuidedWalkthrough';
+
 import ScrollReveal from '@/components/ScrollReveal';
 
 // Import all case study frames

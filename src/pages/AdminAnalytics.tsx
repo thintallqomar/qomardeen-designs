@@ -4,8 +4,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp } from 'lucide-react';
+import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+
+interface Subscriber {
+  id: string;
+  email: string;
+  created_at: string;
+}
 
 interface VisitorEvent {
   id: string;

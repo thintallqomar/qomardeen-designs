@@ -4,8 +4,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp } from 'lucide-react';
+import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+
+interface Subscriber {
+  id: string;
+  email: string;
+  created_at: string;
+}
 
 interface VisitorEvent {
   id: string;
@@ -38,6 +44,7 @@ const AdminAnalytics = () => {
   const { isAdmin, loading: authLoading } = useAdminAuth();
   const navigate = useNavigate();
   const [events, setEvents] = useState<VisitorEvent[]>([]);
+  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState<'7d' | '30d' | 'all'>('7d');
 
@@ -69,6 +76,18 @@ const AdminAnalytics = () => {
     };
     fetchEvents();
   }, [isAdmin, range]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    const fetchSubscribers = async () => {
+      const { data } = await supabase
+        .from('newsletter_subscribers')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setSubscribers((data as Subscriber[]) || []);
+    };
+    fetchSubscribers();
+  }, [isAdmin]);
 
   if (authLoading || !isAdmin) {
     return (
@@ -330,6 +349,36 @@ const AdminAnalytics = () => {
                 </div>
               </motion.div>
             </div>
+
+            {/* Newsletter Subscribers */}
+            <motion.div
+              className="card-elegant p-6"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+            >
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-primary" />
+                  <h2 className="font-semibold text-sm">Newsletter Subscribers</h2>
+                </div>
+                <span className="text-xs text-muted-foreground font-mono">{subscribers.length} total</span>
+              </div>
+              {subscribers.length > 0 ? (
+                <div className="space-y-2 max-h-64 overflow-y-auto">
+                  {subscribers.map(sub => (
+                    <div key={sub.id} className="flex items-center justify-between py-2 px-3 bg-secondary/50 rounded-lg">
+                      <span className="text-sm truncate">{sub.email}</span>
+                      <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-3">
+                        {new Date(sub.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-8">No subscribers yet</p>
+              )}
+            </motion.div>
           </>
         )}
       </main>

@@ -120,17 +120,17 @@ const GuidedWalkthrough = ({
                     key={currentStep}
                     custom={direction}
                     className="relative w-full h-full max-w-4xl max-h-[70vh] rounded-xl overflow-hidden border border-border bg-card shadow-lg"
-                    initial={(d: number) => ({
+                    initial={{
                       opacity: 0,
-                      x: (d || 1) * 60,
+                      x: direction * 60,
                       scale: 0.96,
-                    })}
+                    }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={(d: number) => ({
+                    exit={{
                       opacity: 0,
-                      x: (d || 1) * -60,
+                      x: direction * -60,
                       scale: 0.96,
-                    })}
+                    }}
                     transition={{ duration: 0.4, ease }}
                   >
                     <img

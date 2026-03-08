@@ -14,6 +14,7 @@ const About = () => {
         <div className="min-h-screen">
           <main className="pt-14">
             <AboutSection />
+            <AnimatedMetrics />
             <DesignPhilosophy />
             <WhyImAGoodFit />
           </main>

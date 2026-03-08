@@ -470,7 +470,7 @@ const AIAssistantWidget = () => {
                   </div>
 
                   <div className="w-full space-y-2">
-                    {SUGGESTED_PROMPTS.map((prompt, i) => (
+                    {suggestedPrompts.map((prompt, i) => (
                       <motion.button
                         key={i}
                         onClick={() => send(prompt)}

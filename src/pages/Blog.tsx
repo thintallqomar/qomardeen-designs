@@ -25,7 +25,7 @@ const Blog = () => {
   const featured = allPosts[0];
 
   const filteredPosts = useMemo(() => {
-    return localizedPosts.filter(post => {
+    return allPosts.filter(post => {
       if (post.slug === featured.slug && !search && activeCategory === 'All') return false;
       const matchesSearch = !search ||
         post.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -34,7 +34,7 @@ const Blog = () => {
       const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [search, activeCategory, featured.slug, localizedPosts]);
+  }, [search, activeCategory, featured.slug, allPosts]);
 
   return (
     <>

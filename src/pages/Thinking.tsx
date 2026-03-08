@@ -6,6 +6,7 @@ import { Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { thinkingPosts } from '@/data/articles';
+import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Globe, ChevronDown, Compass, Brain, User } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';
@@ -162,8 +162,8 @@ const Navigation = () => {
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors text-sm"
                 aria-label="Change language"
               >
-                <Globe size={15} />
-                <span className="text-xs font-medium uppercase">{currentLang}</span>
+                <span className="text-base leading-none">{languageFlags[currentLang]}</span>
+                <span className="text-xs font-medium">{languageNames[currentLang]}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
               <AnimatePresence>
@@ -173,16 +173,35 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.96 }}
                     transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="absolute right-0 top-full mt-3 w-[200px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+                    className="absolute right-0 top-full mt-3 w-[220px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
                   >
                     <div className="p-2">
-                      {supportedLanguages.map((lng) => (
+                      {/* International Languages */}
+                      {(['en', 'fr', 'es', 'ar'] as SupportedLanguage[]).map((lng) => (
                         <button
                           key={lng}
                           onClick={() => switchLanguage(lng)}
-                          className={`flex items-center gap-3 w-full p-3 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
+                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
                         >
-                          <span className="text-lg">{languageFlags[lng]}</span>
+                          <span className="text-base leading-none">{languageFlags[lng]}</span>
+                          <span>{languageNames[lng]}</span>
+                        </button>
+                      ))}
+
+                      {/* Divider + Nigerian Languages */}
+                      <div className="my-1.5 mx-2 flex items-center gap-2">
+                        <div className="h-px flex-1 bg-border" />
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Nigeria</span>
+                        <div className="h-px flex-1 bg-border" />
+                      </div>
+
+                      {(['yo', 'ha', 'ig', 'pcm'] as SupportedLanguage[]).map((lng) => (
+                        <button
+                          key={lng}
+                          onClick={() => switchLanguage(lng)}
+                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
+                        >
+                          <span className="text-base leading-none">{languageFlags[lng]}</span>
                           <span>{languageNames[lng]}</span>
                         </button>
                       ))}
@@ -214,8 +233,7 @@ const Navigation = () => {
               onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
               className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
             >
-              <Globe size={15} />
-              <span className="text-xs font-medium uppercase">{currentLang}</span>
+              <span className="text-base leading-none">{languageFlags[currentLang]}</span>
             </button>
             <motion.button onClick={toggleTheme} className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors" whileTap={{ scale: 0.9 }}>
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
@@ -230,22 +248,39 @@ const Navigation = () => {
         <AnimatePresence>
           {langOpen && (
             <motion.div
-              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-xl shadow-lg overflow-hidden min-w-[140px] z-50"
+              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-2xl shadow-xl overflow-hidden w-[200px] z-50"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.15 }}
             >
-              {supportedLanguages.map((lng) => (
-                <button
-                  key={lng}
-                  onClick={() => switchLanguage(lng)}
-                  className={`flex items-center gap-2.5 w-full px-4 py-2.5 text-sm hover:bg-secondary transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/5' : 'text-foreground'}`}
-                >
-                  <span>{languageFlags[lng]}</span>
-                  <span>{languageNames[lng]}</span>
-                </button>
-              ))}
+              <div className="p-2">
+                {(['en', 'fr', 'es', 'ar'] as SupportedLanguage[]).map((lng) => (
+                  <button
+                    key={lng}
+                    onClick={() => switchLanguage(lng)}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                  >
+                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <span>{languageNames[lng]}</span>
+                  </button>
+                ))}
+                <div className="my-1.5 mx-2 flex items-center gap-2">
+                  <div className="h-px flex-1 bg-border" />
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Nigeria</span>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                {(['yo', 'ha', 'ig', 'pcm'] as SupportedLanguage[]).map((lng) => (
+                  <button
+                    key={lng}
+                    onClick={() => switchLanguage(lng)}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                  >
+                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <span>{languageNames[lng]}</span>
+                  </button>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

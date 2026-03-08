@@ -75,7 +75,8 @@ const GuidedWalkthrough = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-[100] flex flex-col bg-background/98 backdrop-blur-xl"
+            className="fixed inset-0 z-[100] flex flex-col bg-background"
+            style={{ isolation: 'isolate' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -114,68 +115,48 @@ const GuidedWalkthrough = ({
             {/* Content area */}
             <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
               {/* Image panel */}
-              <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 overflow-hidden">
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={currentStep}
-                    custom={direction}
-                    className="relative w-full h-full max-w-4xl max-h-[70vh] rounded-xl overflow-hidden border border-border bg-card shadow-lg"
-                    initial={{
-                      opacity: 0,
-                      x: direction * 60,
-                      scale: 0.96,
-                    }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{
-                      opacity: 0,
-                      x: direction * -60,
-                      scale: 0.96,
-                    }}
-                    transition={{ duration: 0.4, ease }}
-                  >
-                    <img
-                      src={step.image}
-                      alt={step.imageAlt}
-                      className="w-full h-full object-contain"
-                    />
+              <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 overflow-auto">
+                <div className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg" style={{ minHeight: '300px' }}>
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    className="w-full h-auto object-contain block"
+                  />
 
-                    {/* Hotspots */}
-                    {step.hotspots?.map((hotspot, i) => (
-                      <button
-                        key={i}
-                        className="absolute group/hotspot"
-                        style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
-                        onClick={() => setActiveHotspot(activeHotspot === i ? null : i)}
-                      >
-                        {/* Pulse ring */}
-                        <span className="absolute -inset-3 rounded-full bg-primary/20 animate-ping" />
-                        <span className="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-lg">
-                          {i + 1}
-                        </span>
+                  {/* Hotspots */}
+                  {step.hotspots?.map((hotspot, i) => (
+                    <button
+                      key={i}
+                      className="absolute group/hotspot"
+                      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+                      onClick={() => setActiveHotspot(activeHotspot === i ? null : i)}
+                    >
+                      <span className="absolute -inset-3 rounded-full bg-primary/20 animate-ping" />
+                      <span className="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-lg">
+                        {i + 1}
+                      </span>
 
-                        {/* Tooltip */}
-                        <AnimatePresence>
-                          {activeHotspot === i && (
-                            <motion.div
-                              className="absolute z-20 left-8 top-1/2 -translate-y-1/2 w-64 p-4 rounded-xl bg-card border border-border shadow-xl"
-                              initial={{ opacity: 0, x: -8, scale: 0.95 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              exit={{ opacity: 0, x: -8, scale: 0.95 }}
-                              transition={{ duration: 0.2, ease }}
-                            >
-                              <h4 className="text-sm font-semibold mb-1">{hotspot.label}</h4>
-                              <p className="text-xs text-muted-foreground leading-relaxed">{hotspot.description}</p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </button>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+                      <AnimatePresence>
+                        {activeHotspot === i && (
+                          <motion.div
+                            className="absolute z-20 left-8 top-1/2 -translate-y-1/2 w-64 p-4 rounded-xl bg-card border border-border shadow-xl"
+                            initial={{ opacity: 0, x: -8, scale: 0.95 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: -8, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease }}
+                          >
+                            <h4 className="text-sm font-semibold mb-1">{hotspot.label}</h4>
+                            <p className="text-xs text-muted-foreground leading-relaxed">{hotspot.description}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Info sidebar */}
-              <div className="lg:w-80 xl:w-96 border-t lg:border-t-0 lg:border-l border-border/50 p-6 md:p-8 flex flex-col justify-between">
+              <div className="border-t lg:border-t-0 lg:border-l border-border/50 p-6 md:p-8 flex flex-col justify-between">
                 <div>
                   <AnimatePresence mode="wait">
                     <motion.div

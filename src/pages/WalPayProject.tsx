@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
 import StickyScrollSection from '@/components/StickyScrollSection';
-import GuidedWalkthrough from '@/components/GuidedWalkthrough';
+
 import ScrollReveal from '@/components/ScrollReveal';
 
 import frame01 from '@/assets/walpay/frame-01.png';
@@ -83,59 +83,6 @@ const stickyScrollItems = [
   },
 ];
 
-const walkthroughSteps = [
-  {
-    image: frame01,
-    imageAlt: 'WalPay Cover',
-    title: 'Project Overview',
-    description: 'WalPay is a digital wallet and currency exchange platform designed to make international finance frictionless — instant transfers with institutional-grade rates.',
-  },
-  {
-    image: frame04,
-    imageAlt: 'Design Process',
-    title: 'Double Diamond Process',
-    description: 'We followed a Double Diamond methodology — diverging to explore problem space, then converging on validated solutions through rapid prototyping and user testing.',
-    hotspots: [
-      { x: 25, y: 40, label: 'Discover Phase', description: 'Stakeholder interviews and competitive analysis revealed that trust and transparency were the #1 unmet needs in cross-border fintech.' },
-      { x: 75, y: 40, label: 'Deliver Phase', description: 'High-fidelity prototypes were tested with 12 users across 3 iterations, achieving a 97% task success rate on the final version.' },
-    ],
-  },
-  {
-    image: frame07,
-    imageAlt: 'User Flow',
-    title: 'User Flow Architecture',
-    description: 'The information architecture was designed to minimize decision fatigue. Critical paths (send money, check balance) are reachable within 2 taps from home.',
-    hotspots: [
-      { x: 50, y: 30, label: 'Happy Path', description: 'The primary send-money flow was optimized to 3 steps: select recipient, enter amount, confirm — with real-time exchange rates visible at every step.' },
-    ],
-  },
-  {
-    image: frame08,
-    imageAlt: 'Website Design',
-    title: 'Marketing Website',
-    description: 'The landing page was designed to build trust before download — featuring security certifications, transparent fee comparisons, and real user testimonials.',
-    hotspots: [
-      { x: 50, y: 25, label: 'Trust Signals', description: 'Security badges, regulatory compliance info, and transparent fee breakdowns are placed above the fold to address user anxiety immediately.' },
-      { x: 50, y: 70, label: 'CTA Strategy', description: 'Primary CTA focuses on app download with secondary paths to learn more — reducing bounce rate for information-seekers.' },
-    ],
-  },
-  {
-    image: frame11,
-    imageAlt: 'Send Money Flow',
-    title: 'Send Money & Transactions',
-    description: 'The core transaction flow provides real-time currency conversion, recipient management, and instant confirmation with shareable receipts.',
-    hotspots: [
-      { x: 30, y: 40, label: 'Live Rates', description: 'Exchange rates update in real-time with a clear breakdown of fees and the exact amount the recipient will receive.' },
-      { x: 70, y: 50, label: 'Transaction History', description: 'A filterable history shows status, amounts, and recipients with one-tap repeat functionality for frequent transfers.' },
-    ],
-  },
-  {
-    image: frame13,
-    imageAlt: 'KYC Flow',
-    title: 'KYC Verification',
-    description: 'The identity verification flow was designed to feel simple and secure — progressive disclosure keeps users informed without overwhelming them with compliance jargon.',
-  },
-];
 
 const WalPayProject = () => {
   const navigate = useNavigate();
@@ -211,21 +158,16 @@ const WalPayProject = () => {
                       <span className="font-medium">iOS App & Website</span>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <div className="flex justify-center">
                     <a
                       href={BEHANCE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-8"
                     >
                       <ExternalLink className="w-4 h-4" />
                       View on Behance
                     </a>
-                    <GuidedWalkthrough
-                      steps={walkthroughSteps}
-                      projectTitle="WalPay"
-                      triggerLabel="Interactive Walkthrough"
-                    />
                   </div>
                 </div>
               </div>

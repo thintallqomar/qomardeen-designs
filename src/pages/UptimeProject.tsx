@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
 import StickyScrollSection from '@/components/StickyScrollSection';
-import GuidedWalkthrough from '@/components/GuidedWalkthrough';
+
 import ScrollReveal from '@/components/ScrollReveal';
 
 // Import all case study frames
@@ -76,57 +76,6 @@ const stickyScrollItems = [
   },
 ];
 
-const walkthroughSteps = [
-  {
-    image: frame01,
-    imageAlt: 'UpTime Cover',
-    title: 'Project Overview',
-    description: 'UpTime is a CMMS (Computerized Maintenance Management System) designed for facility managers who need real-time visibility into equipment health and maintenance workflows.',
-  },
-  {
-    image: frame03,
-    imageAlt: 'Design Approach',
-    title: 'Design Approach',
-    description: 'We used a structured design process combining stakeholder interviews, competitive analysis, and iterative prototyping to arrive at a scalable solution.',
-    hotspots: [
-      { x: 25, y: 30, label: 'Core Features', description: 'Equipment registry, task scheduling, offline mode, and smart reporting were identified as the four pillars of the product.' },
-      { x: 70, y: 60, label: 'Design Principles', description: 'Clarity over complexity — every screen follows a consistent information hierarchy to reduce cognitive load.' },
-    ],
-  },
-  {
-    image: frame06,
-    imageAlt: 'Empathy Map',
-    title: 'Empathy Mapping',
-    description: 'We mapped what maintenance leads think, feel, say, and do to uncover hidden frustrations — like the anxiety of equipment failure during off-hours.',
-  },
-  {
-    image: frame08,
-    imageAlt: 'Dashboard Design',
-    title: 'Dashboard Design',
-    description: 'The dashboard surfaces critical metrics at a glance: overdue tasks, asset health scores, and upcoming maintenance windows.',
-    hotspots: [
-      { x: 15, y: 20, label: 'Quick Stats', description: 'At-a-glance KPIs show total assets, active tasks, and completion rates without scrolling.' },
-      { x: 55, y: 45, label: 'Activity Feed', description: 'A chronological feed of recent actions keeps the team aligned on what has been done and what is pending.' },
-      { x: 80, y: 70, label: 'Alert System', description: 'Color-coded alerts prioritize critical equipment issues that need immediate attention.' },
-    ],
-  },
-  {
-    image: frame09,
-    imageAlt: 'Equipment Registry',
-    title: 'Equipment & Task Management',
-    description: 'The registry allows teams to catalog every asset, attach maintenance history, and schedule recurring tasks — all accessible offline for field technicians.',
-    hotspots: [
-      { x: 30, y: 35, label: 'Asset Cards', description: 'Each asset displays health status, last service date, and assigned technician at a glance.' },
-      { x: 65, y: 55, label: 'Task Scheduling', description: 'Drag-and-drop scheduling with automatic conflict detection prevents overlapping maintenance windows.' },
-    ],
-  },
-  {
-    image: frame10,
-    imageAlt: 'Settings & Integration',
-    title: 'Settings & Integrations',
-    description: 'Flexible configuration allows teams to connect with existing tools, set notification preferences, and customize workflows to match their operational needs.',
-  },
-];
 
 const UptimeProject = () => {
   const navigate = useNavigate();
@@ -204,21 +153,16 @@ const UptimeProject = () => {
                       <span className="font-medium">Web App (SaaS)</span>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <div className="flex justify-center">
                     <a
                       href="https://www.behance.net/gallery/239892845/UpTime"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-8"
                     >
                       <ExternalLink className="w-4 h-4" />
                       View on Behance
                     </a>
-                    <GuidedWalkthrough
-                      steps={walkthroughSteps}
-                      projectTitle="UpTime CMMS"
-                      triggerLabel="Interactive Walkthrough"
-                    />
                   </div>
                 </div>
               </div>

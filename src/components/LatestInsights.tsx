@@ -5,13 +5,15 @@ import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import { blogPosts } from '@/data/articles';
+import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
-const latestPosts = blogPosts.slice(0, 3);
+const latestPostsRaw = blogPosts.slice(0, 3);
 
 const LatestInsights = () => {
   const navigate = useLocalizedNavigate();
   const { t } = useTranslation();
+  const latestPosts = useLocalizedPosts(latestPostsRaw);
 
   return (
     <section className="section-padding bg-muted/30">

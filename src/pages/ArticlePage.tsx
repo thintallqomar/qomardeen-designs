@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import ArticleLayout from '@/components/ArticleLayout';
 import ArticleSEO from '@/components/ArticleSEO';
 import { getPostBySlug, getAdjacentPosts } from '@/data/articles';
+import { useLocalizedPost } from '@/data/useLocalizedArticle';
 
 // ─── Error Boundary Fallback ───
 class ArticleErrorBoundary extends Component<
@@ -44,7 +45,8 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useLocalizedNavigate();
-  const post = slug ? getPostBySlug(slug) : undefined;
+  const rawPost = slug ? getPostBySlug(slug) : undefined;
+  const post = rawPost ? useLocalizedPost(rawPost) : undefined;
 
   if (!post) {
     return (

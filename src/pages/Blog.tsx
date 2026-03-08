@@ -7,6 +7,7 @@ import { Clock, ArrowRight, Search, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
+import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -15,10 +16,11 @@ const Blog = () => {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All');
 
-  const featured = blogPosts[0];
+  const localizedPosts = useLocalizedPosts(blogPosts);
+  const featured = localizedPosts[0];
 
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
+    return localizedPosts.filter(post => {
       if (post.slug === featured.slug && !search && activeCategory === 'All') return false; // hide featured from list
       const matchesSearch = !search ||
         post.title.toLowerCase().includes(search.toLowerCase()) ||

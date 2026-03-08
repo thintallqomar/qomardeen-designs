@@ -6,6 +6,7 @@ import { Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { thinkingPosts } from '@/data/articles';
+import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -18,6 +19,7 @@ const tagIcons: Record<string, string> = {
 
 const Thinking = () => {
   const navigate = useLocalizedNavigate();
+  const localizedPosts = useLocalizedPosts(thinkingPosts);
 
   return (
     <>
@@ -38,7 +40,7 @@ const Thinking = () => {
                   </ScrollReveal>
 
                   <div className="space-y-6">
-                    {thinkingPosts.map((article, index) => (
+                    {localizedPosts.map((article, index) => (
                       <motion.div
                         key={article.slug}
                         className="card-elegant group cursor-pointer"

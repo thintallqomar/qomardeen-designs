@@ -44,6 +44,7 @@ const AdminAnalytics = () => {
   const { isAdmin, loading: authLoading } = useAdminAuth();
   const navigate = useNavigate();
   const [events, setEvents] = useState<VisitorEvent[]>([]);
+  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState<'7d' | '30d' | 'all'>('7d');
 

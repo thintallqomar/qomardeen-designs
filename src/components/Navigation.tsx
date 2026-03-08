@@ -123,7 +123,7 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.96 }}
                     transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[280px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+                    className="absolute right-0 top-full mt-3 w-[280px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
                   >
                     <div className="p-2">
                       {exploreItems.map((item) => (

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import NewsletterCapture from './NewsletterCapture';
+import Icon3D from './Icon3D';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,10 +13,10 @@ const Footer = () => {
   const localizedPath = useLocalizedPath();
 
   const socialLinks = [
-    { icon: <Linkedin className="w-5 h-5" />, href: "https://linkedin.com/in/qomardeen-tijani", label: "LinkedIn" },
-    { icon: <Mail className="w-5 h-5" />, href: "mailto:qomardeentylertijani@gmail.com", label: "Email" },
-    { icon: <Phone className="w-5 h-5" />, href: "tel:+2348139469192", label: "Phone" },
-    { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>, href: "https://x.com/the_Qomardeen", label: "X (Twitter)" },
+    { icon: <Linkedin />, variant: 'accent' as const, href: "https://linkedin.com/in/qomardeen-tijani", label: "LinkedIn" },
+    { icon: <Mail />, variant: 'blue' as const, href: "mailto:qomardeentylertijani@gmail.com", label: "Email" },
+    { icon: <Phone />, variant: 'emerald' as const, href: "tel:+2348139469192", label: "Phone" },
+    { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>, variant: 'primary' as const, href: "https://x.com/the_Qomardeen", label: "X (Twitter)" },
   ];
 
   const quickLinks = [
@@ -41,10 +42,12 @@ const Footer = () => {
                   <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
                 </div>
                 <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">{t('footer.description')}</p>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   {socialLinks.map((link, index) => (
-                    <motion.a key={index} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors" aria-label={link.label} whileHover={{ y: -2, scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
-                      {link.icon}
+                    <motion.a key={index} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} aria-label={link.label} whileHover={{ y: -2, scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+                      <Icon3D variant={link.variant} size="sm">
+                        {link.icon}
+                      </Icon3D>
                     </motion.a>
                   ))}
                 </div>

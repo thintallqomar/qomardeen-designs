@@ -2,6 +2,7 @@ import { MessageSquare, Briefcase, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import ScrollReveal from './ScrollReveal';
+import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -35,8 +36,10 @@ const AIAssistantPreview = () => {
               <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-primary/3 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10">
-                <div className="w-16 h-16 rounded-3xl bg-foreground/5 flex items-center justify-center mx-auto mb-6 text-foreground/70">
-                  <AtlasLogo size={32} />
+                <div className="flex justify-center mb-6">
+                  <Icon3D variant="primary" size="xl">
+                    <AtlasLogo size={28} />
+                  </Icon3D>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight">{t('atlas.title')}</h2>
                 <p className="text-muted-foreground mb-8 max-w-md mx-auto text-[15px] leading-relaxed">{t('atlas.subtitle')}</p>

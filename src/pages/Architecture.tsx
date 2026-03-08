@@ -3,6 +3,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import StaggeredReveal from '@/components/StaggeredReveal';
+import Icon3D from '@/components/Icon3D';
 import {
   Database, Workflow, Server, GitBranch, Layers, Scale,
   ArrowRight, Box, Cpu, Globe, Shield, Zap, Code2,
@@ -13,13 +14,13 @@ import { motion } from 'framer-motion';
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 /* ── System Diagram Node ── */
-const DiagramNode = ({ label, icon, className = '' }: { label: string; icon: React.ReactNode; className?: string }) => (
+const DiagramNode = ({ label, icon, variant = 'primary' as const }: { label: string; icon: React.ReactNode; variant?: any }) => (
   <motion.div
-    className={`card-elegant p-4 text-center flex flex-col items-center gap-2 ${className}`}
+    className="card-elegant p-4 text-center flex flex-col items-center gap-2"
     whileHover={{ y: -3, boxShadow: 'var(--shadow-lg)' }}
     transition={{ duration: 0.25, ease }}
   >
-    <div className="p-2 bg-primary/20 rounded-lg">{icon}</div>
+    <Icon3D variant={variant} size="sm">{icon}</Icon3D>
     <span className="text-xs font-semibold">{label}</span>
   </motion.div>
 );
@@ -95,22 +96,26 @@ const apiPatterns = [
 /* ── Scaling Strategies ── */
 const scalingStrategies = [
   {
-    icon: <Cpu className="w-5 h-5 text-primary" />,
+    icon: <Cpu />,
+    variant: 'amber' as const,
     title: 'Lazy Loading & Code Splitting',
     description: 'Route-based splitting reduces initial bundle by 60%. Components load on demand to keep TTI under 2s.',
   },
   {
-    icon: <Database className="w-5 h-5 text-primary" />,
+    icon: <Database />,
+    variant: 'blue' as const,
     title: 'Strategic Denormalization',
     description: 'Read-heavy dashboards use materialized views. Write paths stay normalized for data integrity.',
   },
   {
-    icon: <Globe className="w-5 h-5 text-primary" />,
+    icon: <Globe />,
+    variant: 'teal' as const,
     title: 'Edge-First Architecture',
     description: 'Serverless functions deploy globally. Static assets served from CDN. API latency stays under 100ms.',
   },
   {
-    icon: <Shield className="w-5 h-5 text-primary" />,
+    icon: <Shield />,
+    variant: 'rose' as const,
     title: 'Row-Level Security',
     description: 'Multi-tenant isolation at the database layer. Policies enforce access without application-level guards.',
   },
@@ -182,9 +187,9 @@ const Architecture = () => {
                     <div className="mb-2">
                       <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3 block text-center">Client Layer</span>
                       <div className="grid grid-cols-3 gap-4">
-                        <DiagramNode label="Web App (React)" icon={<MonitorSmartphone className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="Design System" icon={<Layers className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="State & Cache" icon={<Box className="w-5 h-5 text-primary" />} />
+                        <DiagramNode label="Web App (React)" icon={<MonitorSmartphone />} variant="blue" />
+                        <DiagramNode label="Design System" icon={<Layers />} variant="violet" />
+                        <DiagramNode label="State & Cache" icon={<Box />} variant="amber" />
                       </div>
                     </div>
 
@@ -194,9 +199,9 @@ const Architecture = () => {
                     <div className="mb-2">
                       <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3 block text-center">API Layer</span>
                       <div className="grid grid-cols-3 gap-4">
-                        <DiagramNode label="REST Endpoints" icon={<Workflow className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="Edge Functions" icon={<Zap className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="Realtime WS" icon={<BarChart3 className="w-5 h-5 text-primary" />} />
+                        <DiagramNode label="REST Endpoints" icon={<Workflow />} variant="teal" />
+                        <DiagramNode label="Edge Functions" icon={<Zap />} variant="amber" />
+                        <DiagramNode label="Realtime WS" icon={<BarChart3 />} variant="emerald" />
                       </div>
                     </div>
 
@@ -206,9 +211,9 @@ const Architecture = () => {
                     <div>
                       <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3 block text-center">Data Layer</span>
                       <div className="grid grid-cols-3 gap-4">
-                        <DiagramNode label="PostgreSQL" icon={<Database className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="Auth & RLS" icon={<Shield className="w-5 h-5 text-primary" />} />
-                        <DiagramNode label="File Storage" icon={<Server className="w-5 h-5 text-primary" />} />
+                        <DiagramNode label="PostgreSQL" icon={<Database />} variant="blue" />
+                        <DiagramNode label="Auth & RLS" icon={<Shield />} variant="rose" />
+                        <DiagramNode label="File Storage" icon={<Server />} variant="violet" />
                       </div>
                     </div>
                   </div>
@@ -303,7 +308,9 @@ const Architecture = () => {
                       transition={{ duration: 0.3, ease }}
                     >
                       <div className="flex items-start gap-4">
-                        <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0">{item.icon}</div>
+                        <Icon3D variant={item.variant} size="md">
+                          {item.icon}
+                        </Icon3D>
                         <div>
                           <h3 className="font-semibold mb-1">{item.title}</h3>
                           <p className="text-sm text-muted-foreground">{item.description}</p>

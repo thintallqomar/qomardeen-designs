@@ -2,10 +2,11 @@ import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Play, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Icon3D from '@/components/Icon3D';
 
 interface Hotspot {
-  x: number; // percentage
-  y: number; // percentage
+  x: number;
+  y: number;
   label: string;
   description: string;
 }
@@ -62,9 +63,9 @@ const GuidedWalkthrough = ({
         }}
         className="group inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
       >
-        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-          <Play className="w-4 h-4 text-primary ml-0.5" />
-        </div>
+        <Icon3D variant="primary" size="sm">
+          <Play className="ml-0.5" />
+        </Icon3D>
         <div className="text-left">
           <span className="block text-sm font-semibold text-foreground">{triggerLabel}</span>
           <span className="block text-xs text-muted-foreground">{steps.length} steps · {projectTitle}</span>

@@ -663,6 +663,7 @@ export const thinkingPosts: BlogPost[] = [
     tags: ["fintech", "onboarding", "ux breakdown"],
     publishDate: "2026-02-24",
     author,
+    section: "thinking",
     heroImage: imgMobileBanking,
     seo: {
       metaTitle: "UX Breakdown: Mobile Banking Onboarding | Qomardeen Tijani",

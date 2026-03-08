@@ -9,10 +9,10 @@ interface Metric {
 }
 
 const metrics: Metric[] = [
-  { value: 50, suffix: '+', label: 'Projects Delivered' },
-  { value: 5, suffix: '+', label: 'Years Experience' },
-  { value: 2, suffix: 'M+', label: 'Users Impacted' },
-  { value: 98, suffix: '%', label: 'Client Satisfaction' },
+  { value: 5, suffix: '+', label: 'Projects Delivered' },
+  { value: 1, suffix: '+', label: 'Years Experience' },
+  { value: 100, suffix: '+', label: 'Users Impacted' },
+  { value: 94, suffix: '%', label: 'Customer Satisfaction' },
 ];
 
 const ease = [0.25, 0.1, 0.25, 1] as const;

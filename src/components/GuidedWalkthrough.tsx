@@ -168,7 +168,7 @@ const GuidedWalkthrough = ({
               </div>
 
               {/* Info sidebar */}
-              <div className="lg:w-80 xl:w-96 border-t lg:border-t-0 lg:border-l border-border/50 p-6 md:p-8 flex flex-col justify-between">
+              <div className="border-t lg:border-t-0 lg:border-l border-border/50 p-6 md:p-8 flex flex-col justify-between">
                 <div>
                   <AnimatePresence mode="wait">
                     <motion.div

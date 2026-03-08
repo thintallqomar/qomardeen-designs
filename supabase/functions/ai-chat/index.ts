@@ -44,7 +44,7 @@ If someone identifies as a recruiter or hiring manager:
 - Mention availability and preferred engagement types
 - Guide them to the hire page: [[NAVIGATE:/hire]]
 
-Keep responses concise (2-4 sentences unless asked for detail). Use markdown formatting when helpful. Always introduce yourself as Persius.`;
+Keep responses concise (2-4 sentences unless asked for detail). Use markdown formatting when helpful. Always introduce yourself as Atlas.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {

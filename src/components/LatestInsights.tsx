@@ -1,3 +1,4 @@
+import { ArrowRight, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
@@ -5,8 +6,6 @@ import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import { blogPosts } from '@/data/articles';
 import { useLocalizedPosts } from '@/data/useLocalizedArticle';
-import Icon3D from './Icon3D';
-import { ArrowRight } from 'lucide-react';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 const latestPostsRaw = blogPosts.slice(0, 3);
@@ -33,7 +32,7 @@ const LatestInsights = () => {
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
               <p className="text-sm text-muted-foreground mb-4 flex-1">{post.excerpt}</p>
               <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span className="flex items-center gap-1"><Icon3D name="clock" size={14} /> {post.readTime}</span>
+                <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
                 <span className="flex items-center gap-1 text-primary font-medium group-hover:gap-2 transition-all">
                   {t('insights.read')} <ArrowRight className="w-3 h-3" />
                 </span>

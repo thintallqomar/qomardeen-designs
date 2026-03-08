@@ -1,9 +1,9 @@
+import { Database, Workflow, Server, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
-import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -12,9 +12,9 @@ const ArchitecturePreview = () => {
   const { t } = useTranslation();
 
   const entries = [
-    { icon: 'database', title: t('architecture.database.title'), desc: t('architecture.database.desc') },
-    { icon: 'workflow', title: t('architecture.flows.title'), desc: t('architecture.flows.desc') },
-    { icon: 'server', title: t('architecture.scaling.title'), desc: t('architecture.scaling.desc') },
+    { icon: <Database className="w-6 h-6 text-primary" />, title: t('architecture.database.title'), desc: t('architecture.database.desc') },
+    { icon: <Workflow className="w-6 h-6 text-primary" />, title: t('architecture.flows.title'), desc: t('architecture.flows.desc') },
+    { icon: <Server className="w-6 h-6 text-primary" />, title: t('architecture.scaling.title'), desc: t('architecture.scaling.desc') },
   ];
 
   return (
@@ -30,9 +30,7 @@ const ArchitecturePreview = () => {
         <StaggeredReveal className="grid md:grid-cols-3 gap-6 mb-10" staggerDelay={0.12} equalHeight>
           {entries.map((item, index) => (
             <motion.div key={index} className="card-elegant h-full flex flex-col items-start" whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }} transition={{ duration: 0.3, ease }}>
-              <div className="p-2 rounded-lg mb-4">
-                <Icon3D name={item.icon} size={32} />
-              </div>
+              <div className="p-3 bg-primary/20 rounded-lg mb-4">{item.icon}</div>
               <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
             </motion.div>
@@ -42,7 +40,7 @@ const ArchitecturePreview = () => {
         <div className="text-center">
           <motion.button onClick={() => navigate('/architecture')} className="outline-btn inline-flex items-center gap-2 group" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
             {t('architecture.explore')}
-            <Icon3D name="briefcase" size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </motion.button>
         </div>
       </div>

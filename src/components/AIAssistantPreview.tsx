@@ -1,7 +1,7 @@
+import { MessageSquare, Briefcase, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import ScrollReveal from './ScrollReveal';
-import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -21,9 +21,9 @@ const AIAssistantPreview = () => {
   const { t } = useTranslation();
 
   const prompts = [
-    { icon: <Icon3D name="briefcase" size={16} />, text: t('atlas.prompt1') },
-    { icon: <Icon3D name="message-square" size={16} />, text: t('atlas.prompt2') },
-    { icon: <Icon3D name="sparkles" size={16} />, text: t('atlas.prompt3') },
+    { icon: <Briefcase className="w-3.5 h-3.5" />, text: t('atlas.prompt1') },
+    { icon: <MessageSquare className="w-3.5 h-3.5" />, text: t('atlas.prompt2') },
+    { icon: <ArrowRight className="w-3.5 h-3.5" />, text: t('atlas.prompt3') },
   ];
 
   return (

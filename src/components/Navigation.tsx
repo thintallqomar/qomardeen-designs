@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { supportedLanguages, languageNames, getFlagUrl, type SupportedLanguage } from '@/i18n';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Icon3D from './Icon3D';
 
 const LANG_PREFIX_RE = new RegExp(`^\\/(${supportedLanguages.join('|')})(?=\\/|$)`);
 
@@ -25,6 +24,7 @@ const Navigation = () => {
   const localizedPath = useLocalizedPath();
   const currentLang = (lang || i18n.language?.slice(0, 2) || 'en') as SupportedLanguage;
 
+  // Close dropdowns on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (exploreRef.current && !exploreRef.current.contains(e.target as Node)) setExploreOpen(false);
@@ -42,9 +42,9 @@ const Navigation = () => {
   ];
 
   const exploreItems = [
-    { name: t('nav.architecture'), href: '/architecture', icon: <Icon3D name="compass" size={18} />, desc: t('nav.architectureDesc', { defaultValue: 'System design & patterns' }) },
-    { name: t('nav.thinking'), href: '/thinking', icon: <Icon3D name="brain" size={18} />, desc: t('nav.thinkingDesc', { defaultValue: 'Essays & frameworks' }) },
-    { name: t('nav.about'), href: '/about', icon: <Icon3D name="user" size={18} />, desc: t('nav.aboutDesc', { defaultValue: 'Background & experience' }) },
+    { name: t('nav.architecture'), href: '/architecture', icon: <Compass className="w-4 h-4 text-primary" />, desc: t('nav.architectureDesc', { defaultValue: 'System design & patterns' }) },
+    { name: t('nav.thinking'), href: '/thinking', icon: <Brain className="w-4 h-4 text-primary" />, desc: t('nav.thinkingDesc', { defaultValue: 'Essays & frameworks' }) },
+    { name: t('nav.about'), href: '/about', icon: <User className="w-4 h-4 text-primary" />, desc: t('nav.aboutDesc', { defaultValue: 'Background & experience' }) },
   ];
 
   const allMobileItems = [
@@ -138,7 +138,7 @@ const Navigation = () => {
                           onClick={() => setExploreOpen(false)}
                           className={`flex items-start gap-3 p-3 rounded-xl transition-colors group ${isActive(item.href) ? 'bg-primary/10 text-primary' : 'hover:bg-secondary/70'}`}
                         >
-                          <div className="p-1.5 rounded-lg bg-primary/10 shrink-0 mt-0.5 group-hover:bg-primary/15 transition-colors">
+                          <div className="p-2 rounded-lg bg-primary/10 shrink-0 mt-0.5 group-hover:bg-primary/15 transition-colors">
                             {item.icon}
                           </div>
                           <div>
@@ -153,6 +153,7 @@ const Navigation = () => {
               </AnimatePresence>
             </div>
 
+            {/* Spacer */}
             <div className="w-px h-5 bg-border mx-1" />
 
             {/* Language Switcher */}
@@ -180,6 +181,7 @@ const Navigation = () => {
                     className="absolute right-0 top-full mt-3 w-[220px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                   >
                     <div className="p-2">
+                      {/* International Languages */}
                       {internationalLangs.map((lng) => (
                         <button
                           key={lng}
@@ -191,6 +193,7 @@ const Navigation = () => {
                         </button>
                       ))}
 
+                      {/* Divider + Nigerian Languages */}
                       <div className="my-1.5 mx-2 flex items-center gap-2">
                         <div className="h-px flex-1 bg-border" />
                         <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Nigeria</span>

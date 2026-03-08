@@ -163,6 +163,35 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
   }
+
+  /* Arabic typography overrides — reset tight spacing for connected script */
+  [dir="rtl"] {
+    font-family: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', system-ui, sans-serif;
+    letter-spacing: 0 !important;
+  }
+
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    letter-spacing: 0;
+    word-spacing: 0.02em;
+  }
+
+  [dir="rtl"] .hero-name,
+  [dir="rtl"] .hero-text {
+    letter-spacing: 0;
+    word-spacing: 0.03em;
+  }
+
+  [dir="rtl"] .tracking-tight,
+  [dir="rtl"] .tracking-tighter,
+  [dir="rtl"] .tracking-wide,
+  [dir="rtl"] .tracking-wider {
+    letter-spacing: 0;
+  }
 }
 
 @layer components {

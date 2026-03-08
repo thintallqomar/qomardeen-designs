@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, Zap, Heart } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Eye, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import profileImage from '@/assets/new-profile.jpg';
 
@@ -60,19 +60,15 @@ const Hero = () => {
             <motion.div className="space-y-4" variants={fadeUp}>
               <div className="space-y-1">
                 <h1 className="hero-name">
-                  Qomardeen Tyler Tijani
+                  Qomardeen Tijani
                 </h1>
                 <h2 className="text-xl md:text-2xl font-semibold text-primary">
-                  Product Designer (UI/UX)
+                  Product Designer
                 </h2>
               </div>
               
               <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-                I design intuitive, scalable digital products by combining user research, visual clarity, and structured problem-solving.
-              </p>
-              
-              <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
-                Experience delivering live products across dashboards, SaaS platforms, landing pages, and system-driven interfaces.
+                Designing scalable digital products at the intersection of UX, AI, and systems thinking.
               </p>
             </motion.div>
 
@@ -86,25 +82,36 @@ const Hero = () => {
                 transition={{ duration: 0.2, ease }}
               >
                 <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                View Case Studies
+                View Projects
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.button>
               
               <motion.button
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate('/projects/uptime')}
                 className="outline-btn inline-flex items-center justify-center gap-2.5 group"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease }}
               >
-                <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                Contact Me
+                <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                Explore Case Studies
+              </motion.button>
+
+              <motion.button
+                onClick={() => navigate('/hire')}
+                className="outline-btn inline-flex items-center justify-center gap-2.5 group"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease }}
+              >
+                <Briefcase className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                Hire Me
               </motion.button>
             </motion.div>
 
             {/* Skills Preview Tags */}
             <motion.div className="flex flex-wrap gap-2 pt-2" variants={fadeUp}>
-              {['UI Design', 'UX Research', 'Product Design', 'Design Systems', 'Dashboards'].map((skill, index) => (
+              {['UI Design', 'UX Research', 'Product Design', 'Systems Thinking', 'AI Integration'].map((skill, index) => (
                 <motion.span
                   key={index}
                   className="px-3 py-1.5 bg-secondary border border-border rounded-full text-xs font-medium text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all cursor-default"
@@ -133,7 +140,7 @@ const Hero = () => {
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.4, ease }}
                 >
-                  <img src={profileImage} alt="Qomardeen Tyler Tijani - Product Designer" className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-[1.02] transition-transform duration-700" />
+                  <img src={profileImage} alt="Qomardeen Tijani - Product Designer" className="w-full max-h-[420px] object-cover object-center rounded-2xl group-hover:scale-[1.02] transition-transform duration-700" />
                   <div className="absolute left-8 right-8 bottom-8 top-[45%] rounded-2xl bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </motion.div>
               </div>

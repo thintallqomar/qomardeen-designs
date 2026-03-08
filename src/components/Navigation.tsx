@@ -14,14 +14,23 @@ const Navigation = () => {
     name: 'Home',
     href: '/'
   }, {
-    name: 'About',
-    href: '/about'
-  }, {
     name: 'Projects',
     href: '/projects'
   }, {
-    name: 'Contact',
-    href: '/contact'
+    name: 'Architecture',
+    href: '/architecture'
+  }, {
+    name: 'Blog',
+    href: '/blog'
+  }, {
+    name: 'Thinking',
+    href: '/thinking'
+  }, {
+    name: 'Hire',
+    href: '/hire'
+  }, {
+    name: 'About',
+    href: '/about'
   }];
   const isActive = (href: string) => {
     if (href === '/') return location.pathname === '/';

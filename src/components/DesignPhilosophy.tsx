@@ -1,15 +1,9 @@
-import { Lightbulb, Target, Layout, Layers, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
-const icons = [
-  <Lightbulb className="w-6 h-6 text-primary" />,
-  <Target className="w-6 h-6 text-primary" />,
-  <Layout className="w-6 h-6 text-primary" />,
-  <Layers className="w-6 h-6 text-primary" />,
-  <RefreshCw className="w-6 h-6 text-primary" />,
-];
+const iconNames = ['lightbulb', 'target', 'layout', 'layers', 'refresh-cw'];
 
 const DesignPhilosophy = () => {
   const { t } = useTranslation();
@@ -29,7 +23,9 @@ const DesignPhilosophy = () => {
             {items.map((text, index) => (
               <div key={index} className="card-elegant">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/20 rounded-lg">{icons[index]}</div>
+                  <div className="p-2 rounded-lg flex-shrink-0">
+                    <Icon3D name={iconNames[index]} size={32} />
+                  </div>
                   <div className="space-y-4">
                     <p className="text-muted-foreground leading-relaxed">{text}</p>
                   </div>

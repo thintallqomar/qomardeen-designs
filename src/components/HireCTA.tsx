@@ -1,8 +1,9 @@
-import { Linkedin, Mail, Calendar, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
+import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -20,7 +21,7 @@ const HireCTA = () => {
               <div className="relative z-10">
                 <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
                   <div className="w-2 h-2 bg-success rounded-full mr-2 animate-pulse" />
-                  <Sparkles className="w-4 h-4 mr-1" />
+                  <Icon3D name="sparkles" size={18} className="mr-1" />
                   {t('hireCta.available')}
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('hireCta.title')}</h2>
@@ -33,13 +34,13 @@ const HireCTA = () => {
                 </div>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <a href="https://linkedin.com/in/qomardeen-tijani" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Linkedin className="w-4 h-4" /> LinkedIn
+                    <Icon3D name="linkedin" size={18} /> LinkedIn
                   </a>
                   <a href="mailto:qomardeentylertijani@gmail.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Mail className="w-4 h-4" /> Email
+                    <Icon3D name="mail" size={18} /> Email
                   </a>
                   <a href="/hire" onClick={(e) => { e.preventDefault(); navigate('/hire'); }} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Calendar className="w-4 h-4" /> {t('hireCta.schedule')}
+                    <Icon3D name="calendar" size={18} /> {t('hireCta.schedule')}
                   </a>
                 </div>
               </div>

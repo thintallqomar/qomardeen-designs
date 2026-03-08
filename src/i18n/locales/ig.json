@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. E debere ikike niile.",
     "tagline": "Ị nwere ihe ịma aka siri ike ị chọrọ idozi? Ana m ege ntị. Ka anyị mụbaa ma wuo ihe dị mfe ma bụrụkwa nke ọhụrụ."
   },
+  "blog": {
+    "title": "Akụkọ",
+    "subtitle": "Nghọta banyere nhazi ngwaahịa, echiche usoro, na iwu ngwaahịa dijitalụ",
+    "featured": "Pụtara Ìhè",
+    "readArticle": "Gụọ akụkọ",
+    "read": "Gụọ",
+    "search": "Chọọ akụkọ...",
+    "all": "Niile",
+    "noResults": "Ahụghị akụkọ dabara na nchọgharị gị."
+  },
+  "thinking": {
+    "title": "Echiche",
+    "subtitle": "Ntụgharị UX, nyochaa ngwaahịa, na echiche nhazi ilè anya",
+    "readMore": "Gụkwuo"
+  },
   "newsletter": {
     "badge": "Nọrọ n'ịkọrọ",
     "title": "Nweta nghọta imewe",

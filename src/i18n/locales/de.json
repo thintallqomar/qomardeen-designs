@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. Alle Rechte vorbehalten.",
     "tagline": "Haben Sie eine komplexe Herausforderung? Ich höre gerne zu. Lassen Sie uns eine intuitive und innovative Lösung entwickeln."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Einblicke in Produktdesign, Systemdenken und den Aufbau digitaler Produkte",
+    "featured": "Empfohlen",
+    "readArticle": "Artikel lesen",
+    "read": "Lesen",
+    "search": "Artikel suchen...",
+    "all": "Alle",
+    "noResults": "Keine Artikel gefunden, die Ihrer Suche entsprechen."
+  },
+  "thinking": {
+    "title": "Denkweise",
+    "subtitle": "UX-Analysen, Produktzerlegungen und strategisches Designdenken",
+    "readMore": "Weiterlesen"
+  },
   "newsletter": {
     "badge": "Bleiben Sie informiert",
     "title": "Design-Insights erhalten",

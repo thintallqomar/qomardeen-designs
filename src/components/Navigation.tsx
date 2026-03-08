@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Globe, ChevronDown, Compass, Brain, User } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';

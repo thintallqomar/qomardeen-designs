@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import AIAssistantWidget from "./components/AIAssistantWidget";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
-import { supportedLanguages, type SupportedLanguage } from "./i18n";
+import { supportedLanguages, rtlLanguages, type SupportedLanguage } from "./i18n";
 
 // Lazy-load non-critical routes
 const Projects = lazy(() => import("./pages/Projects"));

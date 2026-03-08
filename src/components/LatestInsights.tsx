@@ -3,29 +3,11 @@ import { ArrowRight, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import { blogPosts } from '@/data/articles';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
-const posts = [
-  {
-    title: "Why Systems Thinking Matters in Product Design",
-    excerpt: "How thinking beyond screens creates more scalable and consistent user experiences.",
-    readTime: "5 min",
-    tag: "Systems",
-  },
-  {
-    title: "Designing Trust in Fintech Interfaces",
-    excerpt: "Key patterns that help users feel confident when moving money digitally.",
-    readTime: "4 min",
-    tag: "Fintech",
-  },
-  {
-    title: "AI-Assisted Design Workflows",
-    excerpt: "How I use AI tools to accelerate research, ideation, and iteration.",
-    readTime: "6 min",
-    tag: "AI",
-  },
-];
+const latestPosts = blogPosts.slice(0, 3);
 
 const LatestInsights = () => {
   const navigate = useNavigate();
@@ -43,13 +25,13 @@ const LatestInsights = () => {
         </ScrollReveal>
 
         <StaggeredReveal className="grid md:grid-cols-3 gap-6 mb-10" staggerDelay={0.12} equalHeight>
-          {posts.map((post, index) => (
+          {latestPosts.map((post) => (
             <motion.div
-              key={index}
+              key={post.slug}
               className="card-elegant h-full flex flex-col cursor-pointer group"
               whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
               transition={{ duration: 0.3, ease }}
-              onClick={() => navigate('/blog')}
+              onClick={() => navigate(`/article/${post.slug}`)}
             >
               <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{post.tag}</span>
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{post.title}</h3>

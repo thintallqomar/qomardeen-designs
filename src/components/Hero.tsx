@@ -73,10 +73,10 @@ const Hero = () => {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div className="flex flex-row gap-3 pt-2" variants={fadeUp}>
+            <motion.div className="flex flex-row gap-3 pt-2 w-fit" variants={fadeUp}>
               <motion.button
                 onClick={() => navigate('/projects/uptime')}
-                className="modern-btn inline-flex items-center justify-center gap-2.5 group px-3"
+                className="modern-btn inline-flex items-center justify-center gap-2.5 group px-5"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease }}
@@ -88,7 +88,7 @@ const Hero = () => {
 
               <motion.button
                 onClick={() => navigate('/hire')}
-                className="outline-btn inline-flex items-center justify-center gap-2.5 group px-3"
+                className="outline-btn inline-flex items-center justify-center gap-2.5 group px-5"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease }}

@@ -43,6 +43,10 @@ const LanguageSync = ({ children }: { children: React.ReactNode }) => {
     if (lang && supportedLanguages.includes(lang as SupportedLanguage) && i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
+    // Set RTL direction for Arabic
+    const isRtl = rtlLanguages.includes((lang || 'en') as SupportedLanguage);
+    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang || 'en';
   }, [lang, i18n]);
 
   return <>{children}</>;

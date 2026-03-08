@@ -44,7 +44,7 @@ const AIAssistantPreview = () => {
                 </div>
 
                 <p className="text-xs text-muted-foreground mt-6">
-                  Coming soon — voice & text chat assistant
+                  Try it now — click the chat icon in the bottom-right corner
                 </p>
               </div>
             </div>

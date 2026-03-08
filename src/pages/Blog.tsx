@@ -177,10 +177,9 @@ const Blog = () => {
                       </motion.article>
                     ))}
                   </div>
-                </div>
 
-                {/* Newsletter */}
-                <NewsletterCapture />
+                  {/* Newsletter */}
+                  <NewsletterCapture />
                 </div>
               </div>
             </section>

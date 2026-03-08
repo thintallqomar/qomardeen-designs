@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
+import NewsletterCapture from './NewsletterCapture';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -77,6 +78,11 @@ const Footer = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Newsletter */}
+          <div className="border-t border-border">
+            <NewsletterCapture />
           </div>
 
           <div className="py-6 border-t border-border">

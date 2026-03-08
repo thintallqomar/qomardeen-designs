@@ -8,6 +8,7 @@ import ArticleLayout from '@/components/ArticleLayout';
 import ArticleSEO from '@/components/ArticleSEO';
 import { getPostBySlug, getAdjacentPosts } from '@/data/articles';
 import { useLocalizedPost } from '@/data/useLocalizedArticle';
+import { useAIBlogPosts } from '@/hooks/useAIBlogPosts';
 
 // ─── Error Boundary Fallback ───
 class ArticleErrorBoundary extends Component<
@@ -45,8 +46,13 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useLocalizedNavigate();
+  const { data: aiPosts = [] } = useAIBlogPosts();
+  
+  // Check static posts first, then AI-generated posts
   const rawPost = slug ? getPostBySlug(slug) : undefined;
-  const post = rawPost ? useLocalizedPost(rawPost) : undefined;
+  const aiPost = !rawPost && slug ? aiPosts.find(p => p.slug === slug) : undefined;
+  const resolvedPost = rawPost || aiPost;
+  const post = rawPost ? useLocalizedPost(rawPost) : resolvedPost;
 
   if (!post) {
     return (
@@ -66,7 +72,7 @@ const ArticlePage = () => {
     );
   }
 
-  const { prev, next } = getAdjacentPosts(post.slug, post.section);
+  const { prev, next } = rawPost ? getAdjacentPosts(post.slug, post.section) : { prev: undefined, next: undefined };
 
   return (
     <>

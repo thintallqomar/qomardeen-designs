@@ -26,7 +26,14 @@ type BlogDraft = {
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 
-const SUGGESTED_PROMPTS = [
+const VISITOR_PROMPTS = [
+  "Show me projects",
+  "Fintech experience",
+  "How to hire",
+  "Tell me about Qomardeen",
+];
+
+const ADMIN_PROMPTS = [
   "Show me projects",
   "Fintech experience",
   "How to hire",

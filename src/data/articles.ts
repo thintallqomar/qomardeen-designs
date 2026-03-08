@@ -6,6 +6,10 @@ import imgDashboard from '@/assets/blog/dashboard-design.jpg';
 import imgFintech from '@/assets/blog/fintech-trust.jpg';
 import imgSystems from '@/assets/blog/systems-thinking.jpg';
 import imgFashion from '@/assets/blog/fashion-to-design.jpg';
+import imgMobileBanking from '@/assets/blog/mobile-banking-ux.jpg';
+import imgNotionTeardown from '@/assets/blog/notion-teardown.jpg';
+import imgAiBeyondChatbots from '@/assets/blog/ai-beyond-chatbots.jpg';
+import imgSystemsDesigners from '@/assets/blog/systems-thinking-designers.jpg';
 
 export type BlogCategory =
   | 'Product Design'

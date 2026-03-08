@@ -1,4 +1,4 @@
-import profileImg from '@/assets/qomardeen-profile.jpg';
+import profileImg from '@/assets/new-profile.jpg';
 
 export type BlogCategory =
   | 'Product Design'

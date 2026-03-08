@@ -95,7 +95,7 @@ const ArticlePage = () => {
                           />
                           <div>
                             <p className="text-sm font-medium text-foreground">{post.author.name}</p>
-                            <p className="text-xs text-muted-foreground">Senior Product Designer</p>
+                            <p className="text-xs text-muted-foreground">Product Designer</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-4 ml-auto text-xs text-muted-foreground">

@@ -14,6 +14,7 @@ import Architecture from "./pages/Architecture";
 import Blog from "./pages/Blog";
 import Thinking from "./pages/Thinking";
 import Hire from "./pages/Hire";
+import ArticlePage from "./pages/ArticlePage";
 import NotFound from "./pages/NotFound";
 import AIAssistantWidget from "./components/AIAssistantWidget";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";

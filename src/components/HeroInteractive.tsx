@@ -1,15 +1,9 @@
-import { useRef, useState, useCallback, useEffect, useMemo } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowRight, Briefcase } from 'lucide-react';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useIsMobile } from '@/hooks/use-mobile';
 import profileImage from '@/assets/new-profile.jpg';
-
-const headlineLines = [
-  { text: "Hello, I'm", accent: false },
-  { text: "Qomardeen Tijani", accent: true },
-  { text: "Product Designer", accent: false },
-];
 
 const easeCurve = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
@@ -39,7 +33,6 @@ const HeroInteractive = () => {
   const [cardTilt, setCardTilt] = useState({ x: 0, y: 0 });
   const [imgError, setImgError] = useState(false);
 
-  // Cursor-reactive background (desktop only)
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       if (isMobile) return;
@@ -53,7 +46,6 @@ const HeroInteractive = () => {
     [isMobile]
   );
 
-  // Profile card tilt (desktop only)
   const handleCardMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (isMobile) return;
@@ -91,7 +83,6 @@ const HeroInteractive = () => {
       className="relative min-h-screen flex items-end pb-16 md:pb-24 pt-28 md:pt-32 overflow-hidden"
       style={{ background: 'hsl(var(--background))' }}
     >
-      {/* Cursor-reactive gradient overlay */}
       {!isMobile && (
         <div
           className="absolute inset-0 pointer-events-none will-change-[background]"
@@ -99,37 +90,45 @@ const HeroInteractive = () => {
         />
       )}
 
-      <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-10">
-        {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-end">
-          {/* LEFT — Headline + Profile Card */}
-          <div className="space-y-10 md:space-y-14">
-            {/* Headline */}
-            <div>
-              {headlineLines.map((line, i) => (
-                <motion.div
-                  key={i}
-                  custom={i}
-                  variants={lineVariant}
-                  initial="hidden"
-                  animate="visible"
-                  className="overflow-hidden"
-                >
-                  <h1
-                    className={`font-display font-bold leading-[1.05] tracking-[-0.03em] ${
-                      line.accent ? 'text-primary' : 'text-foreground'
-                    }`}
-                    style={{
-                      fontSize: 'clamp(2.4rem, 5.5vw, 5rem)',
-                    }}
-                  >
-                    {line.text}
-                  </h1>
-                </motion.div>
-              ))}
-            </div>
+      <div className="relative z-10 w-full">
+        {/* "Hello, I'm" */}
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+          <motion.div custom={0} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
+            <span
+              className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
+              style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}
+            >
+              Hello, I'm
+            </span>
+          </motion.div>
+        </div>
 
-            {/* Profile card — bottom left */}
+        {/* Name — full bleed, extra bold, massive */}
+        <motion.div custom={1} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden w-full px-6 md:px-10">
+          <h1
+            className="font-display font-black leading-[0.95] tracking-[-0.04em] text-primary w-full"
+            style={{ fontSize: 'clamp(3.2rem, 10vw, 9rem)' }}
+          >
+            Qomardeen Tijani
+          </h1>
+        </motion.div>
+
+        {/* "Product Designer" */}
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-4">
+          <motion.div custom={2} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
+            <span
+              className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
+              style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}
+            >
+              Product Designer
+            </span>
+          </motion.div>
+        </div>
+
+        {/* Bottom: profile card left + description right */}
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-end">
+            {/* Profile card */}
             <motion.div
               ref={cardRef}
               variants={fadeIn(0.6)}
@@ -157,67 +156,57 @@ const HeroInteractive = () => {
                     <span className="text-muted-foreground text-sm">QT</span>
                   </div>
                 )}
-                {/* Gradient overlay on photo */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
               </div>
-
-              {/* Circular badge */}
               <div className="absolute -right-6 -bottom-4 md:-right-8 md:-bottom-5 w-16 h-16 md:w-20 md:h-20 rounded-full border border-border bg-background flex items-center justify-center">
                 <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground tracking-widest uppercase leading-tight text-center">
                   Let's<br />Work
                 </span>
               </div>
             </motion.div>
-          </div>
 
-          {/* RIGHT — Description + CTAs + Skills */}
-          <motion.div
-            variants={fadeIn(0.45)}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col justify-end space-y-8"
-          >
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
-              I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
-            </p>
+            {/* Description + CTAs */}
+            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-end space-y-8">
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
+                I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
+              </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <motion.button
-                onClick={() => navigate('/projects')}
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity group"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                View My Work
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-              <motion.button
-                onClick={() => navigate('/hire')}
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors group"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                <Briefcase className="w-4 h-4" />
-                Start a Project
-              </motion.button>
-            </div>
-
-            {/* Skill tags */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              {skills.map((skill, i) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + i * 0.06, duration: 0.3 }}
-                  className="px-3 py-1.5 rounded-full text-xs font-medium border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors cursor-default"
+              <div className="flex flex-col sm:flex-row gap-3">
+                <motion.button
+                  onClick={() => navigate('/projects')}
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity group"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
+                  View My Work
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+                <motion.button
+                  onClick={() => navigate('/hire')}
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-3 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors group"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <Briefcase className="w-4 h-4" />
+                  Start a Project
+                </motion.button>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {skills.map((skill, i) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.7 + i * 0.06, duration: 0.3 }}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors cursor-default"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
 

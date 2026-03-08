@@ -204,21 +204,16 @@ const UptimeProject = () => {
                       <span className="font-medium">Web App (SaaS)</span>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                  <div className="flex justify-center">
                     <a
                       href="https://www.behance.net/gallery/239892845/UpTime"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-8"
                     >
                       <ExternalLink className="w-4 h-4" />
                       View on Behance
                     </a>
-                    <GuidedWalkthrough
-                      steps={walkthroughSteps}
-                      projectTitle="UpTime CMMS"
-                      triggerLabel="Interactive Walkthrough"
-                    />
                   </div>
                 </div>
               </div>

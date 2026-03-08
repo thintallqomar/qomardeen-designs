@@ -166,7 +166,7 @@ const HeroInteractive = () => {
             </motion.div>
 
             {/* Description + CTAs */}
-            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-end items-end space-y-8 w-fit ml-auto">
+            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-end items-start space-y-8 w-fit ml-auto">
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
                 I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
               </p>

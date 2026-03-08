@@ -160,6 +160,8 @@ const AIAssistantWidget = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [pendingBlogDraft, setPendingBlogDraft] = useState<BlogDraft | null>(null);
+  const [blogPublishing, setBlogPublishing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);

@@ -80,9 +80,9 @@ const HeroInteractive = () => {
       ref={heroRef}
       id="home"
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-end pb-16 md:pb-24 pt-28 md:pt-32 overflow-hidden"
-      style={{ background: 'hsl(var(--background))' }}
+      className="relative min-h-screen flex items-end pb-16 md:pb-24 pt-28 md:pt-32 overflow-hidden bg-background"
     >
+      {/* Cursor-reactive gradient overlay — desktop only */}
       {!isMobile && (
         <div
           className="absolute inset-0 pointer-events-none will-change-[background]"
@@ -128,7 +128,7 @@ const HeroInteractive = () => {
         {/* Bottom: profile card left + description right */}
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-start">
-            {/* Profile card */}
+            {/* Profile card — offset on desktop, centered on mobile */}
             <motion.div
               ref={cardRef}
               variants={fadeIn(0.6)}
@@ -136,13 +136,13 @@ const HeroInteractive = () => {
               animate="visible"
               onMouseMove={handleCardMove}
               onMouseLeave={resetCardTilt}
-              className="relative w-fit ml-[180px] mt-10"
+              className="relative w-fit ml-0 md:ml-[180px] mt-4 md:mt-10 overflow-visible"
               style={{
                 transform: `perspective(600px) rotateX(${cardTilt.x}deg) rotateY(${cardTilt.y}deg)`,
                 transition: 'transform 0.25s ease-out',
               }}
             >
-              <div className="relative w-[240px] h-[280px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant">
+              <div className="relative w-[200px] h-[240px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant">
                 {!imgError ? (
                   <img
                     src={profileImage}
@@ -157,23 +157,44 @@ const HeroInteractive = () => {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                <div className="absolute -left-4 -top-4 w-32 h-32 md:w-40 md:h-40 bg-background/60 rounded-full blur-2xl pointer-events-none" />
               </div>
-              <div className="absolute -left-[4.75rem] -top-[4.75rem] md:-left-[5.25rem] md:-top-[5.25rem] w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center z-10">
-                <svg className="w-full h-full animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
+
+              {/* Blur backdrop for circular text contrast */}
+              <div className="absolute -left-6 -top-6 w-28 h-28 md:w-40 md:h-40 bg-background/50 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Circular text badge */}
+              <div className="absolute -left-10 -top-10 md:-left-[5.25rem] md:-top-[5.25rem] w-28 h-28 md:w-48 md:h-48 rounded-full flex items-center justify-center z-10">
+                <svg
+                  className="w-full h-full animate-[spin_12s_linear_infinite]"
+                  viewBox="0 0 100 100"
+                  aria-hidden="true"
+                >
                   <defs>
                     <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
                   </defs>
-                  <text className="fill-foreground" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' }}>
+                  <text
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      letterSpacing: '3px',
+                      textTransform: 'uppercase',
+                      fill: 'hsl(var(--foreground))',
+                    }}
+                  >
                     <textPath href="#circlePath" startOffset="0%">{"LET US WORK TOGETHER • LET US WORK TOGETHER •"}</textPath>
                   </text>
                 </svg>
-                <span className="absolute text-primary text-lg">↗</span>
+                <span className="absolute text-primary text-sm md:text-lg">↗</span>
               </div>
             </motion.div>
 
-            {/* Description + CTAs */}
-            <motion.div variants={fadeIn(0.45)} initial="hidden" animate="visible" className="flex flex-col justify-start items-start space-y-8 w-fit ml-auto">
+            {/* Description + CTAs — right side */}
+            <motion.div
+              variants={fadeIn(0.45)}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col justify-start items-start space-y-8 w-full lg:w-fit lg:ml-auto"
+            >
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
                 I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
               </p>

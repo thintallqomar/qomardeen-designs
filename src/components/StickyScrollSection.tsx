@@ -92,17 +92,17 @@ function StickyTextBlock({
 
   const opacity = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.15,
-    end - segmentSize * 0.15,
+    start + segmentSize * 0.1,
+    end - segmentSize * 0.1,
     end,
   ], [0, 1, 1, 0]);
 
   const y = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.15,
-    end - segmentSize * 0.15,
+    start + segmentSize * 0.1,
+    end - segmentSize * 0.1,
     end,
-  ], [40, 0, 0, -40]);
+  ], [30, 0, 0, -30]);
 
   return (
     <motion.div

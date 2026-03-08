@@ -141,24 +141,24 @@ const ArticlePage = () => {
                   <div className="max-w-3xl flex-1 min-w-0">
                     <div className="prose prose-lg prose-invert max-w-none
                       prose-headings:text-foreground prose-headings:font-bold prose-headings:scroll-mt-24
-                      prose-h2:text-[1.65rem] prose-h2:mt-20 prose-h2:mb-6 prose-h2:pt-4
-                      prose-h3:text-xl prose-h3:mt-16 prose-h3:mb-4 prose-h3:pt-2
-                      prose-p:text-muted-foreground prose-p:leading-[1.85] prose-p:mb-6
+                      prose-h2:text-[1.75rem] prose-h2:mt-14 prose-h2:mb-5 prose-h2:leading-tight
+                      prose-h3:text-[1.25rem] prose-h3:mt-10 prose-h3:mb-4 prose-h3:leading-snug
+                      prose-p:text-muted-foreground prose-p:text-[1.125rem] prose-p:leading-[2] prose-p:mb-8
                       prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                      prose-strong:text-foreground
+                      prose-strong:text-foreground prose-strong:font-semibold
                       prose-em:text-muted-foreground
-                      prose-blockquote:border-l-primary prose-blockquote:border-l-2 prose-blockquote:pl-6 prose-blockquote:py-1 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-muted-foreground
+                      prose-blockquote:border-l-primary prose-blockquote:border-l-2 prose-blockquote:pl-6 prose-blockquote:py-1 prose-blockquote:my-10 prose-blockquote:italic prose-blockquote:text-muted-foreground
                       prose-code:text-primary prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
-                      prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-xl prose-pre:p-5 prose-pre:overflow-x-auto prose-pre:my-8
+                      prose-pre:bg-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-xl prose-pre:p-5 prose-pre:overflow-x-auto prose-pre:my-10
                       prose-pre:prose-code:bg-transparent prose-pre:prose-code:p-0
-                      prose-ul:text-muted-foreground prose-ul:my-6 prose-ul:space-y-2
-                      prose-ol:text-muted-foreground prose-ol:my-6 prose-ol:space-y-2
-                      prose-li:mb-0 prose-li:leading-[1.8]
-                      prose-table:border-collapse prose-table:my-8
+                      prose-ul:text-muted-foreground prose-ul:my-8 prose-ul:space-y-3 prose-ul:text-[1.125rem]
+                      prose-ol:text-muted-foreground prose-ol:my-8 prose-ol:space-y-3 prose-ol:text-[1.125rem]
+                      prose-li:mb-1 prose-li:leading-[1.9]
+                      prose-table:border-collapse prose-table:my-10
                       prose-th:text-foreground prose-th:border prose-th:border-border prose-th:px-4 prose-th:py-3 prose-th:bg-secondary
                       prose-td:text-muted-foreground prose-td:border prose-td:border-border prose-td:px-4 prose-td:py-3
-                      prose-hr:border-border prose-hr:my-12
-                      prose-img:rounded-xl prose-img:my-8
+                      prose-hr:border-border prose-hr:my-14
+                      prose-img:rounded-xl prose-img:my-10
                     ">
                       <ReactMarkdown
                         components={{

@@ -115,6 +115,7 @@ const AnimatedRoutes = () => {
           <Route path="/blog" element={<LanguageRedirectWithPath />} />
           <Route path="/thinking" element={<LanguageRedirectWithPath />} />
           <Route path="/hire" element={<LanguageRedirectWithPath />} />
+          <Route path="/article/:slug" element={<LanguageRedirectWithPath />} />
           
           {/* Localized routes */}
           <Route path="/:lang/*" element={<LocalizedRoutes />} />

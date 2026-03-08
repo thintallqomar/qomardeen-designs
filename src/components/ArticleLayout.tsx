@@ -38,7 +38,7 @@ interface ArticleLayoutProps {
 }
 
 const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const backPath = post.section === 'thinking' ? '/thinking' : '/blog';
   const relatedPosts = getRelatedPosts(post.slug, post.category, 3);
 

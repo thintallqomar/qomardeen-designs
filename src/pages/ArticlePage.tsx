@@ -43,7 +43,7 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
 
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const post = slug ? getPostBySlug(slug) : undefined;
 
   if (!post) {

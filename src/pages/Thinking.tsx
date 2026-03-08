@@ -17,7 +17,7 @@ const tagIcons: Record<string, string> = {
 };
 
 const Thinking = () => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   return (
     <>

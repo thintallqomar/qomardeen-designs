@@ -29,8 +29,8 @@ const valueProps = [
   },
   {
     icon: <Code2 className="w-6 h-6 text-primary" />,
-    title: 'Design ↔ Dev Fluency',
-    description: 'I speak both languages. I prototype in code, write production-ready CSS, and collaborate seamlessly with engineering.',
+    title: 'Design ↔ Dev Bridge',
+    description: 'I understand how engineers think. I deliver specs they can actually build from — clear handoffs, logical component structures, and AI-assisted prototyping.',
   },
   {
     icon: <Zap className="w-6 h-6 text-primary" />,
@@ -43,7 +43,7 @@ const valueProps = [
 const processSteps = [
   { icon: <Lightbulb className="w-5 h-5" />, step: '01', title: 'Discovery', description: 'Understand the problem, users, business context, and constraints.' },
   { icon: <Palette className="w-5 h-5" />, step: '02', title: 'Design', description: 'Wireframes → high-fidelity UI → interactive prototypes with real data thinking.' },
-  { icon: <Code2 className="w-5 h-5" />, step: '03', title: 'Build', description: 'Design system implementation, responsive layouts, motion, and handoff-ready specs.' },
+  { icon: <Rocket className="w-5 h-5" />, step: '03', title: 'Build & Handoff', description: 'Design system specs, developer-ready documentation, and AI-assisted prototyping for seamless implementation.' },
   { icon: <Rocket className="w-5 h-5" />, step: '04', title: 'Deliver', description: 'QA, iteration, launch support, and documentation for long-term maintainability.' },
 ];
 
@@ -56,7 +56,7 @@ const services = [
   'Mobile-First Design',
   'Prototyping & User Testing',
   'AI-Powered Product Interfaces',
-  'Design-to-Code Implementation',
+  'AI-Assisted Prototyping',
 ];
 
 /* ── What You Get ── */

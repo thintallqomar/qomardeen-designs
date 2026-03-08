@@ -152,17 +152,17 @@ function StickyImageBlock({
 
   const opacity = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.2,
-    end - segmentSize * 0.2,
+    start + segmentSize * 0.12,
+    end - segmentSize * 0.12,
     end,
   ], [0, 1, 1, 0]);
 
   const scale = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.2,
-    end - segmentSize * 0.2,
+    start + segmentSize * 0.12,
+    end - segmentSize * 0.12,
     end,
-  ], [0.92, 1, 1, 0.92]);
+  ], [0.95, 1, 1, 0.95]);
 
   return (
     <motion.div

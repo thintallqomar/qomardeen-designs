@@ -113,13 +113,14 @@ const GuidedWalkthrough = ({
 
             {/* Content area */}
             <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-              {/* Image panel */}
-              <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 overflow-hidden">
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={currentStep}
-                    custom={direction}
-                    className="relative w-full h-full max-w-4xl max-h-[70vh] rounded-xl overflow-hidden border border-border bg-card shadow-lg"
+            {/* Image panel */}
+            <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 min-h-[300px] overflow-hidden">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={currentStep}
+                  custom={direction}
+                  className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg"
+                  style={{ height: 'clamp(300px, 60vh, 70vh)' }}
                     initial={{
                       opacity: 0,
                       x: direction * 60,

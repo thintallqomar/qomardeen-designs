@@ -288,6 +288,47 @@
     color: hsl(var(--text-primary));
   }
 
+  /* Hero background name — large watermark text */
+  .hero-bg-name {
+    color: transparent;
+    -webkit-text-stroke: 1.5px hsl(var(--primary) / 0.15);
+    text-stroke: 1.5px hsl(var(--primary) / 0.15);
+    text-shadow: 0 0 80px hsl(var(--primary) / 0.05);
+    user-select: none;
+  }
+
+  .light .hero-bg-name {
+    -webkit-text-stroke: 1.5px hsl(var(--primary) / 0.08);
+    text-stroke: 1.5px hsl(var(--primary) / 0.08);
+    text-shadow: none;
+  }
+
+  /* Hero profile image */
+  .hero-profile-image {
+    filter: contrast(1.05) brightness(0.95);
+    box-shadow: 0 20px 60px hsl(0 0% 0% / 0.4);
+  }
+
+  .light .hero-profile-image {
+    filter: contrast(1.02) brightness(1);
+    box-shadow: 0 20px 60px hsl(220 25% 15% / 0.15);
+  }
+
+  /* Hero skill tags */
+  .hero-skill-tag {
+    background: hsl(var(--secondary));
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--secondary-foreground));
+    transition: all 0.2s ease;
+  }
+
+  .hero-skill-tag:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);

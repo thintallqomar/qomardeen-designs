@@ -6,7 +6,11 @@
     "blog": "Blog",
     "thinking": "Thinking",
     "hire": "Hire",
-    "about": "About"
+    "about": "About",
+    "explore": "Explore",
+    "architectureDesc": "System design & patterns",
+    "thinkingDesc": "Essays & frameworks",
+    "aboutDesc": "Background & experience"
   },
   "hero": {
     "available": "Available for new opportunities",

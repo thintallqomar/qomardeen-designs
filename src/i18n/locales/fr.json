@@ -6,7 +6,11 @@
     "blog": "Blog",
     "thinking": "Réflexions",
     "hire": "Embaucher",
-    "about": "À propos"
+    "about": "À propos",
+    "explore": "Explorer",
+    "architectureDesc": "Conception système & patterns",
+    "thinkingDesc": "Essais & cadres de pensée",
+    "aboutDesc": "Parcours & expérience"
   },
   "hero": {
     "available": "Disponible pour de nouvelles opportunités",

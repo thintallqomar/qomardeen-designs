@@ -104,8 +104,14 @@
     "tagline": "Ṣé o ní ìpèníjà tó nira tó fẹ́ yanjú? Mo ṣetán láti gbọ́. Jẹ́ ká wá ojútùú tó rọrùn tó sì ṣe tuntun."
   },
   "newsletter": {
-    "title": "Dúró Ní Ìmúdójúìwọ̀n",
-    "placeholder": "Tẹ ìmeèlì rẹ",
-    "subscribe": "Forúkọsílẹ̀"
+    "badge": "Wà nínú ìsọ̀rọ̀",
+    "title": "Gba àwọn ìmọ̀ràn àpẹẹrẹ",
+    "subtitle": "Kò sí spam — àwọn àkọsílẹ̀ tó jinlẹ̀ nípa àpẹẹrẹ ọja, ìrònú ètò, àti kíkọ́ pẹ̀lú AI.",
+    "placeholder": "imeeli@rẹ.com",
+    "subscribe": "Forúkọsílẹ̀",
+    "success": "O ti wà nínú àkójọ!",
+    "alreadySubscribed": "O ti forúkọsílẹ̀ tẹ́lẹ̀!",
+    "successToast": "Ó ti forúkọsílẹ̀! Ẹ kú àbọ̀.",
+    "errorToast": "Ohun kan ṣẹlẹ̀. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
   }
 }

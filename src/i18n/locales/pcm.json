@@ -104,8 +104,14 @@
     "tagline": "You get complex challenge wey you wan tackle? I dey all ears. Make we dig in and craft solution wey go dey intuitive and innovative."
   },
   "newsletter": {
-    "title": "Stay Updated",
-    "placeholder": "Enter your email",
-    "subscribe": "Subscribe"
+    "badge": "Stay for gist",
+    "title": "Get design gist wey dey land",
+    "subtitle": "No spam, no yawa — just sharp essays on product design, systems thinking, and building with AI.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "success": "You don enter di list!",
+    "alreadySubscribed": "You don subscribe before!",
+    "successToast": "You don subscribe! Welcome.",
+    "errorToast": "Something no work. Abeg try again."
   }
 }

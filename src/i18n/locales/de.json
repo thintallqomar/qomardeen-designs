@@ -104,8 +104,14 @@
     "tagline": "Haben Sie eine komplexe Herausforderung? Ich höre gerne zu. Lassen Sie uns eine intuitive und innovative Lösung entwickeln."
   },
   "newsletter": {
-    "title": "Auf dem Laufenden bleiben",
-    "placeholder": "E-Mail eingeben",
-    "subscribe": "Abonnieren"
+    "badge": "Bleiben Sie informiert",
+    "title": "Design-Insights erhalten",
+    "subtitle": "Kein Spam — nur durchdachte Essays über Produktdesign, Systemdenken und Entwicklung mit KI.",
+    "placeholder": "ihre@email.com",
+    "subscribe": "Abonnieren",
+    "success": "Sie sind auf der Liste!",
+    "alreadySubscribed": "Sie sind bereits abonniert!",
+    "successToast": "Abonniert! Willkommen.",
+    "errorToast": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
   }
 }

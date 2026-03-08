@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     category: "Design Systems",
     tags: ["design systems", "product architecture", "ui consistency"],
-    publishDate: "2025-03-10",
+    publishDate: "2026-03-06",
     author,
     section: "blog",
     seo: {
@@ -152,7 +152,7 @@ The key is patience and commitment. A design system is a product, not a project.
     readTime: "6 min",
     category: "AI & Product Design",
     tags: ["ai product design", "ai interfaces", "future ux"],
-    publishDate: "2025-01-14",
+    publishDate: "2026-02-18",
     author,
     section: "blog",
     seo: {
@@ -260,7 +260,7 @@ Design for the failure case first. If the worst-case experience is acceptable, t
     readTime: "6 min",
     category: "Design Process",
     tags: ["ai design", "design tools", "workflow"],
-    publishDate: "2024-11-20",
+    publishDate: "2026-02-03",
     author,
     section: "blog",
     seo: {
@@ -341,7 +341,7 @@ The designers who thrive will be those who use AI for the mechanical work and in
     readTime: "5 min",
     category: "Product Design",
     tags: ["dashboard ux", "data visualization", "analytics design"],
-    publishDate: "2024-09-05",
+    publishDate: "2026-01-20",
     author,
     section: "blog",
     seo: {
@@ -414,7 +414,7 @@ If they can't answer, the hierarchy is wrong. Redesign until the most important 
     readTime: "4 min",
     category: "UX Design",
     tags: ["fintech", "ux design", "trust design", "product safety"],
-    publishDate: "2024-07-18",
+    publishDate: "2026-01-06",
     author,
     section: "blog",
     seo: {
@@ -491,7 +491,7 @@ This framework turned abstract security into tangible user confidence.
     readTime: "5 min",
     category: "Product Design",
     tags: ["systems thinking", "product design", "design systems"],
-    publishDate: "2024-05-02",
+    publishDate: "2025-12-18",
     author,
     section: "blog",
     seo: {
@@ -569,7 +569,7 @@ You don't need to redesign everything. Start with one question: *"Is there a pat
     readTime: "4 min",
     category: "Career & Design",
     tags: ["career", "design thinking", "creative journey"],
-    publishDate: "2024-03-12",
+    publishDate: "2025-12-02",
     author,
     section: "blog",
     seo: {
@@ -642,7 +642,7 @@ export const thinkingPosts: BlogPost[] = [
     readTime: "7 min",
     category: "UX Design",
     tags: ["fintech", "onboarding", "ux breakdown"],
-    publishDate: "2025-02-20",
+    publishDate: "2026-02-24",
     author,
     section: "thinking",
     seo: {
@@ -705,7 +705,7 @@ The best onboarding doesn't feel like onboarding. It feels like the product is g
     readTime: "8 min",
     category: "Design Systems",
     tags: ["design systems", "product teardown", "notion"],
-    publishDate: "2025-02-10",
+    publishDate: "2026-02-10",
     author,
     section: "thinking",
     seo: {
@@ -761,7 +761,7 @@ Even the best design systems have trade-offs. The key is making *intentional* tr
     readTime: "6 min",
     category: "AI & Product Design",
     tags: ["ai", "product design", "future ux"],
-    publishDate: "2025-01-25",
+    publishDate: "2026-01-28",
     author,
     section: "thinking",
     seo: {
@@ -810,7 +810,7 @@ The products that win won't be the ones with the most AI features. They'll be th
     readTime: "5 min",
     category: "Product Design",
     tags: ["systems thinking", "design methodology"],
-    publishDate: "2025-01-15",
+    publishDate: "2026-01-12",
     author,
     section: "thinking",
     seo: {

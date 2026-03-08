@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. All rights reserved.",
     "tagline": "Got a complex challenge you're ready to tackle? I'm all ears. Let's dig in and craft a solution that's both intuitive and innovative."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights on product design, systems thinking, and building digital products",
+    "featured": "Featured",
+    "readArticle": "Read article",
+    "read": "Read",
+    "search": "Search articles...",
+    "all": "All",
+    "noResults": "No articles found matching your search."
+  },
+  "thinking": {
+    "title": "Thinking",
+    "subtitle": "UX breakdowns, product teardowns, and strategic design thinking",
+    "readMore": "Read more"
+  },
   "newsletter": {
     "badge": "Stay in the loop",
     "title": "Get design insights delivered",

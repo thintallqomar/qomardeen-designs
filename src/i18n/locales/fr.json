@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. Tous droits réservés.",
     "tagline": "Vous avez un défi complexe à relever ? Je suis tout ouïe. Creusons ensemble et créons une solution intuitive et innovante."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Réflexions sur le design produit, la pensée systémique et la création de produits numériques",
+    "featured": "À la une",
+    "readArticle": "Lire l'article",
+    "read": "Lire",
+    "search": "Rechercher des articles...",
+    "all": "Tous",
+    "noResults": "Aucun article ne correspond à votre recherche."
+  },
+  "thinking": {
+    "title": "Réflexions",
+    "subtitle": "Analyses UX, déconstructions de produits et réflexion stratégique en design",
+    "readMore": "Lire la suite"
+  },
   "newsletter": {
     "badge": "Restez connecté",
     "title": "Recevez des insights design",

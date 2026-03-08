@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. Todos os direitos reservados.",
     "tagline": "Tem um desafio complexo? Estou pronto para ouvir. Vamos criar uma solução intuitiva e inovadora."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights sobre design de produto, pensamento sistêmico e construção de produtos digitais",
+    "featured": "Destaque",
+    "readArticle": "Ler artigo",
+    "read": "Ler",
+    "search": "Pesquisar artigos...",
+    "all": "Todos",
+    "noResults": "Nenhum artigo encontrado para sua pesquisa."
+  },
+  "thinking": {
+    "title": "Pensamento",
+    "subtitle": "Análises UX, desconstruções de produtos e pensamento estratégico de design",
+    "readMore": "Ler mais"
+  },
   "newsletter": {
     "badge": "Fique por dentro",
     "title": "Receba insights de design",

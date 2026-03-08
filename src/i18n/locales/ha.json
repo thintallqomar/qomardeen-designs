@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. An tanada duk haƙƙoƙi.",
     "tagline": "Kana da ƙalubale mai rikitarwa da kake son magancewa? Na shirya in ji. Mu haƙa mu gina hanya mai sauƙi kuma mai kirkira."
   },
+  "blog": {
+    "title": "Rubutu",
+    "subtitle": "Fahimta game da tsara kaya, tunani na tsari, da gina kayayyakin dijital",
+    "featured": "Fitacce",
+    "readArticle": "Karanta labarin",
+    "read": "Karanta",
+    "search": "Nemo labaran...",
+    "all": "Duka",
+    "noResults": "Ba a samu labaran da suka dace da bincikenka ba."
+  },
+  "thinking": {
+    "title": "Tunani",
+    "subtitle": "Nazarin UX, nazarin kaya, da tunani na tsara dabara",
+    "readMore": "Karanta ƙari"
+  },
   "newsletter": {
     "badge": "Kasance cikin haɗi",
     "title": "Karɓi ra'ayoyin ƙira",

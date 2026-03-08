@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. All rights reserved.",
     "tagline": "You get complex challenge wey you wan tackle? I dey all ears. Make we dig in and craft solution wey go dey intuitive and innovative."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Gist about product design, systems thinking, and building digital products",
+    "featured": "Top Pick",
+    "readArticle": "Read am",
+    "read": "Read",
+    "search": "Search articles...",
+    "all": "All",
+    "noResults": "No article match wetin you search."
+  },
+  "thinking": {
+    "title": "Thinking",
+    "subtitle": "UX breakdowns, product teardowns, and sharp design thinking",
+    "readMore": "Read more"
+  },
   "newsletter": {
     "badge": "Stay for gist",
     "title": "Get design gist wey dey land",

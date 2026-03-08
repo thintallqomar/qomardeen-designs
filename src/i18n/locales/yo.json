@@ -103,6 +103,21 @@
     "copyright": "© {{year}} Qomardeen Tyler Tijani. Gbogbo ẹ̀tọ́ ni a pamọ́.",
     "tagline": "Ṣé o ní ìpèníjà tó nira tó fẹ́ yanjú? Mo ṣetán láti gbọ́. Jẹ́ ká wá ojútùú tó rọrùn tó sì ṣe tuntun."
   },
+  "blog": {
+    "title": "Àkọsílẹ̀",
+    "subtitle": "Ìmọ̀ràn lórí àpẹẹrẹ ọja, ìrònú ètò, àti kíkọ́ àwọn ọja oníṣirò",
+    "featured": "Àkọ́kọ́",
+    "readArticle": "Ka àkọsílẹ̀",
+    "read": "Ka",
+    "search": "Wá àwọn àkọsílẹ̀...",
+    "all": "Gbogbo",
+    "noResults": "Kò sí àkọsílẹ̀ tí ó bá ìwádìí rẹ mu."
+  },
+  "thinking": {
+    "title": "Ìrònú",
+    "subtitle": "Ìtúpalẹ̀ UX, ìṣàwárí ọja, àti ìrònú àpẹẹrẹ ilànà",
+    "readMore": "Ka síwájú"
+  },
   "newsletter": {
     "badge": "Wà nínú ìsọ̀rọ̀",
     "title": "Gba àwọn ìmọ̀ràn àpẹẹrẹ",

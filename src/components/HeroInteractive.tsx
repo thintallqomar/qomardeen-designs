@@ -195,7 +195,7 @@ const HeroInteractive = () => {
                   whileTap={{ scale: 0.97 }}
                 >
                   <Briefcase className="w-4 h-4" />
-                  Start a Project
+                  Hire Me
                 </motion.button>
               </div>
 

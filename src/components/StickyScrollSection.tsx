@@ -24,7 +24,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
   });
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 55}vh` }}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 45}vh` }}>
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">
         <div className="container-custom w-full">

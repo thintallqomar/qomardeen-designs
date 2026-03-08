@@ -115,56 +115,44 @@ const GuidedWalkthrough = ({
             {/* Content area */}
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_384px] overflow-hidden">
               {/* Image panel */}
-              <div className="relative flex items-center justify-center p-4 md:p-8 overflow-hidden">
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={currentStep}
-                    custom={direction}
-                    className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden border border-border bg-card shadow-lg"
-                    initial={{ opacity: 0, x: direction * 60, scale: 0.96 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: direction * -60, scale: 0.96 }}
-                    transition={{ duration: 0.4, ease }}
-                  >
-                    <img
-                      src={step.image}
-                      alt={step.imageAlt}
-                      className="w-full h-full object-contain"
-                    />
+              <div className="relative flex items-center justify-center p-4 md:p-8 overflow-hidden min-h-0">
+                <div className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg">
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    className="w-full h-auto object-contain block"
+                  />
 
-                    {/* Hotspots */}
-                    {step.hotspots?.map((hotspot, i) => (
-                      <button
-                        key={i}
-                        className="absolute group/hotspot"
-                        style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
-                        onClick={() => setActiveHotspot(activeHotspot === i ? null : i)}
-                      >
-                        {/* Pulse ring */}
-                        <span className="absolute -inset-3 rounded-full bg-primary/20 animate-ping" />
-                        <span className="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-lg">
-                          {i + 1}
-                        </span>
+                  {/* Hotspots */}
+                  {step.hotspots?.map((hotspot, i) => (
+                    <button
+                      key={i}
+                      className="absolute group/hotspot"
+                      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+                      onClick={() => setActiveHotspot(activeHotspot === i ? null : i)}
+                    >
+                      <span className="absolute -inset-3 rounded-full bg-primary/20 animate-ping" />
+                      <span className="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-lg">
+                        {i + 1}
+                      </span>
 
-                        {/* Tooltip */}
-                        <AnimatePresence>
-                          {activeHotspot === i && (
-                            <motion.div
-                              className="absolute z-20 left-8 top-1/2 -translate-y-1/2 w-64 p-4 rounded-xl bg-card border border-border shadow-xl"
-                              initial={{ opacity: 0, x: -8, scale: 0.95 }}
-                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                              exit={{ opacity: 0, x: -8, scale: 0.95 }}
-                              transition={{ duration: 0.2, ease }}
-                            >
-                              <h4 className="text-sm font-semibold mb-1">{hotspot.label}</h4>
-                              <p className="text-xs text-muted-foreground leading-relaxed">{hotspot.description}</p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </button>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+                      <AnimatePresence>
+                        {activeHotspot === i && (
+                          <motion.div
+                            className="absolute z-20 left-8 top-1/2 -translate-y-1/2 w-64 p-4 rounded-xl bg-card border border-border shadow-xl"
+                            initial={{ opacity: 0, x: -8, scale: 0.95 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: -8, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease }}
+                          >
+                            <h4 className="text-sm font-semibold mb-1">{hotspot.label}</h4>
+                            <p className="text-xs text-muted-foreground leading-relaxed">{hotspot.description}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Info sidebar */}

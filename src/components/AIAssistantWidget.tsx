@@ -66,10 +66,12 @@ function parseNavigation(content: string): { displayContent: string; navPath: st
 
 async function streamChat({
   messages,
+  isAdmin,
   onDelta,
   onDone,
 }: {
   messages: Message[];
+  isAdmin?: boolean;
   onDelta: (text: string) => void;
   onDone: () => void;
 }) {
@@ -79,7 +81,7 @@ async function streamChat({
       "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, isAdmin: !!isAdmin }),
   });
 
   if (!resp.ok || !resp.body) {

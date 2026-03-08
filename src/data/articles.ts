@@ -1,167 +1,272 @@
+import profileImg from '@/assets/qomardeen-profile.jpg';
+
+export type BlogCategory =
+  | 'Product Design'
+  | 'UX Design'
+  | 'Design Process'
+  | 'Design Systems'
+  | 'AI & Product Design'
+  | 'Career & Design';
+
 export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
   content: string;
   readTime: string;
-  tag: string;
-  date: string;
-  category: 'blog' | 'thinking';
+  category: BlogCategory;
+  tags: string[];
+  publishDate: string;
+  lastUpdated?: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
+  };
+  section: 'blog' | 'thinking';
 }
+
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  'Product Design',
+  'UX Design',
+  'Design Process',
+  'Design Systems',
+  'AI & Product Design',
+  'Career & Design',
+];
+
+const author = {
+  name: 'Qomardeen Tijani',
+  avatar: profileImg,
+};
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "systems-thinking-product-design",
-    title: "Why Systems Thinking Matters in Product Design",
-    excerpt: "How thinking beyond screens creates more scalable and consistent user experiences.",
-    readTime: "5 min",
-    tag: "Systems",
-    date: "2025-03-01",
-    category: "blog",
+    slug: "building-scalable-design-systems",
+    title: "Building Scalable Design Systems",
+    excerpt: "How design systems help teams scale products efficiently while maintaining usability and visual consistency.",
+    readTime: "7 min",
+    category: "Design Systems",
+    tags: ["design systems", "product architecture", "ui consistency"],
+    publishDate: "2025-03-10",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "Building Scalable Design Systems | Qomardeen Tijani",
+      metaDescription: "How design systems help teams scale products efficiently while maintaining usability and visual consistency.",
+    },
     content: `
-## The Problem with Screen-Level Thinking
+## Why Design Systems Matter at Scale
 
-Most designers start with screens. A login page here, a dashboard there, a settings panel somewhere else. This approach works for small products, but it breaks down the moment your product scales.
+A design system is more than a component library. It's a shared language between design and engineering that enables teams to build consistent experiences at velocity.
 
-When you design screen-by-screen, you end up with:
-- **Inconsistent patterns** — buttons that behave differently across pages
-- **Redundant components** — three versions of the same modal
-- **Fragile handoffs** — engineers rebuilding what already exists
+Without one, every new feature becomes an opportunity for fragmentation. With one, every new feature *compounds* existing quality.
 
-## What Systems Thinking Looks Like
+## The Anatomy of a Scalable System
 
-Systems thinking means zooming out before zooming in. Instead of asking *"What should this screen look like?"*, you ask:
+### 1. Design Tokens
 
-> "What are the underlying rules that govern how every screen should behave?"
+Tokens are the atoms of your system — colors, spacing, typography, shadows, motion:
 
-This shift changes everything. You start designing **principles**, not pages. You define:
-
-1. **Interaction patterns** — How does selection work everywhere?
-2. **Data flow** — Where does information come from, and how does it update?
-3. **State management** — What happens when something loads, fails, or is empty?
-
-## A Real Example: Uptime
-
-When I designed the Uptime logistics platform, I started with the system model:
-
-\`\`\`
-User Role → Permission Set → Available Actions → UI Surface
+\`\`\`css
+:root {
+  --color-primary: hsl(185, 84%, 55%);
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --radius-lg: 1rem;
+  --font-heading: 'Inter', sans-serif;
+}
 \`\`\`
 
-This meant every new feature could be expressed as a combination of existing primitives. A warehouse manager and a driver see different data, but the *patterns* are identical.
+Tokens ensure that a "primary color" change propagates everywhere instantly.
 
-### The Component Architecture
+### 2. Component Architecture
+
+Components should follow a clear hierarchy:
+
+\`\`\`
+Primitives (Button, Input, Badge)
+  → Patterns (SearchBar, FormField, Card)
+    → Features (UserProfile, PaymentForm, Dashboard)
+      → Pages (Home, Settings, Checkout)
+\`\`\`
+
+Each layer only composes from the layer below. This prevents circular dependencies and makes changes predictable.
+
+### 3. Variant Strategy
+
+Every component needs a clear variant model:
 
 \`\`\`typescript
-// Instead of building custom pages per role:
-const DashboardView = ({ role, permissions }) => {
-  const widgets = getWidgetsForRole(role);
-  const actions = filterByPermissions(permissions);
-  
-  return (
-    <DashboardLayout>
-      {widgets.map(widget => (
-        <Widget key={widget.id} actions={actions} />
-      ))}
-    </DashboardLayout>
-  );
-};
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive';
+type ButtonSize = 'sm' | 'md' | 'lg';
+
+// This gives you 4 × 3 = 12 combinations from ONE component
 \`\`\`
 
-## The Payoff
+> Rule of thumb: If you're creating a new component that's 80% similar to an existing one, add a variant instead.
 
-Systems thinking doesn't just make design more consistent — it makes the entire product team faster:
+## Governance Models
 
-- **Designers** reuse patterns instead of reinventing them
-- **Engineers** build once and compose
-- **Product managers** can predict the impact of changes
+### Centralized
+One design systems team owns everything. Works for large orgs (50+ designers).
 
-The initial investment is higher, but the compound returns are enormous. Every new feature becomes cheaper to design, build, and maintain.
+### Federated
+Product teams contribute components, systems team reviews and maintains. Best for mid-size orgs.
 
-## Start Small
+### Community-Driven
+Anyone can propose changes via a contribution process. Works for open-source and distributed teams.
 
-You don't need to redesign everything. Start with one question: *"Is there a pattern here that I'm repeating?"* If yes, extract it, name it, and document it. That's systems thinking in action.
+## Cross-Team Collaboration
+
+The hardest part of design systems isn't technical — it's organizational:
+
+1. **Regular office hours** — Weekly sessions where teams can ask questions
+2. **Migration guides** — When components update, provide step-by-step migration paths
+3. **Adoption metrics** — Track which teams use the system and which don't
+4. **Feedback loops** — Make it easy to report issues and request features
+
+## Measuring Success
+
+| Metric | What it measures |
+|--------|-----------------|
+| Component coverage | % of UI using system components |
+| Design-to-dev time | Time from mockup to production |
+| Consistency score | Visual consistency audit results |
+| Adoption rate | Teams actively using the system |
+
+## The Compound Effect
+
+Design systems have exponential returns. The first 6 months feel slow — you're building infrastructure. After that, every new feature ships faster because the foundations are solid. The teams I've worked with typically see a **40-60% reduction** in design-to-development time after the first year.
+
+The key is patience and commitment. A design system is a product, not a project.
     `
   },
   {
-    slug: "designing-trust-fintech",
-    title: "Designing Trust in Fintech Interfaces",
-    excerpt: "Key patterns that help users feel confident when moving money digitally.",
-    readTime: "4 min",
-    tag: "Fintech",
-    date: "2025-02-15",
-    category: "blog",
+    slug: "designing-ai-native-products",
+    title: "Designing AI-Native Products",
+    excerpt: "Principles for designing products where artificial intelligence is a core capability rather than an add-on feature.",
+    readTime: "6 min",
+    category: "AI & Product Design",
+    tags: ["ai product design", "ai interfaces", "future ux"],
+    publishDate: "2025-01-14",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "Designing AI-Native Products | Qomardeen Tijani",
+      metaDescription: "Principles for designing products where artificial intelligence is a core capability rather than an add-on feature.",
+    },
     content: `
-## Trust Is the Product
+## AI-Native vs. AI-Enhanced
 
-In fintech, the interface *is* the trust signal. Users can't see the servers, the encryption, or the compliance certifications. All they have is what's on screen.
+There's a critical distinction most teams miss:
 
-After designing WalPay — a digital payments platform — I've identified the patterns that consistently build user confidence.
+- **AI-Enhanced**: Traditional product with AI features bolted on (e.g., "smart suggestions" in a form)
+- **AI-Native**: Product designed from the ground up around AI capabilities (e.g., conversational interfaces, adaptive workflows)
 
-## The Five Trust Signals
+The design principles for each are fundamentally different.
 
-### 1. Progressive Disclosure of Security
+## Core Principles
 
-Don't dump all your security features on the user at once. Reveal them contextually:
+### 1. Design for Uncertainty
 
-- **Before a transaction**: Show the encryption badge
-- **During confirmation**: Display the exact amount and recipient
-- **After completion**: Provide a timestamped receipt with transaction ID
+Traditional UIs are deterministic — click a button, get a predictable result. AI interfaces are probabilistic — the same input might produce different outputs.
 
-### 2. Predictable Feedback Loops
-
-Every action should have a clear, immediate response:
+This requires new interaction patterns:
 
 \`\`\`
-Tap "Send" → Button shows spinner → 
-Success screen with confetti → 
-Receipt appears in history
+Traditional:   Input → Processing → Output
+AI-Native:     Input → Processing → Output + Confidence + Alternatives
 \`\`\`
 
-The worst thing in fintech is ambiguity. *"Did my payment go through?"* should never be a question.
+Always show:
+- **Confidence indicators** — How sure is the AI?
+- **Alternative suggestions** — What else could it be?
+- **Easy correction** — How to fix wrong results?
 
-### 3. Transparent Error States
+### 2. Progressive Autonomy
 
-When something fails, be specific:
+Don't give the AI full control immediately. Let users build trust gradually:
 
-| ❌ Bad | ✅ Good |
-|--------|---------|
-| "Transaction failed" | "Your bank declined this transaction. Try a different card or contact your bank." |
-| "Error occurred" | "We couldn't verify your identity. Please retake your photo in good lighting." |
+| Trust Level | AI Role | User Role |
+|-------------|---------|-----------|
+| New user | Suggest | Decide + execute |
+| Regular user | Recommend | Approve |
+| Power user | Act | Monitor + override |
 
-### 4. Familiar Visual Language
+### 3. Transparent Reasoning
 
-Use conventions users already trust:
-- **Green** for successful transactions
-- **Lock icons** near sensitive inputs
-- **Bank-style formatting** for account numbers (•••• 4532)
+Users need to understand *why* the AI made a decision:
 
-### 5. Undo and Recovery
+\`\`\`
+❌ "We recommend Product A"
+✅ "We recommend Product A because it matches your budget 
+   ($50-100) and has 4.8★ ratings in your preferred category"
+\`\`\`
 
-Allow users to feel safe by providing escape hatches:
-- Cancel pending transfers
-- Edit scheduled payments
-- Dispute transactions with clear timelines
+### 4. Graceful Degradation
 
-## The WalPay Approach
+When AI fails (and it will), the product should still work:
 
-In WalPay, every screen was designed with a "trust audit" — a checklist asking:
+\`\`\`typescript
+const getRecommendation = async (userId: string) => {
+  try {
+    const aiResult = await ai.recommend(userId);
+    if (aiResult.confidence > 0.7) return aiResult;
+    // Fall back to rule-based recommendations
+    return fallbackRecommender.recommend(userId);
+  } catch {
+    // Fall back to popularity-based defaults
+    return getPopularItems();
+  }
+};
+\`\`\`
 
-1. Does the user know where their money is right now?
-2. Can they predict what happens next?
-3. If something goes wrong, do they know how to recover?
+## Interaction Models
 
-This framework turned abstract security into tangible user confidence.
+### Conversational
+Best for: Open-ended tasks, exploration, complex queries.
+Example: Chatbots, voice assistants, AI search.
+
+### Ambient
+Best for: Background optimization, passive monitoring.
+Example: Smart notifications, auto-categorization, predictive loading.
+
+### Collaborative
+Best for: Creative work, document editing, code generation.
+Example: AI co-pilots, writing assistants, design tools.
+
+## Ethical Considerations
+
+1. **Bias awareness** — Test AI outputs across demographics
+2. **Data transparency** — Tell users what data the AI uses
+3. **Opt-out options** — Always let users disable AI features
+4. **Human escalation** — Provide paths to human support
+
+## The Design Challenge
+
+The hardest part of AI product design isn't the technology — it's managing user expectations. AI that works 90% of the time creates frustration in the 10% it fails, especially if users expected 100%.
+
+Design for the failure case first. If the worst-case experience is acceptable, the product will succeed.
     `
   },
   {
     slug: "ai-assisted-design-workflows",
     title: "AI-Assisted Design Workflows",
-    excerpt: "How I use AI tools to accelerate research, ideation, and iteration.",
+    excerpt: "How artificial intelligence can accelerate research, ideation, and iteration in modern product design.",
     readTime: "6 min",
-    tag: "AI",
-    date: "2025-02-01",
-    category: "blog",
+    category: "Design Process",
+    tags: ["ai design", "design tools", "workflow"],
+    publishDate: "2024-11-20",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "AI-Assisted Design Workflows | Qomardeen Tijani",
+      metaDescription: "How artificial intelligence can accelerate research, ideation, and iteration in modern product design.",
+    },
     content: `
 ## AI Won't Replace Designers — But It Will Replace Slow Ones
 
@@ -230,13 +335,19 @@ The designers who thrive will be those who use AI for the mechanical work and in
     `
   },
   {
-    slug: "dashboard-design-clarity",
+    slug: "dashboard-design-clarity-over-complexity",
     title: "Dashboard Design: Clarity Over Complexity",
-    excerpt: "Principles for building data-heavy interfaces that users actually understand.",
+    excerpt: "Principles for designing data-heavy dashboards that help users understand complex information quickly.",
     readTime: "5 min",
-    tag: "Dashboard",
-    date: "2025-01-20",
-    category: "blog",
+    category: "Product Design",
+    tags: ["dashboard ux", "data visualization", "analytics design"],
+    publishDate: "2024-09-05",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "Dashboard Design: Clarity Over Complexity | Qomardeen Tijani",
+      metaDescription: "Principles for designing data-heavy dashboards that help users understand complex information quickly.",
+    },
     content: `
 ## The Dashboard Paradox
 
@@ -297,13 +408,174 @@ If they can't answer, the hierarchy is wrong. Redesign until the most important 
     `
   },
   {
-    slug: "fashion-to-product-design",
-    title: "From Fashion to Product Design",
-    excerpt: "How my background in fashion design shaped my approach to digital products.",
+    slug: "designing-trust-fintech-interfaces",
+    title: "Designing Trust in Fintech Interfaces",
+    excerpt: "Key UX patterns that build trust when users move money through digital platforms.",
     readTime: "4 min",
-    tag: "Career",
-    date: "2025-01-10",
-    category: "blog",
+    category: "UX Design",
+    tags: ["fintech", "ux design", "trust design", "product safety"],
+    publishDate: "2024-07-18",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "Designing Trust in Fintech Interfaces | Qomardeen Tijani",
+      metaDescription: "Key UX patterns that build trust when users move money through digital platforms.",
+    },
+    content: `
+## Trust Is the Product
+
+In fintech, the interface *is* the trust signal. Users can't see the servers, the encryption, or the compliance certifications. All they have is what's on screen.
+
+After designing WalPay — a digital payments platform — I've identified the patterns that consistently build user confidence.
+
+## The Five Trust Signals
+
+### 1. Progressive Disclosure of Security
+
+Don't dump all your security features on the user at once. Reveal them contextually:
+
+- **Before a transaction**: Show the encryption badge
+- **During confirmation**: Display the exact amount and recipient
+- **After completion**: Provide a timestamped receipt with transaction ID
+
+### 2. Predictable Feedback Loops
+
+Every action should have a clear, immediate response:
+
+\`\`\`
+Tap "Send" → Button shows spinner → 
+Success screen with confetti → 
+Receipt appears in history
+\`\`\`
+
+The worst thing in fintech is ambiguity. *"Did my payment go through?"* should never be a question.
+
+### 3. Transparent Error States
+
+When something fails, be specific:
+
+| ❌ Bad | ✅ Good |
+|--------|---------|
+| "Transaction failed" | "Your bank declined this transaction. Try a different card or contact your bank." |
+| "Error occurred" | "We couldn't verify your identity. Please retake your photo in good lighting." |
+
+### 4. Familiar Visual Language
+
+Use conventions users already trust:
+- **Green** for successful transactions
+- **Lock icons** near sensitive inputs
+- **Bank-style formatting** for account numbers (•••• 4532)
+
+### 5. Undo and Recovery
+
+Allow users to feel safe by providing escape hatches:
+- Cancel pending transfers
+- Edit scheduled payments
+- Dispute transactions with clear timelines
+
+## The WalPay Approach
+
+In WalPay, every screen was designed with a "trust audit" — a checklist asking:
+
+1. Does the user know where their money is right now?
+2. Can they predict what happens next?
+3. If something goes wrong, do they know how to recover?
+
+This framework turned abstract security into tangible user confidence.
+    `
+  },
+  {
+    slug: "systems-thinking-product-design",
+    title: "Why Systems Thinking Matters in Product Design",
+    excerpt: "How thinking beyond individual screens enables scalable and consistent product experiences.",
+    readTime: "5 min",
+    category: "Product Design",
+    tags: ["systems thinking", "product design", "design systems"],
+    publishDate: "2024-05-02",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "Why Systems Thinking Matters in Product Design | Qomardeen Tijani",
+      metaDescription: "How thinking beyond individual screens enables scalable and consistent product experiences.",
+    },
+    content: `
+## The Problem with Screen-Level Thinking
+
+Most designers start with screens. A login page here, a dashboard there, a settings panel somewhere else. This approach works for small products, but it breaks down the moment your product scales.
+
+When you design screen-by-screen, you end up with:
+- **Inconsistent patterns** — buttons that behave differently across pages
+- **Redundant components** — three versions of the same modal
+- **Fragile handoffs** — engineers rebuilding what already exists
+
+## What Systems Thinking Looks Like
+
+Systems thinking means zooming out before zooming in. Instead of asking *"What should this screen look like?"*, you ask:
+
+> "What are the underlying rules that govern how every screen should behave?"
+
+This shift changes everything. You start designing **principles**, not pages. You define:
+
+1. **Interaction patterns** — How does selection work everywhere?
+2. **Data flow** — Where does information come from, and how does it update?
+3. **State management** — What happens when something loads, fails, or is empty?
+
+## A Real Example: Uptime
+
+When I designed the Uptime logistics platform, I started with the system model:
+
+\`\`\`
+User Role → Permission Set → Available Actions → UI Surface
+\`\`\`
+
+This meant every new feature could be expressed as a combination of existing primitives. A warehouse manager and a driver see different data, but the *patterns* are identical.
+
+### The Component Architecture
+
+\`\`\`typescript
+const DashboardView = ({ role, permissions }) => {
+  const widgets = getWidgetsForRole(role);
+  const actions = filterByPermissions(permissions);
+  
+  return (
+    <DashboardLayout>
+      {widgets.map(widget => (
+        <Widget key={widget.id} actions={actions} />
+      ))}
+    </DashboardLayout>
+  );
+};
+\`\`\`
+
+## The Payoff
+
+Systems thinking doesn't just make design more consistent — it makes the entire product team faster:
+
+- **Designers** reuse patterns instead of reinventing them
+- **Engineers** build once and compose
+- **Product managers** can predict the impact of changes
+
+The initial investment is higher, but the compound returns are enormous. Every new feature becomes cheaper to design, build, and maintain.
+
+## Start Small
+
+You don't need to redesign everything. Start with one question: *"Is there a pattern here that I'm repeating?"* If yes, extract it, name it, and document it. That's systems thinking in action.
+    `
+  },
+  {
+    slug: "from-fashion-to-product-design",
+    title: "From Fashion to Product Design",
+    excerpt: "How my background in fashion design shaped my approach to building digital products and user experiences.",
+    readTime: "4 min",
+    category: "Career & Design",
+    tags: ["career", "design thinking", "creative journey"],
+    publishDate: "2024-03-12",
+    author,
+    section: "blog",
+    seo: {
+      metaTitle: "From Fashion to Product Design | Qomardeen Tijani",
+      metaDescription: "How my background in fashion design shaped my approach to building digital products and user experiences.",
+    },
     content: `
 ## An Unlikely Origin Story
 
@@ -368,9 +640,15 @@ export const thinkingPosts: BlogPost[] = [
     title: "UX Breakdown: Mobile Banking Onboarding",
     excerpt: "Analyzing how top fintech apps reduce friction in first-time user flows.",
     readTime: "7 min",
-    tag: "UX Breakdown",
-    date: "2025-02-20",
-    category: "thinking",
+    category: "UX Design",
+    tags: ["fintech", "onboarding", "ux breakdown"],
+    publishDate: "2025-02-20",
+    author,
+    section: "thinking",
+    seo: {
+      metaTitle: "UX Breakdown: Mobile Banking Onboarding | Qomardeen Tijani",
+      metaDescription: "Analyzing how top fintech apps reduce friction in first-time user flows.",
+    },
     content: `
 ## The First 60 Seconds
 
@@ -415,25 +693,6 @@ Don't just ask for a selfie — explain why:
 
 If a user drops off mid-onboarding, save their progress. The worst experience is starting over.
 
-\`\`\`typescript
-// Save onboarding state after each step
-const saveProgress = async (step: number, data: Partial<OnboardingData>) => {
-  await storage.set('onboarding_progress', {
-    step,
-    data,
-    timestamp: Date.now(),
-    expiresIn: 7 * 24 * 60 * 60 * 1000 // 7 days
-  });
-};
-\`\`\`
-
-## The Metrics That Matter
-
-- **Completion rate**: % of users who finish onboarding
-- **Time to first transaction**: Hours/days from signup to first real use
-- **Drop-off points**: Which steps lose the most users
-- **Return rate**: % of dropped users who come back to finish
-
 ## Key Takeaway
 
 The best onboarding doesn't feel like onboarding. It feels like the product is gradually opening up to you, one trust exchange at a time.
@@ -444,9 +703,15 @@ The best onboarding doesn't feel like onboarding. It feels like the product is g
     title: "Product Teardown: Notion's Design System",
     excerpt: "How Notion balances flexibility and consistency across a complex product.",
     readTime: "8 min",
-    tag: "Product Teardown",
-    date: "2025-02-10",
-    category: "thinking",
+    category: "Design Systems",
+    tags: ["design systems", "product teardown", "notion"],
+    publishDate: "2025-02-10",
+    author,
+    section: "thinking",
+    seo: {
+      metaTitle: "Product Teardown: Notion's Design System | Qomardeen Tijani",
+      metaDescription: "How Notion balances flexibility and consistency across a complex product.",
+    },
     content: `
 ## The Flexibility Paradox
 
@@ -473,40 +738,6 @@ Block
 2. **Composability** — Any block can contain other blocks
 3. **Extensibility** — New block types don't require new interaction patterns
 
-## The Typography System
-
-Notion uses a remarkably restrained type system:
-
-- **One font family** (default system font or user choice)
-- **Three sizes** (small, medium, large — controlled by page settings)
-- **Semantic styles** (H1, H2, H3, body, caption)
-
-This constraint is intentional. In a tool where *content* varies infinitely, the *container* must be calm.
-
-## Color as Metadata, Not Decoration
-
-Notion uses color sparingly and always with meaning:
-
-- **Background colors** for callouts and highlights (9 options)
-- **Text colors** for emphasis (9 options)
-- **Database colors** for status and categorization
-
-Notice: no gradients, no shadows, no decorative color. Every color communicates information.
-
-## The Sidebar: Navigation as Product
-
-Notion's sidebar is arguably its most important design element:
-
-\`\`\`
-Workspace
-├── Favorites (user-pinned pages)
-├── Private (personal pages)
-├── Shared (team pages)
-└── Templates (starting points)
-\`\`\`
-
-The hierarchy mirrors how people think about their work: *What do I need right now? → What's mine? → What's shared?*
-
 ## Lessons for Designers
 
 1. **Find your primitive** — What's the smallest unit of your product? Design that perfectly.
@@ -528,9 +759,15 @@ Even the best design systems have trade-offs. The key is making *intentional* tr
     title: "AI in Product Design: Beyond Chatbots",
     excerpt: "How AI is reshaping design workflows, research, and user experience.",
     readTime: "6 min",
-    tag: "AI Insight",
-    date: "2025-01-25",
-    category: "thinking",
+    category: "AI & Product Design",
+    tags: ["ai", "product design", "future ux"],
+    publishDate: "2025-01-25",
+    author,
+    section: "thinking",
+    seo: {
+      metaTitle: "AI in Product Design: Beyond Chatbots | Qomardeen Tijani",
+      metaDescription: "How AI is reshaping design workflows, research, and user experience.",
+    },
     content: `
 ## The Chatbot Trap
 
@@ -547,32 +784,9 @@ Instead of asking users to configure everything, AI can:
 - **Suggest settings** based on similar users
 - **Predict next actions** and surface them proactively
 
-\`\`\`
-Traditional:    User → Settings → Configure → Save → Use
-AI-Powered:     User → Use (settings auto-configured) → Adjust if needed
-\`\`\`
-
-This inverts the interaction model from *"set up then use"* to *"use then refine."*
-
 ## 2. Adaptive Interfaces
 
 AI enables interfaces that reshape themselves based on the user:
-
-### Frequency-Based Layout
-\`\`\`typescript
-// Surface most-used features for each user
-const getPersonalizedLayout = (userId: string) => {
-  const featureUsage = analytics.getFeatureFrequency(userId);
-  const topFeatures = featureUsage.slice(0, 5);
-  
-  return {
-    quickActions: topFeatures,
-    secondaryActions: featureUsage.slice(5),
-  };
-};
-\`\`\`
-
-### Context-Aware Navigation
 - **Morning**: Show daily overview and task list
 - **End of day**: Show summary and tomorrow's agenda
 - **Weekend**: Show personal items, hide work features
@@ -580,36 +794,11 @@ const getPersonalizedLayout = (userId: string) => {
 ## 3. Generative Content
 
 AI can create personalized content within products:
-
-- **Dynamic onboarding** — Tutorials that adapt based on the user's role and experience level
-- **Contextual help** — Documentation that answers the specific question the user likely has right now
-- **Smart summaries** — Condensing long threads, reports, or histories into actionable highlights
+- **Dynamic onboarding** — Tutorials that adapt based on the user's role
+- **Contextual help** — Documentation that answers the specific question the user likely has
+- **Smart summaries** — Condensing long threads into actionable highlights
 
 ## The Design Challenge
-
-AI features introduce new design problems:
-
-### Transparency
-Users need to know when AI is making decisions. The spectrum:
-
-\`\`\`
-Invisible → Subtle indicator → Explicit label → Full explanation
-\`\`\`
-
-Each level is appropriate for different stakes. Auto-suggested text? Invisible is fine. Financial recommendation? Full explanation required.
-
-### Correction
-Every AI decision should be easily overridable. The best pattern:
-
-> AI suggests → User confirms or adjusts → AI learns
-
-### Failure States
-AI will be wrong. Design for it:
-- **Graceful degradation** — Fall back to manual input
-- **Undo** — Let users reverse AI decisions
-- **Feedback** — Let users tell the AI it was wrong
-
-## The Future
 
 The products that win won't be the ones with the most AI features. They'll be the ones where AI is so well-integrated that users forget it's there. That's the design challenge of this decade.
     `
@@ -619,9 +808,15 @@ The products that win won't be the ones with the most AI features. They'll be th
     title: "Systems Thinking for Designers",
     excerpt: "Why understanding the whole system leads to better component-level decisions.",
     readTime: "5 min",
-    tag: "Systems",
-    date: "2025-01-15",
-    category: "thinking",
+    category: "Product Design",
+    tags: ["systems thinking", "design methodology"],
+    publishDate: "2025-01-15",
+    author,
+    section: "thinking",
+    seo: {
+      metaTitle: "Systems Thinking for Designers | Qomardeen Tijani",
+      metaDescription: "Why understanding the whole system leads to better component-level decisions.",
+    },
     content: `
 ## Components Don't Exist in Isolation
 
@@ -631,18 +826,15 @@ Every button, card, and modal you design exists within a system. The quality of 
 
 ### Level 1: Component Design
 *"How should this button look?"*
-
-Most designers operate here. They focus on visual polish, spacing, and interaction states. This is necessary but insufficient.
+Most designers operate here.
 
 ### Level 2: Pattern Design
 *"How should buttons behave across the product?"*
-
-This is where design systems live. You define rules: primary buttons are for main actions, secondary for alternatives, ghost for tertiary. Better, but still incomplete.
+This is where design systems live.
 
 ### Level 3: System Design
 *"Why do we need buttons at all? What are the possible actions in our product, and how do users discover and execute them?"*
-
-This is systems thinking. You zoom out far enough to see the *shape* of the entire product.
+This is systems thinking.
 
 ## A Practical Framework
 
@@ -656,39 +848,16 @@ When approaching any design problem, work through these layers:
 5. SCALE:    What happens at 10x volume?
 \`\`\`
 
-### Example: Designing a Notification Badge
-
-**Component thinker**: "Red circle with a number."
-
-**Systems thinker**:
-- What types of notifications exist? (Urgent, informational, promotional)
-- How do they aggregate? (Per-item count vs. category count)
-- When do they clear? (On view, on action, on time?)
-- What happens at 99+? At 999+?
-- Do they sync across devices?
-- How do they relate to email/push notifications?
-
-The badge itself might look identical either way. But the systems thinker's badge *works* in production. The component thinker's badge breaks the first time a user has 150 unread notifications.
-
 ## Building Systems Intuition
 
-### 1. Draw Maps, Not Screens
-Before opening Figma, draw the *system*: entities, relationships, flows. A rough diagram beats a polished mockup at this stage.
-
-### 2. Ask "And Then What?"
-For every design decision, ask what happens next. Follow the chain until you hit an edge case.
-
-### 3. Study Infrastructure
-Read engineering docs. Understand the data model. Know the API structure. The best designers I know can read a database schema and spot UX problems.
-
-### 4. Think in States
-Every element has at least 5 states: empty, loading, partial, complete, error. Most designers only design 2 (empty and complete). Systems thinkers design all 5.
+1. **Draw Maps, Not Screens** — Before opening Figma, draw the system
+2. **Ask "And Then What?"** — Follow the chain until you hit an edge case
+3. **Study Infrastructure** — Read engineering docs, understand the data model
+4. **Think in States** — Every element has at least 5 states: empty, loading, partial, complete, error
 
 ## The Competitive Advantage
 
 Companies hire systems thinkers not because they make prettier screens, but because they make *fewer screens*. When you understand the system, you find elegant solutions that handle 10 cases with 1 design instead of 10 separate designs.
-
-That's efficiency. That's scalability. That's systems thinking.
     `
   },
 ];
@@ -699,6 +868,19 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   return allPosts.find(post => post.slug === slug);
 }
 
-export function getPostsByCategory(category: 'blog' | 'thinking'): BlogPost[] {
+export function getPostsByCategory(category: BlogCategory): BlogPost[] {
   return allPosts.filter(post => post.category === category);
+}
+
+export function getBlogPosts(): BlogPost[] {
+  return blogPosts;
+}
+
+export function getAdjacentPosts(slug: string, section: 'blog' | 'thinking'): { prev?: BlogPost; next?: BlogPost } {
+  const posts = section === 'blog' ? blogPosts : thinkingPosts;
+  const idx = posts.findIndex(p => p.slug === slug);
+  return {
+    prev: idx > 0 ? posts[idx - 1] : undefined,
+    next: idx < posts.length - 1 ? posts[idx + 1] : undefined,
+  };
 }

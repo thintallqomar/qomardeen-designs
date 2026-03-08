@@ -26,15 +26,18 @@ export const languageNames: Record<SupportedLanguage, string> = {
 };
 
 export const languageFlags: Record<SupportedLanguage, string> = {
-  en: '🇬🇧',
-  fr: '🇫🇷',
-  es: '🇪🇸',
-  yo: '🇳🇬',
-  ha: '🇳🇬',
-  ig: '🇳🇬',
-  pcm: '🇳🇬',
-  ar: '🇸🇦',
+  en: 'gb',
+  fr: 'fr',
+  es: 'es',
+  yo: 'ng',
+  ha: 'ng',
+  ig: 'ng',
+  pcm: 'ng',
+  ar: 'sa',
 };
+
+export const getFlagUrl = (lang: SupportedLanguage, size: number = 24) =>
+  `https://flagcdn.com/w${size}/${languageFlags[lang]}.png`;
 
 export const rtlLanguages: SupportedLanguage[] = ['ar'];
 

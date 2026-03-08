@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
-import { supportedLanguages, languageNames, languageFlags, type SupportedLanguage } from '@/i18n';
+import { supportedLanguages, languageNames, getFlagUrl, type SupportedLanguage } from '@/i18n';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
@@ -162,7 +162,7 @@ const Navigation = () => {
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors text-sm"
                 aria-label="Change language"
               >
-                <span className="text-base leading-none">{languageFlags[currentLang]}</span>
+                <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                 <span className="text-xs font-medium">{languageNames[currentLang]}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -183,7 +183,7 @@ const Navigation = () => {
                           onClick={() => switchLanguage(lng)}
                           className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
                         >
-                          <span className="text-base leading-none">{languageFlags[lng]}</span>
+                          <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                           <span>{languageNames[lng]}</span>
                         </button>
                       ))}
@@ -201,7 +201,7 @@ const Navigation = () => {
                           onClick={() => switchLanguage(lng)}
                           className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
                         >
-                          <span className="text-base leading-none">{languageFlags[lng]}</span>
+                          <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                           <span>{languageNames[lng]}</span>
                         </button>
                       ))}
@@ -233,7 +233,7 @@ const Navigation = () => {
               onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
               className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
             >
-              <span className="text-base leading-none">{languageFlags[currentLang]}</span>
+              <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
             </button>
             <motion.button onClick={toggleTheme} className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors" whileTap={{ scale: 0.9 }}>
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
@@ -261,7 +261,7 @@ const Navigation = () => {
                     onClick={() => switchLanguage(lng)}
                     className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
                   >
-                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                     <span>{languageNames[lng]}</span>
                   </button>
                 ))}
@@ -276,7 +276,7 @@ const Navigation = () => {
                     onClick={() => switchLanguage(lng)}
                     className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
                   >
-                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                     <span>{languageNames[lng]}</span>
                   </button>
                 ))}

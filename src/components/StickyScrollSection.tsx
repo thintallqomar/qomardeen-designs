@@ -20,7 +20,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start 0.3', 'end end'],
   });
 
   return (

@@ -7,6 +7,7 @@ import PageTransition from '@/components/PageTransition';
 import ArticleLayout from '@/components/ArticleLayout';
 import ArticleSEO from '@/components/ArticleSEO';
 import { getPostBySlug, getAdjacentPosts } from '@/data/articles';
+import { useLocalizedPost } from '@/data/useLocalizedArticle';
 
 // ─── Error Boundary Fallback ───
 class ArticleErrorBoundary extends Component<

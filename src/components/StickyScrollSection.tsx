@@ -24,7 +24,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
   });
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 100}vh` }}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 70}vh` }}>
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">
         <div className="container-custom w-full">
@@ -92,17 +92,17 @@ function StickyTextBlock({
 
   const opacity = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.15,
-    end - segmentSize * 0.15,
+    start + segmentSize * 0.1,
+    end - segmentSize * 0.1,
     end,
   ], [0, 1, 1, 0]);
 
   const y = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.15,
-    end - segmentSize * 0.15,
+    start + segmentSize * 0.1,
+    end - segmentSize * 0.1,
     end,
-  ], [40, 0, 0, -40]);
+  ], [30, 0, 0, -30]);
 
   return (
     <motion.div
@@ -152,17 +152,17 @@ function StickyImageBlock({
 
   const opacity = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.2,
-    end - segmentSize * 0.2,
+    start + segmentSize * 0.12,
+    end - segmentSize * 0.12,
     end,
   ], [0, 1, 1, 0]);
 
   const scale = useTransform(scrollYProgress, [
     start,
-    start + segmentSize * 0.2,
-    end - segmentSize * 0.2,
+    start + segmentSize * 0.12,
+    end - segmentSize * 0.12,
     end,
-  ], [0.92, 1, 1, 0.92]);
+  ], [0.95, 1, 1, 0.95]);
 
   return (
     <motion.div

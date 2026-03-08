@@ -173,7 +173,7 @@ const UptimeProject = () => {
 
             {/* Divider */}
             <ScrollReveal>
-              <div className="container-custom py-16">
+              <div className="container-custom py-8">
                 <div className="text-center">
                   <h2 className="text-2xl md:text-3xl font-bold mb-3">Full Case Study</h2>
                   <p className="text-muted-foreground">Scroll through every frame of the design process</p>

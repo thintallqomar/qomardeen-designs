@@ -21,6 +21,8 @@ const Blog = lazy(() => import("./pages/Blog"));
 const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 
 const queryClient = new QueryClient();
 
@@ -53,6 +55,8 @@ const AnimatedRoutes = () => {
           <Route path="/thinking" element={<Thinking />} />
           <Route path="/hire" element={<Hire />} />
           <Route path="/article/:slug" element={<ArticlePage />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/analytics" element={<AdminAnalytics />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

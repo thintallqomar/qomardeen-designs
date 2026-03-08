@@ -13,6 +13,14 @@ declare global {
 }
 
 type Message = { role: 'user' | 'assistant'; content: string };
+type BlogDraft = {
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  tags: string[];
+  readTime: string;
+};
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;

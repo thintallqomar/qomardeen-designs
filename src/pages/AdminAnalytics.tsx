@@ -77,6 +77,18 @@ const AdminAnalytics = () => {
     fetchEvents();
   }, [isAdmin, range]);
 
+  useEffect(() => {
+    if (!isAdmin) return;
+    const fetchSubscribers = async () => {
+      const { data } = await supabase
+        .from('newsletter_subscribers')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setSubscribers((data as Subscriber[]) || []);
+    };
+    fetchSubscribers();
+  }, [isAdmin]);
+
   if (authLoading || !isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">

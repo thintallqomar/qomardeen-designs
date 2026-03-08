@@ -2,13 +2,14 @@ import { Lightbulb, Target, Layout, Layers, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
-const icons = [
-  <Lightbulb className="w-6 h-6 text-primary" />,
-  <Target className="w-6 h-6 text-primary" />,
-  <Layout className="w-6 h-6 text-primary" />,
-  <Layers className="w-6 h-6 text-primary" />,
-  <RefreshCw className="w-6 h-6 text-primary" />,
+const iconData = [
+  { icon: <Lightbulb />, variant: 'amber' as const },
+  { icon: <Target />, variant: 'rose' as const },
+  { icon: <Layout />, variant: 'blue' as const },
+  { icon: <Layers />, variant: 'violet' as const },
+  { icon: <RefreshCw />, variant: 'teal' as const },
 ];
 
 const DesignPhilosophy = () => {
@@ -29,7 +30,9 @@ const DesignPhilosophy = () => {
             {items.map((text, index) => (
               <div key={index} className="card-elegant">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary/20 rounded-lg">{icons[index]}</div>
+                  <Icon3D variant={iconData[index]?.variant || 'primary'} size="md">
+                    {iconData[index]?.icon}
+                  </Icon3D>
                   <div className="space-y-4">
                     <p className="text-muted-foreground leading-relaxed">{text}</p>
                   </div>

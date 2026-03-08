@@ -2,6 +2,7 @@ import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -26,9 +27,9 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <MapPin className="w-6 h-6 text-primary" />
-                </div>
+                <Icon3D variant="blue" size="md">
+                  <MapPin />
+                </Icon3D>
                 <div className="space-y-4">
                   <p className="text-muted-foreground leading-relaxed">
                     I'm a Product Designer focused on building clear, structured, and high-impact digital products across SaaS platforms, internal tools, and consumer-facing experiences. I combine product thinking, UX reasoning, and strong visual execution to design interfaces that help users complete tasks efficiently and with confidence.
@@ -58,9 +59,9 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-primary" />
-                </div>
+                <Icon3D variant="amber" size="md">
+                  <GraduationCap />
+                </Icon3D>
                 <h3 className="text-xl font-semibold">Education</h3>
               </div>
               <div className="space-y-6">
@@ -82,9 +83,9 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <Briefcase className="w-6 h-6 text-primary" />
-                </div>
+                <Icon3D variant="teal" size="md">
+                  <Briefcase />
+                </Icon3D>
                 <h3 className="text-xl font-semibold">Experience</h3>
               </div>
               <div className="space-y-6">

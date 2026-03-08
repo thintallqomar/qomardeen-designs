@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 declare global {
   interface Window {
@@ -25,7 +26,14 @@ type BlogDraft = {
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 
-const SUGGESTED_PROMPTS = [
+const VISITOR_PROMPTS = [
+  "Show me projects",
+  "Fintech experience",
+  "How to hire",
+  "Tell me about Qomardeen",
+];
+
+const ADMIN_PROMPTS = [
   "Show me projects",
   "Fintech experience",
   "How to hire",
@@ -58,10 +66,12 @@ function parseNavigation(content: string): { displayContent: string; navPath: st
 
 async function streamChat({
   messages,
+  isAdmin,
   onDelta,
   onDone,
 }: {
   messages: Message[];
+  isAdmin?: boolean;
   onDelta: (text: string) => void;
   onDone: () => void;
 }) {
@@ -71,7 +81,7 @@ async function streamChat({
       "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, isAdmin: !!isAdmin }),
   });
 
   if (!resp.ok || !resp.body) {
@@ -167,6 +177,8 @@ const AIAssistantWidget = () => {
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
+  const { isAdmin } = useAdminAuth();
+  const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -274,6 +286,7 @@ const AIAssistantWidget = () => {
     try {
       await streamChat({
         messages: [...messages, userMsg],
+        isAdmin,
         onDelta: upsertAssistant,
         onDone: () => {
           setIsLoading(false);
@@ -460,7 +473,7 @@ const AIAssistantWidget = () => {
                   </div>
 
                   <div className="w-full space-y-2">
-                    {SUGGESTED_PROMPTS.map((prompt, i) => (
+                    {suggestedPrompts.map((prompt, i) => (
                       <motion.button
                         key={i}
                         onClick={() => send(prompt)}
@@ -497,7 +510,7 @@ const AIAssistantWidget = () => {
               ))}
 
               {/* Blog draft confirmation card */}
-              {pendingBlogDraft && !blogPublishing && (
+              {isAdmin && pendingBlogDraft && !blogPublishing && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

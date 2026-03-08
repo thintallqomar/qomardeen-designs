@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import Icon3D from '@/components/Icon3D';
 
 interface Subscriber {
   id: string;
@@ -27,12 +28,12 @@ const COLORS = [
   'hsl(220, 70%, 50%)', 'hsl(280, 60%, 50%)', 'hsl(340, 70%, 50%)',
 ];
 
-const StatCard = ({ icon: Icon, label, value, sub }: { icon: any; label: string; value: string | number; sub?: string }) => (
+const StatCard = ({ icon: IconEl, label, value, variant, sub }: { icon: any; label: string; value: string | number; variant: any; sub?: string }) => (
   <div className="card-elegant p-5">
     <div className="flex items-center gap-3 mb-3">
-      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-        <Icon className="w-4 h-4 text-primary" />
-      </div>
+      <Icon3D variant={variant} size="sm">
+        <IconEl className="w-4 h-4" />
+      </Icon3D>
       <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium">{label}</span>
     </div>
     <p className="text-2xl font-bold">{value}</p>
@@ -196,10 +197,10 @@ const AdminAnalytics = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <StatCard icon={Eye} label="Page Views" value={pageViews.length} />
-              <StatCard icon={Users} label="Sessions" value={uniqueSessions} />
-              <StatCard icon={MousePointerClick} label="CTA Clicks" value={ctaClicks.length} />
-              <StatCard icon={Activity} label="Total Events" value={events.length} />
+              <StatCard icon={Eye} label="Page Views" value={pageViews.length} variant="blue" />
+              <StatCard icon={Users} label="Sessions" value={uniqueSessions} variant="violet" />
+              <StatCard icon={MousePointerClick} label="CTA Clicks" value={ctaClicks.length} variant="amber" />
+              <StatCard icon={Activity} label="Total Events" value={events.length} variant="teal" />
             </motion.div>
 
             {/* Views over time */}
@@ -209,8 +210,10 @@ const AdminAnalytics = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="flex items-center gap-2 mb-6">
-                <TrendingUp className="w-4 h-4 text-primary" />
+              <div className="flex items-center gap-3 mb-6">
+                <Icon3D variant="emerald" size="sm">
+                  <TrendingUp className="w-4 h-4" />
+                </Icon3D>
                 <h2 className="font-semibold text-sm">Views Over Time</h2>
               </div>
               {dailyData.length > 0 ? (
@@ -235,17 +238,11 @@ const AdminAnalytics = () => {
               )}
             </motion.div>
 
-            {/* Bottom row: Top pages + Referrers + Event types */}
+            {/* Bottom row */}
             <div className="grid md:grid-cols-3 gap-6">
-              {/* Top Pages */}
-              <motion.div
-                className="card-elegant p-6"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <Eye className="w-4 h-4 text-primary" />
+              <motion.div className="card-elegant p-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <Icon3D variant="blue" size="sm"><Eye className="w-4 h-4" /></Icon3D>
                   <h2 className="font-semibold text-sm">Top Pages</h2>
                 </div>
                 {topPages.length > 0 ? (
@@ -253,15 +250,7 @@ const AdminAnalytics = () => {
                     <BarChart data={topPages} layout="vertical" margin={{ left: 0 }}>
                       <XAxis type="number" tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
                       <YAxis dataKey="page" type="category" tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} width={80} />
-                      <Tooltip
-                        contentStyle={{
-                          background: 'hsl(var(--card))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px',
-                          fontSize: '12px',
-                          color: 'hsl(var(--foreground))',
-                        }}
-                      />
+                      <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: '12px', color: 'hsl(var(--foreground))' }} />
                       <Bar dataKey="count" fill="hsl(185, 84%, 55%)" radius={[0, 4, 4, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -270,15 +259,9 @@ const AdminAnalytics = () => {
                 )}
               </motion.div>
 
-              {/* Referrers */}
-              <motion.div
-                className="card-elegant p-6"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <Globe className="w-4 h-4 text-primary" />
+              <motion.div className="card-elegant p-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <Icon3D variant="rose" size="sm"><Globe className="w-4 h-4" /></Icon3D>
                   <h2 className="font-semibold text-sm">Top Referrers</h2>
                 </div>
                 {topReferrers.length > 0 ? (
@@ -298,42 +281,20 @@ const AdminAnalytics = () => {
                 )}
               </motion.div>
 
-              {/* Event Types */}
-              <motion.div
-                className="card-elegant p-6"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.4 }}
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <Activity className="w-4 h-4 text-primary" />
+              <motion.div className="card-elegant p-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.4 }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <Icon3D variant="violet" size="sm"><Activity className="w-4 h-4" /></Icon3D>
                   <h2 className="font-semibold text-sm">Event Breakdown</h2>
                 </div>
                 {eventTypeData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={200}>
                     <PieChart>
-                      <Pie
-                        data={eventTypeData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={45}
-                        outerRadius={75}
-                        paddingAngle={3}
-                        dataKey="value"
-                      >
+                      <Pie data={eventTypeData} cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={3} dataKey="value">
                         {eventTypeData.map((_, i) => (
                           <Cell key={i} fill={COLORS[i % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip
-                        contentStyle={{
-                          background: 'hsl(var(--card))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px',
-                          fontSize: '12px',
-                          color: 'hsl(var(--foreground))',
-                        }}
-                      />
+                      <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px', fontSize: '12px', color: 'hsl(var(--foreground))' }} />
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (
@@ -351,15 +312,10 @@ const AdminAnalytics = () => {
             </div>
 
             {/* Newsletter Subscribers */}
-            <motion.div
-              className="card-elegant p-6"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-            >
+            <motion.div className="card-elegant p-6" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.5 }}>
               <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-3">
+                  <Icon3D variant="amber" size="sm"><Mail className="w-4 h-4" /></Icon3D>
                   <h2 className="font-semibold text-sm">Newsletter Subscribers</h2>
                 </div>
                 <span className="text-xs text-muted-foreground font-mono">{subscribers.length} total</span>

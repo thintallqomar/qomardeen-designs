@@ -4,11 +4,12 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
-import { Clock, ArrowRight, Search, X } from 'lucide-react';
+import { Clock, ArrowRight, Search, X, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
 import { useLocalizedPosts } from '@/data/useLocalizedArticle';
+import { useAIBlogPosts } from '@/hooks/useAIBlogPosts';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

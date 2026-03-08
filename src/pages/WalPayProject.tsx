@@ -60,7 +60,7 @@ const demoSteps = [
   {
     image: frame10,
     title: 'Onboarding Experience',
-    description: 'A guided onboarding flow that builds trust through progressive disclosure — asking only what's needed at each step, with clear value communication.',
+    description: 'A guided onboarding flow that builds trust through progressive disclosure — asking only what\'s needed at each step, with clear value communication.',
     annotation: { x: 50, y: 30, label: 'Progressive onboarding' },
   },
   {

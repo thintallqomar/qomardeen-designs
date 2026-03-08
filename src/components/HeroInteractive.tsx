@@ -157,9 +157,9 @@ const HeroInteractive = () => {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                <div className="absolute -left-4 top-6 w-32 h-32 md:w-40 md:h-40 bg-background/60 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -left-4 -top-4 w-32 h-32 md:w-40 md:h-40 bg-background/60 rounded-full blur-2xl pointer-events-none" />
               </div>
-              <div className="absolute -left-[4.75rem] -top-[2.25rem] md:-left-[5.25rem] md:-top-[2.75rem] w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center z-10">
+              <div className="absolute -left-[4.75rem] -top-[4.75rem] md:-left-[5.25rem] md:-top-[5.25rem] w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center z-10">
                 <svg className="w-full h-full animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
                   <defs>
                     <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />

@@ -2,6 +2,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import AboutSection from '@/components/About';
+import AnimatedMetrics from '@/components/AnimatedMetrics';
 import DesignPhilosophy from '@/components/DesignPhilosophy';
 import WhyImAGoodFit from '@/components/WhyImAGoodFit';
 

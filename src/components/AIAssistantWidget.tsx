@@ -175,6 +175,8 @@ const AIAssistantWidget = () => {
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
+  const { isAdmin } = useAdminAuth();
+  const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

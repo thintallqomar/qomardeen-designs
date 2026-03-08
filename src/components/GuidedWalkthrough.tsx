@@ -113,32 +113,24 @@ const GuidedWalkthrough = ({
             </div>
 
             {/* Content area */}
-            <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-            {/* Image panel */}
-            <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 min-h-[300px] overflow-hidden">
-              <AnimatePresence mode="wait" custom={direction}>
-                <motion.div
-                  key={currentStep}
-                  custom={direction}
-                  className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg"
-                  style={{ height: 'clamp(300px, 60vh, 70vh)' }}
-                    initial={{
-                      opacity: 0,
-                      x: direction * 60,
-                      scale: 0.96,
-                    }}
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_384px] overflow-hidden">
+              {/* Image panel */}
+              <div className="relative flex items-center justify-center p-4 md:p-8 overflow-hidden">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentStep}
+                    custom={direction}
+                    className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden border border-border bg-card shadow-lg"
+                    initial={{ opacity: 0, x: direction * 60, scale: 0.96 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{
-                      opacity: 0,
-                      x: direction * -60,
-                      scale: 0.96,
-                    }}
+                    exit={{ opacity: 0, x: direction * -60, scale: 0.96 }}
                     transition={{ duration: 0.4, ease }}
                   >
                     <img
                       src={step.image}
                       alt={step.imageAlt}
                       className="w-full h-full object-contain"
+                    />
                     />
 
                     {/* Hotspots */}

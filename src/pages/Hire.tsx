@@ -29,8 +29,8 @@ const valueProps = [
   },
   {
     icon: <Code2 className="w-6 h-6 text-primary" />,
-    title: 'Design ↔ Dev Fluency',
-    description: 'I speak both languages. I prototype in code, write production-ready CSS, and collaborate seamlessly with engineering.',
+    title: 'Design ↔ Dev Bridge',
+    description: 'I understand how engineers think. I deliver specs they can actually build from — clear handoffs, logical component structures, and AI-assisted prototyping.',
   },
   {
     icon: <Zap className="w-6 h-6 text-primary" />,

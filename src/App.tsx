@@ -21,6 +21,8 @@ const Blog = lazy(() => import("./pages/Blog"));
 const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 
 const queryClient = new QueryClient();
 

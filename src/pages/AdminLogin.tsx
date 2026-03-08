@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Lock, Loader2, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Icon3D from '@/components/Icon3D';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -52,8 +53,10 @@ const AdminLogin = () => {
         className="w-full max-w-sm"
       >
         <div className="card-elegant p-8">
-          <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl mx-auto mb-6">
-            <Lock className="w-5 h-5 text-primary" />
+          <div className="flex justify-center mb-6">
+            <Icon3D variant="primary" size="lg">
+              <Lock />
+            </Icon3D>
           </div>
           <h1 className="text-xl font-bold text-center mb-1">Admin Access</h1>
           <p className="text-sm text-muted-foreground text-center mb-6">Sign in to view analytics</p>

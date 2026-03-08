@@ -54,7 +54,7 @@ const Thinking = () => {
                         onClick={() => navigate(`/article/${article.slug}`)}
                       >
                         <div className="flex items-start gap-4">
-                          <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0 text-2xl">
+                          <div className="relative flex items-center justify-center flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[hsl(var(--primary)/0.15)] via-[hsl(var(--primary)/0.25)] to-[hsl(var(--primary)/0.35)] shadow-[0_4px_14px_-3px_hsl(var(--primary)/0.35),inset_0_1px_1px_hsl(0_0%_100%/0.15)] text-xl" style={{ transform: 'perspective(500px) rotateX(2deg)' }}>
                             {tagIcons[article.category] || "📝"}
                           </div>
                           <div className="flex-1">

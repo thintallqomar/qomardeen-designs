@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -12,9 +13,9 @@ const ArchitecturePreview = () => {
   const { t } = useTranslation();
 
   const entries = [
-    { icon: <Database className="w-6 h-6 text-primary" />, title: t('architecture.database.title'), desc: t('architecture.database.desc') },
-    { icon: <Workflow className="w-6 h-6 text-primary" />, title: t('architecture.flows.title'), desc: t('architecture.flows.desc') },
-    { icon: <Server className="w-6 h-6 text-primary" />, title: t('architecture.scaling.title'), desc: t('architecture.scaling.desc') },
+    { icon: <Database />, variant: 'blue' as const, title: t('architecture.database.title'), desc: t('architecture.database.desc') },
+    { icon: <Workflow />, variant: 'violet' as const, title: t('architecture.flows.title'), desc: t('architecture.flows.desc') },
+    { icon: <Server />, variant: 'teal' as const, title: t('architecture.scaling.title'), desc: t('architecture.scaling.desc') },
   ];
 
   return (
@@ -30,7 +31,9 @@ const ArchitecturePreview = () => {
         <StaggeredReveal className="grid md:grid-cols-3 gap-6 mb-10" staggerDelay={0.12} equalHeight>
           {entries.map((item, index) => (
             <motion.div key={index} className="card-elegant h-full flex flex-col items-start" whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }} transition={{ duration: 0.3, ease }}>
-              <div className="p-3 bg-primary/20 rounded-lg mb-4">{item.icon}</div>
+              <Icon3D variant={item.variant} size="md" className="mb-4">
+                {item.icon}
+              </Icon3D>
               <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
             </motion.div>

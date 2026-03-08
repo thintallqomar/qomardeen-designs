@@ -114,7 +114,7 @@ const HeroInteractive = () => {
         </motion.div>
 
         {/* "Product Designer" */}
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-4">
+        <div className="w-fit px-6 md:px-10 mt-4">
           <motion.div custom={2} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
             <span
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"

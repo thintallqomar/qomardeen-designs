@@ -127,7 +127,7 @@ const HeroInteractive = () => {
 
         {/* Bottom: profile card left + description right */}
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-start">
             {/* Profile card */}
             <motion.div
               ref={cardRef}

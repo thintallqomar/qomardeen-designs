@@ -10,6 +10,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +20,6 @@ const AdminLogin = () => {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
 
-      // Check admin role
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('No user found');
 
@@ -45,6 +45,27 @@ const AdminLogin = () => {
     }
   };
 
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters');
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+
+      toast.success('Account created! You can now sign in once an admin grants you access.');
+      setMode('login');
+    } catch (err: any) {
+      toast.error(err.message || 'Signup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <motion.div
@@ -57,9 +78,11 @@ const AdminLogin = () => {
             <Lock className="w-5 h-5 text-primary" />
           </div>
           <h1 className="text-xl font-bold text-center mb-1">Admin Access</h1>
-          <p className="text-sm text-muted-foreground text-center mb-6">Sign in to view analytics</p>
+          <p className="text-sm text-muted-foreground text-center mb-6">
+            {mode === 'login' ? 'Sign in to view analytics' : 'Create your account'}
+          </p>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={mode === 'login' ? handleLogin : handleSignup} className="space-y-4">
             <input
               type="email"
               value={email}
@@ -81,9 +104,16 @@ const AdminLogin = () => {
               disabled={loading}
               className="w-full py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sign In'}
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : mode === 'login' ? 'Sign In' : 'Create Account'}
             </button>
           </form>
+
+          <button
+            onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+            className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors mt-4 text-center"
+          >
+            {mode === 'login' ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+          </button>
         </div>
 
         <button

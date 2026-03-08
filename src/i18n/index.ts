@@ -36,8 +36,8 @@ export const languageFlags: Record<SupportedLanguage, string> = {
   ar: 'sa',
 };
 
-export const getFlagUrl = (lang: SupportedLanguage, size: number = 24) =>
-  `https://flagcdn.com/w${size}/${languageFlags[lang]}.png`;
+export const getFlagUrl = (lang: SupportedLanguage) =>
+  `https://flagcdn.com/${languageFlags[lang]}.svg`;
 
 export const rtlLanguages: SupportedLanguage[] = ['ar'];
 

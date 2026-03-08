@@ -89,20 +89,25 @@ function StickyTextBlock({
   const segmentSize = 1 / total;
   const start = index * segmentSize;
   const end = start + segmentSize;
+  const isLast = index === total - 1;
 
-  const opacity = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.1,
-    end - segmentSize * 0.1,
-    end,
-  ], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, 
+    isLast 
+      ? [start, start + segmentSize * 0.1, 1] 
+      : [start, start + segmentSize * 0.1, end - segmentSize * 0.1, end],
+    isLast 
+      ? [0, 1, 1] 
+      : [0, 1, 1, 0]
+  );
 
-  const y = useTransform(scrollYProgress, [
-    start,
-    start + segmentSize * 0.1,
-    end - segmentSize * 0.1,
-    end,
-  ], [30, 0, 0, -30]);
+  const y = useTransform(scrollYProgress,
+    isLast
+      ? [start, start + segmentSize * 0.1, 1]
+      : [start, start + segmentSize * 0.1, end - segmentSize * 0.1, end],
+    isLast
+      ? [30, 0, 0]
+      : [30, 0, 0, -30]
+  );
 
   return (
     <motion.div

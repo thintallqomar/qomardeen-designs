@@ -20,11 +20,15 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.3', 'end end'],
+    offset: ['start start', 'end end'],
   });
 
+  // Total height: 100vh for the sticky viewport + scrollable distance for transitions
+  // Only need (items - 1) transitions since first item is visible immediately
+  const scrollHeight = `${100 + (items.length - 1) * 40}vh`;
+
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${items.length * 45}vh` }}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ height: scrollHeight }}>
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen overflow-hidden flex items-center">
         <div className="container-custom w-full">

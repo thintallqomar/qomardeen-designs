@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Bot, X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, Sparkles } from 'lucide-react';
+import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -17,12 +17,11 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 
 const SUGGESTED_PROMPTS = [
-  "Show me Qomardeen's projects",
-  "Tell me about his fintech experience",
-  "Take me to the hire page",
+  "Show me projects",
+  "Fintech experience",
+  "How to hire",
 ];
 
-// Extract [[NAVIGATE:/path]] commands and clean the display text
 function parseNavigation(content: string): { displayContent: string; navPath: string | null } {
   const navMatch = content.match(/\[\[NAVIGATE:(\/[^\]]*)\]\]/);
   const navPath = navMatch ? navMatch[1] : null;
@@ -101,6 +100,31 @@ async function streamChat({
   onDone();
 }
 
+const AtlasLogo = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+    <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+    <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+    <line x1="12" y1="2" x2="12" y2="6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="2" y1="12" x2="6" y2="12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="18" y1="12" x2="22" y2="12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const TypingIndicator = () => (
+  <div className="flex items-center gap-1 px-1 py-1">
+    {[0, 1, 2].map(i => (
+      <motion.div
+        key={i}
+        className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"
+        animate={{ opacity: [0.3, 1, 0.3], scale: [0.85, 1, 0.85] }}
+        transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+      />
+    ))}
+  </div>
+);
+
 const AIAssistantWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -112,22 +136,27 @@ const AIAssistantWidget = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Check for navigation commands in the latest assistant message
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto';
+      inputRef.current.style.height = Math.min(inputRef.current.scrollHeight, 120) + 'px';
+    }
+  }, [input]);
+
   useEffect(() => {
     const lastMsg = messages[messages.length - 1];
     if (lastMsg?.role === 'assistant' && !isLoading) {
       const { navPath } = parseNavigation(lastMsg.content);
       if (navPath) {
-        // Small delay so user can read the message first
-        const timer = setTimeout(() => {
-          navigate(navPath);
-        }, 1500);
+        const timer = setTimeout(() => navigate(navPath), 1500);
         return () => clearTimeout(timer);
       }
     }
@@ -175,10 +204,8 @@ const AIAssistantWidget = () => {
       setIsListening(false);
       return;
     }
-
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) return;
-
     const recognition = new SR();
     recognition.lang = 'en-US';
     recognition.interimResults = false;
@@ -221,19 +248,16 @@ const AIAssistantWidget = () => {
         onDelta: upsertAssistant,
         onDone: () => {
           setIsLoading(false);
-          if (voiceEnabled && assistantSoFar) {
-            playTTS(assistantSoFar);
-          }
+          if (voiceEnabled && assistantSoFar) playTTS(assistantSoFar);
         },
       });
     } catch (e) {
       console.error(e);
       setIsLoading(false);
-      setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, I'm having trouble connecting. Please try again." }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
     }
   };
 
-  // Render message content, stripping navigation commands
   const renderContent = (content: string) => {
     const { displayContent } = parseNavigation(content);
     return displayContent;
@@ -241,76 +265,104 @@ const AIAssistantWidget = () => {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Trigger — minimal orb */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow"
-            aria-label="Open Persius AI Assistant"
+            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-foreground text-background shadow-2xl flex items-center justify-center group"
+            aria-label="Open Atlas AI"
           >
-            <Sparkles className="w-6 h-6" />
+            <AtlasLogo size={22} />
+            {/* Pulse ring */}
+            <span className="absolute inset-0 rounded-full border border-foreground/20 animate-ping opacity-20" />
           </motion.button>
         )}
       </AnimatePresence>
 
-      {/* Chat Panel */}
+      {/* Chat Panel — modern glass design */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.25 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100vh-4rem)] flex flex-col bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
+            exit={{ opacity: 0, y: 24, scale: 0.96 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            className="fixed bottom-6 right-6 z-50 w-[400px] max-w-[calc(100vw-2rem)] h-[560px] max-h-[calc(100vh-4rem)] flex flex-col rounded-3xl shadow-2xl overflow-hidden border border-border/50"
+            style={{
+              background: 'hsl(var(--background) / 0.95)',
+              backdropFilter: 'blur(24px)',
+            }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-secondary/50">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-primary" />
+            {/* Header — clean, minimal */}
+            <div className="flex items-center justify-between px-5 py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-2xl bg-foreground/10 flex items-center justify-center text-foreground">
+                  <AtlasLogo size={18} />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Persius</p>
-                  <p className="text-xs text-muted-foreground">AI Portfolio Guide</p>
+                  <p className="text-sm font-semibold text-foreground tracking-tight">Atlas</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <p className="text-[11px] text-muted-foreground">Online</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5">
                 <button
                   onClick={() => { setVoiceEnabled(!voiceEnabled); stopSpeaking(); }}
-                  className="p-1.5 rounded-lg hover:bg-secondary transition-colors"
+                  className="p-2 rounded-xl hover:bg-foreground/5 transition-colors"
                   title={voiceEnabled ? "Disable voice" : "Enable voice"}
                 >
-                  {voiceEnabled ? <Volume2 className="w-4 h-4 text-primary" /> : <VolumeX className="w-4 h-4 text-muted-foreground" />}
+                  {voiceEnabled
+                    ? <Volume2 className="w-4 h-4 text-primary" />
+                    : <VolumeX className="w-4 h-4 text-muted-foreground/60" />
+                  }
                 </button>
-                <button onClick={() => { setIsOpen(false); stopSpeaking(); }} className="p-1.5 rounded-lg hover:bg-secondary transition-colors">
-                  <X className="w-4 h-4 text-muted-foreground" />
+                <button
+                  onClick={() => { setIsOpen(false); stopSpeaking(); }}
+                  className="p-2 rounded-xl hover:bg-foreground/5 transition-colors"
+                >
+                  <X className="w-4 h-4 text-muted-foreground/60" />
                 </button>
               </div>
             </div>
 
+            {/* Divider */}
+            <div className="mx-5 h-px bg-border/50" />
+
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 scrollbar-thin">
               {messages.length === 0 && (
-                <div className="space-y-3">
-                  <div className="text-center py-4">
-                    <Sparkles className="w-10 h-10 text-primary mx-auto mb-2 opacity-60" />
-                    <p className="text-sm text-muted-foreground">Hi! I'm <strong>Persius</strong>, Qomardeen's AI guide. Ask me anything or let me take you anywhere on the portfolio.</p>
+                <div className="flex flex-col items-center justify-center h-full gap-6">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-14 h-14 rounded-3xl bg-foreground/5 flex items-center justify-center text-foreground/70">
+                      <AtlasLogo size={28} />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-base font-semibold text-foreground tracking-tight">Atlas</p>
+                      <p className="text-xs text-muted-foreground mt-1 max-w-[240px]">
+                        AI portfolio guide — ask anything about Qomardeen's work
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-2">
+
+                  <div className="w-full space-y-2">
                     {SUGGESTED_PROMPTS.map((prompt, i) => (
-                      <button
+                      <motion.button
                         key={i}
                         onClick={() => send(prompt)}
-                        className="w-full text-left px-3 py-2 text-xs bg-secondary/50 hover:bg-secondary border border-border rounded-xl transition-colors text-secondary-foreground"
+                        className="w-full text-left px-4 py-3 text-[13px] rounded-2xl border border-border/50 hover:border-border hover:bg-foreground/[0.03] transition-all text-foreground/80"
+                        whileHover={{ x: 4 }}
+                        transition={{ duration: 0.15 }}
                       >
                         {prompt}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>
@@ -318,13 +370,18 @@ const AIAssistantWidget = () => {
 
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] px-3 py-2 rounded-2xl text-sm ${
+                  {msg.role === 'assistant' && (
+                    <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">
+                      <AtlasLogo size={14} />
+                    </div>
+                  )}
+                  <div className={`max-w-[80%] text-[13px] leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-primary text-primary-foreground rounded-br-md'
-                      : 'bg-secondary text-secondary-foreground rounded-bl-md'
+                      ? 'bg-foreground text-background px-4 py-2.5 rounded-2xl rounded-br-lg'
+                      : 'text-foreground/90'
                   }`}>
                     {msg.role === 'assistant' ? (
-                      <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>ul]:my-1 [&>ol]:my-1">
+                      <div className="prose prose-sm max-w-none [&>p]:m-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline [&_strong]:text-foreground [&_code]:text-xs [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md text-foreground/90">
                         <ReactMarkdown>{renderContent(msg.content)}</ReactMarkdown>
                       </div>
                     ) : msg.content}
@@ -334,42 +391,56 @@ const AIAssistantWidget = () => {
 
               {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
                 <div className="flex justify-start">
-                  <div className="px-3 py-2 bg-secondary rounded-2xl rounded-bl-md">
-                    <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                  <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">
+                    <AtlasLogo size={14} />
                   </div>
+                  <TypingIndicator />
                 </div>
               )}
 
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div className="px-3 py-3 border-t border-border bg-secondary/30">
-              <div className="flex items-center gap-2">
+            {/* Input — modern textarea style */}
+            <div className="px-4 pb-4 pt-2">
+              <div className="flex items-end gap-2 rounded-2xl border border-border/50 bg-foreground/[0.03] px-3 py-2 focus-within:border-border focus-within:bg-foreground/[0.05] transition-all">
                 <button
                   onClick={toggleListening}
-                  className={`p-2 rounded-xl transition-colors ${isListening ? 'bg-destructive/20 text-destructive' : 'hover:bg-secondary text-muted-foreground'}`}
+                  className={`p-1.5 rounded-lg transition-colors flex-shrink-0 mb-0.5 ${
+                    isListening
+                      ? 'bg-destructive/15 text-destructive'
+                      : 'hover:bg-foreground/5 text-muted-foreground/50'
+                  }`}
                   title={isListening ? "Stop listening" : "Voice input"}
                 >
                   {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </button>
-                <input
-                  type="text"
+                <textarea
+                  ref={inputRef}
                   value={input}
                   onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && send(input)}
-                  placeholder={isListening ? "Listening..." : "Ask Persius anything..."}
-                  className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      send(input);
+                    }
+                  }}
+                  placeholder={isListening ? "Listening..." : "Ask Atlas..."}
+                  className="flex-1 bg-transparent text-[13px] text-foreground placeholder:text-muted-foreground/40 outline-none resize-none min-h-[20px] max-h-[120px] py-1 leading-relaxed"
+                  rows={1}
                   disabled={isLoading}
                 />
-                <button
+                <motion.button
                   onClick={() => send(input)}
                   disabled={!input.trim() || isLoading}
-                  className="p-2 rounded-xl bg-primary text-primary-foreground disabled:opacity-40 hover:bg-primary/90 transition-colors"
+                  className="p-1.5 rounded-lg bg-foreground text-background disabled:opacity-20 transition-all flex-shrink-0 mb-0.5"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Send className="w-4 h-4" />
-                </button>
+                  <ArrowUp className="w-4 h-4" />
+                </motion.button>
               </div>
+              <p className="text-[10px] text-muted-foreground/30 text-center mt-2">Atlas by Qomardeen · AI Portfolio Guide</p>
             </div>
           </motion.div>
         )}

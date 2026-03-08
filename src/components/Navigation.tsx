@@ -8,6 +8,8 @@ import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { supportedLanguages, languageNames, getFlagUrl, type SupportedLanguage } from '@/i18n';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+const LANG_PREFIX_RE = new RegExp(`^\\/(${supportedLanguages.join('|')})(?=\\/|$)`);
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -51,7 +53,7 @@ const Navigation = () => {
   ];
 
   const isActive = (href: string) => {
-    const currentPath = location.pathname.replace(/^\/(en|fr|es|yo|ha|ig|pcm|ar)/, '') || '/';
+    const currentPath = location.pathname.replace(LANG_PREFIX_RE, '') || '/';
     if (href === '/') return currentPath === '/';
     return currentPath.startsWith(href);
   };
@@ -59,11 +61,14 @@ const Navigation = () => {
   const isExploreActive = exploreItems.some(item => isActive(item.href));
 
   const switchLanguage = (newLang: SupportedLanguage) => {
-    const currentPath = location.pathname.replace(/^\/(en|fr|es|yo|ha|ig|pcm|ar)/, '') || '';
+    const currentPath = location.pathname.replace(LANG_PREFIX_RE, '') || '';
     i18n.changeLanguage(newLang);
     navigate(`/${newLang}${currentPath}`);
     setLangOpen(false);
   };
+
+  const internationalLangs: SupportedLanguage[] = ['en', 'fr', 'es', 'de', 'pt', 'ru', 'ar'];
+  const nigerianLangs: SupportedLanguage[] = ['yo', 'ha', 'ig', 'pcm'];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border shadow-sm">
@@ -173,11 +178,11 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.96 }}
                     transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="absolute right-0 top-full mt-3 w-[220px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50"
+                    className="absolute right-0 top-full mt-3 w-[220px] bg-background border border-border rounded-2xl shadow-xl overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
                   >
                     <div className="p-2">
                       {/* International Languages */}
-                      {(['en', 'fr', 'es', 'ar'] as SupportedLanguage[]).map((lng) => (
+                      {internationalLangs.map((lng) => (
                         <button
                           key={lng}
                           onClick={() => switchLanguage(lng)}
@@ -195,7 +200,7 @@ const Navigation = () => {
                         <div className="h-px flex-1 bg-border" />
                       </div>
 
-                      {(['yo', 'ha', 'ig', 'pcm'] as SupportedLanguage[]).map((lng) => (
+                      {nigerianLangs.map((lng) => (
                         <button
                           key={lng}
                           onClick={() => switchLanguage(lng)}
@@ -248,14 +253,14 @@ const Navigation = () => {
         <AnimatePresence>
           {langOpen && (
             <motion.div
-              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-2xl shadow-xl overflow-hidden w-[200px] z-50"
+              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-2xl shadow-xl overflow-hidden w-[200px] z-50 max-h-[70vh] overflow-y-auto"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.15 }}
             >
               <div className="p-2">
-                {(['en', 'fr', 'es', 'ar'] as SupportedLanguage[]).map((lng) => (
+                {internationalLangs.map((lng) => (
                   <button
                     key={lng}
                     onClick={() => switchLanguage(lng)}
@@ -270,7 +275,7 @@ const Navigation = () => {
                   <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Nigeria</span>
                   <div className="h-px flex-1 bg-border" />
                 </div>
-                {(['yo', 'ha', 'ig', 'pcm'] as SupportedLanguage[]).map((lng) => (
+                {nigerianLangs.map((lng) => (
                   <button
                     key={lng}
                     onClick={() => switchLanguage(lng)}

@@ -728,6 +728,7 @@ The best onboarding doesn't feel like onboarding. It feels like the product is g
     publishDate: "2026-02-10",
     author,
     section: "thinking",
+    heroImage: imgNotionTeardown,
     seo: {
       metaTitle: "Product Teardown: Notion's Design System | Qomardeen Tijani",
       metaDescription: "How Notion balances flexibility and consistency across a complex product.",
@@ -784,6 +785,7 @@ Even the best design systems have trade-offs. The key is making *intentional* tr
     publishDate: "2026-01-28",
     author,
     section: "thinking",
+    heroImage: imgAiBeyondChatbots,
     seo: {
       metaTitle: "AI in Product Design: Beyond Chatbots | Qomardeen Tijani",
       metaDescription: "How AI is reshaping design workflows, research, and user experience.",
@@ -833,6 +835,7 @@ The products that win won't be the ones with the most AI features. They'll be th
     publishDate: "2026-01-12",
     author,
     section: "thinking",
+    heroImage: imgSystemsDesigners,
     seo: {
       metaTitle: "Systems Thinking for Designers | Qomardeen Tijani",
       metaDescription: "Why understanding the whole system leads to better component-level decisions.",

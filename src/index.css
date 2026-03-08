@@ -445,3 +445,8 @@
     width: 100%;
   }
 }
+
+/* Blog prose: extra space before paragraphs that start with bold text */
+.prose p:has(> strong:first-child) {
+  margin-top: 2em;
+}

@@ -277,6 +277,15 @@ const AIAssistantWidget = () => {
         onDelta: upsertAssistant,
         onDone: () => {
           setIsLoading(false);
+          // Check for blog post draft in the response
+          const { blogDraft } = parseBlogPost(assistantSoFar);
+          if (blogDraft) {
+            setPendingBlogDraft(blogDraft);
+          }
+          // Check for publish command
+          if (hasPublishCommand(assistantSoFar)) {
+            handlePublishBlog();
+          }
           if (voiceEnabled && assistantSoFar) playTTS(assistantSoFar);
         },
       });
@@ -287,9 +296,78 @@ const AIAssistantWidget = () => {
     }
   };
 
+  const handlePublishBlog = async () => {
+    if (!pendingBlogDraft) return;
+    setBlogPublishing(true);
+    try {
+      const slug = pendingBlogDraft.title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 80);
+
+      const { data, error } = await supabase
+        .from('ai_blog_posts')
+        .insert({
+          slug,
+          title: pendingBlogDraft.title,
+          excerpt: pendingBlogDraft.excerpt,
+          content: pendingBlogDraft.content,
+          category: pendingBlogDraft.category,
+          tags: pendingBlogDraft.tags,
+          read_time: pendingBlogDraft.readTime,
+          status: 'draft',
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Now publish it
+      const { error: pubError } = await supabase
+        .from('ai_blog_posts')
+        .update({ status: 'published', published_at: new Date().toISOString() })
+        .eq('id', data.id);
+
+      if (pubError) throw pubError;
+
+      setPendingBlogDraft(null);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `✅ **"${pendingBlogDraft.title}"** has been published to your blog! You can find it on the blog page.`
+      }]);
+    } catch (e) {
+      console.error('Publish error:', e);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `❌ Failed to publish the blog post. Error: ${e instanceof Error ? e.message : 'Unknown error'}. Please try again.`
+      }]);
+    } finally {
+      setBlogPublishing(false);
+    }
+  };
+
+  const handleConfirmBlog = () => {
+    // User confirmed — tell AI to publish, which triggers the publish flow
+    handlePublishBlog();
+  };
+
+  const handleRejectBlog = () => {
+    setPendingBlogDraft(null);
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: "No problem! The draft has been discarded. Let me know if you'd like me to try a different approach."
+    }]);
+  };
+
   const renderContent = (content: string) => {
     const { displayContent } = parseNavigation(content);
-    return displayContent;
+    // Remove blog post JSON blocks from display
+    const cleaned = displayContent
+      .replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '')
+      .replace(/\[\[PUBLISH_BLOG\]\]/g, '')
+      .trim();
+    return cleaned;
   };
 
   return (

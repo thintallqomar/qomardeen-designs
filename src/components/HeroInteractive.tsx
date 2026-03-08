@@ -142,7 +142,7 @@ const HeroInteractive = () => {
                 transition: 'transform 0.25s ease-out',
               }}
             >
-              <div className="relative w-[160px] h-[200px] md:w-[200px] md:h-[250px] rounded-2xl overflow-hidden shadow-elegant">
+              <div className="relative w-[240px] h-[280px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant">
                 {!imgError ? (
                   <img
                     src={profileImage}

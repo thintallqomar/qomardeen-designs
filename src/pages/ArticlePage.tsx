@@ -24,7 +24,7 @@ class ArticleErrorBoundary extends Component<
 
 // ─── Fallback layout (mirrors the old design) ───
 const FallbackArticle = ({ slug }: { slug: string }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const post = getPostBySlug(slug);
   if (!post) return null;
   return (

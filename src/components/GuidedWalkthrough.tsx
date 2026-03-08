@@ -113,10 +113,10 @@ const GuidedWalkthrough = ({
             </div>
 
             {/* Content area */}
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_384px] overflow-hidden">
+            <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
               {/* Image panel */}
-              <div className="relative flex items-center justify-center p-4 md:p-8 overflow-hidden min-h-0">
-                <div className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg">
+              <div className="flex-1 relative flex items-center justify-center p-4 md:p-8 overflow-auto">
+                <div className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-border bg-card shadow-lg" style={{ minHeight: '300px' }}>
                   <img
                     src={step.image}
                     alt={step.imageAlt}

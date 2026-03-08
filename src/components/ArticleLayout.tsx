@@ -225,7 +225,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                               <img
                                 src={related.heroImage}
                                 alt={related.title}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 loading="lazy"
                               />
                             </div>

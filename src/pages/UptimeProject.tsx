@@ -8,6 +8,9 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
+import StickyScrollSection from '@/components/StickyScrollSection';
+import GuidedWalkthrough from '@/components/GuidedWalkthrough';
+import ScrollReveal from '@/components/ScrollReveal';
 
 // Import all case study frames
 import frame01 from '@/assets/uptime/frame-01.png';
@@ -34,6 +37,97 @@ const caseStudyImages = [
   { src: frame10, alt: 'Settings & Integration', label: 'Settings & Integration' },
 ];
 
+const stickyScrollItems = [
+  {
+    title: 'The Problem',
+    subtitle: 'Discovery',
+    description: 'Maintenance teams relied on spreadsheets and paper logs to track equipment, leading to missed schedules, unplanned downtime, and costly reactive repairs.',
+    image: frame02,
+    imageAlt: 'Product Overview - Frustrations and Solutions',
+    metrics: [
+      { label: 'Avg. Downtime', value: '23%' },
+      { label: 'Missed Tasks', value: '40%' },
+    ],
+  },
+  {
+    title: 'Research & Empathy',
+    subtitle: 'Understanding Users',
+    description: 'Through interviews with facility managers and technicians, we mapped pain points into an empathy map and defined a primary persona — a maintenance lead juggling 200+ assets across multiple sites.',
+    image: frame05,
+    imageAlt: 'User Persona',
+  },
+  {
+    title: 'Design System & Identity',
+    subtitle: 'Visual Foundation',
+    description: 'We crafted a professional yet approachable brand identity with a clean color palette, structured typography, and iconography that communicates reliability and precision.',
+    image: frame07,
+    imageAlt: 'Brand Identity',
+  },
+  {
+    title: 'The Dashboard',
+    subtitle: 'Core Experience',
+    description: 'The central hub provides real-time asset health, upcoming maintenance schedules, and actionable alerts — transforming data overload into clear, prioritized insights.',
+    image: frame08,
+    imageAlt: 'Dashboard Design',
+    metrics: [
+      { label: 'Task Completion', value: '94%' },
+      { label: 'Response Time', value: '-60%' },
+    ],
+  },
+];
+
+const walkthroughSteps = [
+  {
+    image: frame01,
+    imageAlt: 'UpTime Cover',
+    title: 'Project Overview',
+    description: 'UpTime is a CMMS (Computerized Maintenance Management System) designed for facility managers who need real-time visibility into equipment health and maintenance workflows.',
+  },
+  {
+    image: frame03,
+    imageAlt: 'Design Approach',
+    title: 'Design Approach',
+    description: 'We used a structured design process combining stakeholder interviews, competitive analysis, and iterative prototyping to arrive at a scalable solution.',
+    hotspots: [
+      { x: 25, y: 30, label: 'Core Features', description: 'Equipment registry, task scheduling, offline mode, and smart reporting were identified as the four pillars of the product.' },
+      { x: 70, y: 60, label: 'Design Principles', description: 'Clarity over complexity — every screen follows a consistent information hierarchy to reduce cognitive load.' },
+    ],
+  },
+  {
+    image: frame06,
+    imageAlt: 'Empathy Map',
+    title: 'Empathy Mapping',
+    description: 'We mapped what maintenance leads think, feel, say, and do to uncover hidden frustrations — like the anxiety of equipment failure during off-hours.',
+  },
+  {
+    image: frame08,
+    imageAlt: 'Dashboard Design',
+    title: 'Dashboard Design',
+    description: 'The dashboard surfaces critical metrics at a glance: overdue tasks, asset health scores, and upcoming maintenance windows.',
+    hotspots: [
+      { x: 15, y: 20, label: 'Quick Stats', description: 'At-a-glance KPIs show total assets, active tasks, and completion rates without scrolling.' },
+      { x: 55, y: 45, label: 'Activity Feed', description: 'A chronological feed of recent actions keeps the team aligned on what has been done and what is pending.' },
+      { x: 80, y: 70, label: 'Alert System', description: 'Color-coded alerts prioritize critical equipment issues that need immediate attention.' },
+    ],
+  },
+  {
+    image: frame09,
+    imageAlt: 'Equipment Registry',
+    title: 'Equipment & Task Management',
+    description: 'The registry allows teams to catalog every asset, attach maintenance history, and schedule recurring tasks — all accessible offline for field technicians.',
+    hotspots: [
+      { x: 30, y: 35, label: 'Asset Cards', description: 'Each asset displays health status, last service date, and assigned technician at a glance.' },
+      { x: 65, y: 55, label: 'Task Scheduling', description: 'Drag-and-drop scheduling with automatic conflict detection prevents overlapping maintenance windows.' },
+    ],
+  },
+  {
+    image: frame10,
+    imageAlt: 'Settings & Integration',
+    title: 'Settings & Integrations',
+    description: 'Flexible configuration allows teams to connect with existing tools, set notification preferences, and customize workflows to match their operational needs.',
+  },
+];
+
 const UptimeProject = () => {
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
@@ -52,10 +146,8 @@ const UptimeProject = () => {
       const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
       setScrollProgress(Math.min(100, Math.max(0, progress)));
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-    
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -67,163 +159,160 @@ const UptimeProject = () => {
     <>
       <Navigation />
       <PageTransition>
-      <div className="min-h-screen">
-        {/* Reading Progress Bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
-          <Progress value={scrollProgress} className="h-1 rounded-none" />
-        </div>
-        
-        
-        
-        {/* Back to Projects - Fixed */}
-        <div className="fixed top-20 left-4 z-40">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigate('/projects')}
-            className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Projects
-          </Button>
-        </div>
+        <div className="min-h-screen">
+          {/* Reading Progress Bar */}
+          <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
+            <Progress value={scrollProgress} className="h-1 rounded-none" />
+          </div>
 
-        <main className="pt-14">
-          {/* Project Hero */}
-          <section className="section-padding bg-gradient-subtle">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto text-center">
-                <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-                  UI/UX Case Study
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  UpTime CMMS
-                </h1>
-                
-                <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  A powerful maintenance and equipment tracking tool that reduces downtime through scheduled tasks, offline functionality, and smart reporting.
-                </p>
+          {/* Back to Projects */}
+          <div className="fixed top-20 left-4 z-40">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate('/projects')}
+              className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Projects
+            </Button>
+          </div>
 
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Role</span>
-                    <span className="font-medium">Product Designer (UI/UX)</span>
+          <main className="pt-14">
+            {/* Project Hero */}
+            <section className="section-padding bg-gradient-subtle">
+              <div className="container-custom">
+                <div className="max-w-4xl mx-auto text-center">
+                  <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
+                    UI/UX Case Study
                   </div>
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Scope</span>
-                    <span className="font-medium">End-to-End Design</span>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-6">UpTime CMMS</h1>
+                  <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                    A powerful maintenance and equipment tracking tool that reduces downtime through scheduled tasks, offline functionality, and smart reporting.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 mb-8">
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Role</span>
+                      <span className="font-medium">Product Designer (UI/UX)</span>
+                    </div>
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Scope</span>
+                      <span className="font-medium">End-to-End Design</span>
+                    </div>
+                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                      <span className="text-xs text-muted-foreground block">Platform</span>
+                      <span className="font-medium">Web App (SaaS)</span>
+                    </div>
                   </div>
-                  <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                    <span className="text-xs text-muted-foreground block">Platform</span>
-                    <span className="font-medium">Web App (SaaS)</span>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <a
-                    href="https://www.behance.net/gallery/239892845/UpTime"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    View on Behance
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Case Study Content */}
-          <section id="case-study-content" className="py-12 md:py-20">
-            <div className="container-custom">
-              <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
-                {caseStudyImages.map((image, index) => (
-                  <div key={index} className="relative">
-                    {/* Section Label */}
-                    {image.label && (
-                      <div className="mb-4 flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {image.label}
-                        </span>
-                      </div>
-                    )}
-                    
-                    {/* Image Container - Full resolution rendering */}
-                    <button
-                      onClick={() => openViewer(index)}
-                      className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                      aria-label={`View ${image.alt} in fullscreen`}
+                  <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <a
+                      href="https://www.behance.net/gallery/239892845/UpTime"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
                     >
-                      {!loadedImages.has(index) && (
-                        <Skeleton className="w-full aspect-[16/9]" />
-                      )}
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        loading="lazy"
-                        decoding="async"
-                        onLoad={() => handleImageLoad(index)}
-                        style={{ imageRendering: 'auto' }}
-                        className={`w-full h-auto max-w-none transition-opacity duration-300 ${
-                          loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                        }`}
-                      />
-                    </button>
+                      <ExternalLink className="w-4 h-4" />
+                      View on Behance
+                    </a>
+                    <GuidedWalkthrough
+                      steps={walkthroughSteps}
+                      projectTitle="UpTime CMMS"
+                      triggerLabel="Interactive Walkthrough"
+                    />
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Bottom CTA */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-2xl mx-auto text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                  Want to see more?
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  View the full case study on Behance or get in touch to discuss your project.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="https://www.behance.net/gallery/239892845/UpTime"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    View on Behance
-                  </a>
-                  <Button
-                    variant="outline"
-                    onClick={() => navigate('/contact')}
-                    className="h-11 px-6"
-                  >
-                    Get in Touch
-                  </Button>
                 </div>
               </div>
-            </div>
-          </section>
-        </main>
+            </section>
 
-        <Footer />
+            {/* Sticky Scroll Storytelling */}
+            <StickyScrollSection items={stickyScrollItems} />
 
-        <ImageViewer
-          images={caseStudyImages}
-          currentIndex={viewerIndex}
-          isOpen={viewerOpen}
-          onClose={() => setViewerOpen(false)}
-          onNavigate={setViewerIndex}
-        />
-      </div>
-    </PageTransition>
+            {/* Divider */}
+            <ScrollReveal>
+              <div className="container-custom py-16">
+                <div className="text-center">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3">Full Case Study</h2>
+                  <p className="text-muted-foreground">Scroll through every frame of the design process</p>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Case Study Content — Full frames */}
+            <section id="case-study-content" className="py-12 md:py-20">
+              <div className="container-custom">
+                <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
+                  {caseStudyImages.map((image, index) => (
+                    <div key={index} className="relative">
+                      {image.label && (
+                        <div className="mb-4 flex items-center gap-3">
+                          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-sm font-medium text-muted-foreground">{image.label}</span>
+                        </div>
+                      )}
+                      <button
+                        onClick={() => openViewer(index)}
+                        className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        aria-label={`View ${image.alt} in fullscreen`}
+                      >
+                        {!loadedImages.has(index) && <Skeleton className="w-full aspect-[16/9]" />}
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          loading="lazy"
+                          decoding="async"
+                          onLoad={() => handleImageLoad(index)}
+                          style={{ imageRendering: 'auto' }}
+                          className={`w-full h-auto max-w-none transition-opacity duration-300 ${
+                            loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Bottom CTA */}
+            <section className="section-padding bg-muted/30">
+              <div className="container-custom">
+                <div className="max-w-2xl mx-auto text-center">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
+                  <p className="text-muted-foreground mb-8">
+                    View the full case study on Behance or get in touch to discuss your project.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a
+                      href="https://www.behance.net/gallery/239892845/UpTime"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      View on Behance
+                    </a>
+                    <Button variant="outline" onClick={() => navigate('/contact')} className="h-11 px-6">
+                      Get in Touch
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          <Footer />
+
+          <ImageViewer
+            images={caseStudyImages}
+            currentIndex={viewerIndex}
+            isOpen={viewerOpen}
+            onClose={() => setViewerOpen(false)}
+            onNavigate={setViewerIndex}
+          />
+        </div>
+      </PageTransition>
     </>
   );
 };

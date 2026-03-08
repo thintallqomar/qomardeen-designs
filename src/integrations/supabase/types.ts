@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_blog_posts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          excerpt: string
+          hero_image_url: string | null
+          id: string
+          published_at: string | null
+          read_time: string
+          slug: string
+          status: string
+          tags: string[]
+          title: string
+        }
+        Insert: {
+          category?: string
+          content: string
+          created_at?: string
+          excerpt: string
+          hero_image_url?: string | null
+          id?: string
+          published_at?: string | null
+          read_time?: string
+          slug: string
+          status?: string
+          tags?: string[]
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          excerpt?: string
+          hero_image_url?: string | null
+          id?: string
+          published_at?: string | null
+          read_time?: string
+          slug?: string
+          status?: string
+          tags?: string[]
+          title?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string

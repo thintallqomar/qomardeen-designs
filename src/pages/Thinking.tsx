@@ -4,7 +4,7 @@ import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import { Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { thinkingPosts } from '@/data/articles';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
@@ -17,7 +17,7 @@ const tagIcons: Record<string, string> = {
 };
 
 const Thinking = () => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   return (
     <>

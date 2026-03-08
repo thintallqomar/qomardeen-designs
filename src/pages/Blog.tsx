@@ -5,13 +5,13 @@ import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import { Clock, ArrowRight, Search, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const Blog = () => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All');
 

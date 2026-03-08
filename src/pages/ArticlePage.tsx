@@ -1,4 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { Component, type ReactNode } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -23,7 +24,7 @@ class ArticleErrorBoundary extends Component<
 
 // ─── Fallback layout (mirrors the old design) ───
 const FallbackArticle = ({ slug }: { slug: string }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const post = getPostBySlug(slug);
   if (!post) return null;
   return (
@@ -42,7 +43,7 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
 
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const post = slug ? getPostBySlug(slug) : undefined;
 
   if (!post) {

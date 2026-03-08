@@ -62,6 +62,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: "2026-03-06",
     author,
     section: "blog",
+    heroImage: imgDesignSystems,
     seo: {
       metaTitle: "Building Scalable Design Systems | Qomardeen Tijani",
       metaDescription: "How design systems help teams scale products efficiently while maintaining usability and visual consistency.",
@@ -163,6 +164,7 @@ The key is patience and commitment. A design system is a product, not a project.
     publishDate: "2026-02-18",
     author,
     section: "blog",
+    heroImage: imgAiNative,
     seo: {
       metaTitle: "Designing AI-Native Products | Qomardeen Tijani",
       metaDescription: "Principles for designing products where artificial intelligence is a core capability rather than an add-on feature.",
@@ -271,6 +273,7 @@ Design for the failure case first. If the worst-case experience is acceptable, t
     publishDate: "2026-02-03",
     author,
     section: "blog",
+    heroImage: imgAiWorkflows,
     seo: {
       metaTitle: "AI-Assisted Design Workflows | Qomardeen Tijani",
       metaDescription: "How artificial intelligence can accelerate research, ideation, and iteration in modern product design.",
@@ -352,6 +355,7 @@ The designers who thrive will be those who use AI for the mechanical work and in
     publishDate: "2026-01-20",
     author,
     section: "blog",
+    heroImage: imgDashboard,
     seo: {
       metaTitle: "Dashboard Design: Clarity Over Complexity | Qomardeen Tijani",
       metaDescription: "Principles for designing data-heavy dashboards that help users understand complex information quickly.",
@@ -425,6 +429,7 @@ If they can't answer, the hierarchy is wrong. Redesign until the most important 
     publishDate: "2026-01-06",
     author,
     section: "blog",
+    heroImage: imgFintech,
     seo: {
       metaTitle: "Designing Trust in Fintech Interfaces | Qomardeen Tijani",
       metaDescription: "Key UX patterns that build trust when users move money through digital platforms.",
@@ -502,6 +507,7 @@ This framework turned abstract security into tangible user confidence.
     publishDate: "2025-12-18",
     author,
     section: "blog",
+    heroImage: imgSystems,
     seo: {
       metaTitle: "Why Systems Thinking Matters in Product Design | Qomardeen Tijani",
       metaDescription: "How thinking beyond individual screens enables scalable and consistent product experiences.",
@@ -580,6 +586,7 @@ You don't need to redesign everything. Start with one question: *"Is there a pat
     publishDate: "2025-12-02",
     author,
     section: "blog",
+    heroImage: imgFashion,
     seo: {
       metaTitle: "From Fashion to Product Design | Qomardeen Tijani",
       metaDescription: "How my background in fashion design shaped my approach to building digital products and user experiences.",

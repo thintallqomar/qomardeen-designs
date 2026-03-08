@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, Zap, Eye, Briefcase } from 'lucide-react';
+import { ArrowRight, Sparkles, Eye, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import profileImage from '@/assets/new-profile.jpg';
 
@@ -73,33 +73,22 @@ const Hero = () => {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div className="flex flex-col sm:flex-row gap-3 pt-2" variants={fadeUp}>
-              <motion.button
-                onClick={() => navigate('/projects')}
-                className="modern-btn inline-flex items-center justify-center gap-2.5 group"
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2, ease }}
-              >
-                <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                View Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-              
+            <motion.div className="flex flex-col gap-3 pt-2 w-full" variants={fadeUp}>
               <motion.button
                 onClick={() => navigate('/projects/uptime')}
-                className="outline-btn inline-flex items-center justify-center gap-2.5 group"
+                className="modern-btn w-full inline-flex items-center justify-center gap-2.5 group"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease }}
               >
                 <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 Explore Case Studies
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.button>
 
               <motion.button
                 onClick={() => navigate('/hire')}
-                className="outline-btn inline-flex items-center justify-center gap-2.5 group"
+                className="outline-btn w-full inline-flex items-center justify-center gap-2.5 group"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease }}

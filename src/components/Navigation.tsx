@@ -248,22 +248,39 @@ const Navigation = () => {
         <AnimatePresence>
           {langOpen && (
             <motion.div
-              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-xl shadow-lg overflow-hidden min-w-[140px] z-50"
+              className="md:hidden absolute right-4 top-14 bg-background border border-border rounded-2xl shadow-xl overflow-hidden w-[200px] z-50"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.15 }}
             >
-              {supportedLanguages.map((lng) => (
-                <button
-                  key={lng}
-                  onClick={() => switchLanguage(lng)}
-                  className={`flex items-center gap-2.5 w-full px-4 py-2.5 text-sm hover:bg-secondary transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/5' : 'text-foreground'}`}
-                >
-                  <span>{languageFlags[lng]}</span>
-                  <span>{languageNames[lng]}</span>
-                </button>
-              ))}
+              <div className="p-2">
+                {(['en', 'fr', 'es', 'ar'] as SupportedLanguage[]).map((lng) => (
+                  <button
+                    key={lng}
+                    onClick={() => switchLanguage(lng)}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                  >
+                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <span>{languageNames[lng]}</span>
+                  </button>
+                ))}
+                <div className="my-1.5 mx-2 flex items-center gap-2">
+                  <div className="h-px flex-1 bg-border" />
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Nigeria</span>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                {(['yo', 'ha', 'ig', 'pcm'] as SupportedLanguage[]).map((lng) => (
+                  <button
+                    key={lng}
+                    onClick={() => switchLanguage(lng)}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                  >
+                    <span className="text-base leading-none">{languageFlags[lng]}</span>
+                    <span>{languageNames[lng]}</span>
+                  </button>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -33,7 +33,7 @@ const LatestInsights = () => {
               transition={{ duration: 0.3, ease }}
               onClick={() => navigate(`/article/${post.slug}`)}
             >
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{post.tag}</span>
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{post.category}</span>
               <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
               <p className="text-sm text-muted-foreground mb-4 flex-1">{post.excerpt}</p>
               <div className="flex items-center justify-between text-xs text-muted-foreground">

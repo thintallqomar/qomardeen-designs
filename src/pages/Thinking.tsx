@@ -10,10 +10,10 @@ import { thinkingPosts } from '@/data/articles';
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const tagIcons: Record<string, string> = {
-  "UX Breakdown": "🔍",
-  "Product Teardown": "🧩",
-  "AI Insight": "🤖",
-  "Systems": "🧠",
+  "UX Design": "🔍",
+  "Design Systems": "🧩",
+  "AI & Product Design": "🤖",
+  "Product Design": "🧠",
 };
 
 const Thinking = () => {
@@ -51,10 +51,10 @@ const Thinking = () => {
                       >
                         <div className="flex items-start gap-4">
                           <div className="p-3 bg-primary/20 rounded-lg flex-shrink-0 text-2xl">
-                            {tagIcons[article.tag] || "📝"}
+                            {tagIcons[article.category] || "📝"}
                           </div>
                           <div className="flex-1">
-                            <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-1 block">{article.tag}</span>
+                            <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-1 block">{article.category}</span>
                             <h2 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{article.title}</h2>
                             <p className="text-sm text-muted-foreground mb-3">{article.excerpt}</p>
                             <div className="flex items-center gap-4 text-xs text-muted-foreground">

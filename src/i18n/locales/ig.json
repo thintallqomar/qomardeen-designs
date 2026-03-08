@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Ụlọ",
+    "projects": "Ọrụ",
+    "architecture": "Nhazi Usoro",
+    "blog": "Akụkọ",
+    "thinking": "Echiche",
+    "hire": "Goo M",
+    "about": "Maka M",
+    "explore": "Nyochaa",
+    "architectureDesc": "Nhazi usoro & ụdị",
+    "thinkingDesc": "Edemede & usoro echiche",
+    "aboutDesc": "Akụkọ & ahụmahụ"
+  },
+  "hero": {
+    "available": "Dị njikere maka ohere ọhụrụ",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Onye Nhazi Ngwaahịa",
+    "description": "Na-ahazi ngwaahịa dijitalụ nke na-eto eto n'etiti UX, AI, na echiche usoro.",
+    "cta_explore": "Lelee Nnyocha",
+    "cta_hire": "Goo M",
+    "skills": ["Nhazi UI", "Nnyocha UX", "Nhazi Ngwaahịa", "Echiche Usoro", "Njikọ AI"],
+    "badge": "Onye Nhazi Ngwaahịa"
+  },
+  "metrics": {
+    "projects": "Ọrụ Enyere",
+    "experience": "Afọ Ahụmahụ",
+    "users": "Ndị Ọrụ Metụtara",
+    "satisfaction": "Afọ Ojuju Ndị Ahịa"
+  },
+  "featured": {
+    "title": "Ọrụ Pụtara Ìhè",
+    "subtitle": "Nnyocha ndị isi na-egosi nhazi ngwaahịa na-eto eto n'ime ụlọ ọrụ dị iche iche",
+    "viewCase": "Lelee Nnyocha",
+    "uptime": {
+      "industry": "SaaS Ụlọ Ọrụ",
+      "problem": "Usoro ịsọpụrụ akụnụba siri ike enweghị ìhè na ịto eto"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Nnyefe ego ụwa niile chọrọ iwu ntụkwasị obi na usoro ekwentị"
+    },
+    "ecommerce": {
+      "industry": "Nyochaa Ahịa",
+      "problem": "Dashbọọdụ data dị oke chọrọ usoro nghọta a ga-eme ihe"
+    }
+  },
+  "philosophy": {
+    "title": "Nkà Echiche Nhazi",
+    "items": [
+      "Nkà echiche nhazi m dabere n'ìhè, ebumnuche, na iji eme ihe. Ekwenyere m na nhazi dị mma kwesịrị ịdị ka ọ doro anya—ọ bụghị n'ihi na ọ dị mfe, kama n'ihi na e doziri ya nke ọma.",
+      "Ana m eburu ụzọ dozie nsogbu ziri ezi tupu m lekwasị anya ịma mma. Ịma mma dị mkpa, mana naanị mgbe a doziri nhazi, usoro, na ojiji.",
+      "Ana m ahazi n'ịmata na ndị ọrụ anaghị agụ ihe na-egosi n'ụzọ zuru ezu—ha na-enyocha naanị. Nke a na-eduzi otu m si ahazi dashbọọdụ.",
+      "Ana m echekwa karịa ihuenyo otu otu ma lekwasị anya n'usoro. Akụrụngwa kwekọrọ, iwu oghere, na ọtụtụ mkpụrụedemede na-eme ka ahụmahụ ndị ọrụ na arụmọrụ otu dịkwuo mma.",
+      "Karịsịa ihe niile, ana m ahụ nhazi dị ka usoro mmụta na-aga n'ihu, nke a na-emezi site na nzaghachi, mmegharị, na ntinye n'ọrụ n'ezie."
+    ]
+  },
+  "architecture": {
+    "title": "Nhazi Usoro & Imewe",
+    "subtitle": "Otu m si eche banyere usoro ngwaahịa karịa ihe egosi",
+    "explore": "Nyochaa Nhazi Usoro",
+    "database": {
+      "title": "Ụdị Nhazi Data",
+      "desc": "Nhazi atụmatụ na-eto eto maka ngwaahịa SaaS na fintech"
+    },
+    "flows": {
+      "title": "Usoro Mmiri & APIs",
+      "desc": "Nhazi usoro site na mmalite ruo ngwụcha maka ọrụ ngwaahịa siri ike"
+    },
+    "scaling": {
+      "title": "Atụmatụ Ịba Ụba",
+      "desc": "Mgbanwe na mkpebi dị n'azụ usoro dị njikere maka mmepụta"
+    }
+  },
+  "atlas": {
+    "title": "Zute Atlas",
+    "subtitle": "Onye nduzi portfolio nke AI na-akwado — nyochaa ọrụ, jụọ ajụjụ, ma gaa n'aka aka",
+    "prompt1": "Kọwaa ọrụ fintech",
+    "prompt2": "Gosi nnyocha",
+    "prompt3": "Otu esi agoo",
+    "hint": "Pịa orb n'akụkụ aka nri n'okpuru iji malite"
+  },
+  "insights": {
+    "title": "Nghọta Ọhụrụ",
+    "subtitle": "Echiche banyere nhazi ngwaahịa, echiche usoro, na AI",
+    "read": "Gụọ",
+    "viewAll": "Lelee Akụkọ Niile"
+  },
+  "hireCta": {
+    "available": "Dị njikere maka ọrụ",
+    "title": "Ka Anyị Wuo Ihe Ukwuu",
+    "subtitle": "Ị na-achọ onye nhazi ngwaahịa nke ghọtara usoro, na-enye ngwaahịa n'ezie, ma na-ekwurịta okwu nke ọma? Ka anyị kwurịta okwu.",
+    "cta": "Goo M",
+    "schedule": "Hazie Oku"
+  },
+  "footer": {
+    "description": "Onye Nhazi Ngwaahịa lekwasịrị anya n'iwu ngwaahịa dijitalụ na-eto eto nke dabere na onye ọrụ. Nwere ahụmahụ n'inye ọrụ n'ezie site na nchọpụta ruo mmepụta.",
+    "quickLinks": "Njikọ Ngwa Ngwa",
+    "getInTouch": "Kpọtụrụ Anyị",
+    "location": "Naịjirịa",
+    "availableTitle": "Dị njikere maka ohere",
+    "availableDesc": "Mepere emepe maka ọrụ onwe na ọnọdụ oge niile",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. E debere ikike niile.",
+    "tagline": "Ị nwere ihe ịma aka siri ike ị chọrọ idozi? Ana m ege ntị. Ka anyị mụbaa ma wuo ihe dị mfe ma bụrụkwa nke ọhụrụ."
+  },
+  "newsletter": {
+    "title": "Nọrọ Na-Enweta Ozi",
+    "placeholder": "Tinye email gị",
+    "subscribe": "Debanye Aha"
+  }
+}

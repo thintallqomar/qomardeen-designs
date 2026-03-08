@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "architecture": "Architecture",
+    "blog": "Blog",
+    "thinking": "Thinking",
+    "hire": "Hire Me",
+    "about": "About Me",
+    "explore": "Explore",
+    "architectureDesc": "System design & patterns",
+    "thinkingDesc": "Essays & thinking ways",
+    "aboutDesc": "Background & experience"
+  },
+  "hero": {
+    "available": "I dey available for new work",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Product Designer",
+    "description": "I dey design digital products wey fit grow, for the place where UX, AI, and systems thinking meet.",
+    "cta_explore": "Check Case Studies",
+    "cta_hire": "Hire Me",
+    "skills": ["UI Design", "UX Research", "Product Design", "Systems Thinking", "AI Integration"],
+    "badge": "Product Designer"
+  },
+  "metrics": {
+    "projects": "Projects Wey Don Deliver",
+    "experience": "Years Experience",
+    "users": "Users Wey I Don Impact",
+    "satisfaction": "Customer Satisfaction"
+  },
+  "featured": {
+    "title": "Top Projects",
+    "subtitle": "Main case studies wey show scalable product design across industries",
+    "viewCase": "See Case Study",
+    "uptime": {
+      "industry": "Enterprise SaaS",
+      "problem": "Complex asset tracking workflows no get clarity and e no fit scale"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "International transfers need trust-building and mobile-first flows"
+    },
+    "ecommerce": {
+      "industry": "Retail Analytics",
+      "problem": "Dashboards wey get plenty data need better insights arrangement"
+    }
+  },
+  "philosophy": {
+    "title": "Design Philosophy",
+    "items": [
+      "My design philosophy dey grounded for clarity, intention, and usability. I believe say good design suppose feel obvious—e no be say e easy, but because e well structured and e get sense.",
+      "I dey prioritize to solve the right problem before I focus on fine-fine. Visual polish important, but only after layout, hierarchy, and usability don settle.",
+      "I dey design with the understanding say users no dey read interfaces well-well—dem dey scan am. Na this one dey guide how I structure dashboards and organize content.",
+      "I also dey think beyond single screens and focus on systems. Consistent components, spacing rules, and typography scales dey improve both user experience and team efficiency.",
+      "Above all, I see design as continuous learning process, wey we dey refine through feedback, iteration, and real-world application."
+    ]
+  },
+  "architecture": {
+    "title": "Architecture & System Design",
+    "subtitle": "How I dey think about product systems beyond the interface",
+    "explore": "Explore Architecture",
+    "database": {
+      "title": "Database Design Patterns",
+      "desc": "Scalable schema design for SaaS and fintech products"
+    },
+    "flows": {
+      "title": "System Flows & APIs",
+      "desc": "End-to-end architecture for complex product workflows"
+    },
+    "scaling": {
+      "title": "Scaling Strategies",
+      "desc": "Trade-offs and decisions behind production-ready systems"
+    }
+  },
+  "atlas": {
+    "title": "Meet Atlas",
+    "subtitle": "AI-powered portfolio guide — explore projects, ask questions, and navigate hands-free",
+    "prompt1": "Explain fintech work",
+    "prompt2": "Show case studies",
+    "prompt3": "How to hire me",
+    "hint": "Click the orb for the bottom-right corner to start"
+  },
+  "insights": {
+    "title": "Latest Insights",
+    "subtitle": "Thoughts on product design, systems thinking, and AI",
+    "read": "Read",
+    "viewAll": "See All Posts"
+  },
+  "hireCta": {
+    "available": "I dey available for hire",
+    "title": "Make We Build Something Wey Go Blow",
+    "subtitle": "You dey find product designer wey understand systems, ship real products, and communicate well? Make we talk.",
+    "cta": "Hire Me",
+    "schedule": "Book a Call"
+  },
+  "footer": {
+    "description": "Product Designer wey dey focus on building scalable, user-centered digital products. I get experience to ship real-world projects from discovery to production.",
+    "quickLinks": "Quick Links",
+    "getInTouch": "Reach Out",
+    "location": "Nigeria",
+    "availableTitle": "Available for opportunities",
+    "availableDesc": "Open for freelance & full-time positions",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. All rights reserved.",
+    "tagline": "You get complex challenge wey you wan tackle? I dey all ears. Make we dig in and craft solution wey go dey intuitive and innovative."
+  },
+  "newsletter": {
+    "title": "Stay Updated",
+    "placeholder": "Enter your email",
+    "subscribe": "Subscribe"
+  }
+}

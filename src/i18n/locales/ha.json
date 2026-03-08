@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Gida",
+    "projects": "Ayyuka",
+    "architecture": "Tsarin Gini",
+    "blog": "Rubutu",
+    "thinking": "Tunani",
+    "hire": "Ɗauka Ni",
+    "about": "Game Da Ni",
+    "explore": "Bincika",
+    "architectureDesc": "Tsarin ƙira & salon",
+    "thinkingDesc": "Maƙalu & tsarin tunani",
+    "aboutDesc": "Tarihi & gogewa"
+  },
+  "hero": {
+    "available": "Akwai don sabbin damar",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Mai Tsara Kaya",
+    "description": "Yin tsara kayayyakin dijital masu girma a tsakanin UX, AI, da tunani na tsari.",
+    "cta_explore": "Duba Nazarin",
+    "cta_hire": "Ɗauka Ni",
+    "skills": ["Tsara UI", "Binciken UX", "Tsara Kaya", "Tunani na Tsari", "Haɗa AI"],
+    "badge": "Mai Tsara Kaya"
+  },
+  "metrics": {
+    "projects": "Ayyukan Da Aka Isar",
+    "experience": "Shekarun Gogewa",
+    "users": "Masu Amfani Da Aka Shafa",
+    "satisfaction": "Gamsuwar Abokin Ciniki"
+  },
+  "featured": {
+    "title": "Fitattun Ayyuka",
+    "subtitle": "Fitattun nazarin da ke nuna tsara kayayyaki masu girma a masana'antu daban-daban",
+    "viewCase": "Duba Nazarin",
+    "uptime": {
+      "industry": "SaaS na Kamfani",
+      "problem": "Tsarin bin diddigin kadarori masu rikitarwa ba su da haske da girma"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Canja wurin kuɗi na duniya yana buƙatar gina amana da tsarin wayar hannu"
+    },
+    "ecommerce": {
+      "industry": "Nazarin Sayarwa",
+      "problem": "Dashbodin bayanai masu yawa suna buƙatar tsarin fahimtar da za a iya aiki da su"
+    }
+  },
+  "philosophy": {
+    "title": "Falsafar Tsara",
+    "items": [
+      "Falsafar tsarata na ta dogara ne akan haske, manufa, da amfani. Na yi imani cewa kyakkyawan tsari yakamata ya zama a bayyane—ba saboda yana da sauƙi ba, amma saboda an tsara shi da kyau.",
+      "Na fi mayar da hankali wajen warware matsalar da ta dace kafin in duba ƙawa. Ƙawan gani yana da muhimmanci, amma bayan an warware tsari, matsayi, da amfani.",
+      "Ina tsarawa da fahimtar cewa masu amfani ba sa karanta ƙa'idojin a daki-daki—suna duba ne kawai. Wannan shine ke jagorantar yadda nake tsara dashbodin.",
+      "Har ila yau ina tunani fiye da allo ɗaya kuma ina mayar da hankali kan tsari. Abubuwan da suka dace, ƙa'idojin sarari, da ma'aunin rubutu suna inganta kwarewar mai amfani da ingancin ƙungiya.",
+      "Sama da komai, ina ganin tsari a matsayin tsarin koyo mai ci gaba, wanda ake ingantawa ta hanyar ra'ayoyi, gyara, da aiki na gaske."
+    ]
+  },
+  "architecture": {
+    "title": "Tsarin Gini & Tsara Tsari",
+    "subtitle": "Yadda nake tunanin tsarin kaya fiye da ƙa'idar",
+    "explore": "Bincika Tsarin Gini",
+    "database": {
+      "title": "Salon Tsara Bayanan",
+      "desc": "Tsara tsarin bayanan da ke girma don kayayyakin SaaS da fintech"
+    },
+    "flows": {
+      "title": "Gudanar da Tsari & APIs",
+      "desc": "Tsarin gini daga farko zuwa ƙarshe don ayyukan kaya masu rikitarwa"
+    },
+    "scaling": {
+      "title": "Dabarun Girma",
+      "desc": "Musanya da yanke shawara a bayan tsarin da suka shirya don amfani"
+    }
+  },
+  "atlas": {
+    "title": "Sadu da Atlas",
+    "subtitle": "Jagoran portfolio da AI ke jagoranta — bincika ayyuka, yi tambayoyi, kuma ka yi tafiya ba tare da hannu ba",
+    "prompt1": "Bayyana aikin fintech",
+    "prompt2": "Nuna nazarin",
+    "prompt3": "Yadda za a ɗauka",
+    "hint": "Danna orb ɗin a ƙasan hagu don farawa"
+  },
+  "insights": {
+    "title": "Sabbin Fahimta",
+    "subtitle": "Tunani game da tsara kaya, tunani na tsari, da AI",
+    "read": "Karanta",
+    "viewAll": "Duba Duk Rubuce-rubuce"
+  },
+  "hireCta": {
+    "available": "Akwai don ɗaukar aiki",
+    "title": "Mu Gina Abu Mai Girma",
+    "subtitle": "Kana neman mai tsara kaya wanda ya fahimci tsari, ya isar da kayayyaki na gaske, kuma ya yi magana a fili? Mu yi magana.",
+    "cta": "Ɗauka Ni",
+    "schedule": "Shirya Kira"
+  },
+  "footer": {
+    "description": "Mai Tsara Kaya wanda ke mayar da hankali wajen gina kayayyakin dijital masu girma da ke mai da hankali ga mai amfani. Yana da gogewa wajen isar da ayyuka na gaske daga bincike zuwa samarwa.",
+    "quickLinks": "Hanyoyin Sauri",
+    "getInTouch": "Tuntuɓe Mu",
+    "location": "Najeriya",
+    "availableTitle": "Akwai don damar",
+    "availableDesc": "Buɗe don aiki mai zaman kansa da matsayi cikakke",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. An tanada duk haƙƙoƙi.",
+    "tagline": "Kana da ƙalubale mai rikitarwa da kake son magancewa? Na shirya in ji. Mu haƙa mu gina hanya mai sauƙi kuma mai kirkira."
+  },
+  "newsletter": {
+    "title": "Kasance Cikin Sabon Labari",
+    "placeholder": "Shigar da imel ɗinka",
+    "subscribe": "Yi Rajista"
+  }
+}

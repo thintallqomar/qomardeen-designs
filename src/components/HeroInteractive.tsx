@@ -158,14 +158,14 @@ const HeroInteractive = () => {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
               </div>
-              <div className="absolute -right-6 -bottom-4 md:-right-10 md:-bottom-6 w-20 h-20 md:w-24 md:h-24 rounded-full border border-border bg-background flex items-center justify-center">
+              <div className="absolute -left-10 -top-10 md:-left-12 md:-top-12 w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center z-10">
                 <svg className="w-full h-full animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
                   <defs>
                     <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
                   </defs>
                   <text className="fill-muted-foreground" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' }}>
                     <textPath href="#circlePath" startOffset="0%">
-                      {"HELLO • LET'S WORK TOGETHER • "}
+                      {"LET'S WORK TOGETHER • LET'S WORK TOGETHER • "}
                     </textPath>
                   </text>
                 </svg>

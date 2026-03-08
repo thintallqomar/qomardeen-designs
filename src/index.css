@@ -448,7 +448,7 @@
 
 /* Blog prose: extra space before paragraphs that start with bold text */
 .prose p:has(> strong:first-child) {
-  margin-top: 2.5em;
+  margin-top: 2em;
 }
 
 /* Ensure first paragraph after heading doesn't get extra top margin */

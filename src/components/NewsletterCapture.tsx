@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Mail, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -10,6 +11,7 @@ const emailSchema = z.string().trim().email('Please enter a valid email').max(25
 const NewsletterCapture = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const NewsletterCapture = () => {
 
       if (error) {
         if (error.code === '23505') {
-          toast.info("You're already subscribed!");
+          toast.info(t('newsletter.alreadySubscribed'));
           setStatus('success');
           return;
         }
@@ -36,9 +38,9 @@ const NewsletterCapture = () => {
       }
 
       setStatus('success');
-      toast.success('Subscribed! Welcome aboard.');
+      toast.success(t('newsletter.successToast'));
     } catch {
-      toast.error('Something went wrong. Please try again.');
+      toast.error(t('newsletter.errorToast'));
       setStatus('idle');
     }
   };
@@ -54,14 +56,14 @@ const NewsletterCapture = () => {
       >
         <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5">
           <Mail className="w-3.5 h-3.5" />
-          Stay in the loop
+          {t('newsletter.badge')}
         </div>
 
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
-          Get design insights delivered
+          {t('newsletter.title')}
         </h2>
         <p className="text-muted-foreground text-sm md:text-base mb-8 max-w-md mx-auto">
-          No spam, no fluff — just thoughtful essays on product design, systems thinking, and building with AI.
+          {t('newsletter.subtitle')}
         </p>
 
         {status === 'success' ? (
@@ -71,7 +73,7 @@ const NewsletterCapture = () => {
             className="flex items-center justify-center gap-2 text-primary font-medium"
           >
             <CheckCircle className="w-5 h-5" />
-            You're on the list!
+            {t('newsletter.success')}
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="flex gap-2 max-w-sm mx-auto">
@@ -79,7 +81,7 @@ const NewsletterCapture = () => {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder={t('newsletter.placeholder')}
               required
               disabled={status === 'loading'}
               className="flex-1 px-4 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
@@ -93,7 +95,7 @@ const NewsletterCapture = () => {
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <>
-                  Subscribe <ArrowRight className="w-3.5 h-3.5" />
+                  {t('newsletter.subscribe')} <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
             </button>

@@ -104,8 +104,14 @@
     "tagline": "Tem um desafio complexo? Estou pronto para ouvir. Vamos criar uma solução intuitiva e inovadora."
   },
   "newsletter": {
-    "title": "Fique Atualizado",
-    "placeholder": "Digite seu email",
-    "subscribe": "Inscrever-se"
+    "badge": "Fique por dentro",
+    "title": "Receba insights de design",
+    "subtitle": "Sem spam — apenas ensaios sobre design de produto, pensamento sistêmico e construção com IA.",
+    "placeholder": "seu@email.com",
+    "subscribe": "Inscrever-se",
+    "success": "Você está na lista!",
+    "alreadySubscribed": "Você já está inscrito!",
+    "successToast": "Inscrito! Bem-vindo.",
+    "errorToast": "Algo deu errado. Tente novamente."
   }
 }

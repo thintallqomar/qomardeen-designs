@@ -104,8 +104,14 @@
     "tagline": "Got a complex challenge you're ready to tackle? I'm all ears. Let's dig in and craft a solution that's both intuitive and innovative."
   },
   "newsletter": {
-    "title": "Stay Updated",
-    "placeholder": "Enter your email",
-    "subscribe": "Subscribe"
+    "badge": "Stay in the loop",
+    "title": "Get design insights delivered",
+    "subtitle": "No spam, no fluff — just thoughtful essays on product design, systems thinking, and building with AI.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "success": "You're on the list!",
+    "alreadySubscribed": "You're already subscribed!",
+    "successToast": "Subscribed! Welcome aboard.",
+    "errorToast": "Something went wrong. Please try again."
   }
 }

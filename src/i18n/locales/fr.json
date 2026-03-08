@@ -104,8 +104,14 @@
     "tagline": "Vous avez un défi complexe à relever ? Je suis tout ouïe. Creusons ensemble et créons une solution intuitive et innovante."
   },
   "newsletter": {
-    "title": "Restez Informé",
-    "placeholder": "Entrez votre email",
-    "subscribe": "S'abonner"
+    "badge": "Restez connecté",
+    "title": "Recevez des insights design",
+    "subtitle": "Pas de spam — juste des essais réfléchis sur le design produit, la pensée systémique et la construction avec l'IA.",
+    "placeholder": "votre@email.com",
+    "subscribe": "S'abonner",
+    "success": "Vous êtes inscrit !",
+    "alreadySubscribed": "Vous êtes déjà inscrit !",
+    "successToast": "Inscrit ! Bienvenue.",
+    "errorToast": "Une erreur est survenue. Veuillez réessayer."
   }
 }

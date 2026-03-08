@@ -104,8 +104,14 @@
     "tagline": "¿Tienes un desafío complejo que resolver? Soy todo oídos. Profundicemos y creemos una solución intuitiva e innovadora."
   },
   "newsletter": {
-    "title": "Mantente Actualizado",
-    "placeholder": "Ingresa tu email",
-    "subscribe": "Suscribirse"
+    "badge": "Mantente informado",
+    "title": "Recibe ideas de diseño",
+    "subtitle": "Sin spam ni relleno — solo ensayos sobre diseño de producto, pensamiento sistémico y construcción con IA.",
+    "placeholder": "tu@email.com",
+    "subscribe": "Suscribirse",
+    "success": "¡Estás en la lista!",
+    "alreadySubscribed": "¡Ya estás suscrito!",
+    "successToast": "¡Suscrito! Bienvenido.",
+    "errorToast": "Algo salió mal. Inténtalo de nuevo."
   }
 }

@@ -136,7 +136,7 @@ const HeroInteractive = () => {
               animate="visible"
               onMouseMove={handleCardMove}
               onMouseLeave={resetCardTilt}
-              className="relative w-fit"
+              className="relative w-fit ml-[400px]"
               style={{
                 transform: `perspective(600px) rotateX(${cardTilt.x}deg) rotateY(${cardTilt.y}deg)`,
                 transition: 'transform 0.25s ease-out',

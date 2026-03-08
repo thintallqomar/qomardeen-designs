@@ -165,12 +165,11 @@ const HeroInteractive = () => {
                   </defs>
                   <text className="fill-muted-foreground" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase' }}>
                     <textPath href="#circlePath" startOffset="0%">
-                      HELLO • LET'S WORK TOGETHER •{' '}
+                      {"HELLO • LET'S WORK TOGETHER • "}
                     </textPath>
                   </text>
                 </svg>
                 <span className="absolute text-primary text-lg">↗</span>
-              </div>
               </div>
             </motion.div>
 

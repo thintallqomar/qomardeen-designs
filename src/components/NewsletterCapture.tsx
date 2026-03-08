@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Mail, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import Icon3D from './Icon3D';
 
 const emailSchema = z.string().trim().email('Please enter a valid email').max(255);
 
@@ -55,7 +56,7 @@ const NewsletterCapture = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-5">
-          <Mail className="w-3.5 h-3.5" />
+          <Icon3D name="mail" size={16} />
           {t('newsletter.badge')}
         </div>
 
@@ -72,7 +73,7 @@ const NewsletterCapture = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="flex items-center justify-center gap-2 text-primary font-medium"
           >
-            <CheckCircle className="w-5 h-5" />
+            <Icon3D name="check-circle" size={22} />
             {t('newsletter.success')}
           </motion.div>
         ) : (
@@ -95,7 +96,7 @@ const NewsletterCapture = () => {
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <>
-                  {t('newsletter.subscribe')} <ArrowRight className="w-3.5 h-3.5" />
+                  {t('newsletter.subscribe')} <Icon3D name="send" size={14} />
                 </>
               )}
             </button>

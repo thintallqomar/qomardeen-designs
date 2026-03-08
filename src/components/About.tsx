@@ -1,7 +1,7 @@
-import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -26,8 +26,8 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <MapPin className="w-6 h-6 text-primary" />
+                <div className="p-2 rounded-lg flex-shrink-0">
+                  <Icon3D name="map-pin" size={32} />
                 </div>
                 <div className="space-y-4">
                   <p className="text-muted-foreground leading-relaxed">
@@ -58,9 +58,7 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-primary" />
-                </div>
+                <Icon3D name="graduation-cap" size={36} />
                 <h3 className="text-xl font-semibold">Education</h3>
               </div>
               <div className="space-y-6">
@@ -82,9 +80,7 @@ const About = () => {
               transition={{ duration: 0.3, ease }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/20 rounded-lg">
-                  <Briefcase className="w-6 h-6 text-primary" />
-                </div>
+                <Icon3D name="briefcase" size={36} />
                 <h3 className="text-xl font-semibold">Experience</h3>
               </div>
               <div className="space-y-6">

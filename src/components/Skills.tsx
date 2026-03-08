@@ -1,26 +1,26 @@
-import { Palette, Smartphone, Users, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
+import Icon3D from './Icon3D';
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Product Design",
-      icon: <Smartphone className="w-6 h-6" />,
-      color: "bg-primary/15 text-primary",
+      icon: "smartphone",
+      color: "bg-primary/15",
       skills: ["UI Design", "UX Research", "Wireframing", "Prototyping", "Interaction Design"]
     },
     {
       title: "Systems & Process",
-      icon: <Layers className="w-6 h-6" />,
-      color: "bg-accent/30 text-accent-foreground",
+      icon: "layers",
+      color: "bg-accent/30",
       skills: ["Design Systems", "Component Libraries", "Information Architecture", "Dashboard Design"]
     },
     {
       title: "Collaboration",
-      icon: <Users className="w-6 h-6" />,
-      color: "bg-secondary text-secondary-foreground",
+      icon: "users",
+      color: "bg-secondary",
       skills: ["Cross-functional Communication", "Stakeholder Alignment", "Iterative Design"]
     }
   ];
@@ -53,8 +53,8 @@ const Skills = () => {
                 whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <div className={`inline-flex p-3 rounded-lg ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  {category.icon}
+                <div className={`inline-flex p-2 rounded-lg ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon3D name={category.icon} size={32} />
                 </div>
                 <h3 className="text-lg font-semibold mb-4">{category.title}</h3>
                 <div className="space-y-2">
@@ -70,7 +70,7 @@ const Skills = () => {
             <div className="bg-muted/30 rounded-2xl p-8">
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 mb-4">
-                  <Palette className="w-6 h-6 text-primary" />
+                  <Icon3D name="palette" size={28} />
                   <h3 className="text-2xl font-semibold">Tools & Software</h3>
                 </div>
                 <p className="text-muted-foreground">

@@ -162,7 +162,7 @@ const Navigation = () => {
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors text-sm"
                 aria-label="Change language"
               >
-                <span className="text-base leading-none">{languageFlags[currentLang]}</span>
+                <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                 <span className="text-xs font-medium">{languageNames[currentLang]}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>

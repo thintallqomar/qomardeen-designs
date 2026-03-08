@@ -135,18 +135,20 @@ const Hire = () => {
                         </div>
                       </div>
                       <motion.div
-                        className="hidden md:block"
+                        className="hidden md:flex items-stretch self-stretch"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.7, ease }}
                       >
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-2xl opacity-20 scale-110" />
+                        <div className="relative w-72 lg:w-80 rounded-3xl overflow-hidden shadow-elegant group">
+                          <div className="absolute inset-0 bg-gradient-primary opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
+                          <div className="absolute -inset-4 bg-gradient-primary rounded-3xl blur-3xl opacity-15 scale-105 group-hover:opacity-25 transition-opacity duration-500" />
                           <img
                             src={profileImage}
                             alt="Qomardeen Tijani — Product Designer"
-                            className="w-56 h-56 object-cover object-center rounded-2xl relative z-10"
+                            className="w-full h-full object-cover object-center relative z-10 rounded-3xl ring-1 ring-border/10"
                           />
+                          <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/40 via-transparent to-transparent rounded-3xl" />
                         </div>
                       </motion.div>
                     </div>

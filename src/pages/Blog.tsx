@@ -20,7 +20,9 @@ const Blog = () => {
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All');
 
   const localizedPosts = useLocalizedPosts(blogPosts);
-  const featured = localizedPosts[0];
+  const { data: aiPosts = [] } = useAIBlogPosts();
+  const allPosts = useMemo(() => [...localizedPosts, ...aiPosts], [localizedPosts, aiPosts]);
+  const featured = allPosts[0];
 
   const filteredPosts = useMemo(() => {
     return localizedPosts.filter(post => {

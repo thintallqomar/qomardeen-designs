@@ -1,4 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { Component, type ReactNode } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';

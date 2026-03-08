@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -12,6 +13,7 @@ import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const Blog = () => {
+  const { t } = useTranslation();
   const navigate = useLocalizedNavigate();
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All');
@@ -21,7 +23,7 @@ const Blog = () => {
 
   const filteredPosts = useMemo(() => {
     return localizedPosts.filter(post => {
-      if (post.slug === featured.slug && !search && activeCategory === 'All') return false; // hide featured from list
+      if (post.slug === featured.slug && !search && activeCategory === 'All') return false;
       const matchesSearch = !search ||
         post.title.toLowerCase().includes(search.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(search.toLowerCase()) ||
@@ -29,7 +31,7 @@ const Blog = () => {
       const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [search, activeCategory, featured.slug]);
+  }, [search, activeCategory, featured.slug, localizedPosts]);
 
   return (
     <>
@@ -43,9 +45,9 @@ const Blog = () => {
                   {/* Header */}
                   <ScrollReveal>
                     <div className="text-center mb-12">
-                      <h1 className="text-3xl md:text-4xl font-bold mb-4">Blog</h1>
+                      <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('blog.title')}</h1>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Insights on product design, systems thinking, and building digital products
+                        {t('blog.subtitle')}
                       </p>
                     </div>
                   </ScrollReveal>
@@ -60,7 +62,7 @@ const Blog = () => {
                     >
                       <div className="absolute top-4 left-4">
                         <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-2.5 py-1 rounded-md">
-                          Featured
+                          {t('blog.featured')}
                         </span>
                       </div>
                       <div className="pt-10">
@@ -81,7 +83,7 @@ const Blog = () => {
                             <Clock className="w-3 h-3" /> {featured.readTime}
                           </span>
                           <span className="ml-auto flex items-center gap-1 text-xs text-primary font-medium group-hover:gap-2 transition-all">
-                            Read article <ArrowRight className="w-3 h-3" />
+                            {t('blog.readArticle')} <ArrowRight className="w-3 h-3" />
                           </span>
                         </div>
                       </div>
@@ -97,7 +99,7 @@ const Blog = () => {
                           type="text"
                           value={search}
                           onChange={e => setSearch(e.target.value)}
-                          placeholder="Search articles..."
+                          placeholder={t('blog.search')}
                           className="w-full pl-10 pr-8 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary transition-all"
                         />
                         {search && (
@@ -117,7 +119,7 @@ const Blog = () => {
                             : 'bg-secondary border-border text-muted-foreground hover:text-foreground'
                         }`}
                       >
-                        All
+                        {t('blog.all')}
                       </button>
                       {BLOG_CATEGORIES.map(cat => (
                         <button
@@ -139,7 +141,7 @@ const Blog = () => {
                   <div className="space-y-5">
                     {filteredPosts.length === 0 && (
                       <p className="text-center text-muted-foreground py-12 text-sm">
-                        No articles found matching your search.
+                        {t('blog.noResults')}
                       </p>
                     )}
                     {filteredPosts.map((post, index) => (
@@ -170,7 +172,7 @@ const Blog = () => {
                               </div>
                               <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
                               <span className="flex items-center gap-1 text-primary font-medium group-hover:gap-2 transition-all ml-auto">
-                                Read <ArrowRight className="w-3 h-3" />
+                                {t('blog.read')} <ArrowRight className="w-3 h-3" />
                               </span>
                             </div>
                           </div>

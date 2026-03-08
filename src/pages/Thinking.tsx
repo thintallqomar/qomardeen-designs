@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -18,6 +19,7 @@ const tagIcons: Record<string, string> = {
 };
 
 const Thinking = () => {
+  const { t } = useTranslation();
   const navigate = useLocalizedNavigate();
   const localizedPosts = useLocalizedPosts(thinkingPosts);
 
@@ -32,9 +34,9 @@ const Thinking = () => {
                 <div className="max-w-4xl mx-auto">
                   <ScrollReveal>
                     <div className="text-center mb-16">
-                      <h1 className="text-3xl md:text-4xl font-bold mb-4">Thinking</h1>
+                      <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('thinking.title')}</h1>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        UX breakdowns, product teardowns, and strategic design thinking
+                        {t('thinking.subtitle')}
                       </p>
                     </div>
                   </ScrollReveal>
@@ -62,7 +64,7 @@ const Thinking = () => {
                             <div className="flex items-center gap-4 text-xs text-muted-foreground">
                               <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {article.readTime}</span>
                               <span className="flex items-center gap-1 text-primary font-medium group-hover:gap-2 transition-all">
-                                Read more <ArrowRight className="w-3 h-3" />
+                                {t('thinking.readMore')} <ArrowRight className="w-3 h-3" />
                               </span>
                             </div>
                           </div>

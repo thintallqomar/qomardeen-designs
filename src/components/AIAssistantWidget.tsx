@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp } from 'lucide-react';
+import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { supabase } from '@/integrations/supabase/client';
 
 declare global {
   interface Window {
@@ -12,6 +13,14 @@ declare global {
 }
 
 type Message = { role: 'user' | 'assistant'; content: string };
+type BlogDraft = {
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  tags: string[];
+  readTime: string;
+};
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-chat`;
 const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
@@ -20,7 +29,25 @@ const SUGGESTED_PROMPTS = [
   "Show me projects",
   "Fintech experience",
   "How to hire",
+  "Write a blog post",
 ];
+
+function parseBlogPost(content: string): { displayContent: string; blogDraft: BlogDraft | null } {
+  const blogMatch = content.match(/\[\[BLOG_POST\]\]([\s\S]*?)\[\[\/BLOG_POST\]\]/);
+  if (!blogMatch) return { displayContent: content, blogDraft: null };
+  
+  try {
+    const blogData = JSON.parse(blogMatch[1].trim());
+    const displayContent = content.replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '').trim();
+    return { displayContent, blogDraft: blogData };
+  } catch {
+    return { displayContent: content, blogDraft: null };
+  }
+}
+
+function hasPublishCommand(content: string): boolean {
+  return content.includes('[[PUBLISH_BLOG]]');
+}
 
 function parseNavigation(content: string): { displayContent: string; navPath: string | null } {
   const navMatch = content.match(/\[\[NAVIGATE:(\/[^\]]*)\]\]/);
@@ -133,6 +160,8 @@ const AIAssistantWidget = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [pendingBlogDraft, setPendingBlogDraft] = useState<BlogDraft | null>(null);
+  const [blogPublishing, setBlogPublishing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
@@ -248,6 +277,15 @@ const AIAssistantWidget = () => {
         onDelta: upsertAssistant,
         onDone: () => {
           setIsLoading(false);
+          // Check for blog post draft in the response
+          const { blogDraft } = parseBlogPost(assistantSoFar);
+          if (blogDraft) {
+            setPendingBlogDraft(blogDraft);
+          }
+          // Check for publish command
+          if (hasPublishCommand(assistantSoFar)) {
+            handlePublishBlog();
+          }
           if (voiceEnabled && assistantSoFar) playTTS(assistantSoFar);
         },
       });
@@ -258,9 +296,78 @@ const AIAssistantWidget = () => {
     }
   };
 
+  const handlePublishBlog = async () => {
+    if (!pendingBlogDraft) return;
+    setBlogPublishing(true);
+    try {
+      const slug = pendingBlogDraft.title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 80);
+
+      const { data, error } = await supabase
+        .from('ai_blog_posts')
+        .insert({
+          slug,
+          title: pendingBlogDraft.title,
+          excerpt: pendingBlogDraft.excerpt,
+          content: pendingBlogDraft.content,
+          category: pendingBlogDraft.category,
+          tags: pendingBlogDraft.tags,
+          read_time: pendingBlogDraft.readTime,
+          status: 'draft',
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Now publish it
+      const { error: pubError } = await supabase
+        .from('ai_blog_posts')
+        .update({ status: 'published', published_at: new Date().toISOString() })
+        .eq('id', data.id);
+
+      if (pubError) throw pubError;
+
+      setPendingBlogDraft(null);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `✅ **"${pendingBlogDraft.title}"** has been published to your blog! You can find it on the blog page.`
+      }]);
+    } catch (e) {
+      console.error('Publish error:', e);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: `❌ Failed to publish the blog post. Error: ${e instanceof Error ? e.message : 'Unknown error'}. Please try again.`
+      }]);
+    } finally {
+      setBlogPublishing(false);
+    }
+  };
+
+  const handleConfirmBlog = () => {
+    // User confirmed — tell AI to publish, which triggers the publish flow
+    handlePublishBlog();
+  };
+
+  const handleRejectBlog = () => {
+    setPendingBlogDraft(null);
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: "No problem! The draft has been discarded. Let me know if you'd like me to try a different approach."
+    }]);
+  };
+
   const renderContent = (content: string) => {
     const { displayContent } = parseNavigation(content);
-    return displayContent;
+    // Remove blog post JSON blocks from display
+    const cleaned = displayContent
+      .replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '')
+      .replace(/\[\[PUBLISH_BLOG\]\]/g, '')
+      .trim();
+    return cleaned;
   };
 
   return (
@@ -388,6 +495,49 @@ const AIAssistantWidget = () => {
                   </div>
                 </div>
               ))}
+
+              {/* Blog draft confirmation card */}
+              {pendingBlogDraft && !blogPublishing && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mx-1 p-3 rounded-2xl border border-primary/30 bg-primary/5"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <FileText className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-semibold text-foreground">Blog Draft Ready</span>
+                  </div>
+                  <p className="text-[12px] text-muted-foreground mb-1 font-medium">{pendingBlogDraft.title}</p>
+                  <p className="text-[11px] text-muted-foreground/70 mb-3">{pendingBlogDraft.excerpt}</p>
+                  <div className="flex gap-2">
+                    <motion.button
+                      onClick={handleConfirmBlog}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-medium"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      Publish
+                    </motion.button>
+                    <motion.button
+                      onClick={handleRejectBlog}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-border text-foreground/70 text-xs font-medium"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <XCircle className="w-3.5 h-3.5" />
+                      Discard
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+
+              {blogPublishing && (
+                <div className="flex items-center gap-2 mx-1 p-3 rounded-2xl border border-primary/30 bg-primary/5">
+                  <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                  <span className="text-xs text-foreground/70">Publishing blog post...</span>
+                </div>
+              )}
 
               {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
                 <div className="flex justify-start">

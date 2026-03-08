@@ -4,11 +4,12 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
-import { Clock, ArrowRight, Search, X } from 'lucide-react';
+import { Clock, ArrowRight, Search, X, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
 import { useLocalizedPosts } from '@/data/useLocalizedArticle';
+import { useAIBlogPosts } from '@/hooks/useAIBlogPosts';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -19,10 +20,12 @@ const Blog = () => {
   const [activeCategory, setActiveCategory] = useState<BlogCategory | 'All'>('All');
 
   const localizedPosts = useLocalizedPosts(blogPosts);
-  const featured = localizedPosts[0];
+  const { data: aiPosts = [] } = useAIBlogPosts();
+  const allPosts = useMemo(() => [...localizedPosts, ...aiPosts], [localizedPosts, aiPosts]);
+  const featured = allPosts[0];
 
   const filteredPosts = useMemo(() => {
-    return localizedPosts.filter(post => {
+    return allPosts.filter(post => {
       if (post.slug === featured.slug && !search && activeCategory === 'All') return false;
       const matchesSearch = !search ||
         post.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -31,7 +34,7 @@ const Blog = () => {
       const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [search, activeCategory, featured.slug, localizedPosts]);
+  }, [search, activeCategory, featured.slug, allPosts]);
 
   return (
     <>

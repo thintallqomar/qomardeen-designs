@@ -7,6 +7,7 @@ import { Clock, ArrowRight, Search, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
+import NewsletterCapture from '@/components/NewsletterCapture';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

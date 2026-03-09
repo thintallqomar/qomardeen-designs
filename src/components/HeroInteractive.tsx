@@ -264,7 +264,7 @@ const HeroInteractive = () => {
               </div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Scroll indicator */}

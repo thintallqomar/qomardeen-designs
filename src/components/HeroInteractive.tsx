@@ -89,6 +89,14 @@ const HeroInteractive = () => {
     [cursorPos, isMobile]
   );
 
+  // Parallax: map scroll progress within the hero to different speeds
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const yGreeting = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const yName = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const ySubtitle = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const yBottom = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const opacityFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
     <section
       ref={heroRef}
@@ -104,7 +112,7 @@ const HeroInteractive = () => {
         />
       )}
 
-      <div className="relative z-10 w-full">
+      <motion.div className="relative z-10 w-full" style={{ opacity: opacityFade }}>
         {/* "Hello, I'm" */}
         <div className="w-fit px-6 md:px-10">
           <motion.div custom={0} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">

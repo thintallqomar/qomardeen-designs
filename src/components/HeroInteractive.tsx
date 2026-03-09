@@ -97,6 +97,11 @@ const HeroInteractive = () => {
   const yBottom = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const opacityFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  // Parallax for decorative orbs — different speeds for layered depth
+  const yOrb1 = useTransform(scrollYProgress, [0, 1], [0, -140]);
+  const yOrb2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const yOrb3 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
   return (
     <section
       ref={heroRef}

@@ -392,13 +392,14 @@ const AIAssistantWidget = () => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-foreground text-background shadow-2xl flex items-center justify-center group"
+            className="fixed bottom-6 right-6 z-50 h-12 pl-4 pr-5 rounded-full bg-foreground text-background shadow-2xl flex items-center gap-2.5 group"
             aria-label="Open Atlas AI"
           >
-            <AtlasLogo size={22} />
+            <AtlasLogo size={18} />
+            <span className="text-[13px] font-medium tracking-tight">Ask Atlas</span>
             {/* Pulse ring */}
             <span className="absolute inset-0 rounded-full border border-foreground/20 animate-ping opacity-20" />
           </motion.button>

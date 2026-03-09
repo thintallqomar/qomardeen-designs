@@ -394,13 +394,13 @@ const AIAssistantWidget = () => {
               scale: 1,
               opacity: 1,
               boxShadow: [
-                '0 0 0 0 hsl(var(--foreground) / 0)',
-                '0 0 20px 4px hsl(var(--foreground) / 0.15)',
-                '0 0 0 0 hsl(var(--foreground) / 0)',
+                '0 0 0 0 hsl(var(--primary) / 0)',
+                '0 0 20px 4px hsl(var(--primary) / 0.25)',
+                '0 0 0 0 hsl(var(--primary) / 0)',
               ],
             }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.08, boxShadow: '0 0 28px 6px hsl(var(--foreground) / 0.2)' }}
+            whileHover={{ scale: 1.08, boxShadow: '0 0 28px 6px hsl(var(--primary) / 0.35)' }}
             whileTap={{ scale: 0.95 }}
             transition={{
               boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },

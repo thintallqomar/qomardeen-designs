@@ -1,5 +1,5 @@
-import { useRef, useState, useCallback, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState, useCallback, useMemo, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, ArrowRight, Briefcase } from 'lucide-react';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -89,6 +89,14 @@ const HeroInteractive = () => {
     [cursorPos, isMobile]
   );
 
+  // Parallax: map scroll progress within the hero to different speeds
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const yGreeting = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const yName = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const ySubtitle = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const yBottom = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const opacityFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
     <section
       ref={heroRef}
@@ -104,9 +112,9 @@ const HeroInteractive = () => {
         />
       )}
 
-      <div className="relative z-10 w-full">
+      <motion.div className="relative z-10 w-full" style={{ opacity: opacityFade }}>
         {/* "Hello, I'm" */}
-        <div className="w-fit px-6 md:px-10">
+        <motion.div className="w-fit px-6 md:px-10" style={{ y: yGreeting }}>
           <motion.div custom={0} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
             <span
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
@@ -115,10 +123,10 @@ const HeroInteractive = () => {
               {t('hero.available')}
             </span>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Name — full bleed, extra bold, massive */}
-        <motion.div custom={1} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden w-full px-6 md:px-10">
+        <motion.div custom={1} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden w-full px-6 md:px-10" style={{ y: yName }}>
           <h1
             className="font-display font-black leading-[0.95] tracking-[-0.04em] text-primary w-full"
             style={{ fontSize: 'clamp(3.2rem, 10vw, 9rem)' }}
@@ -128,7 +136,7 @@ const HeroInteractive = () => {
         </motion.div>
 
         {/* "Product Designer" */}
-        <div className="w-fit px-6 md:px-10 mt-4">
+        <motion.div className="w-fit px-6 md:px-10 mt-4" style={{ y: ySubtitle }}>
           <motion.div custom={2} variants={lineVariant} initial="hidden" animate="visible" className="overflow-hidden">
             <span
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
@@ -137,10 +145,10 @@ const HeroInteractive = () => {
               {t('hero.subtitle')}
             </span>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Bottom: profile card left + description right */}
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
+        <motion.div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16" style={{ y: yBottom }}>
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-start">
 
             {/* Profile card — with tilt + floating animation */}
@@ -256,8 +264,8 @@ const HeroInteractive = () => {
               </div>
             </motion.div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.button

@@ -398,9 +398,13 @@ const AIAssistantWidget = () => {
             className="fixed bottom-6 right-6 z-50 p-1 rounded-[44px] bg-foreground text-background shadow-2xl flex items-center gap-2 w-fit"
             aria-label="Open Atlas AI"
           >
-            <div className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center flex-shrink-0">
-              <AtlasLogo size={24} />
-            </div>
+            <motion.div
+              className="w-8 h-8 rounded-full bg-background/10 flex items-center justify-center flex-shrink-0"
+              animate={{ scale: [1, 1.12, 1] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <AtlasLogo size={18} />
+            </motion.div>
             <span className="text-base font-medium tracking-tight pr-3">Ask Atlas</span>
             <span className="absolute inset-0 rounded-[44px] border border-foreground/20 animate-ping opacity-20" />
           </motion.button>

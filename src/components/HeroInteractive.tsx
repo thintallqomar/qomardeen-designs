@@ -23,17 +23,16 @@ const fadeIn = (delay: number) => ({
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, delay, ease: easeCurve } },
 });
 
-// Subtle floating keyframe for the profile image
-const floatVariant = {
-  animate: {
-    y: [0, -10, 0],
-    rotate: [0, 0.5, -0.5, 0],
-    transition: {
-      duration: 6,
-      repeat: Infinity,
-      ease: 'easeInOut',
-    },
-  },
+// Subtle floating animation props for the profile image
+const floatAnimation = {
+  y: [0, -10, 0],
+  rotate: [0, 0.5, -0.5, 0] as number[],
+};
+
+const floatTransition = {
+  duration: 6,
+  repeat: Infinity,
+  ease: 'easeInOut' as const,
 };
 
 const HeroInteractive = () => {

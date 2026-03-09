@@ -390,12 +390,24 @@ const AIAssistantWidget = () => {
         {!isOpen && (
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              boxShadow: [
+                '0 0 0 0 hsl(var(--foreground) / 0)',
+                '0 0 20px 4px hsl(var(--foreground) / 0.15)',
+                '0 0 0 0 hsl(var(--foreground) / 0)',
+              ],
+            }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.08, boxShadow: '0 0 28px 6px hsl(var(--foreground) / 0.2)' }}
             whileTap={{ scale: 0.95 }}
+            transition={{
+              boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+              scale: { type: 'spring', stiffness: 300, damping: 20 },
+            }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 p-1 rounded-[44px] bg-foreground text-background shadow-2xl flex items-center gap-2 w-fit"
+            className="fixed bottom-6 right-6 z-50 p-1 rounded-[44px] bg-foreground text-background flex items-center gap-2 w-fit cursor-pointer"
             aria-label="Open Atlas AI"
           >
             <motion.div
@@ -406,7 +418,6 @@ const AIAssistantWidget = () => {
               <AtlasLogo size={18} />
             </motion.div>
             <span className="text-base font-medium tracking-tight pr-3">Ask Atlas</span>
-            <span className="absolute inset-0 rounded-[44px] border border-foreground/20 animate-ping opacity-20" />
           </motion.button>
         )}
       </AnimatePresence>

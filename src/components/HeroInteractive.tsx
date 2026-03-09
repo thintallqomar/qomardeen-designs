@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown, ArrowRight, Briefcase } from 'lucide-react';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useTranslation } from 'react-i18next';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
@@ -22,9 +23,21 @@ const fadeIn = (delay: number) => ({
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, delay, ease: easeCurve } },
 });
 
-const skills = ["UI Design", "UX Research", "Product Design", "Systems Thinking", "AI Integration"];
+// Subtle floating keyframe for the profile image
+const floatVariant = {
+  animate: {
+    y: [0, -10, 0],
+    rotate: [0, 0.5, -0.5, 0],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    },
+  },
+};
 
 const HeroInteractive = () => {
+  const { t } = useTranslation();
   const navigate = useLocalizedNavigate();
   const isMobile = useIsMobile();
   const heroRef = useRef<HTMLElement>(null);
@@ -32,6 +45,8 @@ const HeroInteractive = () => {
   const [cursorPos, setCursorPos] = useState({ x: 0.5, y: 0.5 });
   const [cardTilt, setCardTilt] = useState({ x: 0, y: 0 });
   const [imgError, setImgError] = useState(false);
+
+  const skills = t('hero.skills', { returnObjects: true }) as string[];
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -98,7 +113,7 @@ const HeroInteractive = () => {
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
               style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}
             >
-              Hello, I'm
+              {t('hero.available')}
             </span>
           </motion.div>
         </div>
@@ -109,7 +124,7 @@ const HeroInteractive = () => {
             className="font-display font-black leading-[0.95] tracking-[-0.04em] text-primary w-full"
             style={{ fontSize: 'clamp(3.2rem, 10vw, 9rem)' }}
           >
-            Qomardeen Tijani
+            {t('hero.title')}
           </h1>
         </motion.div>
 
@@ -120,7 +135,7 @@ const HeroInteractive = () => {
               className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-foreground block"
               style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5rem)' }}
             >
-              Product Designer
+              {t('hero.subtitle')}
             </span>
           </motion.div>
         </div>
@@ -128,7 +143,8 @@ const HeroInteractive = () => {
         {/* Bottom: profile card left + description right */}
         <div className="max-w-[1280px] mx-auto px-6 md:px-10 mt-12 md:mt-16">
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-start">
-            {/* Profile card — offset on desktop, centered on mobile */}
+
+            {/* Profile card — with tilt + floating animation */}
             <motion.div
               ref={cardRef}
               variants={fadeIn(0.6)}
@@ -142,14 +158,20 @@ const HeroInteractive = () => {
                 transition: 'transform 0.25s ease-out',
               }}
             >
-              <div className="relative w-[200px] h-[240px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant">
+              {/* Floating wrapper — animates the image independently of tilt */}
+              <motion.div
+                variants={floatVariant}
+                animate="animate"
+                className="relative w-[200px] h-[240px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant will-change-transform"
+              >
                 {!imgError ? (
                   <img
                     src={profileImage}
                     alt="Portrait of Qomardeen Tijani"
-                    loading="lazy"
+                    loading="eager"
                     onError={() => setImgError(true)}
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-top"
+                    style={{ imageRendering: 'crisp-edges' }}
                   />
                 ) : (
                   <div className="w-full h-full bg-secondary flex items-center justify-center">
@@ -157,7 +179,7 @@ const HeroInteractive = () => {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-              </div>
+              </motion.div>
 
               {/* Blur backdrop for circular text contrast */}
               <div className="absolute -left-6 -top-6 w-28 h-28 md:w-40 md:h-40 bg-background/50 rounded-full blur-2xl pointer-events-none" />
@@ -196,7 +218,7 @@ const HeroInteractive = () => {
               className="flex flex-col justify-start items-start space-y-8 w-full lg:w-fit lg:ml-auto"
             >
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-md">
-                I design thoughtful digital products, scalable design systems, and AI-powered experiences that help businesses build meaningful user experiences.
+                {t('hero.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -206,7 +228,7 @@ const HeroInteractive = () => {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  View My Work
+                  {t('hero.cta_explore')}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 <motion.button
@@ -216,12 +238,12 @@ const HeroInteractive = () => {
                   whileTap={{ scale: 0.97 }}
                 >
                   <Briefcase className="w-4 h-4" />
-                  Hire Me
+                  {t('hero.cta_hire')}
                 </motion.button>
               </div>
 
               <div className="flex flex-wrap gap-2 pt-2">
-                {skills.map((skill, i) => (
+                {Array.isArray(skills) && skills.map((skill, i) => (
                   <motion.span
                     key={skill}
                     initial={{ opacity: 0, scale: 0.85 }}

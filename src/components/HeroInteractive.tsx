@@ -97,6 +97,11 @@ const HeroInteractive = () => {
   const yBottom = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const opacityFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  // Parallax for decorative orbs — different speeds for layered depth
+  const yOrb1 = useTransform(scrollYProgress, [0, 1], [0, -140]);
+  const yOrb2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const yOrb3 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
   return (
     <section
       ref={heroRef}
@@ -104,6 +109,52 @@ const HeroInteractive = () => {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex items-end pb-16 md:pb-24 pt-28 md:pt-32 overflow-hidden bg-background"
     >
+      {/* ── Decorative parallax orbs ────────────────────────────── */}
+      {/* Primary orb — top-right, slow */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ y: yOrb1, top: '-8%', right: '-6%', willChange: 'transform' }}
+      >
+        <div
+          className="w-[420px] h-[420px] md:w-[640px] md:h-[640px] rounded-full opacity-[0.22] dark:opacity-[0.15]"
+          style={{
+            background: 'radial-gradient(circle at 40% 40%, hsl(var(--primary) / 0.9), hsl(var(--primary) / 0) 70%)',
+            filter: 'blur(72px)',
+          }}
+        />
+      </motion.div>
+
+      {/* Secondary orb — bottom-left, medium speed */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ y: yOrb2, bottom: '5%', left: '-10%', willChange: 'transform' }}
+      >
+        <div
+          className="w-[320px] h-[320px] md:w-[500px] md:h-[500px] rounded-full opacity-[0.14] dark:opacity-[0.09]"
+          style={{
+            background: 'radial-gradient(circle at 60% 60%, hsl(var(--accent) / 0.85), hsl(var(--accent) / 0) 70%)',
+            filter: 'blur(64px)',
+          }}
+        />
+      </motion.div>
+
+      {/* Tertiary accent orb — center-right, fastest */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute pointer-events-none"
+        style={{ y: yOrb3, top: '30%', right: '18%', willChange: 'transform' }}
+      >
+        <div
+          className="w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full opacity-[0.18] dark:opacity-[0.12]"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, hsl(var(--primary-light, var(--primary)) / 0.75), hsl(var(--primary) / 0) 70%)',
+            filter: 'blur(48px)',
+          }}
+        />
+      </motion.div>
+
       {/* Cursor-reactive gradient overlay — desktop only */}
       {!isMobile && (
         <div

@@ -159,8 +159,8 @@ const HeroInteractive = () => {
             >
               {/* Floating wrapper — animates the image independently of tilt */}
               <motion.div
-                variants={floatVariant}
-                animate="animate"
+                animate={floatAnimation}
+                transition={floatTransition}
                 className="relative w-[200px] h-[240px] md:w-[280px] md:h-[330px] rounded-2xl overflow-hidden shadow-elegant will-change-transform"
               >
                 {!imgError ? (

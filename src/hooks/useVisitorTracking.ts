@@ -31,6 +31,15 @@ export const useVisitorTracking = () => {
   const lastPath = useRef('');
 
   useEffect(() => {
+    // Skip bare paths that will redirect to /:lang/ versions
+    const langPrefixRe = /^\/(en|fr|es|de|pt|ru|yo|ha|ig|pcm|ar)(\/|$)/;
+    const isLocalized = langPrefixRe.test(location.pathname);
+    const isAdmin = location.pathname.startsWith('/admin');
+    const isRoot = location.pathname === '/';
+
+    // Only track localized paths, admin paths, or root
+    if (!isLocalized && !isAdmin && !isRoot) return;
+
     if (location.pathname !== lastPath.current) {
       lastPath.current = location.pathname;
       trackEvent('page_view', location.pathname);

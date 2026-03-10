@@ -164,7 +164,30 @@ const TypingIndicator = () => (
 
 const AIAssistantWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [pendingBlogDraft, setPendingBlogDraft] = useState<BlogDraft | null>(null);
+  const [blogPublishing, setBlogPublishing] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const recognitionRef = useRef<any>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
+  const { isAdmin } = useAdminAuth();
+  const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
+
+  const stopSpeaking = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+    setIsSpeaking(false);
+  }, []);
 
   // Close on click outside
   useEffect(() => {
@@ -177,22 +200,7 @@ const AIAssistantWidget = () => {
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [isOpen]);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const [pendingBlogDraft, setPendingBlogDraft] = useState<BlogDraft | null>(null);
-  const [blogPublishing, setBlogPublishing] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const recognitionRef = useRef<any>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const navigate = useNavigate();
-  const { isAdmin } = useAdminAuth();
-  const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
+  }, [isOpen, stopSpeaking]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -244,14 +252,6 @@ const AIAssistantWidget = () => {
       setIsSpeaking(false);
     }
   }, [voiceEnabled]);
-
-  const stopSpeaking = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-    setIsSpeaking(false);
-  };
 
   const toggleListening = () => {
     if (isListening) {

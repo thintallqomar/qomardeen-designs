@@ -436,6 +436,20 @@ const AIAssistantWidget = () => {
         )}
       </AnimatePresence>
 
+      {/* Backdrop overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-foreground/10 backdrop-blur-[2px]"
+            onClick={() => { setIsOpen(false); stopSpeaking(); }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Chat Panel — modern glass design */}
       <AnimatePresence>
         {isOpen && (

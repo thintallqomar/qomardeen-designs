@@ -7,6 +7,7 @@ import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
 import { getRelatedPosts } from '@/data/articles';
+import CommentsSection from '@/components/CommentsSection';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {

@@ -7,6 +7,7 @@ import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
 import { getRelatedPosts } from '@/data/articles';
+import CommentsSection from '@/components/CommentsSection';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {
@@ -157,6 +158,9 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                 <div className="flex items-center justify-between mt-8 pt-8 border-t border-border">
                   <ShareButtons title={post.title} />
                 </div>
+
+                {/* Comments */}
+                <CommentsSection articleSlug={post.slug} />
 
                 {/* Author bio block */}
                 <div className="mt-12 pt-10 border-t border-border">

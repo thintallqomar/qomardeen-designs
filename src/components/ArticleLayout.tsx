@@ -159,6 +159,9 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                   <ShareButtons title={post.title} />
                 </div>
 
+                {/* Comments */}
+                <CommentsSection articleSlug={post.slug} />
+
                 {/* Author bio block */}
                 <div className="mt-12 pt-10 border-t border-border">
                   <div className="flex items-start gap-5">

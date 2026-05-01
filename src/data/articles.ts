@@ -10,6 +10,7 @@ import imgMobileBanking from '@/assets/blog/mobile-banking-ux.jpg';
 import imgNotionTeardown from '@/assets/blog/notion-teardown.jpg';
 import imgAiBeyondChatbots from '@/assets/blog/ai-beyond-chatbots.jpg';
 import imgSystemsDesigners from '@/assets/blog/systems-thinking-designers.jpg';
+import imgDesignerWhoShips from '@/assets/blog/designer-who-ships.jpg';
 
 export type BlogCategory =
   | 'Product Design'
@@ -56,6 +57,116 @@ const author = {
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "the-designer-who-ships",
+    title: "The Designer Who Ships",
+    excerpt: "AI is rewriting the job description. Here's what nobody is saying out loud about design, judgment, and the new workflow.",
+    readTime: "9 min",
+    category: "AI & Product Design",
+    tags: ["ai", "design career", "workflow", "product design"],
+    publishDate: "2026-05-01",
+    author,
+    section: "blog",
+    heroImage: imgDesignerWhoShips,
+    seo: {
+      metaTitle: "The Designer Who Ships | Qomardeen Tijani",
+      metaDescription: "AI is rewriting the design job description. How designers stay valuable by closing the loop, learning the fundamentals, and shipping with judgment.",
+    },
+    content: `
+AI is rewriting the job description. Here's what nobody is saying out loud.
+
+Let me ask you something honest: when was the last time you felt completely certain about where your design career was headed?
+
+If the answer isn't "recently," you're not alone — and you're probably paying attention.
+
+Something is shifting in product teams right now, and it's moving faster than most design communities are willing to talk about. AI agents aren't coming. They're already embedded in codebases, already generating UI components, already writing the pull requests that used to require a full sprint. The question isn't whether this changes design work. It's whether you're going to be the person who shapes that change or the one it happens to.
+
+## The old handoff is dead
+
+For years, the designer's job ended at the handoff. You crafted the screens, annotated the components, handed it off to engineering, and then waited — and chased — and revised — and waited again. The gap between "designed" and "shipped" was where good ideas went to get complicated.
+
+That gap is collapsing.
+
+With AI-assisted development tools — Cursor, Copilot, v0, Lovable, and their inevitable successors — a developer (or honestly, a motivated non-developer) can take a design spec and have something running in the browser within hours. Sometimes within minutes. The pipeline has compressed so aggressively that the old roles built around that pipeline are being renegotiated in real time.
+
+This isn't a threat dressed up as opportunity. It genuinely is both.
+
+## What "design" actually means now
+
+Here's the uncomfortable truth the industry is circling around without quite landing on: design was always partly an engineering problem. The best designers have always understood constraints — not just visual ones, but systemic ones. What can the component actually do? How does this state behave when the data is empty? What happens on a 360px screen with a flaky connection?
+
+AI doesn't change that truth. It accelerates it. It means the distance between a design decision and its real-world consequence is shrinking to almost nothing — and that's actually a gift, if you know how to use it.
+
+The designer who survives this era — no, who thrives in it — is the one who closes the loop themselves. Who can prototype in code, not just in Figma. Who understands how an LLM-generated component will behave before it hits a browser. Who treats AI tools not as shortcuts but as collaborators with strong opinions that need directing.
+
+Think of it like this: AI is an extremely fast intern who will build exactly what you describe, has no taste of its own, and will confidently ship something broken if you don't review it. The designer's job isn't gone. It's become editorial.
+
+## The classroom problem nobody wants to name
+
+I'm a student at AltSchool, and something I've been watching play out in real time deserves to be said plainly.
+
+In class discussions, a pattern keeps emerging: some of my classmates would rather talk about automation, AI agents, and the latest tools than sit with the actual design fundamentals — the thinking, the principles, the why behind every decision. It sounds exciting on the surface. Agents! Workflows! The future! But when it came to actually breaking down a supposedly simple design task — understanding user flow, establishing hierarchy, building a layout with intention — a lot of us hit a wall. Not because the task was hard, but because we'd been paying more attention to the noise than to the thinking that underpins the work.
+
+And here's what that exposed: you can't prompt your way out of not knowing what good design looks like. AI doesn't know what your user is feeling at 11pm when they're trying to make a payment and something goes wrong. It doesn't know when a pattern feels right versus when it's technically correct but emotionally off. That judgment is yours — and you only develop it by doing the reps, studying the fundamentals, and learning to see before you learn to ship fast.
+
+The irony is that AltSchool is actually one of the places trying to address this directly. Alongside design, we've been introduced to the basics of development — HTML, CSS, and JavaScript. Not to turn us into developers, but to give us a meaningful vocabulary for the engineering side of what we build. Think of it this way: HTML is the skeleton of a webpage, CSS is the look — the skin, the style, the colour — and JavaScript is the brain, the part that makes things respond and behave. Once you understand those three layers, you stop designing in a vacuum. You start understanding what your decisions actually cost, what they produce, and what the developer on the other side of the handoff is dealing with. That awareness alone makes you a better designer.
+
+## Entry-level design jobs: the honest picture
+
+This is the part that deserves some real talk, especially if you're early in your career or mentoring someone who is.
+
+The traditional entry-level design role — the one where you refine existing UI, handle small feature work, and gradually develop your systems thinking — is under real pressure. Not because AI is replacing designers, but because junior work often meant doing the executable parts of design: making the screens match the spec, building out component variations, producing assets. A lot of that work can now be scaffolded by AI in a fraction of the time.
+
+What this doesn't change is judgment. Pattern recognition. Knowing why a layout works, not just that it does. Understanding the user's mental model well enough to catch what the AI missed. That still requires a human who has done the reps.
+
+So the advice I'd give to anyone early in their design journey right now: don't skip the fundamentals in a rush to learn the tools. Learn the fundamentals through the tools. Use AI to build faster so you can learn more in less time — not to bypass the learning itself.
+
+And if you're in a learning environment like AltSchool where you're exposed to both design and development thinking? Lean into that fully. That combination is genuinely rare, and the industry is only going to value it more.
+
+## The workflow shift nobody is teaching
+
+Most design education is still built around the double diamond. Discover, define, develop, deliver. It's a good model. It was built for a world with longer timelines.
+
+The new workflow looks more like a loop: think → prototype → test → ship → observe → repeat. And "prototype" no longer means a click-through in Figma — it can mean a functioning component in a real codebase, deployed to a URL, shareable in 20 minutes.
+
+This changes what you need to know. Not everything. Not all at once. But you need to be comfortable enough with the engineering side of the product to participate in that loop meaningfully. You don't need to be a full-stack developer. You need to be able to:
+
+- Read a component and understand what it does
+- Prompt an AI tool well enough to get something usable on the first pass
+- Review AI-generated code with a critical eye, the same way you'd review a design from a junior
+- Understand the basics of how your design decisions translate to what gets built
+
+That's a learnable skill set. It's not a second degree.
+
+## How to adapt without drowning
+
+The trap most people fall into is trying to learn everything at once. One week it's v0, next week it's Claude artifacts, then it's MCP servers and AI agents and model context windows — and suddenly you're spending more time keeping up with the discourse than actually shipping anything.
+
+Here's a more sustainable frame: pick one workflow, get good at it, ship something real with it.
+
+You're reading this post on a website I built with AI. I want to be transparent about that — not because it's a flex, but because it's proof of a point. I didn't build this site by pretending AI doesn't exist or by handing off a vague idea and hoping for the best. I built it by bringing real design knowledge to the process — understanding layout, hierarchy, component behaviour, user flow — and using AI to execute at a speed I couldn't have managed alone. The AI handled the velocity. I handled the judgment. That's the actual collaboration.
+
+That only works if you have the design knowledge to bring. If you skip the fundamentals and jump straight to "build it with AI," what you get is a site that looks fine until someone actually uses it.
+
+The goal isn't to master every AI tool. The goal is to develop an instinct for when AI accelerates your work and when it creates technical debt you'll pay for later. That instinct is what makes a designer genuinely valuable in a team that's moving fast.
+
+## A way forward (in plain English)
+
+If I had to distill all of this into something you could actually use tomorrow, it would be this:
+
+**Stop thinking of yourself as a designer who might learn some code. Start thinking of yourself as someone who ships products, and design is your superpower.**
+
+The era of the specialist who stays in their lane is giving way to the era of the generalist who knows which lane to be in. You don't have to know everything. You have to know enough to move, and know who to collaborate with for the rest.
+
+AI doesn't replace that. AI is actually what makes it possible — because now a designer with judgment and taste and a real understanding of users can execute at a speed that used to require a full team.
+
+Learn the bones of a webpage. Understand the difference between the skeleton, the skin, and the brain. Sit with the design fundamentals long enough that they become instinct. Then, and only then, let AI carry the speed.
+
+The designer who ships is the most valuable person in the room right now. The question is just whether you're willing to build the foundation that earns that seat.
+
+Where are you at with this? Are you in a learning environment, a job, or somewhere in between — and does this reflect what you're seeing? Drop a comment. I'd genuinely love to know.
+`,
+  },
   {
     slug: "building-scalable-design-systems",
     title: "Building Scalable Design Systems",

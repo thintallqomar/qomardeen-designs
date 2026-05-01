@@ -106,6 +106,30 @@ export type Database = {
           },
         ]
       }
+      blog_likes: {
+        Row: {
+          article_slug: string
+          created_at: string
+          id: string
+          user_id: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          article_slug: string
+          created_at?: string
+          id?: string
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          article_slug?: string
+          created_at?: string
+          id?: string
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string

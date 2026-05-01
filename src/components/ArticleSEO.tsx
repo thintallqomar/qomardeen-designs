@@ -23,15 +23,30 @@ const ArticleSEO = ({ post }: ArticleSEOProps) => {
     };
 
     const url = window.location.href;
+    const socialImage = post.socialImage || post.heroImage;
+    const absoluteImage = socialImage
+      ? (socialImage.startsWith('http') ? socialImage : `${window.location.origin}${socialImage}`)
+      : null;
+    const imageAlt = post.heroImageAlt || post.title;
 
     setMeta('description', post.seo.metaDescription);
     setMeta('og:title', post.seo.metaTitle, true);
     setMeta('og:description', post.seo.metaDescription, true);
     setMeta('og:type', 'article', true);
     setMeta('og:url', url, true);
+    if (absoluteImage) {
+      setMeta('og:image', absoluteImage, true);
+      setMeta('og:image:alt', imageAlt, true);
+      setMeta('og:image:width', '1536', true);
+      setMeta('og:image:height', '896', true);
+    }
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:title', post.seo.metaTitle);
     setMeta('twitter:description', post.seo.metaDescription);
+    if (absoluteImage) {
+      setMeta('twitter:image', absoluteImage);
+      setMeta('twitter:image:alt', imageAlt);
+    }
 
     // JSON-LD structured data
     const script = document.createElement('script');

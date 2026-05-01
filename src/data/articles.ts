@@ -72,6 +72,8 @@ export const blogPosts: BlogPost[] = [
     author,
     section: "blog",
     heroImage: imgDesignerWhoShips,
+    heroImageAlt: "Designer at a glowing workstation shipping product UI from design to live code, symbolizing AI-accelerated product design",
+    socialImage: imgDesignerWhoShips,
     seo: {
       metaTitle: "The Designer Who Ships | Qomardeen Tijani",
       metaDescription: "AI is rewriting the design job description. How designers stay valuable by closing the loop, learning the fundamentals, and shipping with judgment.",

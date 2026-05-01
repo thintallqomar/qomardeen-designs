@@ -8,6 +8,8 @@ import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
 import { getRelatedPosts } from '@/data/articles';
 import CommentsSection from '@/components/CommentsSection';
+import ReadingProgress from '@/components/ReadingProgress';
+import LikeButton from '@/components/LikeButton';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {
@@ -41,10 +43,11 @@ interface ArticleLayoutProps {
 const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
   const navigate = useLocalizedNavigate();
   const backPath = post.section === 'thinking' ? '/thinking' : '/blog';
-  const relatedPosts = getRelatedPosts(post.slug, post.category, 3);
+  const relatedPosts = getRelatedPosts(post.slug, post.category, 3, post.tags);
 
   return (
     <article className="min-h-screen">
+      <ReadingProgress />
       <main className="pt-14">
         {/* ─── Article Header ─── */}
         <section className="pt-16 md:pt-24 pb-0">
@@ -113,7 +116,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                 <div className="rounded-2xl overflow-hidden border border-border">
                   <img
                     src={post.heroImage}
-                    alt={post.title}
+                    alt={post.heroImageAlt || post.title}
                     className="w-full h-auto object-cover aspect-[16/9]"
                     loading="lazy"
                   />
@@ -154,9 +157,10 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                   </div>
                 )}
 
-                {/* Share */}
-                <div className="flex items-center justify-between mt-8 pt-8 border-t border-border">
+                {/* Share + Like */}
+                <div className="flex items-center justify-between gap-4 mt-8 pt-8 border-t border-border flex-wrap">
                   <ShareButtons title={post.title} />
+                  <LikeButton articleSlug={post.slug} />
                 </div>
 
                 {/* Comments */}

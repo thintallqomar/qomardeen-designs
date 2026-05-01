@@ -31,6 +31,10 @@ export interface BlogPost {
   publishDate: string;
   lastUpdated?: string;
   heroImage?: string;
+  /** Descriptive alt text for the hero image (SEO + accessibility). */
+  heroImageAlt?: string;
+  /** Absolute or imported image used for Open Graph / Twitter social previews. Falls back to heroImage. */
+  socialImage?: string;
   author: {
     name: string;
     avatar: string;
@@ -1010,10 +1014,25 @@ export function getBlogPosts(): BlogPost[] {
   return blogPosts;
 }
 
-export function getRelatedPosts(slug: string, category: BlogCategory, limit = 3): BlogPost[] {
-  return allPosts
-    .filter(post => post.slug !== slug && post.category === category)
-    .slice(0, limit);
+export function getRelatedPosts(slug: string, category: BlogCategory, limit = 3, tags: string[] = []): BlogPost[] {
+  const tagSet = new Set(tags.map(t => t.toLowerCase()));
+  const candidates = allPosts.filter(post => post.slug !== slug);
+
+  // Score: same category = 3, plus 1 per shared tag
+  const scored = candidates.map(post => {
+    let score = 0;
+    if (post.category === category) score += 3;
+    for (const t of post.tags) {
+      if (tagSet.has(t.toLowerCase())) score += 1;
+    }
+    return { post, score };
+  });
+
+  return scored
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score || +new Date(b.post.publishDate) - +new Date(a.post.publishDate))
+    .slice(0, limit)
+    .map(s => s.post);
 }
 
 export function getAdjacentPosts(slug: string, section: 'blog' | 'thinking'): { prev?: BlogPost; next?: BlogPost } {

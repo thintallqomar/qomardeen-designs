@@ -1,6 +1,6 @@
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ReactMarkdown from 'react-markdown';
-import { ArrowLeft, Clock, Tag, BookOpen } from 'lucide-react';
+import { ArrowLeft, Tag, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import TableOfContents from '@/components/TableOfContents';

@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import IconTooltip from '@/components/IconTooltip';
 
 interface ImageViewerProps {
   images: { src: string; alt: string }[];

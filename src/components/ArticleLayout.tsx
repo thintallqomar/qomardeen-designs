@@ -1,6 +1,6 @@
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import ReactMarkdown from 'react-markdown';
-import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, Clock, Tag, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import TableOfContents from '@/components/TableOfContents';
@@ -65,6 +65,14 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
 
             <ScrollReveal>
               <header className="text-center mb-0">
+                {/* Reading time badge */}
+                <div className="flex justify-center mb-5">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium">
+                    <BookOpen className="w-3.5 h-3.5" />
+                    {post.readTime} read
+                  </span>
+                </div>
+
                 {/* Category + Date */}
                 <div className="flex items-center justify-center gap-3 mb-6">
                   <span className="text-xs font-semibold text-primary uppercase tracking-[0.15em]">

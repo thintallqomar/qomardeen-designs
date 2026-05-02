@@ -136,7 +136,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
 
         {/* ─── Article Body + TOC ─── */}
         <section className="editorial-body-section">
-          <div className="max-w-[1120px] mx-auto px-5 md:px-8 flex gap-16">
+          <div className="max-w-[1120px] mx-auto px-5 md:px-8 flex gap-10 lg:gap-16">
             {/* Main reading column */}
             <div className="editorial-reading-column">
               <div className="editorial-prose">

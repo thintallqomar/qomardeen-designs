@@ -2,6 +2,7 @@ import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useArticleLikes } from '@/hooks/useArticleLikes';
 import { cn } from '@/lib/utils';
+import IconTooltip from '@/components/IconTooltip';
 
 interface LikeButtonProps {
   articleSlug: string;
@@ -11,7 +12,8 @@ const LikeButton = ({ articleSlug }: LikeButtonProps) => {
   const { count, liked, loading, pending, toggle } = useArticleLikes(articleSlug);
 
   return (
-    <motion.button
+    <IconTooltip label={liked ? 'Unlike this article' : 'Like this article'}>
+      <motion.button
       type="button"
       onClick={toggle}
       disabled={loading || pending}
@@ -42,7 +44,8 @@ const LikeButton = ({ articleSlug }: LikeButtonProps) => {
       <span className="text-xs text-muted-foreground/80 hidden sm:inline">
         {count === 1 ? 'like' : 'likes'}
       </span>
-    </motion.button>
+      </motion.button>
+    </IconTooltip>
   );
 };
 

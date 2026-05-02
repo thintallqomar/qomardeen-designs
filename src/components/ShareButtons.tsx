@@ -1,4 +1,4 @@
-import { Twitter, Linkedin, Link2, Check } from 'lucide-react';
+import { Twitter, Linkedin, Link2, Check, Mail, Facebook, Share2, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 interface ShareButtonsProps {
@@ -8,7 +8,9 @@ interface ShareButtonsProps {
 
 const ShareButtons = ({ title, url }: ShareButtonsProps) => {
   const [copied, setCopied] = useState(false);
-  const shareUrl = url || window.location.href;
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const encodedUrl = encodeURIComponent(shareUrl);
+  const encodedTitle = encodeURIComponent(title);
 
   const copyLink = async () => {
     await navigator.clipboard.writeText(shareUrl);
@@ -16,30 +18,41 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`;
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+  const links = [
+    { label: 'Twitter', Icon: Twitter, href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}` },
+    { label: 'LinkedIn', Icon: Linkedin, href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+    { label: 'Facebook', Icon: Facebook, href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { label: 'WhatsApp', Icon: MessageCircle, href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}` },
+    { label: 'Email', Icon: Mail, href: `mailto:?subject=${encodedTitle}&body=${encodedTitle}%20-%20${encodedUrl}` },
+  ];
+
+  const nativeShare = async () => {
+    if (typeof navigator !== 'undefined' && 'share' in navigator) {
+      try {
+        await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({ title, url: shareUrl });
+      } catch {
+        /* user cancelled */
+      }
+    }
+  };
+
+  const hasNativeShare = typeof navigator !== 'undefined' && 'share' in navigator;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5 flex-wrap">
       <span className="text-xs text-muted-foreground mr-1">Share</span>
-      <a
-        href={twitterUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-        aria-label="Share on Twitter"
-      >
-        <Twitter className="w-4 h-4" />
-      </a>
-      <a
-        href={linkedinUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-        aria-label="Share on LinkedIn"
-      >
-        <Linkedin className="w-4 h-4" />
-      </a>
+      {links.map(({ label, Icon, href }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          aria-label={`Share via ${label}`}
+        >
+          <Icon className="w-4 h-4" />
+        </a>
+      ))}
       <button
         onClick={copyLink}
         className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
@@ -47,6 +60,15 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
       >
         {copied ? <Check className="w-4 h-4 text-primary" /> : <Link2 className="w-4 h-4" />}
       </button>
+      {hasNativeShare && (
+        <button
+          onClick={nativeShare}
+          className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors sm:hidden"
+          aria-label="Open share menu"
+        >
+          <Share2 className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 };

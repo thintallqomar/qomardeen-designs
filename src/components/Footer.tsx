@@ -6,6 +6,7 @@ import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import NewsletterCapture from './NewsletterCapture';
 import Icon3D from './Icon3D';
+import IconTooltip from './IconTooltip';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -44,11 +45,13 @@ const Footer = () => {
                 <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">{t('footer.description')}</p>
                 <div className="flex items-center gap-3">
                   {socialLinks.map((link, index) => (
-                    <motion.a key={index} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} aria-label={link.label} whileHover={{ y: -2, scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
-                      <Icon3D variant={link.variant} size="sm">
-                        {link.icon}
-                      </Icon3D>
-                    </motion.a>
+                    <IconTooltip key={index} label={link.label}>
+                      <motion.a href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined} aria-label={link.label} whileHover={{ y: -2, scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+                        <Icon3D variant={link.variant} size="sm">
+                          {link.icon}
+                        </Icon3D>
+                      </motion.a>
+                    </IconTooltip>
                   ))}
                 </div>
               </div>

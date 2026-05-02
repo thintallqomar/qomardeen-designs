@@ -1,5 +1,6 @@
 import { Twitter, Linkedin, Link2, Check, Mail, Facebook, Share2, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
+import IconTooltip from '@/components/IconTooltip';
 
 interface ShareButtonsProps {
   title: string;
@@ -42,32 +43,37 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
     <div className="flex items-center gap-1.5 flex-wrap">
       <span className="text-xs text-muted-foreground mr-1">Share</span>
       {links.map(({ label, Icon, href }) => (
-        <a
-          key={label}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-          aria-label={`Share via ${label}`}
-        >
-          <Icon className="w-4 h-4" />
-        </a>
+        <IconTooltip key={label} label={`Share via ${label}`}>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={`Share via ${label}`}
+          >
+            <Icon className="w-4 h-4" />
+          </a>
+        </IconTooltip>
       ))}
-      <button
-        onClick={copyLink}
-        className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-        aria-label="Copy link"
-      >
-        {copied ? <Check className="w-4 h-4 text-primary" /> : <Link2 className="w-4 h-4" />}
-      </button>
-      {hasNativeShare && (
+      <IconTooltip label={copied ? 'Link copied' : 'Copy link'}>
         <button
-          onClick={nativeShare}
-          className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors sm:hidden"
-          aria-label="Open share menu"
+          onClick={copyLink}
+          className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Copy link"
         >
-          <Share2 className="w-4 h-4" />
+          {copied ? <Check className="w-4 h-4 text-primary" /> : <Link2 className="w-4 h-4" />}
         </button>
+      </IconTooltip>
+      {hasNativeShare && (
+        <IconTooltip label="Open share menu">
+          <button
+            onClick={nativeShare}
+            className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors sm:hidden"
+            aria-label="Open share menu"
+          >
+            <Share2 className="w-4 h-4" />
+          </button>
+        </IconTooltip>
       )}
     </div>
   );

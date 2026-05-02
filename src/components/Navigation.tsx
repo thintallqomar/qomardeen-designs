@@ -8,6 +8,7 @@ import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { supportedLanguages, languageNames, getFlagUrl, type SupportedLanguage } from '@/i18n';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Icon3D from './Icon3D';
+import IconTooltip from './IconTooltip';
 
 const LANG_PREFIX_RE = new RegExp(`^\\/(${supportedLanguages.join('|')})(?=\\/|$)`);
 
@@ -214,35 +215,49 @@ const Navigation = () => {
             </div>
 
             {/* Theme Toggle */}
-            <motion.button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors"
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              whileTap={{ scale: 0.9, rotate: 15 }}
-              transition={{ duration: 0.2 }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div key={theme} initial={{ opacity: 0, rotate: -90, scale: 0.5 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: 90, scale: 0.5 }} transition={{ duration: 0.2 }}>
-                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-                </motion.div>
-              </AnimatePresence>
-            </motion.button>
+            <IconTooltip label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} side="bottom">
+              <motion.button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors"
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                whileTap={{ scale: 0.9, rotate: 15 }}
+                transition={{ duration: 0.2 }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div key={theme} initial={{ opacity: 0, rotate: -90, scale: 0.5 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: 90, scale: 0.5 }} transition={{ duration: 0.2 }}>
+                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.button>
+            </IconTooltip>
           </div>
 
           {/* Mobile */}
           <div className="md:hidden flex items-center gap-1.5">
-            <button
-              onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
-              className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
-            >
-              <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
-            </button>
-            <motion.button onClick={toggleTheme} className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors" whileTap={{ scale: 0.9 }}>
-              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            </motion.button>
-            <button onClick={() => { setIsOpen(!isOpen); setLangOpen(false); }} className="inline-flex items-center justify-center p-2 rounded-lg text-foreground hover:text-primary hover:bg-secondary transition-colors" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            <IconTooltip label="Change language" side="bottom">
+              <button
+                onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
+                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
+                aria-label="Change language"
+              >
+                <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
+              </button>
+            </IconTooltip>
+            <IconTooltip label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} side="bottom">
+              <motion.button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors"
+                whileTap={{ scale: 0.9 }}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              >
+                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              </motion.button>
+            </IconTooltip>
+            <IconTooltip label={isOpen ? 'Close menu' : 'Open menu'} side="bottom">
+              <button onClick={() => { setIsOpen(!isOpen); setLangOpen(false); }} className="inline-flex items-center justify-center p-2 rounded-lg text-foreground hover:text-primary hover:bg-secondary transition-colors" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
+                {isOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </IconTooltip>
           </div>
         </div>
 

@@ -48,10 +48,10 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
     return () => observerRef.current?.disconnect();
   }, [headings]);
 
-  if (headings.length < 3) return null;
+  if (headings.length < 2) return null;
 
   return (
-    <nav className="hidden xl:block sticky top-24 w-56 shrink-0" aria-label="Table of contents">
+    <nav className="hidden lg:block sticky top-24 w-56 shrink-0 self-start" aria-label="Table of contents">
       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
         On this page
       </p>

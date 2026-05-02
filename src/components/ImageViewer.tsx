@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import IconTooltip from '@/components/IconTooltip';
 
 interface ImageViewerProps {
   images: { src: string; alt: string }[];
@@ -291,73 +292,85 @@ const ImageViewer = ({ images, currentIndex, isOpen, onClose, onNavigate }: Imag
         {/* Zoom controls */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1">
-            <button
-              onClick={zoomOut}
-              disabled={zoom <= MIN_ZOOM}
-              className="p-1.5 rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Zoom out"
-            >
-              <ZoomOut className="w-4 h-4 text-white" />
-            </button>
+            <IconTooltip label="Zoom out" side="bottom">
+              <button
+                onClick={zoomOut}
+                disabled={zoom <= MIN_ZOOM}
+                className="p-1.5 rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Zoom out"
+              >
+                <ZoomOut className="w-4 h-4 text-white" />
+              </button>
+            </IconTooltip>
             <span className="text-white/70 text-xs font-medium min-w-[3rem] text-center">
               {Math.round(zoom * 100)}%
             </span>
-            <button
-              onClick={zoomIn}
-              disabled={zoom >= MAX_ZOOM}
-              className="p-1.5 rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Zoom in"
-            >
-              <ZoomIn className="w-4 h-4 text-white" />
-            </button>
-            {isZoomed && (
+            <IconTooltip label="Zoom in" side="bottom">
               <button
-                onClick={resetZoom}
-                className="p-1.5 rounded-full hover:bg-white/10 transition-colors ml-1"
-                aria-label="Reset zoom"
+                onClick={zoomIn}
+                disabled={zoom >= MAX_ZOOM}
+                className="p-1.5 rounded-full hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Zoom in"
               >
-                <RotateCcw className="w-4 h-4 text-white" />
+                <ZoomIn className="w-4 h-4 text-white" />
               </button>
+            </IconTooltip>
+            {isZoomed && (
+              <IconTooltip label="Reset zoom" side="bottom">
+                <button
+                  onClick={resetZoom}
+                  className="p-1.5 rounded-full hover:bg-white/10 transition-colors ml-1"
+                  aria-label="Reset zoom"
+                >
+                  <RotateCcw className="w-4 h-4 text-white" />
+                </button>
+              </IconTooltip>
             )}
           </div>
           
           {/* Close button */}
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-            aria-label="Close viewer"
-          >
-            <X className="w-5 h-5 text-white" />
-          </button>
+          <IconTooltip label="Close viewer" side="bottom">
+            <button
+              onClick={onClose}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              aria-label="Close viewer"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+          </IconTooltip>
         </div>
       </div>
 
       {/* Previous button */}
       {hasPrevious && !isZoomed && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            goToPrevious();
-          }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-          aria-label="Previous image"
-        >
-          <ChevronLeft className="w-6 h-6 text-white" />
-        </button>
+        <IconTooltip label="Previous image" side="right">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevious();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+        </IconTooltip>
       )}
 
       {/* Next button */}
       {hasNext && !isZoomed && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            goToNext();
-          }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-          aria-label="Next image"
-        >
-          <ChevronRight className="w-6 h-6 text-white" />
-        </button>
+        <IconTooltip label="Next image" side="left">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+        </IconTooltip>
       )}
 
       {/* Image container */}

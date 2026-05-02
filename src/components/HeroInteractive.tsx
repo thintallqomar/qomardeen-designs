@@ -5,6 +5,7 @@ import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useTranslation } from 'react-i18next';
 import profileImage from '@/assets/new-profile.jpg';
+import IconTooltip from '@/components/IconTooltip';
 
 const easeCurve = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
@@ -319,19 +320,21 @@ const HeroInteractive = () => {
       </motion.div>
 
       {/* Scroll indicator */}
-      <motion.button
-        onClick={scrollToNext}
-        aria-label="Scroll to next section"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 6, 0] }}
-        transition={{
-          opacity: { delay: 1, duration: 0.4 },
-          y: { delay: 1.2, duration: 2, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      >
-        <ArrowDown className="w-4 h-4" />
-      </motion.button>
+      <IconTooltip label="Scroll to next section">
+        <motion.button
+          onClick={scrollToNext}
+          aria-label="Scroll to next section"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 6, 0] }}
+          transition={{
+            opacity: { delay: 1, duration: 0.4 },
+            y: { delay: 1.2, duration: 2, repeat: Infinity, ease: 'easeInOut' },
+          }}
+        >
+          <ArrowDown className="w-4 h-4" />
+        </motion.button>
+      </IconTooltip>
     </section>
   );
 };

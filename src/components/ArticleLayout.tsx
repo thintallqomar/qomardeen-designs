@@ -106,10 +106,6 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                     <p className="text-sm font-medium text-foreground">{post.author.name}</p>
                     <p className="text-xs text-muted-foreground">Product Designer</p>
                   </div>
-                  <span className="text-xs text-muted-foreground flex items-center gap-1.5 ml-4">
-                    <Clock className="w-3.5 h-3.5" />
-                    {post.readTime} read
-                  </span>
                 </div>
               </header>
             </ScrollReveal>

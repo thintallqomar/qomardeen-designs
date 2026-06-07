@@ -10,6 +10,7 @@ import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { blogPosts, BLOG_CATEGORIES, type BlogCategory } from '@/data/articles';
 import { useLocalizedPosts } from '@/data/useLocalizedArticle';
 import { useAIBlogPosts } from '@/hooks/useAIBlogPosts';
+import PageSEO from '@/components/PageSEO';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -39,6 +40,11 @@ const Blog = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Blog — Essays on Product Design, AI & Systems Thinking"
+        description="Long-form essays by Qomardeen Tijani on product design, AI workflows, and systems thinking for shipping better software."
+        path="/blog"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

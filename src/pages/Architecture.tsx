@@ -4,6 +4,7 @@ import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import StaggeredReveal from '@/components/StaggeredReveal';
 import Icon3D from '@/components/Icon3D';
+import PageSEO from '@/components/PageSEO';
 import {
   Database, Workflow, Server, GitBranch, Layers, Scale,
   ArrowRight, Box, Cpu, Globe, Shield, Zap, Code2,
@@ -147,6 +148,11 @@ const Architecture = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Architecture & System Design — Qomardeen Tijani"
+        description="How Qomardeen Tijani thinks about product architecture beyond the interface: database patterns, system flows, and scaling decisions."
+        path="/architecture"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

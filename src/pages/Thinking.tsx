@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { thinkingPosts } from '@/data/articles';
 import { useLocalizedPosts } from '@/data/useLocalizedArticle';
+import PageSEO from '@/components/PageSEO';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -26,6 +27,11 @@ const Thinking = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Thinking — Design Frameworks & Essays | Qomardeen Tijani"
+        description="Short essays and frameworks on design judgment, systems thinking, and the craft behind shipping product."
+        path="/thinking"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

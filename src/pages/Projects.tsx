@@ -82,6 +82,11 @@ const Projects = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Projects — Qomardeen Tijani | Product Design Case Studies"
+        description="Selected product design case studies across fintech, CMMS dashboards, and SaaS — from research and flows to shipped UI."
+        path="/projects"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

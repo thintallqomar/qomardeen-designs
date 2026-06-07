@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
+import PageSEO from '@/components/PageSEO';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 

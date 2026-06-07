@@ -1,21 +1,29 @@
 import { Twitter, Linkedin, Link2, Check, Mail, Facebook, Share2, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import IconTooltip from '@/components/IconTooltip';
+import { trackShare } from '@/hooks/useVisitorTracking';
 
 interface ShareButtonsProps {
   title: string;
   url?: string;
+  articleSlug?: string;
 }
 
-const ShareButtons = ({ title, url }: ShareButtonsProps) => {
+const ShareButtons = ({ title, url, articleSlug }: ShareButtonsProps) => {
   const [copied, setCopied] = useState(false);
   const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);
+  const pagePath = typeof window !== 'undefined' ? window.location.pathname : '';
+
+  const recordShare = (destination: string) => {
+    trackShare(destination, pagePath, { articleSlug, title });
+  };
 
   const copyLink = async () => {
     await navigator.clipboard.writeText(shareUrl);
     setCopied(true);
+    recordShare('copy_link');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -31,6 +39,7 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
         await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({ title, url: shareUrl });
+        recordShare('native_share');
       } catch {
         /* user cancelled */
       }
@@ -48,6 +57,7 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => recordShare(label.toLowerCase())}
             className="p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
             aria-label={`Share via ${label}`}
           >

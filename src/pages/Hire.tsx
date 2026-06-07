@@ -12,6 +12,7 @@ import {
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import profileImage from '@/assets/qomardeen-profile.jpg';
+import PageSEO from '@/components/PageSEO';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -85,6 +86,11 @@ const Hire = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Hire Qomardeen Tijani — Product Designer Available Q1 2026"
+        description="Hire a Product Designer for fintech, SaaS, and AI-native products. Availability, process, and direct booking."
+        path="/hire"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

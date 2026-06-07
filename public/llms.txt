@@ -1,0 +1,28 @@
+# DesignQit — Qomardeen Tijani
+
+> Portfolio of Qomardeen Tijani, a Product Designer working at the intersection of UX, AI, and systems thinking. Case studies, essays, and contact.
+
+Qomardeen Tijani is a Product Designer focused on building scalable, user-centered digital products — fintech, SaaS dashboards, and AI-native tools. This site collects shipped case studies, written essays on design and AI, and the entry points for hiring or collaboration.
+
+## Pages
+
+- [Home](/en): Overview of work, profile, and featured projects.
+- [About](/en/about): Background, education, and design philosophy.
+- [Projects](/en/projects): Case studies of shipped product work.
+- [Architecture](/en/architecture): How systems are designed beyond the interface.
+- [Hire](/en/hire): Availability, process, and booking.
+- [Contact](/en/contact): Direct contact channels.
+
+## Blog
+
+- [Blog index](/en/blog): All published articles.
+- [The Designer Who Ships](/en/article/the-designer-who-ships): How AI changes the product-design job and what staying valuable looks like.
+
+## Thinking
+
+- [Thinking index](/en/thinking): Essays on design process, systems, and craft.
+
+## Optional
+
+- [WalPay case study](/en/projects/walpay): Fintech case study on cross-border transfers.
+- [Uptime case study](/en/projects/uptime): SaaS asset-tracking platform case study.

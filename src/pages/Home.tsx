@@ -9,11 +9,17 @@ import LatestInsights from '@/components/LatestInsights';
 import HireCTA from '@/components/HireCTA';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
+import PageSEO from '@/components/PageSEO';
 
 const Home = () => {
     return (
     <>
       <Navigation />
+      <PageSEO
+        title="Qomardeen Tijani — Product Designer (UX, AI & Systems)"
+        description="Portfolio of Qomardeen Tijani, a Product Designer building scalable digital products across fintech, SaaS, and AI-native tools."
+        path="/"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

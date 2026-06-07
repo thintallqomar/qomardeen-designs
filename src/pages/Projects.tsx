@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
+import PageSEO from '@/components/PageSEO';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 
@@ -81,6 +82,11 @@ const Projects = () => {
   return (
     <>
       <Navigation />
+      <PageSEO
+        title="Projects — Qomardeen Tijani | Product Design Case Studies"
+        description="Selected product design case studies across fintech, CMMS dashboards, and SaaS — from research and flows to shipped UI."
+        path="/projects"
+      />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">

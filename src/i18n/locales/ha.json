@@ -19,7 +19,13 @@
     "description": "Yin tsara kayayyakin dijital masu girma a tsakanin UX, AI, da tunani na tsari.",
     "cta_explore": "Duba Nazarin",
     "cta_hire": "Ɗauka Ni",
-    "skills": ["Tsara UI", "Binciken UX", "Tsara Kaya", "Tunani na Tsari", "Haɗa AI"],
+    "skills": [
+      "Tsara UI",
+      "Binciken UX",
+      "Tsara Kaya",
+      "Tunani na Tsari",
+      "Haɗa AI"
+    ],
     "badge": "Mai Tsara Kaya"
   },
   "metrics": {
@@ -108,7 +114,7 @@
     "subtitle": "Fahimta game da tsara kaya, tunani na tsari, da gina kayayyakin dijital",
     "featured": "Fitacce",
     "readArticle": "Karanta labarin",
-    "read": "Karanta",
+    "read": "Karanta labarin",
     "search": "Nemo labaran...",
     "all": "Duka",
     "noResults": "Ba a samu labaran da suka dace da bincikenka ba."
@@ -116,7 +122,7 @@
   "thinking": {
     "title": "Tunani",
     "subtitle": "Nazarin UX, nazarin kaya, da tunani na tsara dabara",
-    "readMore": "Karanta ƙari"
+    "readMore": "Karanta cikakken makala"
   },
   "newsletter": {
     "badge": "Kasance cikin haɗi",

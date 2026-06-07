@@ -184,6 +184,7 @@ const HeroInteractive = () => {
             style={{ fontSize: 'clamp(3.2rem, 10vw, 9rem)' }}
           >
             {t('hero.title')}
+            <span className="sr-only"> — Product Designer (UX, AI & Systems Thinking)</span>
           </h1>
         </motion.div>
 

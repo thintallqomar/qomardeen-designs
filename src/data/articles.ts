@@ -22,9 +22,13 @@ export type BlogCategory =
 
 export interface BlogPost {
   slug: string;
+  /** Optional per-language slug aliases for localized URLs. Keys are language codes. */
+  slugByLang?: Record<string, string>;
   title: string;
   excerpt: string;
   content: string;
+  /** Optional short TL;DR. If omitted, one is derived from excerpt/first paragraph. */
+  tldr?: string;
   readTime: string;
   category: BlogCategory;
   tags: string[];
@@ -1005,7 +1009,32 @@ Companies hire systems thinkers not because they make prettier screens, but beca
 export const allPosts = [...blogPosts, ...thinkingPosts];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return allPosts.find(post => post.slug === slug);
+  return allPosts.find(post => {
+    if (post.slug === slug) return true;
+    if (post.slugByLang) {
+      for (const alias of Object.values(post.slugByLang)) {
+        if (alias === slug) return true;
+      }
+    }
+    return false;
+  });
+}
+
+/** Returns the localized slug for a post in a given language, falling back to the canonical slug. */
+export function getLocalizedSlug(post: BlogPost, lang: string): string {
+  return post.slugByLang?.[lang] || post.slug;
+}
+
+/** Generates a short TL;DR summary from the post (uses tldr field, else excerpt, else first paragraph). */
+export function getTldr(post: BlogPost): string {
+  if (post.tldr && post.tldr.trim()) return post.tldr.trim();
+  if (post.excerpt && post.excerpt.trim()) return post.excerpt.trim();
+  const firstPara = post.content
+    .split('\n')
+    .map(l => l.trim())
+    .find(l => l && !l.startsWith('#') && !l.startsWith('>') && !l.startsWith('`') && !l.startsWith('-'));
+  if (!firstPara) return '';
+  return firstPara.length > 240 ? firstPara.slice(0, 237).trimEnd() + '…' : firstPara;
 }
 
 export function getPostsByCategory(category: BlogCategory): BlogPost[] {

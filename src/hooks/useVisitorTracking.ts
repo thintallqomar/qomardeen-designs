@@ -50,3 +50,11 @@ export const useVisitorTracking = () => {
 export const trackClick = (label: string, pagePath: string) => {
   trackEvent('click', pagePath, { label });
 };
+
+export const trackShare = (
+  destination: string,
+  pagePath: string,
+  metadata?: Record<string, unknown>
+) => {
+  trackEvent('share', pagePath, { destination, ...(metadata || {}) });
+};

@@ -6,10 +6,11 @@ import ScrollReveal from '@/components/ScrollReveal';
 import TableOfContents from '@/components/TableOfContents';
 import ShareButtons from '@/components/ShareButtons';
 import type { BlogPost } from '@/data/articles';
-import { getRelatedPosts } from '@/data/articles';
+import { getRelatedPosts, getTldr } from '@/data/articles';
 import CommentsSection from '@/components/CommentsSection';
 import ReadingProgress from '@/components/ReadingProgress';
 import LikeButton from '@/components/LikeButton';
+import { Sparkles } from 'lucide-react';
 
 // Custom heading renderer that adds IDs for TOC linking
 const createHeadingRenderer = (level: number) => {
@@ -44,6 +45,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
   const navigate = useLocalizedNavigate();
   const backPath = post.section === 'thinking' ? '/thinking' : '/blog';
   const relatedPosts = getRelatedPosts(post.slug, post.category, 3, post.tags);
+  const tldr = getTldr(post);
 
   return (
     <article className="min-h-screen">
@@ -135,6 +137,23 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
           <div className="max-w-[1120px] mx-auto px-5 md:px-8 flex gap-10 lg:gap-16">
             {/* Main reading column */}
             <div className="editorial-reading-column">
+              {tldr && (
+                <aside
+                  aria-label="Article summary"
+                  className="not-prose mb-10 rounded-2xl border border-primary/20 bg-primary/5 p-5 md:p-6"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      TL;DR
+                    </span>
+                  </div>
+                  <p className="text-sm md:text-[0.95rem] leading-relaxed text-foreground/85">
+                    {tldr}
+                  </p>
+                </aside>
+              )}
+
               <div className="editorial-prose">
                 <ReactMarkdown
                   components={{
@@ -163,7 +182,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
 
                 {/* Share + Like */}
                 <div className="flex items-center justify-between gap-4 mt-8 pt-8 border-t border-border flex-wrap">
-                  <ShareButtons title={post.title} />
+                  <ShareButtons title={post.title} articleSlug={post.slug} />
                   <LikeButton articleSlug={post.slug} />
                 </div>
 

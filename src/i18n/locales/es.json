@@ -19,7 +19,13 @@
     "description": "Diseñando productos digitales escalables en la intersección de UX, IA y pensamiento sistémico.",
     "cta_explore": "Explorar Casos de Estudio",
     "cta_hire": "Contrátame",
-    "skills": ["Diseño UI", "Investigación UX", "Diseño de Producto", "Pensamiento Sistémico", "Integración IA"],
+    "skills": [
+      "Diseño UI",
+      "Investigación UX",
+      "Diseño de Producto",
+      "Pensamiento Sistémico",
+      "Integración IA"
+    ],
     "badge": "Diseñador de Producto"
   },
   "metrics": {
@@ -108,7 +114,7 @@
     "subtitle": "Ideas sobre diseño de producto, pensamiento sistémico y construcción de productos digitales",
     "featured": "Destacado",
     "readArticle": "Leer artículo",
-    "read": "Leer",
+    "read": "Leer artículo",
     "search": "Buscar artículos...",
     "all": "Todos",
     "noResults": "No se encontraron artículos que coincidan con tu búsqueda."
@@ -116,7 +122,7 @@
   "thinking": {
     "title": "Pensamiento",
     "subtitle": "Análisis UX, desgloses de producto y pensamiento estratégico de diseño",
-    "readMore": "Leer más"
+    "readMore": "Leer ensayo completo"
   },
   "newsletter": {
     "badge": "Mantente informado",

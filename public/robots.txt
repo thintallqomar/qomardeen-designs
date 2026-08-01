@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://designqit.lovable.app/sitemap.xml
+Sitemap: https://qomardeentijani.lovable.app/sitemap.xml

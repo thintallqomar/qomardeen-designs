@@ -229,6 +229,10 @@ const HeroInteractive = () => {
                     src={profileImage}
                     alt="Portrait of Qomardeen Tijani"
                     loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    width={560}
+                    height={660}
                     onError={() => setImgError(true)}
                     className="w-full h-full object-cover object-top"
                     style={{ imageRendering: 'crisp-edges' }}

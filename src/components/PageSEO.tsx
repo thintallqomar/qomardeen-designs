@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ogDefault from '@/assets/og-default.jpg';
 
-const SITE_ORIGIN = 'https://designqit.lovable.app';
+const SITE_ORIGIN = 'https://qomardeentijani.lovable.app';
 const SITE_NAME = 'DesignQit — Qomardeen Tijani';
 
 interface PageSEOProps {

@@ -46,7 +46,7 @@ export function useComments(articleSlug: string) {
     queryKey,
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('blog_comments')
+        .from('blog_comments_public' as any)
         .select('*')
         .eq('article_slug', articleSlug)
         .order('created_at', { ascending: true });
@@ -54,7 +54,8 @@ export function useComments(articleSlug: string) {
       if (error) throw error;
 
       // Fetch profiles for user comments
-      const userIds = [...new Set((data || []).filter(c => c.user_id).map(c => c.user_id!))];
+      const rows = ((data || []) as any[]) as Comment[];
+      const userIds = [...new Set(rows.filter(c => c.user_id).map(c => c.user_id!))];
       let profileMap = new Map<string, { display_name: string; avatar_url: string | null }>();
 
       if (userIds.length > 0) {
@@ -70,7 +71,7 @@ export function useComments(articleSlug: string) {
         }
       }
 
-      return (data || []).map(c => ({
+      return rows.map(c => ({
         ...c,
         profile: c.user_id ? profileMap.get(c.user_id) : undefined,
       })) as Comment[];

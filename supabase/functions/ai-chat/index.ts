@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -86,11 +87,40 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, isAdmin } = await req.json();
+    const { messages } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    // Build system prompt based on admin status
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 50) {
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Determine admin status SERVER-SIDE from the caller's JWT. Never trust the client.
+    let isAdmin = false;
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const token = authHeader.replace(/^Bearer\s+/i, "");
+    if (token) {
+      const admin = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+        { auth: { persistSession: false } },
+      );
+      const { data: userData } = await admin.auth.getUser(token);
+      const userId = userData?.user?.id;
+      if (userId) {
+        const { data: roles } = await admin
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId)
+          .eq("role", "admin")
+          .limit(1);
+        isAdmin = !!roles && roles.length > 0;
+      }
+    }
+
     const systemPrompt = isAdmin === true
       ? BASE_SYSTEM_PROMPT + ADMIN_BLOG_PROMPT
       : BASE_SYSTEM_PROMPT + VISITOR_RESTRICTION;
@@ -137,7 +167,7 @@ serve(async (req) => {
     });
   } catch (e) {
     console.error("chat error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "Unable to process request" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 const VISITOR_KEY = 'designqit:visitor_id';
+const LIKED_KEY = 'designqit:liked_articles';
 
 function getVisitorId(): string {
   let id = localStorage.getItem(VISITOR_KEY);
@@ -12,6 +13,20 @@ function getVisitorId(): string {
   return id;
 }
 
+function getLikedSet(): Set<string> {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]') as string[]);
+  } catch {
+    return new Set();
+  }
+}
+
+function setLikedLocal(slug: string, liked: boolean) {
+  const set = getLikedSet();
+  liked ? set.add(slug) : set.delete(slug);
+  localStorage.setItem(LIKED_KEY, JSON.stringify([...set]));
+}
+
 export function useArticleLikes(articleSlug: string) {
   const [count, setCount] = useState(0);
   const [liked, setLiked] = useState(false);
@@ -19,20 +34,12 @@ export function useArticleLikes(articleSlug: string) {
   const [pending, setPending] = useState(false);
 
   const refresh = useCallback(async () => {
-    const visitorId = getVisitorId();
-    const { data: userData } = await supabase.auth.getUser();
-    const userId = userData?.user?.id ?? null;
-
     const { count: total } = await supabase
       .from('blog_likes')
-      .select('*', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true })
       .eq('article_slug', articleSlug);
     setCount(total ?? 0);
-
-    let q = supabase.from('blog_likes').select('id').eq('article_slug', articleSlug).limit(1);
-    q = userId ? q.eq('user_id', userId) : q.eq('visitor_id', visitorId);
-    const { data: mine } = await q;
-    setLiked(!!mine && mine.length > 0);
+    setLiked(getLikedSet().has(articleSlug));
     setLoading(false);
   }, [articleSlug]);
 
@@ -52,6 +59,7 @@ export function useArticleLikes(articleSlug: string) {
     const wasLiked = liked;
     setLiked(!wasLiked);
     setCount((c) => c + (wasLiked ? -1 : 1));
+    setLikedLocal(articleSlug, !wasLiked);
 
     try {
       if (wasLiked) {
@@ -70,6 +78,7 @@ export function useArticleLikes(articleSlug: string) {
       // revert
       setLiked(wasLiked);
       setCount((c) => c + (wasLiked ? 1 : -1));
+      setLikedLocal(articleSlug, wasLiked);
       console.error('Like toggle failed', e);
     } finally {
       setPending(false);

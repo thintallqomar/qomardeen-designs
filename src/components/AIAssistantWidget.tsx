@@ -66,7 +66,7 @@ function parseNavigation(content: string): { displayContent: string; navPath: st
 
 async function streamChat({
   messages,
-  isAdmin,
+  isAdmin: _isAdmin,
   onDelta,
   onDone,
 }: {
@@ -75,13 +75,15 @@ async function streamChat({
   onDelta: (text: string) => void;
   onDone: () => void;
 }) {
+  // Admin capabilities are decided server-side from the session token.
+  const { data: { session } } = await supabase.auth.getSession();
   const resp = await fetch(CHAT_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+      Authorization: `Bearer ${session?.access_token ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages, isAdmin: !!isAdmin }),
+    body: JSON.stringify({ messages }),
   });
 
   if (!resp.ok || !resp.body) {

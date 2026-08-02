@@ -106,7 +106,6 @@ export type Database = {
           article_slug: string
           content: string
           created_at: string
-          guest_email: string | null
           guest_name: string | null
           id: string
           is_edited: boolean
@@ -118,7 +117,6 @@ export type Database = {
           article_slug: string
           content: string
           created_at?: string
-          guest_email?: string | null
           guest_name?: string | null
           id?: string
           is_edited?: boolean
@@ -130,7 +128,6 @@ export type Database = {
           article_slug?: string
           content?: string
           created_at?: string
-          guest_email?: string | null
           guest_name?: string | null
           id?: string
           is_edited?: boolean
@@ -178,6 +175,42 @@ export type Database = {
           visitor_id?: string | null
         }
         Relationships: []
+      }
+      comment_contacts: {
+        Row: {
+          comment_id: string
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comment_contacts_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "blog_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comment_contacts_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "blog_comments_public"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       contact_submissions: {
         Row: {

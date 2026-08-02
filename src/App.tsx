@@ -19,12 +19,17 @@ const Contact = lazy(() => import("./pages/Contact"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
 const Architecture = lazy(() => import("./pages/Architecture"));
-const Blog = lazy(() => import("./pages/Blog"));
 const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
+const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
+const AdminContentList = lazy(() => import("./pages/admin/ContentList"));
+const AdminContentEditor = lazy(() => import("./pages/admin/ContentEditor"));
+const ExploreHub = lazy(() => import("./pages/explore/ExploreHub"));
+const ExploreSection = lazy(() => import("./pages/explore/ExploreSection"));
+const ContentDetail = lazy(() => import("./pages/explore/ContentDetail"));
 
 const queryClient = new QueryClient();
 
@@ -70,6 +75,13 @@ const LanguageRedirectWithPath = () => {
   return <Navigate to={`/${detectedLang}${location.pathname}`} replace />;
 };
 
+/** Permanent client-side redirect for retired paths (e.g. /blog -> /explore/articles). */
+const PathRewrite = ({ from, to }: { from: string; to: string }) => {
+  const location = useLocation();
+  const rest = location.pathname.slice(from.length);
+  return <Navigate to={`${to}${rest}${location.search}`} replace />;
+};
+
 const LocalizedRoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
@@ -82,14 +94,27 @@ const LocalizedRoutes = () => {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="architecture" element={<Architecture />} />
-          <Route path="blog" element={<Blog />} />
           <Route path="thinking" element={<Thinking />} />
           <Route path="hire" element={<Hire />} />
           <Route path="article/:slug" element={<ArticlePage />} />
+
+          {/* Explore knowledge hub */}
+          <Route path="explore" element={<ExploreHub />} />
+          <Route path="explore/:section" element={<ExploreSection />} />
+          <Route path="explore/:section/:slug" element={<ContentDetail />} />
+
+          {/* Blog migrated into Explore > Articles */}
+          <Route path="blog" element={<Navigate to="../explore/articles" replace />} />
+          <Route path="blog/:slug" element={<BlogSlugRedirect />} />
         </Routes>
       </LanguageSync>
     </Suspense>
   );
+};
+
+const BlogSlugRedirect = () => {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={`../explore/articles/${slug}`} replace />;
 };
 
 const AnimatedRoutes = () => {
@@ -112,7 +137,10 @@ const AnimatedRoutes = () => {
           <Route path="/about" element={<LanguageRedirectWithPath />} />
           <Route path="/contact" element={<LanguageRedirectWithPath />} />
           <Route path="/architecture" element={<LanguageRedirectWithPath />} />
-          <Route path="/blog" element={<LanguageRedirectWithPath />} />
+          <Route path="/blog" element={<PathRewrite from="/blog" to="/explore/articles" />} />
+          <Route path="/blog/*" element={<PathRewrite from="/blog" to="/explore/articles" />} />
+          <Route path="/explore" element={<LanguageRedirectWithPath />} />
+          <Route path="/explore/*" element={<LanguageRedirectWithPath />} />
           <Route path="/thinking" element={<LanguageRedirectWithPath />} />
           <Route path="/hire" element={<LanguageRedirectWithPath />} />
           <Route path="/article/*" element={<LanguageRedirectWithPath />} />
@@ -123,6 +151,10 @@ const AnimatedRoutes = () => {
           
           {/* Admin routes (not localized) */}
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin/content/:typePath" element={<AdminContentList />} />
+          <Route path="/admin/content/:typePath/:id" element={<AdminContentEditor />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           
           <Route path="*" element={<NotFound />} />

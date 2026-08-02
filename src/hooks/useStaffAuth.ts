@@ -1,26 +1,20 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { computeStaffAccess, type StaffAccess, type StaffRole } from '@/lib/roles';
 
-export type StaffRole = 'admin' | 'editor' | 'contributor';
+export type { StaffRole };
 
-interface StaffAuthState {
+interface StaffAuthState extends StaffAccess {
   loading: boolean;
   userId: string | null;
   email: string | null;
-  roles: StaffRole[];
-  isStaff: boolean;
-  isPublisher: boolean;
-  isAdmin: boolean;
 }
 
 const EMPTY: StaffAuthState = {
   loading: true,
   userId: null,
   email: null,
-  roles: [],
-  isStaff: false,
-  isPublisher: false,
-  isAdmin: false,
+  ...computeStaffAccess([]),
 };
 
 /** Server-verified role state. Roles always come from the database, never from the client. */
@@ -41,18 +35,13 @@ export const useStaffAuth = (): StaffAuthState => {
         .from('user_roles')
         .select('role')
         .eq('user_id', user.id);
-      const roles = ((data ?? []).map(r => r.role) as StaffRole[]).filter(r =>
-        ['admin', 'editor', 'contributor'].includes(r)
-      );
+      const access = computeStaffAccess((data ?? []).map(r => r.role));
       if (!active) return;
       setState({
         loading: false,
         userId: user.id,
         email: user.email ?? null,
-        roles,
-        isStaff: roles.length > 0,
-        isPublisher: roles.includes('admin') || roles.includes('editor'),
-        isAdmin: roles.includes('admin'),
+        ...access,
       });
     };
 

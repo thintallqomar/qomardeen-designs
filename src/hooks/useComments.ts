@@ -7,7 +7,6 @@ export interface Comment {
   parent_id: string | null;
   user_id: string | null;
   guest_name: string | null;
-  guest_email: string | null;
   content: string;
   is_edited: boolean;
   created_at: string;
@@ -100,11 +99,21 @@ export function useComments(articleSlug: string) {
         insert.user_id = session.user.id;
       } else {
         insert.guest_name = payload.guest_name;
-        insert.guest_email = payload.guest_email;
       }
 
-      const { error } = await supabase.from('blog_comments').insert(insert as any);
+      const { data, error } = await supabase
+        .from('blog_comments')
+        .insert(insert as any)
+        .select('id')
+        .single();
       if (error) throw error;
+
+      // Guest contact emails live in a private table that visitors cannot read.
+      if (!session?.user && payload.guest_email && data?.id) {
+        await supabase
+          .from('comment_contacts' as any)
+          .insert({ comment_id: data.id, email: payload.guest_email } as any);
+      }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey }),
   });

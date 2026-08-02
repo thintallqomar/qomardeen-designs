@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User, FileText, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { useTranslation } from 'react-i18next';
@@ -39,13 +39,14 @@ const Navigation = () => {
   const mainNavItems = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.projects'), href: '/projects' },
-    { name: t('nav.blog'), href: '/blog' },
     { name: t('nav.hire'), href: '/hire' },
   ];
 
   const exploreItems = [
-    { name: t('nav.architecture'), href: '/architecture', icon: <Icon3D variant="teal" size="sm"><Compass /></Icon3D>, desc: t('nav.architectureDesc', { defaultValue: 'System design & patterns' }) },
-    { name: t('nav.thinking'), href: '/thinking', icon: <Icon3D variant="violet" size="sm"><Brain /></Icon3D>, desc: t('nav.thinkingDesc', { defaultValue: 'Essays & frameworks' }) },
+    { name: t('nav.blog', { defaultValue: 'Articles' }), href: '/explore/articles', icon: <Icon3D variant="primary" size="sm"><FileText /></Icon3D>, desc: t('nav.articlesDesc', { defaultValue: 'Long-form essays' }) },
+    { name: t('nav.thinking'), href: '/explore/thinking', icon: <Icon3D variant="violet" size="sm"><Brain /></Icon3D>, desc: t('nav.thinkingDesc', { defaultValue: 'Short opinion pieces' }) },
+    { name: t('nav.architecture'), href: '/explore/architecture', icon: <Icon3D variant="teal" size="sm"><Compass /></Icon3D>, desc: t('nav.architectureDesc', { defaultValue: 'System design & patterns' }) },
+    { name: t('nav.resources', { defaultValue: 'Resources' }), href: '/explore/resources', icon: <Icon3D variant="blue" size="sm"><Download /></Icon3D>, desc: t('nav.resourcesDesc', { defaultValue: 'Templates & downloads' }) },
     { name: t('nav.about'), href: '/about', icon: <Icon3D variant="blue" size="sm"><User /></Icon3D>, desc: t('nav.aboutDesc', { defaultValue: 'Background & experience' }) },
   ];
 

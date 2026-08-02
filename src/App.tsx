@@ -19,7 +19,6 @@ const Contact = lazy(() => import("./pages/Contact"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
 const Architecture = lazy(() => import("./pages/Architecture"));
-const Blog = lazy(() => import("./pages/Blog"));
 const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
@@ -138,7 +137,10 @@ const AnimatedRoutes = () => {
           <Route path="/about" element={<LanguageRedirectWithPath />} />
           <Route path="/contact" element={<LanguageRedirectWithPath />} />
           <Route path="/architecture" element={<LanguageRedirectWithPath />} />
-          <Route path="/blog" element={<LanguageRedirectWithPath />} />
+          <Route path="/blog" element={<PathRewrite from="/blog" to="/explore/articles" />} />
+          <Route path="/blog/*" element={<PathRewrite from="/blog" to="/explore/articles" />} />
+          <Route path="/explore" element={<LanguageRedirectWithPath />} />
+          <Route path="/explore/*" element={<LanguageRedirectWithPath />} />
           <Route path="/thinking" element={<LanguageRedirectWithPath />} />
           <Route path="/hire" element={<LanguageRedirectWithPath />} />
           <Route path="/article/*" element={<LanguageRedirectWithPath />} />
@@ -149,6 +151,10 @@ const AnimatedRoutes = () => {
           
           {/* Admin routes (not localized) */}
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin/content/:typePath" element={<AdminContentList />} />
+          <Route path="/admin/content/:typePath/:id" element={<AdminContentEditor />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           
           <Route path="*" element={<NotFound />} />

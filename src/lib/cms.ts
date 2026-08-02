@@ -153,3 +153,41 @@ export async function logAudit(event: {
     /* swallow */
   }
 }
+/** Create or update a content item. Returns the saved row. */
+export async function saveContent(
+  payload: Partial<ContentItem> & { type: ContentType; title: string; slug: string },
+  id?: string
+) {
+  if (id) {
+    const { data, error } = await supabase
+      .from('content_items')
+      .update(payload as never)
+      .eq('id', id)
+      .select('*')
+      .single();
+    if (error) throw error;
+    return data as unknown as ContentItem;
+  }
+  const { data, error } = await supabase
+    .from('content_items')
+    .insert(payload as never)
+    .select('*')
+    .single();
+  if (error) throw error;
+  return data as unknown as ContentItem;
+}
+
+export async function deleteContent(id: string) {
+  const { error } = await supabase.from('content_items').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function fetchById(id: string) {
+  const { data, error } = await supabase
+    .from('content_items')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+  if (error) throw error;
+  return (data as unknown as ContentItem) ?? null;
+}

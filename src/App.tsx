@@ -27,6 +27,7 @@ const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminContentList = lazy(() => import("./pages/admin/ContentList"));
 const AdminContentEditor = lazy(() => import("./pages/admin/ContentEditor"));
+const AdminMediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const ExploreHub = lazy(() => import("./pages/explore/ExploreHub"));
 const ExploreSection = lazy(() => import("./pages/explore/ExploreSection"));
 const ContentDetail = lazy(() => import("./pages/explore/ContentDetail"));
@@ -155,6 +156,7 @@ const AnimatedRoutes = () => {
           <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
           <Route path="/admin/content/:typePath" element={<AdminContentList />} />
           <Route path="/admin/content/:typePath/:id" element={<AdminContentEditor />} />
+          <Route path="/admin/media" element={<AdminMediaLibrary />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           
           <Route path="*" element={<NotFound />} />

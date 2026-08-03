@@ -2,7 +2,7 @@ import { NavLink, useNavigate, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
@@ -12,6 +12,7 @@ const links = [
   { to: '/admin/content/thinking', label: 'Thinking', icon: Lightbulb },
   { to: '/admin/content/architecture', label: 'Architecture', icon: Boxes },
   { to: '/admin/content/resources', label: 'Resources', icon: Download },
+  { to: '/admin/media', label: 'Media', icon: Images },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];
 

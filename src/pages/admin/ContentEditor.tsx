@@ -4,13 +4,15 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import AdminLayout from '@/components/admin/AdminLayout';
 import TiptapEditor from '@/components/admin/TiptapEditor';
+import MediaPicker from '@/components/admin/MediaPicker';
+import type { MediaAsset } from '@/lib/media';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canPublish } from '@/lib/roles';
 import {
   fetchById, saveContent, slugify, estimateReading, pathToType, logAudit,
   type ContentStatus, type ContentVisibility,
 } from '@/lib/cms';
-import { ArrowLeft, Save, Loader2 } from 'lucide-react';
+import { ArrowLeft, Save, Loader2, ImagePlus, X } from 'lucide-react';
 
 const STATUSES: ContentStatus[] = ['draft', 'published', 'scheduled', 'archived'];
 const VISIBILITIES: ContentVisibility[] = ['public', 'unlisted', 'private'];
@@ -47,6 +49,17 @@ const ContentEditor = () => {
   const [body, setBody] = useState<{ json: unknown; html: string; text: string }>({ json: null, html: '', text: '' });
   const [slugTouched, setSlugTouched] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [pickerFor, setPickerFor] = useState<null | 'cover' | 'body'>(null);
+  const [insertBody, setInsertBody] = useState<null | ((url: string, alt?: string) => void)>(null);
+
+  const handlePicked = (asset: MediaAsset) => {
+    if (pickerFor === 'cover') {
+      setForm(f => ({ ...f, cover_image: asset.public_url, cover_image_alt: f.cover_image_alt || asset.alt_text || '' }));
+    } else if (insertBody) {
+      insertBody(asset.public_url, asset.alt_text ?? asset.file_name);
+    }
+    setPickerFor(null);
+  };
 
   useEffect(() => {
     if (!existing) return;
@@ -157,7 +170,11 @@ const ContentEditor = () => {
             placeholder="Subtitle"
             className="w-full bg-transparent text-lg text-muted-foreground outline-none mb-5"
           />
-          <TiptapEditor content={body.json} onChange={setBody} />
+          <TiptapEditor
+            content={body.json}
+            onChange={setBody}
+            onRequestImage={insert => { setInsertBody(() => insert); setPickerFor('body'); }}
+          />
         </div>
 
         <aside className="space-y-4">
@@ -176,8 +193,31 @@ const ContentEditor = () => {
           <Field label="Tags (comma separated)">
             <input value={form.tags} onChange={e => set('tags', e.target.value)} className={input} />
           </Field>
-          <Field label="Cover image URL">
-            <input value={form.cover_image} onChange={e => set('cover_image', e.target.value)} className={input} />
+          <Field label="Cover image">
+            {form.cover_image && (
+              <div className="relative mb-2">
+                <img src={form.cover_image} alt={form.cover_image_alt || 'Cover preview'} className="w-full rounded-xl border border-border" />
+                <button
+                  type="button"
+                  onClick={() => set('cover_image', '')}
+                  aria-label="Remove cover image"
+                  className="absolute top-2 right-2 p-1.5 rounded-lg bg-background/90 border border-border text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+            <div className="flex gap-2">
+              <input value={form.cover_image} onChange={e => set('cover_image', e.target.value)} placeholder="Image URL" className={input} />
+              <button
+                type="button"
+                onClick={() => setPickerFor('cover')}
+                aria-label="Choose from media library"
+                className="shrink-0 px-3 rounded-xl bg-secondary text-muted-foreground hover:text-foreground"
+              >
+                <ImagePlus className="w-4 h-4" />
+              </button>
+            </div>
           </Field>
           <Field label="Cover image alt text">
             <input value={form.cover_image_alt} onChange={e => set('cover_image_alt', e.target.value)} className={input} />
@@ -221,6 +261,13 @@ const ContentEditor = () => {
           )}
         </aside>
       </div>
+
+      <MediaPicker
+        open={pickerFor !== null}
+        onClose={() => setPickerFor(null)}
+        onSelect={handlePicked}
+        title={pickerFor === 'cover' ? 'Choose a cover image' : 'Insert an image'}
+      />
     </AdminLayout>
   );
 };

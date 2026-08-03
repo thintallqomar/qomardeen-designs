@@ -117,7 +117,7 @@ const Hire = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-3">
                           <motion.a
-                            href="mailto:qomardeentylertijani@gmail.com"
+                            href="mailto:qomardeentijani@gmail.com"
                             className="modern-btn inline-flex items-center justify-center gap-2 group"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
@@ -128,7 +128,7 @@ const Hire = () => {
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </motion.a>
                           <motion.a
-                            href="https://linkedin.com/in/qomardeen-tijani"
+                            href="https://linkedin.com/in/qomardeentijani"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="outline-btn inline-flex items-center justify-center gap-2"
@@ -320,7 +320,7 @@ const Hire = () => {
 
                         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                           <motion.a
-                            href="mailto:qomardeentylertijani@gmail.com"
+                            href="mailto:qomardeentijani@gmail.com"
                             className="modern-btn inline-flex items-center justify-center gap-2 group"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
@@ -331,7 +331,7 @@ const Hire = () => {
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </motion.a>
                           <motion.a
-                            href="https://linkedin.com/in/qomardeen-tijani"
+                            href="https://linkedin.com/in/qomardeentijani"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="outline-btn inline-flex items-center justify-center gap-2"

@@ -82,10 +82,10 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: <Mail />, variant: 'blue' as const, label: "Email", value: "qomardeentylertijani@gmail.com", href: "mailto:qomardeentylertijani@gmail.com" },
+    { icon: <Mail />, variant: 'blue' as const, label: "Email", value: "qomardeentijani@gmail.com", href: "mailto:qomardeentijani@gmail.com" },
     { icon: <Phone />, variant: 'emerald' as const, label: "Phone", value: "+2348139469192", href: "tel:+2348139469192" },
     { icon: <MapPin />, variant: 'rose' as const, label: "Location", value: "Nigeria", href: null },
-    { icon: <Linkedin />, variant: 'accent' as const, label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com/in/qomardeen-tijani" },
+    { icon: <Linkedin />, variant: 'accent' as const, label: "LinkedIn", value: "Connect with me", href: "https://linkedin.com/in/qomardeentijani" },
     { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>, variant: 'primary' as const, label: "X (Twitter)", value: "@the_Qomardeen", href: "https://x.com/the_Qomardeen" },
     { icon: <Globe />, variant: 'teal' as const, label: "Book a Call", value: "Schedule a meeting", href: "https://cal.com/the_Qomardeen" },
   ];

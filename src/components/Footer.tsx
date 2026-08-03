@@ -14,8 +14,8 @@ const Footer = () => {
   const localizedPath = useLocalizedPath();
 
   const socialLinks = [
-    { icon: <Linkedin />, variant: 'accent' as const, href: "https://linkedin.com/in/qomardeen-tijani", label: "LinkedIn" },
-    { icon: <Mail />, variant: 'blue' as const, href: "mailto:qomardeentylertijani@gmail.com", label: "Email" },
+    { icon: <Linkedin />, variant: 'accent' as const, href: "https://linkedin.com/in/qomardeentijani", label: "LinkedIn" },
+    { icon: <Mail />, variant: 'blue' as const, href: "mailto:qomardeentijani@gmail.com", label: "Email" },
     { icon: <Phone />, variant: 'emerald' as const, href: "tel:+2348139469192", label: "Phone" },
     { icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>, variant: 'primary' as const, href: "https://x.com/the_Qomardeen", label: "X (Twitter)" },
   ];
@@ -71,7 +71,7 @@ const Footer = () => {
                 <h3 className="font-semibold mb-4">{t('footer.getInTouch')}</h3>
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <div>{t('footer.location')}</div>
-                  <div>qomardeentylertijani@gmail.com</div>
+                  <div>qomardeentijani@gmail.com</div>
                   <div>+2348139469192</div>
                 </div>
                 <div className="mt-4 p-3 bg-secondary rounded-lg">

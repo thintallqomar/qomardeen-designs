@@ -32,10 +32,10 @@ const HireCTA = () => {
                   </motion.button>
                 </div>
                 <div className="flex flex-wrap gap-4 justify-center">
-                  <a href="https://linkedin.com/in/qomardeen-tijani" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href="https://linkedin.com/in/qomardeentijani" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                     <Linkedin className="w-4 h-4" /> LinkedIn
                   </a>
-                  <a href="mailto:qomardeentylertijani@gmail.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href="mailto:qomardeentijani@gmail.com" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                     <Mail className="w-4 h-4" /> Email
                   </a>
                   <a href="/hire" onClick={(e) => { e.preventDefault(); navigate('/hire'); }} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">

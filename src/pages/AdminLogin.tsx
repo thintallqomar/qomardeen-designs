@@ -11,14 +11,39 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [lockedUntil, setLockedUntil] = useState<number | null>(null);
+
+  const guard = async (payload: Record<string, unknown>) => {
+    try {
+      const { data } = await supabase.functions.invoke('admin-login-guard', { body: payload });
+      return data as { allowed?: boolean; remaining?: number; retryAfterSeconds?: number } | null;
+    } catch {
+      return null;
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (lockedUntil && Date.now() < lockedUntil) {
+      toast.error('Too many failed attempts. Please try again later.');
+      return;
+    }
     setLoading(true);
 
     try {
+      const check = await guard({ action: 'check', email });
+      if (check && check.allowed === false) {
+        setLockedUntil(Date.now() + (check.retryAfterSeconds ?? 900) * 1000);
+        toast.error('Account temporarily locked after repeated failed sign-ins. Try again in 15 minutes.');
+        setLoading(false);
+        return;
+      }
+
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
+      if (error) {
+        await guard({ action: 'record', email, success: false });
+        throw error;
+      }
 
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('No user found');
@@ -31,13 +56,15 @@ const AdminLogin = () => {
 
       if (!roles || roles.length === 0) {
         await supabase.auth.signOut();
+        await guard({ action: 'record', email, success: false });
         toast.error('Access denied. Admin privileges required.');
         setLoading(false);
         return;
       }
 
+      await guard({ action: 'record', email, success: true });
       toast.success('Welcome back!');
-      navigate('/admin/analytics');
+      navigate('/admin');
     } catch (err: any) {
       toast.error(err.message || 'Login failed');
     } finally {
@@ -80,11 +107,16 @@ const AdminLogin = () => {
             />
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !!(lockedUntil && Date.now() < lockedUntil)}
               className="w-full py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sign In'}
             </button>
+            {lockedUntil && Date.now() < lockedUntil && (
+              <p className="text-xs text-destructive text-center">
+                Sign-in locked after repeated failures. Try again in a few minutes.
+              </p>
+            )}
           </form>
         </div>
 

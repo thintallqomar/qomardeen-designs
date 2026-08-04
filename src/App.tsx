@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import AIAssistantWidget from "./components/AIAssistantWidget";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
 import { supportedLanguages, rtlLanguages, type SupportedLanguage } from "./i18n";
+import { useStaffAuth } from "./hooks/useStaffAuth";
 
 // Lazy-load non-critical routes
 const Projects = lazy(() => import("./pages/Projects"));
@@ -118,6 +119,14 @@ const BlogSlugRedirect = () => {
   return <Navigate to={`../explore/articles/${slug}`} replace />;
 };
 
+/** Route-level gate: every /admin route requires a server-verified staff session. */
+const RequireStaff = ({ children }: { children: React.ReactNode }) => {
+  const { loading, isStaff } = useStaffAuth();
+  if (loading) return <PageLoader />;
+  if (!isStaff) return <Navigate to="/admin/login" replace />;
+  return <>{children}</>;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   useVisitorTracking();
@@ -152,12 +161,12 @@ const AnimatedRoutes = () => {
           
           {/* Admin routes (not localized) */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<RequireStaff><AdminDashboard /></RequireStaff>} />
           <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
-          <Route path="/admin/content/:typePath" element={<AdminContentList />} />
-          <Route path="/admin/content/:typePath/:id" element={<AdminContentEditor />} />
-          <Route path="/admin/media" element={<AdminMediaLibrary />} />
-          <Route path="/admin/analytics" element={<AdminAnalytics />} />
+          <Route path="/admin/content/:typePath" element={<RequireStaff><AdminContentList /></RequireStaff>} />
+          <Route path="/admin/content/:typePath/:id" element={<RequireStaff><AdminContentEditor /></RequireStaff>} />
+          <Route path="/admin/media" element={<RequireStaff><AdminMediaLibrary /></RequireStaff>} />
+          <Route path="/admin/analytics" element={<RequireStaff><AdminAnalytics /></RequireStaff>} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

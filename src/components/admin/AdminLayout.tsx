@@ -1,8 +1,10 @@
+import { useEffect, useCallback } from 'react';
 import { NavLink, useNavigate, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
+import { useTheme } from '@/hooks/useTheme';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
@@ -16,9 +18,35 @@ const links = [
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];
 
+/** Sign out automatically after this much inactivity. */
+const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
+
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { loading, isStaff, email, roles } = useStaffAuth();
+  const { theme, toggleTheme } = useTheme();
+
+  const signOut = useCallback(async () => {
+    await supabase.auth.signOut();
+    navigate('/admin/login');
+  }, [navigate]);
+
+  // Idle session expiry — protects an unattended admin session.
+  useEffect(() => {
+    if (!isStaff) return;
+    let timer: number;
+    const reset = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => { void signOut(); }, IDLE_TIMEOUT_MS);
+    };
+    const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+    events.forEach(e => window.addEventListener(e, reset, { passive: true }));
+    reset();
+    return () => {
+      window.clearTimeout(timer);
+      events.forEach(e => window.removeEventListener(e, reset));
+    };
+  }, [isStaff, signOut]);
 
   if (loading) {
     return (
@@ -30,18 +58,24 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
   if (!isStaff) return <Navigate to="/admin/login" replace />;
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    navigate('/admin/login');
-  };
-
   return (
     <div className="min-h-screen bg-background flex">
       <aside className="hidden md:flex w-60 shrink-0 flex-col border-r border-border p-4 sticky top-0 h-screen">
-        <div className="px-2 py-3">
-          <p className="text-sm font-bold">Studio</p>
-          <p className="text-xs text-muted-foreground truncate">{email}</p>
-          <p className="text-[10px] uppercase tracking-wider text-primary mt-1">{roles.join(' · ') || 'staff'}</p>
+        <div className="px-2 py-3 flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-sm font-bold">Studio</p>
+            <p className="text-xs text-muted-foreground truncate">{email}</p>
+            <p className="text-[10px] uppercase tracking-wider text-primary mt-1">{roles.join(' · ') || 'staff'}</p>
+          </div>
+          <IconTooltip label={theme === 'dark' ? 'Light mode' : 'Dark mode'} side="right">
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-xl text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          </IconTooltip>
         </div>
         <nav className="mt-4 space-y-1 flex-1">
           {links.map(({ to, label, icon: Icon, end }) => (
@@ -71,20 +105,25 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Mobile rail */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur flex justify-around py-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur flex justify-around py-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] overflow-x-auto">
         {links.map(({ to, label, icon: Icon, end }) => (
           <IconTooltip key={to} label={label} side="top">
-            <NavLink to={to} end={end} aria-label={label} className={({ isActive }) => `p-2 rounded-lg ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            <NavLink to={to} end={end} aria-label={label} className={({ isActive }) => `min-w-11 min-h-11 flex items-center justify-center rounded-lg ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               <Icon className="w-5 h-5" />
             </NavLink>
           </IconTooltip>
         ))}
+        <IconTooltip label={theme === 'dark' ? 'Light mode' : 'Dark mode'} side="top">
+          <button onClick={toggleTheme} aria-label="Toggle theme" className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-muted-foreground">
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </IconTooltip>
         <IconTooltip label="Sign out" side="top">
-          <button onClick={signOut} aria-label="Sign out" className="p-2 rounded-lg text-muted-foreground"><LogOut className="w-5 h-5" /></button>
+          <button onClick={signOut} aria-label="Sign out" className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-muted-foreground"><LogOut className="w-5 h-5" /></button>
         </IconTooltip>
       </div>
 
-      <main className="flex-1 min-w-0 pb-20 md:pb-0">{children}</main>
+      <main className="flex-1 min-w-0 overflow-x-hidden pb-24 md:pb-0">{children}</main>
     </div>
   );
 };

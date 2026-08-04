@@ -76,7 +76,7 @@ const NewsletterCapture = () => {
             {t('newsletter.success')}
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex gap-2 max-w-sm mx-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full max-w-sm mx-auto">
             <input
               type="email"
               value={email}
@@ -84,12 +84,12 @@ const NewsletterCapture = () => {
               placeholder={t('newsletter.placeholder')}
               required
               disabled={status === 'loading'}
-              className="flex-1 px-4 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
+              className="flex-1 min-w-0 w-full px-4 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5 disabled:opacity-50"
+              className="shrink-0 px-5 py-2.5 min-h-11 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 disabled:opacity-50"
             >
               {status === 'loading' ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

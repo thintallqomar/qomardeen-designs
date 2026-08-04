@@ -101,6 +101,30 @@ export type Database = {
         }
         Relationships: []
       }
+      auth_attempts: {
+        Row: {
+          created_at: string
+          id: string
+          identifier: string
+          ip_hash: string | null
+          success: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          identifier: string
+          ip_hash?: string | null
+          success?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          identifier?: string
+          ip_hash?: string | null
+          success?: boolean
+        }
+        Relationships: []
+      }
       blog_comments: {
         Row: {
           article_slug: string

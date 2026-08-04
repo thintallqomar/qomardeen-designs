@@ -103,21 +103,21 @@ const Contact = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
-            <div className="flex flex-col">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            <div className="flex flex-col min-w-0">
               <StaggeredReveal className="space-y-4 flex-1" staggerDelay={0.08}>
                 {contactInfo.map((item, index) => (
                   <motion.div
                     key={index}
-                    className="card-elegant"
+                    className="card-elegant min-w-0"
                     whileHover={{ y: -2, boxShadow: 'var(--shadow-md)' }}
                     transition={{ duration: 0.25, ease }}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 min-w-0">
                       <Icon3D variant={item.variant} size="md">
                         {item.icon}
                       </Icon3D>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0 break-words">
                         <div className="text-sm text-muted-foreground">{item.label}</div>
                         {item.href ? (
                           <a href={item.href} className="font-medium hover:text-primary transition-colors"

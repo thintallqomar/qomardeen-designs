@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://phkhnuzemelfsophmhgb.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "qomardeentijani",
+      "version": "0.1.0",
+      "title": "qomardeentijani"
+    },
+    "tools": [
+      {
+        "name": "list_content",
+        "title": "List content",
+        "description": "List content items (articles, thinking pieces, architecture write-ups, resources) visible to the signed-in user, newest first.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "Filter by content type.",
+              "type": "string",
+              "enum": [
+                "article",
+                "thinking",
+                "architecture",
+                "resource"
+              ]
+            },
+            "status": {
+              "description": "Filter by publication status.",
+              "type": "string",
+              "enum": [
+                "draft",
+                "published",
+                "scheduled",
+                "archived"
+              ]
+            },
+            "limit": {
+              "default": 20,
+              "description": "Maximum number of items to return.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_content",
+        "title": "Get content item",
+        "description": "Fetch one content item with its full body (markdown/HTML) by type and slug.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "article",
+                "thinking",
+                "architecture",
+                "resource"
+              ],
+              "description": "Content type."
+            },
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "URL slug of the content item."
+            }
+          },
+          "required": [
+            "type",
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_content",
+        "title": "Search content",
+        "description": "Search content items by keyword across title, excerpt and TL;DR summary.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Keyword or phrase to search for."
+            },
+            "limit": {
+              "default": 10,
+              "description": "Maximum number of matches.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 25
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_draft",
+        "title": "Create draft",
+        "description": "Create a new draft content item (article, thinking piece, architecture write-up or resource). Drafts are never published automatically.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "article",
+                "thinking",
+                "architecture",
+                "resource"
+              ],
+              "description": "Content type."
+            },
+            "title": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Title of the new draft."
+            },
+            "slug": {
+              "description": "Optional URL slug; derived from the title when omitted.",
+              "type": "string"
+            },
+            "excerpt": {
+              "description": "Short summary shown in listings.",
+              "type": "string"
+            },
+            "body_markdown": {
+              "description": "Body content in markdown.",
+              "type": "string"
+            },
+            "tags": {
+              "description": "Tags for categorisation.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "title"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "update_draft",
+        "title": "Update content item",
+        "description": "Update fields on an existing content item. Row-level security decides whether the signed-in user may edit it or change its status.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "ID of the content item to update."
+            },
+            "title": {
+              "description": "New title.",
+              "type": "string",
+              "minLength": 3
+            },
+            "excerpt": {
+              "description": "New excerpt.",
+              "type": "string"
+            },
+            "tldr": {
+              "description": "New TL;DR summary.",
+              "type": "string"
+            },
+            "body_markdown": {
+              "description": "Replacement markdown body.",
+              "type": "string"
+            },
+            "tags": {
+              "description": "Replacement tag list.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "description": "New publication status (requires publishing rights).",
+              "type": "string",
+              "enum": [
+                "draft",
+                "published",
+                "scheduled",
+                "archived"
+              ]
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

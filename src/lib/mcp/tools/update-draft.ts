@@ -20,7 +20,9 @@ export default defineTool({
   annotations: { readOnlyHint: false, destructiveHint: true, openWorldHint: false },
   handler: async ({ id, ...fields }, ctx) => {
     if (!ctx.isAuthenticated()) return notAuthenticated();
-    const patch = Object.fromEntries(Object.entries(fields).filter(([, v]) => v !== undefined));
+    const patch: Record<string, unknown> = Object.fromEntries(
+      Object.entries(fields).filter(([, v]) => v !== undefined),
+    );
     if (Object.keys(patch).length === 0) {
       return { content: [{ type: "text", text: "No fields provided to update." }], isError: true };
     }

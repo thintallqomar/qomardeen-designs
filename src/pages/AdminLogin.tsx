@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Lock, Loader2, ArrowLeft } from 'lucide-react';
@@ -8,6 +8,10 @@ import Icon3D from '@/components/Icon3D';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const rawNext = params.get('next');
+  // Only allow same-origin relative paths as a post-login destination.
+  const next = rawNext && /^\/(?!\/)/.test(rawNext) ? rawNext : null;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -64,7 +68,7 @@ const AdminLogin = () => {
 
       await guard({ action: 'record', email, success: true });
       toast.success('Welcome back!');
-      navigate('/admin');
+      navigate(next ?? '/admin');
     } catch (err: any) {
       toast.error(err.message || 'Login failed');
     } finally {

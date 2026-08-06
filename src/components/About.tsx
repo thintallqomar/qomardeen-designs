@@ -95,7 +95,7 @@ const About = () => {
                 </div>
                 <div className="border-l-2 border-muted pl-4">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium">Project Manager Intern</h4>
+                    <h4 className="font-medium">Project Manager</h4>
                     <span className="text-sm text-muted-foreground">2024–Present</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-1">Oladel Global Resources Limited</p>

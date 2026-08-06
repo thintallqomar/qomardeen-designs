@@ -105,7 +105,7 @@ const Hire = () => {
                         <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
                           <div className="w-2 h-2 bg-success rounded-full mr-2 animate-pulse" />
                           <Sparkles className="w-4 h-4 mr-1" />
-                          Available for hire — Q1 2026
+                          Available for full time roles & freelance projects
                         </div>
                         <h1 className="text-3xl md:text-5xl font-bold mb-4">
                           Let's Build Something<br />

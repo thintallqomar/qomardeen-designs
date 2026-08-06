@@ -450,26 +450,24 @@
     transform: translateY(-2px);
   }
 
-  /* Button Styles */
+  /* Button Styles — unified pill language (matches hero CTAs) */
   .btn-primary {
-    @apply bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium;
-    transition: var(--transition-base);
-    box-shadow: var(--shadow-sm);
+    @apply inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-3.5 rounded-full font-semibold text-sm;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .btn-primary:hover {
-    background: hsl(var(--primary-dark));
-    box-shadow: var(--shadow-md);
+    opacity: 0.9;
     transform: translateY(-1px);
   }
 
   .btn-outline {
-    @apply border-2 border-primary text-primary px-6 py-3 rounded-md font-medium bg-transparent;
-    transition: var(--transition-base);
+    @apply inline-flex items-center justify-center gap-2 border border-border text-foreground px-8 py-3.5 rounded-full font-semibold text-sm bg-transparent;
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
 
   .btn-outline:hover {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-secondary;
     transform: translateY(-1px);
   }
 

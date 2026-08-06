@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -55,6 +55,15 @@ function parseBlogPost(content: string): { displayContent: string; blogDraft: Bl
 
 function hasPublishCommand(content: string): boolean {
   return content.includes('[[PUBLISH_BLOG]]');
+}
+
+// Strip navigation + blog command blocks so they never show in the bubble.
+function renderMarkdown(content: string): string {
+  return content
+    .replace(/\[\[NAVIGATE:\/[^\]]*\]\]/g, '')
+    .replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '')
+    .replace(/\[\[PUBLISH_BLOG\]\]/g, '')
+    .trim();
 }
 
 function parseNavigation(content: string): { displayContent: string; navPath: string | null } {
@@ -164,6 +173,30 @@ const TypingIndicator = () => (
   </div>
 );
 
+// Memoized so only the streaming message re-renders. Completed messages keep
+// their parsed markdown and skip React/ReactMarkdown work on every frame.
+const MessageRow = memo(({ role, content }: { role: 'user' | 'assistant'; content: string }) => (
+  <div className={`flex ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
+    {role === 'assistant' && (
+      <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">
+        <AtlasLogo size={14} />
+      </div>
+    )}
+    <div className={`max-w-[80%] text-[13px] leading-relaxed ${
+      role === 'user'
+        ? 'bg-foreground text-background px-4 py-2.5 rounded-2xl rounded-br-lg'
+        : 'text-foreground/90'
+    }`}>
+      {role === 'assistant' ? (
+        <div className="prose prose-sm max-w-none [&>p]:m-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline [&_strong]:text-foreground [&_code]:text-xs [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md text-foreground/90">
+          <ReactMarkdown>{renderMarkdown(content)}</ReactMarkdown>
+        </div>
+      ) : content}
+    </div>
+  </div>
+));
+MessageRow.displayName = 'MessageRow';
+
 const AIAssistantWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -204,9 +237,16 @@ const AIAssistantWidget = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, [isOpen, stopSpeaking]);
 
+  // Scroll to bottom — but throttle during streaming to avoid scroll thrashing
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (!isLoading) {
+      // Stream finished — scroll immediately
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Stream active — scroll without animation to avoid 60 smooth-scrolls/sec
+      messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
+    }
+  }, [messages, isLoading]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -288,8 +328,12 @@ const AIAssistantWidget = () => {
     stopSpeaking();
 
     let assistantSoFar = "";
-    const upsertAssistant = (chunk: string) => {
-      assistantSoFar += chunk;
+    let rafId: number | null = null;
+    let pendingFlush = false;
+
+    const flush = () => {
+      pendingFlush = false;
+      rafId = null;
       setMessages(prev => {
         const last = prev[prev.length - 1];
         if (last?.role === 'assistant') {
@@ -299,12 +343,24 @@ const AIAssistantWidget = () => {
       });
     };
 
+    // Coalesce streamed tokens to one render per animation frame (~60fps)
+    // instead of one render per token — prevents the full-page backdrop-filter
+    // repaint storm that made the site glitch while Atlas replied.
+    const upsertAssistant = (chunk: string) => {
+      assistantSoFar += chunk;
+      if (pendingFlush) return;
+      pendingFlush = true;
+      rafId = requestAnimationFrame(flush);
+    };
+
     try {
       await streamChat({
         messages: [...messages, userMsg],
         isAdmin,
         onDelta: upsertAssistant,
         onDone: () => {
+          if (rafId != null) cancelAnimationFrame(rafId);
+          flush(); // ensure the final buffered tokens are rendered
           setIsLoading(false);
           // Check for blog post draft in the response
           const { blogDraft } = parseBlogPost(assistantSoFar);
@@ -389,16 +445,6 @@ const AIAssistantWidget = () => {
     }]);
   };
 
-  const renderContent = (content: string) => {
-    const { displayContent } = parseNavigation(content);
-    // Remove blog post JSON blocks from display
-    const cleaned = displayContent
-      .replace(/\[\[BLOG_POST\]\][\s\S]*?\[\[\/BLOG_POST\]\]/g, '')
-      .replace(/\[\[PUBLISH_BLOG\]\]/g, '')
-      .trim();
-    return cleaned;
-  };
-
   return (
     <>
       {/* Floating Trigger — minimal orb */}
@@ -438,15 +484,16 @@ const AIAssistantWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Backdrop overlay */}
+      {/* Backdrop overlay — opaque + GPU-isolated to prevent site-wide repaints */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-foreground/10 backdrop-blur-[2px]"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-background/95"
+            style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
             onClick={() => { setIsOpen(false); stopSpeaking(); }}
           />
         )}
@@ -463,8 +510,11 @@ const AIAssistantWidget = () => {
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             className="fixed bottom-6 right-6 z-50 w-[400px] max-w-[calc(100vw-2rem)] h-[560px] max-h-[calc(100vh-4rem)] flex flex-col rounded-3xl shadow-2xl overflow-hidden border border-border/50"
             style={{
-              background: 'hsl(var(--background) / 0.95)',
-              backdropFilter: 'blur(24px)',
+              background: 'hsl(var(--background))',
+              contain: 'strict',
+              willChange: 'transform',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
             }}
           >
             {/* Header — clean, minimal */}
@@ -537,24 +587,7 @@ const AIAssistantWidget = () => {
               )}
 
               {messages.map((msg, i) => (
-                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  {msg.role === 'assistant' && (
-                    <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">
-                      <AtlasLogo size={14} />
-                    </div>
-                  )}
-                  <div className={`max-w-[80%] text-[13px] leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-foreground text-background px-4 py-2.5 rounded-2xl rounded-br-lg'
-                      : 'text-foreground/90'
-                  }`}>
-                    {msg.role === 'assistant' ? (
-                      <div className="prose prose-sm max-w-none [&>p]:m-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline [&_strong]:text-foreground [&_code]:text-xs [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md text-foreground/90">
-                        <ReactMarkdown>{renderContent(msg.content)}</ReactMarkdown>
-                      </div>
-                    ) : msg.content}
-                  </div>
-                </div>
+                <MessageRow key={i} role={msg.role} content={msg.content} />
               ))}
 
               {/* Blog draft confirmation card */}

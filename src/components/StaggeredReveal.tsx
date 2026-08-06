@@ -4,6 +4,7 @@ import { useRef, ReactNode, Children } from 'react';
 interface StaggeredRevealProps {
   children: ReactNode;
   className?: string;
+  itemClassName?: string | ((index: number) => string);
   staggerDelay?: number;
   baseDelay?: number;
   duration?: number;
@@ -23,6 +24,7 @@ const directionMap = {
 const StaggeredReveal = ({
   children,
   className = '',
+  itemClassName,
   staggerDelay = 0.1,
   baseDelay = 0,
   duration = 0.5,
@@ -37,12 +39,15 @@ const StaggeredReveal = ({
   const { x, y } = directionMap[direction];
   const items = Children.toArray(children);
 
+  const resolveItemClass = (index: number) =>
+    typeof itemClassName === 'function' ? itemClassName(index) : (itemClassName ?? '');
+
   return (
     <div ref={ref} className={className}>
       {items.map((child, index) => (
         <motion.div
           key={index}
-          className={equalHeight ? "h-full" : undefined}
+          className={`${equalHeight ? 'h-full' : ''} ${resolveItemClass(index)}`.trim() || undefined}
           initial={{
             opacity: 0,
             x: x * distance,

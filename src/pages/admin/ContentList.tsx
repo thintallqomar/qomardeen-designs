@@ -101,7 +101,7 @@ const ContentList = () => {
                 </span>
                 {item.status === 'published' && (
                   <IconTooltip label="View live" side="left">
-                    <a href={`/en/explore/${typePath}/${item.slug}`} target="_blank" rel="noreferrer" aria-label="View live" className="p-2 rounded-lg text-muted-foreground hover:text-foreground">
+                    <a href={type === 'case_study' ? `/en/projects/${item.slug}` : `/en/explore/${typePath}/${item.slug}`} target="_blank" rel="noreferrer" aria-label="View live" className="p-2 rounded-lg text-muted-foreground hover:text-foreground">
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   </IconTooltip>

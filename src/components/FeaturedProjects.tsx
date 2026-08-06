@@ -28,13 +28,6 @@ const FeaturedProjects = () => {
       route: '/projects/walpay',
       thumbnail: walpayCover,
     },
-    {
-      title: "E-Commerce Dashboard",
-      industry: t('featured.ecommerce.industry'),
-      problem: t('featured.ecommerce.problem'),
-      route: '/projects',
-      thumbnail: '/placeholder.svg',
-    },
   ];
 
   return (
@@ -47,9 +40,9 @@ const FeaturedProjects = () => {
           </div>
         </ScrollReveal>
 
-        <StaggeredReveal className="grid md:grid-cols-3 gap-6" staggerDelay={0.12} equalHeight>
-          {projects.map((project, index) => (
-            <motion.div key={index} className="card-elegant group cursor-pointer h-full flex flex-col overflow-hidden p-0" whileHover={{ y: -6, boxShadow: 'var(--shadow-lg)' }} transition={{ duration: 0.3, ease }} onClick={() => navigate(project.route)}>
+        <StaggeredReveal className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto" staggerDelay={0.12} equalHeight>
+          {projects.map((project) => (
+            <motion.div key={project.route} className="card-elegant group cursor-pointer h-full flex flex-col overflow-hidden p-0" whileHover={{ y: -6, boxShadow: 'var(--shadow-lg)' }} transition={{ duration: 0.3, ease }} onClick={() => navigate(project.route)}>
               <div className="aspect-[16/10] bg-muted overflow-hidden">
                 <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
               </div>

@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { ExternalLink, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import PageSEO from '@/components/PageSEO';
+import { fetchPublished, type CaseStudyBody } from '@/lib/cms';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 
@@ -15,7 +17,8 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 const Projects = () => {
   const navigate = useNavigate();
 
-  const projects = [
+  // Hardcoded flagship case studies (bundled assets, dedicated pages).
+  const staticProjects = [
     {
       id: 1,
       title: "UpTime Asset Management — CMMS Web App",
@@ -48,27 +51,35 @@ const Projects = () => {
       hasPage: true,
       route: '/projects/walpay'
     },
-    {
-      id: 3,
-      title: "E-Commerce Dashboard Redesign",
-      context: "Analytics dashboard for online retail platform",
-      role: "UI/UX Designer",
-      keyDecisions: "Data visualization clarity, actionable insights hierarchy",
-      thumbnail: "/placeholder.svg",
-      liveUrl: "#",
-      technologies: ["Dashboard", "E-Commerce", "Analytics"],
-      category: "UI/UX Case Study",
-      status: "completed",
-      featured: true,
-      isLive: false,
-      hasPage: false,
-      route: ''
-    },
-    { id: 4, title: "Project Placeholder 04", context: "Case study coming soon", role: "", keyDecisions: "", thumbnail: "/placeholder.svg", liveUrl: "#", technologies: [], category: "Coming Soon", status: "coming-soon", featured: false, hasPage: false, route: '' },
-    { id: 5, title: "Project Placeholder 05", context: "Case study coming soon", role: "", keyDecisions: "", thumbnail: "/placeholder.svg", liveUrl: "#", technologies: [], category: "Coming Soon", status: "coming-soon", featured: false, hasPage: false, route: '' },
-    { id: 6, title: "Project Placeholder 06", context: "Case study coming soon", role: "", keyDecisions: "", thumbnail: "/placeholder.svg", liveUrl: "#", technologies: [], category: "Coming Soon", status: "coming-soon", featured: false, hasPage: false, route: '' },
-    { id: 7, title: "Project Placeholder 07", context: "Case study coming soon", role: "", keyDecisions: "", thumbnail: "/placeholder.svg", liveUrl: "#", technologies: [], category: "Coming Soon", status: "coming-soon", featured: false, hasPage: false, route: '' },
   ];
+
+  // CMS-authored case studies (published), mapped to the same card shape.
+  const { data: cmsItems = [] } = useQuery({
+    queryKey: ['projects', 'case-studies'],
+    queryFn: () => fetchPublished('case_study'),
+  });
+
+  const cmsProjects = cmsItems.map((item, i) => {
+    const body = (item.body_json as CaseStudyBody | null) ?? null;
+    return {
+      id: `cms-${item.id}`,
+      title: item.title,
+      context: item.subtitle || item.excerpt || '',
+      role: body?.role || '',
+      keyDecisions: body?.scope || '',
+      thumbnail: item.cover_image || uptimeCover,
+      liveUrl: body?.behanceUrl || item.resource_url || '',
+      technologies: (item.tags && item.tags.length ? item.tags : ['UI/UX', 'Case Study']),
+      category: body?.badge || 'UI/UX Case Study',
+      status: "completed" as const,
+      featured: true,
+      isLive: !!(body?.behanceUrl || item.resource_url),
+      hasPage: true,
+      route: `/projects/${item.slug}`,
+    };
+  });
+
+  const projects = [...staticProjects, ...cmsProjects];
 
   const featuredProjects = projects.filter(project => project.featured && project.status === 'completed');
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
@@ -107,7 +118,7 @@ const Projects = () => {
                       <ScrollReveal>
                         <h2 className="text-2xl font-semibold mb-8 text-center">Featured Work</h2>
                       </ScrollReveal>
-                      <div className="grid md:grid-cols-3 gap-6">
+                      <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         {featuredProjects.map((project, index) => (
                           <motion.div
                             key={project.id}

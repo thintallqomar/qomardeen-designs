@@ -23,9 +23,9 @@ const Footer = () => {
   const quickLinks = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.projects'), href: '/projects' },
-    { name: t('nav.architecture'), href: '/architecture' },
-    { name: t('nav.blog'), href: '/blog' },
-    { name: t('nav.thinking'), href: '/thinking' },
+    { name: t('nav.architecture'), href: '/explore/architecture' },
+    { name: t('nav.blog', { defaultValue: 'Articles' }), href: '/explore/articles' },
+    { name: t('nav.thinking'), href: '/explore/thinking' },
     { name: t('nav.hire'), href: '/hire' },
     { name: t('nav.about'), href: '/about' },
     { name: 'Contact', href: '/contact' },
@@ -39,8 +39,8 @@ const Footer = () => {
             <div className="grid md:grid-cols-4 gap-8">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent" aria-hidden="true">QTT</span>
-                  <span className="text-lg font-medium">Qomardeen Tyler Tijani</span>
+                  <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent" aria-hidden="true">QT</span>
+                  <span className="text-lg font-medium">Qomardeen Tijani</span>
                 </div>
                 <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">{t('footer.description')}</p>
                 <div className="flex items-center gap-3">

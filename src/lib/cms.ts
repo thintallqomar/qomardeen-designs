@@ -1,8 +1,50 @@
 import { supabase } from '@/integrations/supabase/client';
 
-export type ContentType = 'article' | 'thinking' | 'architecture' | 'resource';
+export type ContentType = 'article' | 'thinking' | 'architecture' | 'resource' | 'case_study';
 export type ContentStatus = 'draft' | 'published' | 'scheduled' | 'archived';
 export type ContentVisibility = 'public' | 'unlisted' | 'private';
+
+/**
+ * Structured payload for a `case_study` content item, stored in `body_json`.
+ * The title/subtitle/cover_image/excerpt/tags live on the content_items row;
+ * everything below is case-study specific storytelling data.
+ */
+export interface CaseStudyMetric {
+  label: string;
+  value: string;
+}
+export interface CaseStudySection {
+  title: string;
+  subtitle?: string;
+  description: string;
+  image: string;
+  imageAlt?: string;
+  metrics?: CaseStudyMetric[];
+}
+export interface CaseStudyFrame {
+  src: string;
+  alt?: string;
+  label?: string;
+}
+export interface CaseStudyBody {
+  badge?: string;        // e.g. "UI/UX Case Study"
+  role?: string;         // e.g. "Product Designer (UI/UX)"
+  scope?: string;        // e.g. "End-to-End Design"
+  platform?: string;     // e.g. "Web App (SaaS)"
+  behanceUrl?: string;   // external Behance / live link
+  sections: CaseStudySection[];   // sticky-scroll storytelling
+  gallery: CaseStudyFrame[];      // full-frame gallery
+}
+
+export const emptyCaseStudyBody = (): CaseStudyBody => ({
+  badge: 'UI/UX Case Study',
+  role: '',
+  scope: '',
+  platform: '',
+  behanceUrl: '',
+  sections: [],
+  gallery: [],
+});
 
 export interface ContentItem {
   id: string;
@@ -44,6 +86,7 @@ export interface ContentItem {
 }
 
 export const CONTENT_TYPES: { value: ContentType; label: string; path: string; blurb: string }[] = [
+  { value: 'case_study', label: 'Case Studies', path: 'case-studies', blurb: 'In-depth product design case studies with scroll storytelling and galleries.' },
   { value: 'article', label: 'Articles', path: 'articles', blurb: 'Long-form essays on product design, UX and systems.' },
   { value: 'thinking', label: 'Thinking', path: 'thinking', blurb: 'Short opinion pieces, teardowns and design lessons.' },
   { value: 'architecture', label: 'Architecture', path: 'architecture', blurb: 'PRDs, system design, user flows and decision logs.' },

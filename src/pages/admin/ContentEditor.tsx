@@ -13,6 +13,7 @@ import {
   type ContentStatus, type ContentVisibility,
 } from '@/lib/cms';
 import { ArrowLeft, Save, Loader2, ImagePlus, X } from 'lucide-react';
+import CaseStudyEditor from './CaseStudyEditor';
 
 const STATUSES: ContentStatus[] = ['draft', 'published', 'scheduled', 'archived'];
 const VISIBILITIES: ContentVisibility[] = ['public', 'unlisted', 'private'];
@@ -83,6 +84,9 @@ const ContentEditor = () => {
   const set = (k: string, v: unknown) => setForm(f => ({ ...f, [k]: v }));
 
   if (!type) return <Navigate to="/admin" replace />;
+
+  // Case studies use a dedicated structured editor.
+  if (type === 'case_study') return <CaseStudyEditor />;
 
   const submit = async (statusOverride?: ContentStatus) => {
     const status = statusOverride ?? form.status;

@@ -36,6 +36,26 @@ const Navigation = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  // Close dropdowns on Escape for keyboard users
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setExploreOpen(false);
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
+
+  // Close a dropdown when focus leaves it entirely (keyboard tab-out)
+  const handleBlur = (
+    e: React.FocusEvent<HTMLDivElement>,
+    close: () => void
+  ) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) close();
+  };
+
   const mainNavItems = [
     { name: t('nav.home'), href: '/' },
     { name: t('nav.projects'), href: '/projects' },
@@ -88,8 +108,8 @@ const Navigation = () => {
               <path d="M34 34l4 4" className="stroke-primary" strokeWidth="2.5" strokeLinecap="round"/>
             </svg>
             <span className="text-lg font-bold tracking-tight">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">Design</span>
-              <span className="text-foreground">Qit</span>
+              <span className="bg-gradient-primary bg-clip-text text-transparent">Qomardeen</span>
+              <span className="text-foreground"> Tijani</span>
             </span>
           </Link>
 
@@ -114,8 +134,12 @@ const Navigation = () => {
               ref={exploreRef}
               onMouseEnter={() => setExploreOpen(true)}
               onMouseLeave={() => setExploreOpen(false)}
+              onBlur={(e) => handleBlur(e, () => setExploreOpen(false))}
             >
               <button
+                onClick={() => setExploreOpen((v) => !v)}
+                aria-haspopup="true"
+                aria-expanded={exploreOpen}
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${isExploreActive ? 'text-primary font-medium' : 'text-foreground hover:text-primary hover:bg-secondary/50'}`}
               >
                 {t('nav.explore', { defaultValue: 'Explore' })}
@@ -163,8 +187,12 @@ const Navigation = () => {
               ref={langRef}
               onMouseEnter={() => setLangOpen(true)}
               onMouseLeave={() => setLangOpen(false)}
+              onBlur={(e) => handleBlur(e, () => setLangOpen(false))}
             >
               <button
+                onClick={() => setLangOpen((v) => !v)}
+                aria-haspopup="true"
+                aria-expanded={langOpen}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors text-sm"
                 aria-label="Change language"
               >

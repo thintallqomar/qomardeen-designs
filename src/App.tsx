@@ -19,6 +19,7 @@ const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
+const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
 const Architecture = lazy(() => import("./pages/Architecture"));
 const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
@@ -94,6 +95,7 @@ const LocalizedRoutes = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="projects/uptime" element={<UptimeProject />} />
           <Route path="projects/walpay" element={<WalPayProject />} />
+          <Route path="projects/:slug" element={<CaseStudyPage />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="architecture" element={<Architecture />} />

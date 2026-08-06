@@ -14,6 +14,18 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
   headers: { ...corsHeaders, "Content-Type": "application/json" },
 });
 
+function bearerRole(token: string): string | null {
+  try {
+    const payload = token.split(".")[1];
+    if (!payload) return null;
+    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(payload.length / 4) * 4, "=");
+    const decoded = JSON.parse(atob(normalized));
+    return typeof decoded?.role === "string" ? decoded.role : null;
+  } catch {
+    return null;
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
@@ -31,9 +43,12 @@ Deno.serve(async (req) => {
     const authorization = req.headers.get("Authorization") ?? "";
     let userId: string | null = null;
     if (authorization.startsWith("Bearer ")) {
-      const { data, error } = await admin.auth.getUser(authorization.slice(7));
-      if (error || !data.user) return json({ error: "Invalid session" }, 401);
-      userId = data.user.id;
+      const token = authorization.slice(7);
+      if (bearerRole(token) !== "anon") {
+        const { data, error } = await admin.auth.getUser(token);
+        if (error || !data.user) return json({ error: "Invalid session" }, 401);
+        userId = data.user.id;
+      }
     }
 
     const input = parsed.data;

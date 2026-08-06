@@ -216,7 +216,6 @@ const AIAssistantWidget = () => {
   const [blogPublishing, setBlogPublishing] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const messagesScrollRef = useRef<HTMLDivElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -670,7 +669,7 @@ const AIAssistantWidget = () => {
                 </div>
               )}
 
-              <div ref={messagesEndRef} />
+              <div aria-hidden="true" />
             </div>
 
             {/* Input — modern textarea style */}

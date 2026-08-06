@@ -119,7 +119,9 @@ const PUBLISHED = (q: any) =>
 
 export async function fetchPublished(type?: ContentType) {
   let q = supabase.from('content_items').select('*');
-  if (type) q = q.eq('type', type);
+  // Generated database types can lag a newly added enum value until the next
+  // schema sync; the runtime column already accepts every ContentType above.
+  if (type) q = q.eq('type', type as Parameters<typeof q.eq<'type'>>[1]);
   const { data, error } = await PUBLISHED(q);
   if (error) throw error;
   return (data ?? []) as unknown as ContentItem[];
@@ -129,7 +131,7 @@ export async function fetchBySlug(type: ContentType, slug: string) {
   const { data, error } = await supabase
     .from('content_items')
     .select('*')
-    .eq('type', type)
+    .eq('type', type as Parameters<ReturnType<typeof supabase.from<'content_items'>>['eq']>[1])
     .eq('slug', slug)
     .maybeSingle();
   if (error) throw error;

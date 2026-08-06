@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
@@ -78,11 +78,13 @@ async function streamChat({
   isAdmin: _isAdmin,
   onDelta,
   onDone,
+  signal,
 }: {
   messages: Message[];
   isAdmin?: boolean;
   onDelta: (text: string) => void;
   onDone: () => void;
+  signal?: AbortSignal;
 }) {
   // Admin capabilities are decided server-side from the session token.
   const { data: { session } } = await supabase.auth.getSession();
@@ -93,6 +95,7 @@ async function streamChat({
       Authorization: `Bearer ${session?.access_token ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
     body: JSON.stringify({ messages }),
+    signal,
   });
 
   if (!resp.ok || !resp.body) {
@@ -175,7 +178,7 @@ const TypingIndicator = () => (
 
 // Memoized so only the streaming message re-renders. Completed messages keep
 // their parsed markdown and skip React/ReactMarkdown work on every frame.
-const MessageRow = memo(({ role, content }: { role: 'user' | 'assistant'; content: string }) => (
+const MessageRow = memo(({ role, content, streaming = false }: { role: 'user' | 'assistant'; content: string; streaming?: boolean }) => (
   <div className={`flex ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
     {role === 'assistant' && (
       <div className="w-6 h-6 rounded-lg bg-foreground/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0 text-foreground/60">
@@ -188,9 +191,13 @@ const MessageRow = memo(({ role, content }: { role: 'user' | 'assistant'; conten
         : 'text-foreground/90'
     }`}>
       {role === 'assistant' ? (
-        <div className="prose prose-sm max-w-none [&>p]:m-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline [&_strong]:text-foreground [&_code]:text-xs [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md text-foreground/90">
-          <ReactMarkdown>{renderMarkdown(content)}</ReactMarkdown>
-        </div>
+        streaming ? (
+          <div className="whitespace-pre-wrap text-foreground/90">{renderMarkdown(content)}</div>
+        ) : (
+          <div className="prose prose-sm max-w-none [&>p]:m-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline [&_strong]:text-foreground [&_code]:text-xs [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md text-foreground/90">
+            <ReactMarkdown>{renderMarkdown(content)}</ReactMarkdown>
+          </div>
+        )
       ) : content}
     </div>
   </div>
@@ -208,11 +215,14 @@ const AIAssistantWidget = () => {
   const [pendingBlogDraft, setPendingBlogDraft] = useState<BlogDraft | null>(null);
   const [blogPublishing, setBlogPublishing] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesScrollRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const requestRef = useRef<AbortController | null>(null);
+  const sendingRef = useRef(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAdmin } = useAdminAuth();
   const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
@@ -237,16 +247,19 @@ const AIAssistantWidget = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, [isOpen, stopSpeaking]);
 
-  // Scroll to bottom — but throttle during streaming to avoid scroll thrashing
+  // Keep scrolling inside the chat viewport. scrollIntoView can also move the
+  // document behind a fixed panel, which looks like a whole-page glitch.
   useEffect(() => {
-    if (!isLoading) {
-      // Stream finished — scroll immediately
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Stream active — scroll without animation to avoid 60 smooth-scrolls/sec
-      messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
-    }
+    const viewport = messagesScrollRef.current;
+    if (!viewport) return;
+    viewport.scrollTop = viewport.scrollHeight;
   }, [messages, isLoading]);
+
+  useEffect(() => () => {
+    requestRef.current?.abort();
+    recognitionRef.current?.stop();
+    audioRef.current?.pause();
+  }, []);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -261,11 +274,13 @@ const AIAssistantWidget = () => {
     if (lastMsg?.role === 'assistant' && !isLoading) {
       const { navPath } = parseNavigation(lastMsg.content);
       if (navPath) {
-        const timer = setTimeout(() => navigate(navPath), 1500);
+        const currentLanguage = location.pathname.match(/^\/(en|ar|de|es|fr|ha|ig|pcm|pt|ru|yo)(?:\/|$)/)?.[1] ?? 'en';
+        const localizedPath = navPath === '/' ? `/${currentLanguage}` : `/${currentLanguage}${navPath}`;
+        const timer = setTimeout(() => navigate(localizedPath), 1500);
         return () => clearTimeout(timer);
       }
     }
-  }, [messages, isLoading, navigate]);
+  }, [messages, isLoading, location.pathname, navigate]);
 
   const playTTS = useCallback(async (text: string) => {
     if (!voiceEnabled) return;
@@ -320,7 +335,8 @@ const AIAssistantWidget = () => {
   };
 
   const send = async (text: string) => {
-    if (!text.trim() || isLoading) return;
+    if (!text.trim() || sendingRef.current) return;
+    sendingRef.current = true;
     const userMsg: Message = { role: 'user', content: text.trim() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
@@ -328,12 +344,15 @@ const AIAssistantWidget = () => {
     stopSpeaking();
 
     let assistantSoFar = "";
-    let rafId: number | null = null;
+    let flushTimer: ReturnType<typeof setTimeout> | null = null;
     let pendingFlush = false;
+    const controller = new AbortController();
+    requestRef.current?.abort();
+    requestRef.current = controller;
 
     const flush = () => {
       pendingFlush = false;
-      rafId = null;
+      flushTimer = null;
       setMessages(prev => {
         const last = prev[prev.length - 1];
         if (last?.role === 'assistant') {
@@ -343,14 +362,13 @@ const AIAssistantWidget = () => {
       });
     };
 
-    // Coalesce streamed tokens to one render per animation frame (~60fps)
-    // instead of one render per token — prevents the full-page backdrop-filter
-    // repaint storm that made the site glitch while Atlas replied.
+    // Coalesce tokens to at most 20 UI updates/second. A frame-by-frame update
+    // still forced Markdown/layout work at 60fps on busy responses.
     const upsertAssistant = (chunk: string) => {
       assistantSoFar += chunk;
       if (pendingFlush) return;
       pendingFlush = true;
-      rafId = requestAnimationFrame(flush);
+      flushTimer = setTimeout(flush, 50);
     };
 
     try {
@@ -359,8 +377,10 @@ const AIAssistantWidget = () => {
         isAdmin,
         onDelta: upsertAssistant,
         onDone: () => {
-          if (rafId != null) cancelAnimationFrame(rafId);
+          if (flushTimer != null) clearTimeout(flushTimer);
           flush(); // ensure the final buffered tokens are rendered
+          sendingRef.current = false;
+          requestRef.current = null;
           setIsLoading(false);
           // Check for blog post draft in the response
           const { blogDraft } = parseBlogPost(assistantSoFar);
@@ -373,8 +393,13 @@ const AIAssistantWidget = () => {
           }
           if (voiceEnabled && assistantSoFar) playTTS(assistantSoFar);
         },
+        signal: controller.signal,
       });
     } catch (e) {
+      if (flushTimer != null) clearTimeout(flushTimer);
+      sendingRef.current = false;
+      requestRef.current = null;
+      if (controller.signal.aborted) return;
       console.error(e);
       setIsLoading(false);
       setMessages(prev => [...prev, { role: 'assistant', content: "I'm having trouble connecting right now. Please try again." }]);
@@ -492,7 +517,7 @@ const AIAssistantWidget = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-background/95"
+            className="fixed inset-0 z-40 bg-background/55"
             style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
             onClick={() => { setIsOpen(false); stopSpeaking(); }}
           />
@@ -555,7 +580,7 @@ const AIAssistantWidget = () => {
             <div className="mx-5 h-px bg-border/50" />
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 scrollbar-thin">
+            <div ref={messagesScrollRef} className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-4 scrollbar-thin">
               {messages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full gap-6">
                   <div className="flex flex-col items-center gap-3">
@@ -587,7 +612,12 @@ const AIAssistantWidget = () => {
               )}
 
               {messages.map((msg, i) => (
-                <MessageRow key={i} role={msg.role} content={msg.content} />
+                <MessageRow
+                  key={i}
+                  role={msg.role}
+                  content={msg.content}
+                  streaming={isLoading && i === messages.length - 1 && msg.role === 'assistant'}
+                />
               ))}
 
               {/* Blog draft confirmation card */}
@@ -642,7 +672,7 @@ const AIAssistantWidget = () => {
                 </div>
               )}
 
-              <div ref={messagesEndRef} />
+              <div aria-hidden="true" />
             </div>
 
             {/* Input — modern textarea style */}

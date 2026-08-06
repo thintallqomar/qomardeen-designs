@@ -1,87 +1,69 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
+import { createClient, corsHeaders } from "npm:@supabase/supabase-js@2";
+import { z } from "npm:zod@4";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
-
-const ALLOWED_EVENTS = new Set([
-  "auth.login.success",
-  "auth.login.denied",
-  "auth.logout",
-  "auth.password_reset_requested",
-  "content.created",
-  "content.updated",
-  "content.published",
-  "content.unpublished",
-  "content.deleted",
-  "content.publish_denied",
-  "media.uploaded",
-  "media.deleted",
-  "role.changed",
-]);
+const AuditSchema = z.object({
+  event_type: z.enum([
+    "auth.login.success", "auth.logout", "auth.password_reset_requested",
+    "content.created", "content.updated", "content.published",
+    "content.unpublished", "content.deleted", "content.publish_denied",
+    "media.uploaded", "media.deleted", "role.changed",
+  ]),
+  target_table: z.string().trim().max(64).optional(),
+  target_id: z.string().trim().max(128).optional(),
+  outcome: z.enum(["success", "denied", "error"]).default("success"),
+  details: z.record(z.string(), z.unknown()).default({}),
+});
 
 async function hash(value: string) {
-  const bytes = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest("SHA-256", bytes);
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("")
-    .slice(0, 32);
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
 }
 
+const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
+  status,
+  headers: { ...corsHeaders, "Content-Type": "application/json" },
+});
+
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
   try {
-    const body = await req.json();
-    const eventType = String(body?.event_type ?? "");
-    if (!ALLOWED_EVENTS.has(eventType)) {
-      return new Response(JSON.stringify({ error: "unknown event_type" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+    const authorization = req.headers.get("Authorization") ?? "";
+    if (!authorization.startsWith("Bearer ")) return json({ error: "Authentication required" }, 401);
 
     const admin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+      { auth: { persistSession: false, autoRefreshToken: false } },
     );
+    const { data: userData, error: authError } = await admin.auth.getUser(authorization.slice(7));
+    const user = userData.user;
+    if (authError || !user) return json({ error: "Authentication required" }, 401);
 
-    // Identify the actor from the caller's JWT — never trust a client-supplied id.
-    let actorId: string | null = null;
-    let actorEmail: string | null = null;
-    const authHeader = req.headers.get("Authorization");
-    if (authHeader?.startsWith("Bearer ")) {
-      const { data } = await admin.auth.getUser(authHeader.replace("Bearer ", ""));
-      actorId = data.user?.id ?? null;
-      actorEmail = data.user?.email ?? null;
-    }
+    const { data: roles, error: roleError } = await admin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .in("role", ["admin", "editor", "contributor"])
+      .limit(1);
+    if (roleError || !roles?.length) return json({ error: "Staff access required" }, 403);
 
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const parsed = AuditSchema.safeParse(await req.json().catch(() => null));
+    if (!parsed.success) return json({ error: "Invalid audit event" }, 400);
 
-    await admin.from("audit_log").insert({
-      event_type: eventType,
-      actor_id: actorId,
-      actor_email: actorEmail ?? (typeof body?.actor_email === "string" ? body.actor_email.slice(0, 254) : null),
-      target_table: typeof body?.target_table === "string" ? body.target_table.slice(0, 64) : null,
-      target_id: typeof body?.target_id === "string" ? body.target_id.slice(0, 128) : null,
-      outcome: ["success", "denied", "error"].includes(body?.outcome) ? body.outcome : "success",
-      details: typeof body?.details === "object" && body?.details !== null ? body.details : {},
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const { error } = await admin.from("audit_log").insert({
+      ...parsed.data,
+      actor_id: user.id,
+      actor_email: user.email ?? null,
       ip_hash: await hash(ip),
       user_agent: (req.headers.get("user-agent") ?? "").slice(0, 300),
     });
-
-    return new Response(JSON.stringify({ ok: true }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  } catch (err) {
-    console.error("audit-log error", err);
-    return new Response(JSON.stringify({ error: "failed" }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    if (error) throw error;
+    return json({ ok: true });
+  } catch (error) {
+    console.error("audit-log failed", error instanceof Error ? error.message : "unknown");
+    return json({ error: "Unable to record audit event" }, 500);
   }
 });

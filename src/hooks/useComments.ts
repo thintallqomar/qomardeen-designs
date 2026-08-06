@@ -52,28 +52,8 @@ export function useComments(articleSlug: string) {
 
       if (error) throw error;
 
-      // Fetch profiles for user comments
       const rows = ((data || []) as any[]) as Comment[];
-      const userIds = [...new Set(rows.filter(c => c.user_id).map(c => c.user_id!))];
-      let profileMap = new Map<string, { display_name: string; avatar_url: string | null }>();
-
-      if (userIds.length > 0) {
-        const { data: profiles } = await supabase
-          .from('profiles')
-          .select('user_id, display_name, avatar_url')
-          .in('user_id', userIds);
-
-        if (profiles) {
-          for (const p of profiles) {
-            profileMap.set(p.user_id, { display_name: p.display_name, avatar_url: p.avatar_url });
-          }
-        }
-      }
-
-      return rows.map(c => ({
-        ...c,
-        profile: c.user_id ? profileMap.get(c.user_id) : undefined,
-      })) as Comment[];
+      return rows;
     },
   });
 
@@ -89,31 +69,16 @@ export function useComments(articleSlug: string) {
     }) => {
       const { data: { session } } = await supabase.auth.getSession();
 
-      const insert: Record<string, unknown> = {
+      const body = {
         article_slug: articleSlug,
         content: payload.content,
         parent_id: payload.parent_id || null,
+        guest_name: session?.user ? null : payload.guest_name || null,
+        guest_email: session?.user ? null : payload.guest_email || null,
       };
 
-      if (session?.user) {
-        insert.user_id = session.user.id;
-      } else {
-        insert.guest_name = payload.guest_name;
-      }
-
-      const { data, error } = await supabase
-        .from('blog_comments')
-        .insert(insert as any)
-        .select('id')
-        .single();
+      const { error } = await supabase.functions.invoke('submit-comment', { body });
       if (error) throw error;
-
-      // Guest contact emails live in a private table that visitors cannot read.
-      if (!session?.user && payload.guest_email && data?.id) {
-        await supabase
-          .from('comment_contacts' as any)
-          .insert({ comment_id: data.id, email: payload.guest_email } as any);
-      }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey }),
   });

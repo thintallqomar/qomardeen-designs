@@ -87,7 +87,7 @@ const Hire = () => {
     <>
       <Navigation />
       <PageSEO
-        title="Hire Qomardeen Tijani — Product Designer Available Q1 2026"
+        title="Hire Qomardeen Tijani — Product Designer Available for Projects"
         description="Hire a Product Designer for fintech, SaaS, and AI-native products. Availability, process, and direct booking."
         path="/hire"
       />

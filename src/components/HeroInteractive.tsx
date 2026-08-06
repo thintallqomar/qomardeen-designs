@@ -136,7 +136,7 @@ const HeroInteractive = () => {
                 src={profileImage}
                 alt="Portrait of Qomardeen Tijani"
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
                 decoding="async"
                 className="w-full h-full object-cover object-top"
               />

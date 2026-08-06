@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
@@ -222,6 +222,7 @@ const AIAssistantWidget = () => {
   const requestRef = useRef<AbortController | null>(null);
   const sendingRef = useRef(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAdmin } = useAdminAuth();
   const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
@@ -273,11 +274,13 @@ const AIAssistantWidget = () => {
     if (lastMsg?.role === 'assistant' && !isLoading) {
       const { navPath } = parseNavigation(lastMsg.content);
       if (navPath) {
-        const timer = setTimeout(() => navigate(navPath), 1500);
+        const currentLanguage = location.pathname.match(/^\/(en|ar|de|es|fr|ha|ig|pcm|pt|ru|yo)(?:\/|$)/)?.[1] ?? 'en';
+        const localizedPath = navPath === '/' ? `/${currentLanguage}` : `/${currentLanguage}${navPath}`;
+        const timer = setTimeout(() => navigate(localizedPath), 1500);
         return () => clearTimeout(timer);
       }
     }
-  }, [messages, isLoading, navigate]);
+  }, [messages, isLoading, location.pathname, navigate]);
 
   const playTTS = useCallback(async (text: string) => {
     if (!voiceEnabled) return;
@@ -514,7 +517,7 @@ const AIAssistantWidget = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-background/95"
+            className="fixed inset-0 z-40 bg-background/55"
             style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
             onClick={() => { setIsOpen(false); stopSpeaking(); }}
           />

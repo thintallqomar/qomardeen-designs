@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import ReactMarkdown from 'react-markdown';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -136,7 +137,9 @@ const ContentDetail = () => {
               )}
 
               {item.body_html && (
-                <div className="article-content" dangerouslySetInnerHTML={{ __html: item.body_html }} />
+                <div className="article-content prose prose-invert max-w-none">
+                  <ReactMarkdown>{item.body_html || ''}</ReactMarkdown>
+                </div>
               )}
 
               <div className="mt-10 pt-6 border-t border-border">

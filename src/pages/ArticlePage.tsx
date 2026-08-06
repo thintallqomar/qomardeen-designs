@@ -37,7 +37,7 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
       <p className="text-muted-foreground mb-8">{post.excerpt}</p>
       <div className="prose prose-invert max-w-none prose-p:text-muted-foreground prose-headings:text-foreground">
-        <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br/>') }} />
+        <p className="whitespace-pre-line">{post.content}</p>
       </div>
     </div>
   );

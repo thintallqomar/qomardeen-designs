@@ -1,10 +1,17 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
-import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
+import { X, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle, History, Plus, Trash2, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useAtlasHistory } from '@/hooks/useAtlasHistory';
+import IconTooltip from '@/components/IconTooltip';
+
+/** Other parts of the app (e.g. /admin/atlas) can open Atlas on a saved conversation. */
+export const ATLAS_OPEN_EVENT = 'atlas:open-thread';
+export const openAtlasThread = (threadId: string | null) =>
+  window.dispatchEvent(new CustomEvent(ATLAS_OPEN_EVENT, { detail: { threadId } }));
 
 declare global {
   interface Window {
@@ -226,6 +233,53 @@ const AIAssistantWidget = () => {
   const { isAdmin } = useAdminAuth();
   const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
+  // Admin-only cloud memory: threads + messages persist across sessions/devices.
+  const history = useAtlasHistory(isAdmin);
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const restoredRef = useRef(false);
+
+  const openThread = useCallback(async (threadId: string | null) => {
+    requestRef.current?.abort();
+    sendingRef.current = false;
+    setIsLoading(false);
+    setPendingBlogDraft(null);
+    setShowHistory(false);
+    setActiveThreadId(threadId);
+    history.rememberThread(threadId);
+    if (!threadId) { setMessages([]); return; }
+    setHistoryLoading(true);
+    const loaded = await history.loadMessages(threadId);
+    setMessages(loaded);
+    setHistoryLoading(false);
+  }, [history]);
+
+  // Restore the last conversation the admin was in when the panel first opens.
+  useEffect(() => {
+    if (!isOpen || !isAdmin || restoredRef.current) return;
+    restoredRef.current = true;
+    const last = history.lastThreadId();
+    if (last && messages.length === 0) void openThread(last);
+  }, [isOpen, isAdmin, history, openThread, messages.length]);
+
+  // Signed out → drop admin memory from the panel.
+  useEffect(() => {
+    if (!isAdmin) { setActiveThreadId(null); setShowHistory(false); restoredRef.current = false; }
+  }, [isAdmin]);
+
+  // Allow the admin history page to open a specific conversation here.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const id = (e as CustomEvent<{ threadId: string | null }>).detail?.threadId ?? null;
+      setIsOpen(true);
+      restoredRef.current = true;
+      void openThread(id);
+    };
+    window.addEventListener(ATLAS_OPEN_EVENT, handler);
+    return () => window.removeEventListener(ATLAS_OPEN_EVENT, handler);
+  }, [openThread]);
+
   const stopSpeaking = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
@@ -371,6 +425,16 @@ const AIAssistantWidget = () => {
       flushTimer = setTimeout(flush, 50);
     };
 
+    // Admin memory: make sure this conversation is saved in the cloud.
+    let threadId = activeThreadId;
+    if (isAdmin) {
+      if (!threadId) {
+        threadId = await history.createThread(userMsg.content.slice(0, 60));
+        if (threadId) { setActiveThreadId(threadId); history.rememberThread(threadId); }
+      }
+      if (threadId) void history.appendMessage(threadId, userMsg);
+    }
+
     try {
       await streamChat({
         messages: [...messages, userMsg],
@@ -382,6 +446,9 @@ const AIAssistantWidget = () => {
           sendingRef.current = false;
           requestRef.current = null;
           setIsLoading(false);
+          if (isAdmin && threadId && assistantSoFar) {
+            void history.appendMessage(threadId, { role: 'assistant', content: assistantSoFar });
+          }
           // Check for blog post draft in the response
           const { blogDraft } = parseBlogPost(assistantSoFar);
           if (blogDraft) {
@@ -557,6 +624,28 @@ const AIAssistantWidget = () => {
                 </div>
               </div>
               <div className="flex items-center gap-0.5">
+                {isAdmin && (
+                  <>
+                    <IconTooltip label="New conversation" side="bottom">
+                      <button
+                        onClick={() => void openThread(null)}
+                        aria-label="New conversation"
+                        className="p-2 rounded-xl hover:bg-foreground/5 transition-colors"
+                      >
+                        <Plus className="w-4 h-4 text-muted-foreground/60" />
+                      </button>
+                    </IconTooltip>
+                    <IconTooltip label={showHistory ? 'Back to chat' : 'Conversation history'} side="bottom">
+                      <button
+                        onClick={() => { setShowHistory(v => !v); if (!showHistory) void history.refreshThreads(); }}
+                        aria-label={showHistory ? 'Back to chat' : 'Conversation history'}
+                        className={`p-2 rounded-xl hover:bg-foreground/5 transition-colors ${showHistory ? 'text-primary' : ''}`}
+                      >
+                        {showHistory ? <ArrowLeft className="w-4 h-4" /> : <History className="w-4 h-4 text-muted-foreground/60" />}
+                      </button>
+                    </IconTooltip>
+                  </>
+                )}
                 <button
                   onClick={() => { setVoiceEnabled(!voiceEnabled); stopSpeaking(); }}
                   className="p-2 rounded-xl hover:bg-foreground/5 transition-colors"
@@ -570,6 +659,7 @@ const AIAssistantWidget = () => {
                 <button
                   onClick={() => { setIsOpen(false); stopSpeaking(); }}
                   className="p-2 rounded-xl hover:bg-foreground/5 transition-colors"
+                  aria-label="Close Atlas"
                 >
                   <X className="w-4 h-4 text-muted-foreground/60" />
                 </button>
@@ -579,9 +669,47 @@ const AIAssistantWidget = () => {
             {/* Divider */}
             <div className="mx-5 h-px bg-border/50" />
 
-            {/* Messages */}
+            {/* Admin: saved conversations */}
+            {isAdmin && showHistory ? (
+              <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-3 space-y-1 scrollbar-thin">
+                <p className="px-2 pb-2 text-[11px] uppercase tracking-wider text-muted-foreground/60">Saved conversations</p>
+                {history.loadingThreads && history.threads.length === 0 && (
+                  <div className="flex justify-center py-8"><Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /></div>
+                )}
+                {!history.loadingThreads && history.threads.length === 0 && (
+                  <p className="px-2 py-8 text-center text-xs text-muted-foreground">No saved conversations yet. Start chatting and Atlas will remember it.</p>
+                )}
+                {history.threads.map(t => (
+                  <div
+                    key={t.id}
+                    className={`group flex items-center gap-2 rounded-2xl px-3 py-2.5 transition-colors ${
+                      t.id === activeThreadId ? 'bg-primary/10' : 'hover:bg-foreground/[0.04]'
+                    }`}
+                  >
+                    <button onClick={() => void openThread(t.id)} className="flex-1 min-w-0 text-left">
+                      <p className={`text-[13px] truncate ${t.id === activeThreadId ? 'text-primary font-medium' : 'text-foreground/85'}`}>{t.title}</p>
+                      <p className="text-[10px] text-muted-foreground/60">
+                        {new Date(t.updated_at).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                      </p>
+                    </button>
+                    <IconTooltip label="Delete" side="left">
+                      <button
+                        onClick={() => { void history.deleteThread(t.id); if (t.id === activeThreadId) void openThread(null); }}
+                        aria-label={`Delete conversation ${t.title}`}
+                        className="p-1.5 rounded-lg text-muted-foreground/50 hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </IconTooltip>
+                  </div>
+                ))}
+              </div>
+            ) : (
             <div ref={messagesScrollRef} className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-4 scrollbar-thin">
-              {messages.length === 0 && (
+              {historyLoading && (
+                <div className="flex justify-center py-8"><Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /></div>
+              )}
+              {messages.length === 0 && !historyLoading && (
                 <div className="flex flex-col items-center justify-center h-full gap-6">
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-14 h-14 rounded-3xl bg-foreground/5 flex items-center justify-center text-foreground/70">
@@ -674,6 +802,7 @@ const AIAssistantWidget = () => {
 
               <div aria-hidden="true" />
             </div>
+            )}
 
             {/* Input — modern textarea style */}
             <div className="px-4 pb-4 pt-2">

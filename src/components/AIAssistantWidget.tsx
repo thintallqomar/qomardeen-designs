@@ -425,6 +425,16 @@ const AIAssistantWidget = () => {
       flushTimer = setTimeout(flush, 50);
     };
 
+    // Admin memory: make sure this conversation is saved in the cloud.
+    let threadId = activeThreadId;
+    if (isAdmin) {
+      if (!threadId) {
+        threadId = await history.createThread(userMsg.content.slice(0, 60));
+        if (threadId) { setActiveThreadId(threadId); history.rememberThread(threadId); }
+      }
+      if (threadId) void history.appendMessage(threadId, userMsg);
+    }
+
     try {
       await streamChat({
         messages: [...messages, userMsg],
@@ -436,6 +446,9 @@ const AIAssistantWidget = () => {
           sendingRef.current = false;
           requestRef.current = null;
           setIsLoading(false);
+          if (isAdmin && threadId && assistantSoFar) {
+            void history.appendMessage(threadId, { role: 'assistant', content: assistantSoFar });
+          }
           // Check for blog post draft in the response
           const { blogDraft } = parseBlogPost(assistantSoFar);
           if (blogDraft) {

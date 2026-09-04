@@ -802,6 +802,7 @@ const AIAssistantWidget = () => {
 
               <div aria-hidden="true" />
             </div>
+            )}
 
             {/* Input — modern textarea style */}
             <div className="px-4 pb-4 pt-2">

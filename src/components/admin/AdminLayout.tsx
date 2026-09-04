@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { useTheme } from '@/hooks/useTheme';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
@@ -17,6 +17,7 @@ const links = [
   { to: '/admin/content/resources', label: 'Resources', icon: Download },
   { to: '/admin/media', label: 'Media', icon: Images },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { to: '/admin/atlas', label: 'Atlas Memory', icon: MessageSquare },
 ];
 
 /** Sign out automatically after this much inactivity. */

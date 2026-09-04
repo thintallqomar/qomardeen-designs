@@ -233,6 +233,53 @@ const AIAssistantWidget = () => {
   const { isAdmin } = useAdminAuth();
   const suggestedPrompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
 
+  // Admin-only cloud memory: threads + messages persist across sessions/devices.
+  const history = useAtlasHistory(isAdmin);
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const restoredRef = useRef(false);
+
+  const openThread = useCallback(async (threadId: string | null) => {
+    requestRef.current?.abort();
+    sendingRef.current = false;
+    setIsLoading(false);
+    setPendingBlogDraft(null);
+    setShowHistory(false);
+    setActiveThreadId(threadId);
+    history.rememberThread(threadId);
+    if (!threadId) { setMessages([]); return; }
+    setHistoryLoading(true);
+    const loaded = await history.loadMessages(threadId);
+    setMessages(loaded);
+    setHistoryLoading(false);
+  }, [history]);
+
+  // Restore the last conversation the admin was in when the panel first opens.
+  useEffect(() => {
+    if (!isOpen || !isAdmin || restoredRef.current) return;
+    restoredRef.current = true;
+    const last = history.lastThreadId();
+    if (last && messages.length === 0) void openThread(last);
+  }, [isOpen, isAdmin, history, openThread, messages.length]);
+
+  // Signed out → drop admin memory from the panel.
+  useEffect(() => {
+    if (!isAdmin) { setActiveThreadId(null); setShowHistory(false); restoredRef.current = false; }
+  }, [isAdmin]);
+
+  // Allow the admin history page to open a specific conversation here.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const id = (e as CustomEvent<{ threadId: string | null }>).detail?.threadId ?? null;
+      setIsOpen(true);
+      restoredRef.current = true;
+      void openThread(id);
+    };
+    window.addEventListener(ATLAS_OPEN_EVENT, handler);
+    return () => window.removeEventListener(ATLAS_OPEN_EVENT, handler);
+  }, [openThread]);
+
   const stopSpeaking = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();

@@ -1,10 +1,17 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
-import { X, Send, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle } from 'lucide-react';
+import { X, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, FileText, Check, XCircle, History, Plus, Trash2, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useAtlasHistory } from '@/hooks/useAtlasHistory';
+import IconTooltip from '@/components/IconTooltip';
+
+/** Other parts of the app (e.g. /admin/atlas) can open Atlas on a saved conversation. */
+export const ATLAS_OPEN_EVENT = 'atlas:open-thread';
+export const openAtlasThread = (threadId: string | null) =>
+  window.dispatchEvent(new CustomEvent(ATLAS_OPEN_EVENT, { detail: { threadId } }));
 
 declare global {
   interface Window {

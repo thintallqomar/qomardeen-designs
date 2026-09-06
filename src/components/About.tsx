@@ -1,4 +1,5 @@
-import { GraduationCap, Briefcase, MapPin } from 'lucide-react';
+import { GraduationCap, Briefcase, MapPin, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
@@ -12,11 +13,17 @@ const About = () => {
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">About Qomardeen Tijani — Product Designer</h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center mb-10 md:mb-16">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 leading-tight">About Qomardeen Tijani — Product Designer</h1>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Product Designer building scalable, user-centered digital products.
               </p>
+              <Button asChild className="mt-6">
+                <a href="/Qomardeen-Tijani-Resume.pdf" download="Qomardeen-Tijani-Resume.pdf">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
+              </Button>
             </div>
           </ScrollReveal>
 
@@ -26,11 +33,11 @@ const About = () => {
               whileHover={{ y: -2 }}
               transition={{ duration: 0.3, ease }}
             >
-              <div className="flex items-start gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5 mb-6">
                 <Icon3D variant="blue" size="md">
                   <MapPin />
                 </Icon3D>
-                <div className="space-y-4">
+                <div className="space-y-4 text-[15px] md:text-base">
                   <p className="text-muted-foreground leading-relaxed">
                     I'm a Product Designer focused on building clear, structured, and high-impact digital products across SaaS platforms, internal tools, and consumer-facing experiences. I combine product thinking, UX reasoning, and strong visual execution to design interfaces that help users complete tasks efficiently and with confidence.
                   </p>
@@ -51,7 +58,7 @@ const About = () => {
             </motion.div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-2 gap-8" staggerDelay={0.15} equalHeight>
+          <StaggeredReveal className="grid md:grid-cols-2 gap-5 md:gap-8" staggerDelay={0.15} equalHeight>
             {/* Education */}
             <motion.div
               className="card-elegant h-full flex flex-col"
@@ -94,12 +101,15 @@ const About = () => {
                   <p className="text-sm text-muted-foreground mb-1">Shipped live digital products across dashboards, SaaS tools, landing pages, and fintech platforms</p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
                     <h4 className="font-medium">Project Manager</h4>
                     <span className="text-sm text-muted-foreground">2024–Present</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-1">Oladel Global Resources Limited</p>
-                  <p className="text-xs text-muted-foreground">Coordinated timelines, planning, and execution</p>
+                  <p className="text-xs text-muted-foreground mb-1">Promoted from Project Manager Intern (2023–2024)</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Own end-to-end project planning, timelines, and delivery across cross-functional teams — keeping scope, budget, and quality on track. Introduced structured workflows and reporting that improved execution predictability and stakeholder visibility, while coordinating client communication, resourcing, and risk management from kickoff through handover.
+                  </p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
                   <h4 className="font-medium">Independent Fashion Designer</h4>

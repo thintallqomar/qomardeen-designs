@@ -58,7 +58,7 @@ const About = () => {
             </motion.div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-2 gap-8" staggerDelay={0.15} equalHeight>
+          <StaggeredReveal className="grid md:grid-cols-2 gap-5 md:gap-8" staggerDelay={0.15} equalHeight>
             {/* Education */}
             <motion.div
               className="card-elegant h-full flex flex-col"
@@ -101,12 +101,15 @@ const About = () => {
                   <p className="text-sm text-muted-foreground mb-1">Shipped live digital products across dashboards, SaaS tools, landing pages, and fintech platforms</p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
                     <h4 className="font-medium">Project Manager</h4>
                     <span className="text-sm text-muted-foreground">2024–Present</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-1">Oladel Global Resources Limited</p>
-                  <p className="text-xs text-muted-foreground">Coordinated timelines, planning, and execution</p>
+                  <p className="text-xs text-muted-foreground mb-1">Promoted from Project Manager Intern (2023–2024)</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Own end-to-end project planning, timelines, and delivery across cross-functional teams — keeping scope, budget, and quality on track. Introduced structured workflows and reporting that improved execution predictability and stakeholder visibility, while coordinating client communication, resourcing, and risk management from kickoff through handover.
+                  </p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
                   <h4 className="font-medium">Independent Fashion Designer</h4>

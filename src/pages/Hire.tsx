@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import profileImage from '@/assets/qomardeen-profile.jpg';
 import PageSEO from '@/components/PageSEO';
+import InquiryForm from '@/components/InquiryForm';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -296,6 +297,23 @@ const Hire = () => {
                     </motion.div>
                   ))}
                 </StaggeredReveal>
+              </div>
+            </section>
+
+            {/* ── Inquiry Form ── */}
+            <section id="inquiry" className="section-padding">
+              <div className="container-custom">
+                <div className="max-w-3xl mx-auto">
+                  <ScrollReveal>
+                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Start a Project</h2>
+                    <p className="text-muted-foreground text-center max-w-xl mx-auto mb-10">
+                      Share a few details and I'll come back with next steps, timing, and a realistic scope.
+                    </p>
+                  </ScrollReveal>
+                  <ScrollReveal delay={0.1}>
+                    <InquiryForm />
+                  </ScrollReveal>
+                </div>
               </div>
             </section>
 

@@ -4,12 +4,13 @@ import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { useTheme } from '@/hooks/useTheme';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare, Inbox,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
 const links = [
   { to: '/admin', end: true, label: 'Overview', icon: LayoutDashboard },
+  { to: '/admin/inquiries', label: 'Inquiries', icon: Inbox },
   { to: '/admin/content/case-studies', label: 'Case Studies', icon: Briefcase },
   { to: '/admin/content/articles', label: 'Articles', icon: FileText },
   { to: '/admin/content/thinking', label: 'Thinking', icon: Lightbulb },

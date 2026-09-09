@@ -32,6 +32,7 @@ const AdminContentList = lazy(() => import("./pages/admin/ContentList"));
 const AdminContentEditor = lazy(() => import("./pages/admin/ContentEditor"));
 const AdminMediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const AdminAtlasHistory = lazy(() => import("./pages/admin/AtlasHistory"));
+const AdminInquiries = lazy(() => import("./pages/admin/Inquiries"));
 const ExploreHub = lazy(() => import("./pages/explore/ExploreHub"));
 const ExploreSection = lazy(() => import("./pages/explore/ExploreSection"));
 const ContentDetail = lazy(() => import("./pages/explore/ContentDetail"));
@@ -171,6 +172,7 @@ const AnimatedRoutes = () => {
           <Route path="/admin/content/:typePath" element={<RequireStaff><AdminContentList /></RequireStaff>} />
           <Route path="/admin/content/:typePath/:id" element={<RequireStaff><AdminContentEditor /></RequireStaff>} />
           <Route path="/admin/media" element={<RequireStaff><AdminMediaLibrary /></RequireStaff>} />
+          <Route path="/admin/inquiries" element={<RequireStaff><AdminInquiries /></RequireStaff>} />
           <Route path="/admin/atlas" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />
           <Route path="/admin/atlas/:threadId" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />
           <Route path="/admin/analytics" element={<RequireStaff><AdminAnalytics /></RequireStaff>} />

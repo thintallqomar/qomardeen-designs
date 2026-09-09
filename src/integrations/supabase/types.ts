@@ -775,7 +775,12 @@ export type Database = {
     Enums: {
       app_role: "admin" | "moderator" | "user" | "editor" | "contributor"
       content_status: "draft" | "published" | "scheduled" | "archived"
-      content_type: "article" | "thinking" | "architecture" | "resource"
+      content_type:
+        | "article"
+        | "thinking"
+        | "architecture"
+        | "resource"
+        | "case_study"
       content_visibility: "public" | "unlisted" | "private"
     }
     CompositeTypes: {
@@ -906,7 +911,13 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "moderator", "user", "editor", "contributor"],
       content_status: ["draft", "published", "scheduled", "archived"],
-      content_type: ["article", "thinking", "architecture", "resource"],
+      content_type: [
+        "article",
+        "thinking",
+        "architecture",
+        "resource",
+        "case_study",
+      ],
       content_visibility: ["public", "unlisted", "private"],
     },
   },

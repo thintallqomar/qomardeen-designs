@@ -160,9 +160,14 @@
     line-height: 1.6;
   }
 
+  /* One display face for every heading level; Inter stays for body copy. */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-display font-semibold tracking-tight;
   }
+
+  h1 { line-height: 1.12; }
+  h2, h3 { line-height: 1.2; }
+  h4, h5, h6 { line-height: 1.3; }
 
   /* Arabic typography overrides — reset tight spacing for connected script */
   [dir="rtl"] {

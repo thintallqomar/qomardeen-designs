@@ -34,7 +34,7 @@ const FallbackArticle = ({ slug }: { slug: string }) => {
       <button onClick={() => navigate('/blog')} className="text-primary hover:underline text-sm mb-8 block">
         ← Back to Blog
       </button>
-      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-muted-foreground mb-8">{post.excerpt}</p>
       <div className="prose prose-invert max-w-none prose-p:text-muted-foreground prose-headings:text-foreground">
         <p className="whitespace-pre-line">{post.content}</p>

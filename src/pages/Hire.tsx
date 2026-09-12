@@ -108,7 +108,7 @@ const Hire = () => {
                           <Sparkles className="w-4 h-4 mr-1" />
                           Available for full time roles & freelance projects
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">
                           Let's Build Something<br />
                           <span className="text-primary">Users Love</span>
                         </h1>

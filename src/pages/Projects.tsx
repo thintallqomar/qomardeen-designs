@@ -116,7 +116,7 @@ const Projects = () => {
                   {featuredProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
-                        <h2 className="text-2xl font-semibold mb-8 text-center">Featured Work</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Featured Work</h2>
                       </ScrollReveal>
                       <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         {featuredProjects.map((project, index) => (
@@ -196,7 +196,7 @@ const Projects = () => {
                   {placeholderProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
-                        <h2 className="text-2xl font-semibold mb-8 text-center">More Projects</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">More Projects</h2>
                       </ScrollReveal>
                       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {placeholderProjects.map((project, index) => (

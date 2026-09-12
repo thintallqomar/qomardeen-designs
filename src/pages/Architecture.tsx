@@ -167,7 +167,7 @@ const Architecture = () => {
                         <CircuitBoard className="w-4 h-4 mr-2" />
                         Systems Thinking in Practice
                       </div>
-                      <h1 className="text-3xl md:text-5xl font-bold mb-4">Architecture & System Design</h1>
+                      <h1 className="text-4xl md:text-5xl font-bold mb-4">Architecture & System Design</h1>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         How I think about product systems, data structures, and the engineering decisions behind scalable design.
                       </p>

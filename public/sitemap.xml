@@ -76,4 +76,34 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/case-studies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/case-studies/uptime-cmms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/case-studies/walpay</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/articles/complex-workflows-simple-screens</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/articles/running-a-design-project</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://qomardeentijani.lovable.app/en/explore/thinking/trust-is-a-design-material</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

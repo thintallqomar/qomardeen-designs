@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, MapPin, Download } from 'lucide-react';
+import { GraduationCap, Briefcase, MapPin, Download, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
@@ -73,11 +73,17 @@ const About = () => {
               </div>
               <div className="space-y-6">
                 <div className="border-l-2 border-primary pl-4">
-                  <h4 className="font-medium">Product Design</h4>
-                  <p className="text-sm text-muted-foreground mb-1">AltSchool Africa</p>
+                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1">
+                    <h4 className="font-medium">School of Product — Product Design</h4>
+                    <span className="text-sm text-muted-foreground">Jul 2025 – Jun 2026</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-1">AltSchool Africa, Lagos, Nigeria</p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
-                  <h4 className="font-medium">B.Sc. Human Anatomy</h4>
+                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1">
+                    <h4 className="font-medium">B.Sc. Human Anatomy</h4>
+                    <span className="text-sm text-muted-foreground">Aug 2008 – Jun 2014</span>
+                  </div>
                   <p className="text-sm text-muted-foreground mb-1">Ladoke Akintola University of Technology</p>
                 </div>
               </div>
@@ -97,8 +103,21 @@ const About = () => {
               </div>
               <div className="space-y-6">
                 <div className="border-l-2 border-primary pl-4">
-                  <h4 className="font-medium">Product Designer</h4>
-                  <p className="text-sm text-muted-foreground mb-1">Shipped live digital products across dashboards, SaaS tools, landing pages, and fintech platforms</p>
+                  <h4 className="font-medium">Product Designer — WalPay</h4>
+                  <p className="text-sm text-muted-foreground mb-1">FinTech mobile application</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Design onboarding, wallet management, and payment screens for a fintech app — using research, wireframing, and prototyping to simplify complex financial workflows and reduce friction during transactions.
+                  </p>
+                </div>
+                <div className="border-l-2 border-muted pl-4">
+                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
+                    <h4 className="font-medium">Product Designer — UpTime HQ</h4>
+                    <span className="text-sm text-muted-foreground">Aug 2025 – Jan 2026</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-1">Lagos, Nigeria</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Led end-to-end UX/UI design of a CMMS platform — research, wireframes, and high-fidelity prototypes in Figma — plus landing pages and core product architecture across authentication, payments, and support. Worked with project managers and engineers in an Agile team to speed up delivery.
+                  </p>
                 </div>
                 <div className="border-l-2 border-muted pl-4">
                   <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
@@ -117,7 +136,38 @@ const About = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* Certifications */}
+            <motion.div
+              className="card-elegant h-full flex flex-col md:col-span-2"
+              whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
+              transition={{ duration: 0.3, ease }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <Icon3D variant="violet" size="md">
+                  <Award />
+                </Icon3D>
+                <h3 className="text-xl font-semibold">Certifications</h3>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                {[
+                  ['Product Design (Diploma)', 'AltSchool Africa — Jul 2026'],
+                  ['Foundations of Project Management', 'Google (Coursera) — Jan 2024'],
+                  ['Foundations of User Experience (UX) Design', 'Google (Coursera) — Jan 2023'],
+                  ['Jobberman Soft Skills Course', 'Jobberman — Jan 2022'],
+                  ['Visual Elements of User Interface Design', 'California Institute of the Arts (Coursera) — Jan 2022'],
+                  ['Web Design: Strategy and Information Architecture', 'California Institute of the Arts (Coursera) — Jan 2022'],
+                  ['UX Design Fundamentals', 'California Institute of the Arts (Coursera) — Jan 2022'],
+                ].map(([title, meta]) => (
+                  <li key={title} className="border-l-2 border-muted pl-4">
+                    <h4 className="font-medium text-[15px]">{title}</h4>
+                    <p className="text-sm text-muted-foreground">{meta}</p>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </StaggeredReveal>
+
         </div>
       </div>
     </section>

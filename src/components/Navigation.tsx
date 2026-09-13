@@ -99,14 +99,6 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link to={localizedPath('/')} className="flex items-center gap-2 group shrink-0">
-            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:scale-105">
-              <rect x="2" y="2" width="44" height="44" rx="12" className="fill-primary/10 stroke-primary" strokeWidth="2.5"/>
-              <path d="M14 14h8v8h-8z" className="fill-primary" rx="2"/>
-              <path d="M26 14h8v8h-8z" className="fill-primary/60" rx="2"/>
-              <path d="M14 26h8v8h-8z" className="fill-primary/60" rx="2"/>
-              <path d="M26 26h8v8H30l-4-4v-4z" className="fill-primary" rx="2"/>
-              <path d="M34 34l4 4" className="stroke-primary" strokeWidth="2.5" strokeLinecap="round"/>
-            </svg>
             <span className="text-lg font-bold tracking-tight">
               <span className="bg-gradient-primary bg-clip-text text-transparent">Qomardeen</span>
               <span className="text-foreground"> Tijani</span>

@@ -25,6 +25,7 @@ const Thinking = lazy(() => import("./pages/Thinking"));
 const Hire = lazy(() => import("./pages/Hire"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminResetPassword = lazy(() => import("./pages/AdminResetPassword"));
 const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
 const AdminAnalytics = lazy(() => import("./pages/AdminAnalytics"));
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -166,6 +167,7 @@ const AnimatedRoutes = () => {
           
           {/* Admin routes (not localized) */}
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/reset-password" element={<AdminResetPassword />} />
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           <Route path="/admin" element={<RequireStaff><AdminDashboard /></RequireStaff>} />
           <Route path="/dashboard" element={<Navigate to="/admin" replace />} />

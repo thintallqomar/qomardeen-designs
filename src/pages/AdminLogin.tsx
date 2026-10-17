@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Lock, Loader2, ArrowLeft } from 'lucide-react';
+import { Lock, Loader2, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Icon3D from '@/components/Icon3D';
 
@@ -16,6 +16,22 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [lockedUntil, setLockedUntil] = useState<number | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [resetSending, setResetSending] = useState(false);
+
+  const handleForgot = async () => {
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      toast.error('Enter your email above first, then click "Forgot password?"');
+      return;
+    }
+    setResetSending(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/admin/reset-password`,
+    });
+    setResetSending(false);
+    if (error) toast.error(error.message);
+    else toast.success('If that email has an account, a reset link is on its way.');
+  };
 
   const guard = async (payload: Record<string, unknown>) => {
     try {
@@ -101,14 +117,34 @@ const AdminLogin = () => {
               required
               className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary"
             />
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="Password"
-              required
-              className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+                className="w-full pl-4 pr-11 py-2.5 bg-secondary border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(v => !v)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+            <div className="text-right -mt-1">
+              <button
+                type="button"
+                onClick={handleForgot}
+                disabled={resetSending}
+                className="text-xs text-primary hover:underline disabled:opacity-50"
+              >
+                {resetSending ? 'Sending…' : 'Forgot password?'}
+              </button>
+            </div>
             <button
               type="submit"
               disabled={loading || !!(lockedUntil && Date.now() < lockedUntil)}

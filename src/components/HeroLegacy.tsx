@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Eye, Briefcase } from 'lucide-react';
+import { ArrowRight, Sparkles, Eye, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
@@ -55,15 +55,15 @@ const HeroLegacy = () => {
             </motion.div>
 
             <motion.div className="flex flex-col sm:flex-row gap-3 pt-2 w-fit" variants={fadeUp}>
-              <motion.button onClick={() => navigate('/projects/uptime')} className="modern-btn inline-flex items-center justify-center gap-2.5 group px-8" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
+              <motion.button onClick={() => navigate('/projects')} className="modern-btn inline-flex items-center justify-center gap-2.5 group px-8" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
                 <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 {t('hero.cta_explore')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.button>
-              <motion.button onClick={() => navigate('/hire')} className="outline-btn inline-flex items-center justify-center gap-2.5 group px-8" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
-                <Briefcase className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                {t('hero.cta_hire')}
-              </motion.button>
+              <motion.a href="/Qomardeen-Tijani-Resume.pdf" download className="outline-btn inline-flex items-center justify-center gap-2.5 group px-8" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
+                <Download className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                {t('hero.cta_cv')}
+              </motion.a>
             </motion.div>
 
             <motion.div className="flex flex-wrap gap-2 pt-2" variants={fadeUp}>

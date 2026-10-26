@@ -26,7 +26,8 @@
       "Echiche Usoro",
       "Njikọ AI"
     ],
-    "badge": "Onye Nhazi Ngwaahịa"
+    "badge": "Onye Nhazi Ngwaahịa",
+    "cta_cv": "Budata CV"
   },
   "metrics": {
     "projects": "Ọrụ Enyere",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "Ị debanyela aha!",
     "successToast": "Edebanyela aha! Nnọọ.",
     "errorToast": "Ihe mere. Biko nwaa ọzọ."
+  },
+  "homeIntro": {
+    "title": "Nhazi nke na-aga n'ihu",
+    "body": "Ana m ahazi ngwaahịa maka fintech, SaaS na ngwaọrụ AI, ma na-arụ ọrụ nso na koodu ka echiche rute mmepụta.",
+    "cta": "Mụtakwuo banyere m",
+    "viewAll": "Lelee ọrụ niile"
+  },
+  "homeCta": {
+    "title": "Ị nwere ọrụ n'uche?",
+    "body": "Gwa m ihe ị na-ewu, m azaghachi gị.",
+    "cta": "Kpọtụrụ m"
   }
 }

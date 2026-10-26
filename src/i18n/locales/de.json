@@ -26,7 +26,8 @@
       "Systemdenken",
       "KI-Integration"
     ],
-    "badge": "Produktdesigner"
+    "badge": "Produktdesigner",
+    "cta_cv": "CV herunterladen"
   },
   "metrics": {
     "projects": "Abgeschlossene Projekte",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "Sie sind bereits abonniert!",
     "successToast": "Abonniert! Willkommen.",
     "errorToast": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
+  "homeIntro": {
+    "title": "Design, das ausgeliefert wird",
+    "body": "Ich gestalte Produkte für Fintech, SaaS und KI-native Tools und arbeite nah am Code, damit Ideen unversehrt in der Produktion ankommen.",
+    "cta": "Mehr über mich",
+    "viewAll": "Alle Projekte ansehen"
+  },
+  "homeCta": {
+    "title": "Haben Sie ein Projekt im Kopf?",
+    "body": "Erzählen Sie mir, was Sie bauen — ich melde mich bei Ihnen.",
+    "cta": "Kontakt aufnehmen"
   }
 }

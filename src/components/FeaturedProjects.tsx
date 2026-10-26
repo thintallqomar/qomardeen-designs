@@ -1,7 +1,8 @@
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import uptimeCover from '@/assets/uptime-cover.png';
@@ -9,9 +10,13 @@ import walpayCover from '@/assets/walpay/frame-01.png';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
+const btnFocus =
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+
 const FeaturedProjects = () => {
   const navigate = useLocalizedNavigate();
   const { t } = useTranslation();
+  const localizedPath = useLocalizedPath();
 
   const projects = [
     {
@@ -57,6 +62,16 @@ const FeaturedProjects = () => {
             </motion.div>
           ))}
         </StaggeredReveal>
+
+        <div className="mt-10 text-center">
+          <Link
+            to={localizedPath('/projects')}
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors ${btnFocus}`}
+          >
+            {t('homeIntro.viewAll')}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );

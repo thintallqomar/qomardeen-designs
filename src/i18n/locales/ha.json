@@ -26,7 +26,8 @@
       "Tunani na Tsari",
       "Haɗa AI"
     ],
-    "badge": "Mai Tsara Kaya"
+    "badge": "Mai Tsara Kaya",
+    "cta_cv": "Sauke CV"
   },
   "metrics": {
     "projects": "Ayyukan Da Aka Isar",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "Ka riga ka yi rajista!",
     "successToast": "An yi rajista! Barka da zuwa.",
     "errorToast": "Wani abu ya faru. Da fatan za a sake gwadawa."
+  },
+  "homeIntro": {
+    "title": "Zane mai isa ga aiwatarwa",
+    "body": "Ina tsara kayayyaki na fintech, SaaS da na AI, kuma ina aiki kusa da code domin ra'ayoyi su kai ga aiwatarwa kamar yadda suke.",
+    "cta": "Kara sani game da ni",
+    "viewAll": "Duba dukkan ayyuka"
+  },
+  "homeCta": {
+    "title": "Kana da wani aiki a zuciyarka?",
+    "body": "Ka gaya mini abin da kake ginawa, zan amsa maka.",
+    "cta": "Tuntuɓe ni"
   }
 }

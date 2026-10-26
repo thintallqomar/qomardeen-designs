@@ -26,7 +26,8 @@
       "Systems Thinking",
       "AI Integration"
     ],
-    "badge": "Product Designer"
+    "badge": "Product Designer",
+    "cta_cv": "Download CV"
   },
   "metrics": {
     "projects": "Projects Wey Don Deliver",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "You don subscribe before!",
     "successToast": "You don subscribe! Welcome.",
     "errorToast": "Something no work. Abeg try again."
+  },
+  "homeIntro": {
+    "title": "Design wey dey work",
+    "body": "I dey design products for fintech, SaaS and AI tools, and I dey work close to the code so ideas fit reach production as dem be.",
+    "cta": "Know more about me",
+    "viewAll": "See all work"
+  },
+  "homeCta": {
+    "title": "You get project for mind?",
+    "body": "Tell me wetin you dey build and I go reply you.",
+    "cta": "Reach out"
   }
 }

@@ -26,7 +26,8 @@
       "Pensée Systémique",
       "Intégration IA"
     ],
-    "badge": "Designer Produit"
+    "badge": "Designer Produit",
+    "cta_cv": "Télécharger le CV"
   },
   "metrics": {
     "projects": "Projets Livrés",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "Vous êtes déjà inscrit !",
     "successToast": "Inscrit ! Bienvenue.",
     "errorToast": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "homeIntro": {
+    "title": "Un design qui se livre",
+    "body": "Je conçois des produits dans la fintech, le SaaS et les outils natifs IA, et je travaille au plus près du code pour que les idées arrivent intactes en production.",
+    "cta": "En savoir plus sur moi",
+    "viewAll": "Voir tous les projets"
+  },
+  "homeCta": {
+    "title": "Un projet en tête ?",
+    "body": "Parlez-moi de ce que vous créez et je vous réponds.",
+    "cta": "Me contacter"
   }
 }

@@ -26,7 +26,8 @@
       "Systems Thinking",
       "AI Integration"
     ],
-    "badge": "Product Designer"
+    "badge": "Product Designer",
+    "cta_cv": "Download CV"
   },
   "metrics": {
     "items": [
@@ -148,5 +149,16 @@
     "alreadySubscribed": "You're already subscribed!",
     "successToast": "Subscribed! Welcome aboard.",
     "errorToast": "Something went wrong. Please try again."
+  },
+  "homeIntro": {
+    "title": "Design that ships",
+    "body": "I design products across fintech, SaaS and AI-native tools, and I work close to the code so ideas make it to production intact.",
+    "cta": "Learn more about me",
+    "viewAll": "View all work"
+  },
+  "homeCta": {
+    "title": "Have a project in mind?",
+    "body": "Tell me what you're building and I'll get back to you.",
+    "cta": "Get in touch"
   }
 }

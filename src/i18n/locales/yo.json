@@ -26,7 +26,8 @@
       "Ìrònú Ètò",
       "Ìdapọ̀ AI"
     ],
-    "badge": "Olùṣe Àpẹẹrẹ Ọja"
+    "badge": "Olùṣe Àpẹẹrẹ Ọja",
+    "cta_cv": "Gba CV sílẹ̀"
   },
   "metrics": {
     "projects": "Iṣẹ́ Tí A Fi Ránṣẹ́",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "O ti forúkọsílẹ̀ tẹ́lẹ̀!",
     "successToast": "Ó ti forúkọsílẹ̀! Ẹ kú àbọ̀.",
     "errorToast": "Ohun kan ṣẹlẹ̀. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i."
+  },
+  "homeIntro": {
+    "title": "Àpẹẹrẹ Tí Ó Ń Ṣiṣẹ́",
+    "body": "Mo ń ṣe àpẹẹrẹ ọja fún fintech, SaaS àti àwọn irinṣẹ́ AI, mo sì ń ṣiṣẹ́ pẹ̀lú kódù kí àwọn àpẹẹrẹ dé ibi iṣẹ́ dáadáa.",
+    "cta": "Kọ́ ọ̀pọ̀ nípa mi",
+    "viewAll": "Wo gbogbo iṣẹ́"
+  },
+  "homeCta": {
+    "title": "Ṣé o ní iṣẹ́ lọ́kàn?",
+    "body": "Sọ fún mi ohun tí o ń kọ, mo sì yá èsì ránṣẹ́ sí o.",
+    "cta": "Kàn sí mi"
   }
 }

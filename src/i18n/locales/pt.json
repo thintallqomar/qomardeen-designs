@@ -26,7 +26,8 @@
       "Pensamento Sistêmico",
       "Integração de IA"
     ],
-    "badge": "Designer de Produto"
+    "badge": "Designer de Produto",
+    "cta_cv": "Descarregar CV"
   },
   "metrics": {
     "projects": "Projetos Entregues",
@@ -134,5 +135,16 @@
     "alreadySubscribed": "Você já está inscrito!",
     "successToast": "Inscrito! Bem-vindo.",
     "errorToast": "Algo deu errado. Tente novamente."
+  },
+  "homeIntro": {
+    "title": "Design que chega à produção",
+    "body": "Projeto produtos para fintech, SaaS e ferramentas nativas de IA, e trabalho perto do código para que as ideias cheguem à produção intactas.",
+    "cta": "Saiba mais sobre mim",
+    "viewAll": "Ver todos os projetos"
+  },
+  "homeCta": {
+    "title": "Tem um projeto em mente?",
+    "body": "Conte-me o que está a construir e eu respondo-lhe.",
+    "cta": "Entrar em contacto"
   }
 }

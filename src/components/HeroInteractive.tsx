@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { ArrowDown, ArrowRight, Briefcase } from 'lucide-react';
+import { ArrowDown, ArrowRight, Download } from 'lucide-react';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
@@ -104,13 +104,14 @@ const HeroInteractive = () => {
                 {t('hero.cta_explore')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button
-                onClick={() => navigate('/hire')}
+              <a
+                href="/Qomardeen-Tijani-Resume.pdf"
+                download
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                <Briefcase className="w-4 h-4" />
-                {t('hero.cta_hire')}
-              </button>
+                <Download className="w-4 h-4" />
+                {t('hero.cta_cv')}
+              </a>
             </motion.div>
 
             {/* Skills */}

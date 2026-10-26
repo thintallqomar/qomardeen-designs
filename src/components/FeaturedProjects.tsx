@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
+import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import uptimeCover from '@/assets/uptime-cover.png';
@@ -14,6 +14,7 @@ const btnFocus =
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
 const FeaturedProjects = () => {
+  const navigate = useLocalizedNavigate();
   const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
 

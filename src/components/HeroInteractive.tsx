@@ -179,6 +179,8 @@ const HeroInteractive = () => {
           <ArrowDown className="w-4 h-4" />
         </motion.button>
       </IconTooltip>
+
+      <CVViewer open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>
   );
 };

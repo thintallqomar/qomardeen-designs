@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import Icon3D from './Icon3D';
+import cvAsset from '@/assets/Qomardeen_Tijani_CV.pdf.asset.json';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

@@ -27,7 +27,8 @@
       "AI Integration"
     ],
     "badge": "Product Designer",
-    "cta_cv": "Download CV"
+    "cta_cv": "Download CV",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Projects Wey Don Deliver",
@@ -146,5 +147,11 @@
     "title": "You get project for mind?",
     "body": "Tell me wetin you dey build and I go reply you.",
     "cta": "Reach out"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani CV",
+    "download": "Dawnload",
+    "close": "Klos am",
+    "viewerLabel": "CV viuwa"
   }
 }

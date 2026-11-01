@@ -83,7 +83,8 @@ const CVViewer = ({ open, onClose }: CVViewerProps) => {
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

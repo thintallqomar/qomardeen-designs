@@ -27,7 +27,8 @@
       "Haɗa AI"
     ],
     "badge": "Mai Tsara Kaya",
-    "cta_cv": "Sauke CV"
+    "cta_cv": "Sauke CV",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Ayyukan Da Aka Isar",
@@ -146,5 +147,11 @@
     "title": "Kana da wani aiki a zuciyarka?",
     "body": "Ka gaya mini abin da kake ginawa, zan amsa maka.",
     "cta": "Tuntuɓe ni"
+  },
+  "cv": {
+    "viewerTitle": "CV na Qomardeen Tijani",
+    "download": "Sauka",
+    "close": "Rufe",
+    "viewerLabel": "Mai duba CV"
   }
 }

@@ -27,7 +27,8 @@
       "Integración IA"
     ],
     "badge": "Diseñador de Producto",
-    "cta_cv": "Descargar CV"
+    "cta_cv": "Descargar CV",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Proyectos Entregados",
@@ -146,5 +147,11 @@
     "title": "¿Tienes un proyecto en mente?",
     "body": "Cuéntame qué estás construyendo y te responderé.",
     "cta": "Contáctame"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Descargar",
+    "close": "Cerrar",
+    "viewerLabel": "Visor de CV"
   }
 }

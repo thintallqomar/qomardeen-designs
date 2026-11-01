@@ -27,7 +27,8 @@
       "Njikọ AI"
     ],
     "badge": "Onye Nhazi Ngwaahịa",
-    "cta_cv": "Budata CV"
+    "cta_cv": "Budata CV",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Ọrụ Enyere",
@@ -146,5 +147,11 @@
     "title": "Ị nwere ọrụ n'uche?",
     "body": "Gwa m ihe ị na-ewu, m azaghachi gị.",
     "cta": "Kpọtụrụ m"
+  },
+  "cv": {
+    "viewerTitle": "CV nke Qomardeen Tijani",
+    "download": "Budata",
+    "close": "Mechie",
+    "viewerLabel": "Onye na-ele CV"
   }
 }

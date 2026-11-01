@@ -1,7 +1,9 @@
-import { ArrowRight, Sparkles, Eye, Download } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Sparkles, Eye, Download, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
+import CVViewer from '@/components/CVViewer';
 import profileImage from '@/assets/new-profile.jpg';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
@@ -22,7 +24,9 @@ const fadeScale = {
 
 const HeroLegacy = () => {
   const navigate = useLocalizedNavigate();
+  const localizedPath = useLocalizedPath();
   const { t } = useTranslation();
+  const [cvOpen, setCvOpen] = useState(false);
   const skills = t('hero.skills', { returnObjects: true }) as string[];
   
   return (
@@ -60,10 +64,30 @@ const HeroLegacy = () => {
                 {t('hero.cta_explore')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.button>
-              <motion.a href="/Qomardeen-Tijani-Resume.pdf" download className="outline-btn inline-flex items-center justify-center gap-2.5 group px-8" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
-                <Download className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                {t('hero.cta_cv')}
-              </motion.a>
+              {/* Split pill: Hire me | CV — two actions inside one pill button */}
+              <motion.div
+                className="inline-flex items-stretch rounded-full border border-border text-foreground overflow-hidden h-12 self-start sm:self-auto focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease }}
+              >
+                <a
+                  href={localizedPath('/hire')}
+                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                >
+                  <Briefcase className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  {t('hero.cta_hire')}
+                </a>
+                <span aria-hidden="true" className="w-px bg-border my-2.5" />
+                <button
+                  type="button"
+                  onClick={() => setCvOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                >
+                  <Download className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  {t('hero.cta_cv_short')}
+                </button>
+              </motion.div>
             </motion.div>
 
             <motion.div className="flex flex-wrap gap-2 pt-2" variants={fadeUp}>
@@ -103,6 +127,8 @@ const HeroLegacy = () => {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
+
+      <CVViewer open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>
   );
 };

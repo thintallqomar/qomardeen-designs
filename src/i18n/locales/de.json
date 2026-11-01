@@ -27,7 +27,8 @@
       "KI-Integration"
     ],
     "badge": "Produktdesigner",
-    "cta_cv": "CV herunterladen"
+    "cta_cv": "CV herunterladen",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Abgeschlossene Projekte",
@@ -146,5 +147,11 @@
     "title": "Haben Sie ein Projekt im Kopf?",
     "body": "Erzählen Sie mir, was Sie bauen — ich melde mich bei Ihnen.",
     "cta": "Kontakt aufnehmen"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Herunterladen",
+    "close": "Schließen",
+    "viewerLabel": "CV-Anzeige"
   }
 }

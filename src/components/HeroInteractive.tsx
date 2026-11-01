@@ -1,9 +1,10 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { ArrowDown, ArrowRight, Download } from 'lucide-react';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { ArrowDown, ArrowRight, Briefcase, Download } from 'lucide-react';
+import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
+import CVViewer from '@/components/CVViewer';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -11,6 +12,8 @@ const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];
 const HeroInteractive = () => {
   const { t } = useTranslation();
   const navigate = useLocalizedNavigate();
+  const localizedPath = useLocalizedPath();
+  const [cvOpen, setCvOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
@@ -104,14 +107,27 @@ const HeroInteractive = () => {
                 {t('hero.cta_explore')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <a
-                href="/Qomardeen-Tijani-Resume.pdf"
-                download
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              {/* Split pill: Hire me | CV — two actions inside one pill button */}
+              <div
+                className="inline-flex items-stretch rounded-full border border-border text-foreground overflow-hidden h-12 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
               >
-                <Download className="w-4 h-4" />
-                {t('hero.cta_cv')}
-              </a>
+                <a
+                  href={localizedPath('/hire')}
+                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                >
+                  <Briefcase className="w-4 h-4" />
+                  {t('hero.cta_hire')}
+                </a>
+                <span aria-hidden="true" className="w-px bg-border my-2.5" />
+                <button
+                  type="button"
+                  onClick={() => setCvOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  {t('hero.cta_cv_short')}
+                </button>
+              </div>
             </motion.div>
 
             {/* Skills */}
@@ -163,6 +179,8 @@ const HeroInteractive = () => {
           <ArrowDown className="w-4 h-4" />
         </motion.button>
       </IconTooltip>
+
+      <CVViewer open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>
   );
 };

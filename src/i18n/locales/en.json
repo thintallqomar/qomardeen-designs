@@ -27,14 +27,27 @@
       "AI Integration"
     ],
     "badge": "Product Designer",
-    "cta_cv": "Download CV"
+    "cta_cv": "Download CV",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "items": [
-      { "label": "Focus", "value": "Fintech & Enterprise SaaS" },
-      { "label": "Approach", "value": "UX × AI × Systems Thinking" },
-      { "label": "Scope", "value": "Discovery → Production" },
-      { "label": "Based in", "value": "Nigeria · Building globally" }
+      {
+        "label": "Focus",
+        "value": "Fintech & Enterprise SaaS"
+      },
+      {
+        "label": "Approach",
+        "value": "UX × AI × Systems Thinking"
+      },
+      {
+        "label": "Scope",
+        "value": "Discovery → Production"
+      },
+      {
+        "label": "Based in",
+        "value": "Nigeria · Building globally"
+      }
     ]
   },
   "featured": {
@@ -160,5 +173,11 @@
     "title": "Have a project in mind?",
     "body": "Tell me what you're building and I'll get back to you.",
     "cta": "Get in touch"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Download",
+    "close": "Close",
+    "viewerLabel": "Full-screen CV viewer"
   }
 }

@@ -27,7 +27,8 @@
       "Ìdapọ̀ AI"
     ],
     "badge": "Olùṣe Àpẹẹrẹ Ọja",
-    "cta_cv": "Gba CV sílẹ̀"
+    "cta_cv": "Gba CV sílẹ̀",
+    "cta_cv_short": "CV"
   },
   "metrics": {
     "projects": "Iṣẹ́ Tí A Fi Ránṣẹ́",
@@ -146,5 +147,11 @@
     "title": "Ṣé o ní iṣẹ́ lọ́kàn?",
     "body": "Sọ fún mi ohun tí o ń kọ, mo sì yá èsì ránṣẹ́ sí o.",
     "cta": "Kàn sí mi"
+  },
+  "cv": {
+    "viewerTitle": "CV Qomardeen Tijani",
+    "download": "Gba sílẹ̀",
+    "close": "Padà",
+    "viewerLabel": "Àfihàn CV"
   }
 }

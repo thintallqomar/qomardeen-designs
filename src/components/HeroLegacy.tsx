@@ -127,6 +127,8 @@ const HeroLegacy = () => {
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
+
+      <CVViewer open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>
   );
 };

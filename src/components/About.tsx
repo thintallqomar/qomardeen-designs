@@ -20,7 +20,7 @@ const About = () => {
                 Product Designer building scalable, user-centered digital products.
               </p>
               <Button asChild className="mt-6">
-                <a href="/Qomardeen-Tijani-Resume.pdf" download="Qomardeen-Tijani-Resume.pdf">
+                <a href={cvAsset.url} download="Qomardeen_Tijani_CV.pdf">
                   <Download className="mr-2 h-4 w-4" />
                   Download Resume
                 </a>

@@ -1,9 +1,10 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { ArrowDown, ArrowRight, Download } from 'lucide-react';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { ArrowDown, ArrowRight, Briefcase, Download } from 'lucide-react';
+import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
+import CVViewer from '@/components/CVViewer';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];

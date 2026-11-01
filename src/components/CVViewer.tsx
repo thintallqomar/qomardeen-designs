@@ -33,7 +33,8 @@ const CVViewer = ({ open, onClose }: CVViewerProps) => {
     };
   }, [open, onClose]);
 
-  return (
+  // Portal to <body> so the viewer escapes any transformed hero stacking context
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div

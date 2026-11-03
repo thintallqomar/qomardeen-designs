@@ -152,6 +152,8 @@
     "viewerTitle": "CV na Qomardeen Tijani",
     "download": "Sauka",
     "close": "Rufe",
-    "viewerLabel": "Mai duba CV"
+    "viewerLabel": "Mai duba CV",
+    "openExternal": "Bude CV a sabuwar shafi",
+    "openExternalHint": "Ba a iya saka takardar nan ba."
   }
 }

@@ -152,6 +152,8 @@
     "viewerTitle": "Qomardeen Tijani — Резюме",
     "download": "Скачать",
     "close": "Закрыть",
-    "viewerLabel": "Просмотр резюме"
+    "viewerLabel": "Просмотр резюме",
+    "openExternal": "Открыть резюме в новой вкладке",
+    "openExternalHint": "Не удалось встроить документ здесь."
   }
 }

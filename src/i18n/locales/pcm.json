@@ -152,6 +152,8 @@
     "viewerTitle": "Qomardeen Tijani CV",
     "download": "Dawnload",
     "close": "Klos am",
-    "viewerLabel": "CV viuwa"
+    "viewerLabel": "CV viuwa",
+    "openExternal": "Open di CV for new tab",
+    "openExternalHint": "Di dokumet no fit show for hia."
   }
 }

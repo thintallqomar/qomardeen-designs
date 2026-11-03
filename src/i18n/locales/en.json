@@ -178,6 +178,8 @@
     "viewerTitle": "Qomardeen Tijani — CV",
     "download": "Download",
     "close": "Close",
-    "viewerLabel": "Full-screen CV viewer"
+    "viewerLabel": "Full-screen CV viewer",
+    "openExternal": "Open CV in a new tab",
+    "openExternalHint": "The document could not be embedded here."
   }
 }

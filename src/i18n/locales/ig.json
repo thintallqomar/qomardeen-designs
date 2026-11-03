@@ -152,6 +152,8 @@
     "viewerTitle": "CV nke Qomardeen Tijani",
     "download": "Budata",
     "close": "Mechie",
-    "viewerLabel": "Onye na-ele CV"
+    "viewerLabel": "Onye na-ele CV",
+    "openExternal": "Mepe CV na tab ọhụrụ",
+    "openExternalHint": "Enweghị ike itinye akwụkwọ a ebe a."
   }
 }

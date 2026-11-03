@@ -152,6 +152,8 @@
     "viewerTitle": "Qomardeen Tijani — CV",
     "download": "Descargar",
     "close": "Cerrar",
-    "viewerLabel": "Visor de CV"
+    "viewerLabel": "Visor de CV",
+    "openExternal": "Abrir el CV en una pestaña nueva",
+    "openExternalHint": "No se pudo incrustar el documento aquí."
   }
 }

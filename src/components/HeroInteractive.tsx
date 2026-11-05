@@ -5,6 +5,7 @@ import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavi
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
 import CVViewer from '@/components/CVViewer';
+import heroPortrait from '@/assets/hero-portrait.png.asset.json';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -14,6 +15,17 @@ const HeroInteractive = () => {
   const navigate = useLocalizedNavigate();
   const localizedPath = useLocalizedPath();
   const [cvOpen, setCvOpen] = useState(false);
+  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait.url);
+  const [heroImgFailed, setHeroImgFailed] = useState(false);
+  const handleHeroImgError = useCallback(() => {
+    setHeroSrc((current) => {
+      if (current !== heroPortrait.url) {
+        setHeroImgFailed(true);
+        return current;
+      }
+      return profileImage;
+    });
+  }, []);
   const heroRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
@@ -149,13 +161,24 @@ const HeroInteractive = () => {
             className="relative w-full max-w-[16rem] sm:max-w-[18rem] mx-auto lg:mx-0 lg:ml-auto"
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant ring-1 ring-border/50">
-              <img
-                src={profileImage}
-                alt="Portrait of Qomardeen Tijani"
-                loading="eager"
-                decoding="async"
-                className="w-full h-full object-cover object-top"
-              />
+              {heroImgFailed ? (
+                <div
+                  className="w-full h-full flex items-center justify-center bg-muted"
+                  aria-label="Portrait of Qomardeen Tijani"
+                  role="img"
+                >
+                  <span className="text-4xl font-semibold tracking-tight text-muted-foreground">QT</span>
+                </div>
+              ) : (
+                <img
+                  src={heroSrc}
+                  alt="Portrait of Qomardeen Tijani"
+                  loading="eager"
+                  decoding="async"
+                  onError={handleHeroImgError}
+                  className="w-full h-full object-cover object-center"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
             </div>
           </motion.div>

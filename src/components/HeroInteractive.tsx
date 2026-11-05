@@ -5,7 +5,7 @@ import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavi
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
 import CVViewer from '@/components/CVViewer';
-import heroPortrait from '@/assets/hero-portrait.png.asset.json';
+import heroPortrait from '@/assets/hero-portrait-hq.png';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -15,11 +15,11 @@ const HeroInteractive = () => {
   const navigate = useLocalizedNavigate();
   const localizedPath = useLocalizedPath();
   const [cvOpen, setCvOpen] = useState(false);
-  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait.url);
+  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait);
   const [heroImgFailed, setHeroImgFailed] = useState(false);
   const handleHeroImgError = useCallback(() => {
     setHeroSrc((current) => {
-      if (current !== heroPortrait.url) {
+      if (current !== heroPortrait) {
         setHeroImgFailed(true);
         return current;
       }
@@ -158,9 +158,9 @@ const HeroInteractive = () => {
           {/* Right: Photo — restrained portrait, supports the name */}
           <motion.div
             variants={item}
-            className="relative w-full max-w-[16rem] sm:max-w-[18rem] mx-auto lg:mx-0 lg:ml-auto"
+            className="relative w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] mx-auto lg:mx-0 lg:ml-auto"
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-elegant ring-1 ring-border/50">
+            <div className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_70%_75%_at_50%_45%,black_55%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_70%_75%_at_50%_45%,black_55%,transparent_100%)]">
               {heroImgFailed ? (
                 <div
                   className="w-full h-full flex items-center justify-center bg-muted"
@@ -179,7 +179,7 @@ const HeroInteractive = () => {
                   className="w-full h-full object-cover object-center"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
             </div>
           </motion.div>
 

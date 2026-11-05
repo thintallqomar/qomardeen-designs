@@ -160,7 +160,7 @@ const HeroInteractive = () => {
             variants={item}
             className="relative w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] mx-auto lg:mx-0 lg:ml-auto"
           >
-            <div className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_70%_75%_at_50%_45%,black_55%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_70%_75%_at_50%_45%,black_55%,transparent_100%)]">
+            <div className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_60%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_60%,transparent_100%)]">
               {heroImgFailed ? (
                 <div
                   className="w-full h-full flex items-center justify-center bg-muted"

@@ -5,6 +5,7 @@ import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavi
 import { useTranslation } from 'react-i18next';
 import IconTooltip from '@/components/IconTooltip';
 import CVViewer from '@/components/CVViewer';
+import heroPortrait from '@/assets/hero-portrait.png.asset.json';
 import profileImage from '@/assets/new-profile.jpg';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];

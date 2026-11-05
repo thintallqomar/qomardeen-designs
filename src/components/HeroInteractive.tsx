@@ -15,6 +15,17 @@ const HeroInteractive = () => {
   const navigate = useLocalizedNavigate();
   const localizedPath = useLocalizedPath();
   const [cvOpen, setCvOpen] = useState(false);
+  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait.url);
+  const [heroImgFailed, setHeroImgFailed] = useState(false);
+  const handleHeroImgError = useCallback(() => {
+    setHeroSrc((current) => {
+      if (current !== heroPortrait.url) {
+        setHeroImgFailed(true);
+        return current;
+      }
+      return profileImage;
+    });
+  }, []);
   const heroRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 

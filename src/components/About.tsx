@@ -59,58 +59,53 @@ const About = () => {
             </motion.div>
           </ScrollReveal>
 
-          <StaggeredReveal className="grid md:grid-cols-2 gap-5 md:gap-8" staggerDelay={0.15} equalHeight>
+          <StaggeredReveal className="space-y-10 md:space-y-12" staggerDelay={0.15}>
             {/* Education */}
             <motion.div
-              className="card-elegant h-full flex flex-col"
-              whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
-              transition={{ duration: 0.3, ease }}
+              className="grid md:grid-cols-[220px_minmax(0,1fr)] gap-5 md:gap-10 border-t border-border pt-7 md:pt-8"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3">
                 <Icon3D variant="amber" size="md">
                   <GraduationCap />
                 </Icon3D>
                 <h3 className="text-xl font-semibold">Education</h3>
               </div>
-              <div className="space-y-6">
-                <div className="border-l-2 border-primary pl-4">
-                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1">
-                    <h4 className="font-medium">School of Product — Product Design</h4>
-                    <span className="text-sm text-muted-foreground">Jul 2025 – Jun 2026</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-1">AltSchool Africa, Lagos, Nigeria</p>
+              <div className="grid sm:grid-cols-2 gap-x-8">
+                <div className="border-t border-border py-4">
+                  <p className="text-sm text-muted-foreground mb-2">Jul 2025 – Jun 2026</p>
+                  <h4 className="font-medium">School of Product — Product Design</h4>
+                  <p className="text-sm text-muted-foreground mt-1">AltSchool Africa, Lagos, Nigeria</p>
                 </div>
-                <div className="border-l-2 border-muted pl-4">
-                  <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1">
-                    <h4 className="font-medium">B.Sc. Human Anatomy</h4>
-                    <span className="text-sm text-muted-foreground">Aug 2008 – Jun 2014</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-1">Ladoke Akintola University of Technology</p>
+                <div className="border-t border-border py-4">
+                  <p className="text-sm text-muted-foreground mb-2">Aug 2008 – Jun 2014</p>
+                  <h4 className="font-medium">B.Sc. Human Anatomy</h4>
+                  <p className="text-sm text-muted-foreground mt-1">Ladoke Akintola University of Technology</p>
                 </div>
               </div>
             </motion.div>
 
             {/* Experience */}
             <motion.div
-              className="card-elegant h-full flex flex-col"
-              whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
-              transition={{ duration: 0.3, ease }}
+              className="grid md:grid-cols-[220px_minmax(0,1fr)] gap-5 md:gap-10 border-t border-border pt-7 md:pt-8"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3">
                 <Icon3D variant="teal" size="md">
                   <Briefcase />
                 </Icon3D>
                 <h3 className="text-xl font-semibold">Experience</h3>
               </div>
-              <div className="space-y-6">
-                <div className="border-l-2 border-primary pl-4">
-                  <h4 className="font-medium">Product Designer — WalPay</h4>
-                  <p className="text-sm text-muted-foreground mb-1">FinTech mobile application</p>
+              <div className="relative space-y-7 border-l border-border ml-2 pl-5 sm:ml-0">
+                <div className="relative before:absolute before:-left-[26px] before:top-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:bg-primary">
+                  <div className="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                    <h4 className="font-medium">Product Designer — WalPay</h4>
+                    <span className="text-sm text-muted-foreground">Product Design</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-2">FinTech mobile application</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Design onboarding, wallet management, and payment screens for a fintech app — using research, wireframing, and prototyping to simplify complex financial workflows and reduce friction during transactions.
                   </p>
                 </div>
-                <div className="border-l-2 border-muted pl-4">
+                <div className="relative before:absolute before:-left-[26px] before:top-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:bg-muted-foreground/40">
                   <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
                     <h4 className="font-medium">Product Designer — UpTime HQ</h4>
                     <span className="text-sm text-muted-foreground">Aug 2025 – Jan 2026</span>
@@ -120,7 +115,7 @@ const About = () => {
                     Led end-to-end UX/UI design of a CMMS platform — research, wireframes, and high-fidelity prototypes in Figma — plus landing pages and core product architecture across authentication, payments, and support. Worked with project managers and engineers in an Agile team to speed up delivery.
                   </p>
                 </div>
-                <div className="border-l-2 border-muted pl-4">
+                <div className="relative before:absolute before:-left-[26px] before:top-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:bg-muted-foreground/40">
                   <div className="flex flex-wrap justify-between items-start gap-x-3 gap-y-1 mb-2">
                     <h4 className="font-medium">Project Manager</h4>
                     <span className="text-sm text-muted-foreground">2024–Present</span>
@@ -131,7 +126,7 @@ const About = () => {
                     Own end-to-end project planning, timelines, and delivery across cross-functional teams — keeping scope, budget, and quality on track. Introduced structured workflows and reporting that improved execution predictability and stakeholder visibility, while coordinating client communication, resourcing, and risk management from kickoff through handover.
                   </p>
                 </div>
-                <div className="border-l-2 border-muted pl-4">
+                <div className="relative before:absolute before:-left-[26px] before:top-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:bg-muted-foreground/40">
                   <h4 className="font-medium">Independent Fashion Designer</h4>
                   <p className="text-xs text-muted-foreground">Led creative direction, production, and client delivery</p>
                 </div>
@@ -140,17 +135,15 @@ const About = () => {
 
             {/* Certifications */}
             <motion.div
-              className="card-elegant h-full flex flex-col md:col-span-2"
-              whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
-              transition={{ duration: 0.3, ease }}
+              className="grid md:grid-cols-[220px_minmax(0,1fr)] gap-5 md:gap-10 border-t border-border pt-7 md:pt-8"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3">
                 <Icon3D variant="violet" size="md">
                   <Award />
                 </Icon3D>
                 <h3 className="text-xl font-semibold">Certifications</h3>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+              <ul className="grid sm:grid-cols-2 gap-x-8">
                 {[
                   ['Product Design (Diploma)', 'AltSchool Africa — Jul 2026'],
                   ['Foundations of Project Management', 'Google (Coursera) — Jan 2024'],
@@ -160,7 +153,7 @@ const About = () => {
                   ['Web Design: Strategy and Information Architecture', 'California Institute of the Arts (Coursera) — Jan 2022'],
                   ['UX Design Fundamentals', 'California Institute of the Arts (Coursera) — Jan 2022'],
                 ].map(([title, meta]) => (
-                  <li key={title} className="border-l-2 border-muted pl-4">
+                  <li key={title} className="border-t border-border py-3">
                     <h4 className="font-medium text-[15px]">{title}</h4>
                     <p className="text-sm text-muted-foreground">{meta}</p>
                   </li>

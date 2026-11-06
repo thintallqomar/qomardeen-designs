@@ -1,9 +1,8 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { ArrowDown, ArrowRight, Briefcase, Download } from 'lucide-react';
+import { ArrowRight, Briefcase, Download } from 'lucide-react';
 import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { useTranslation } from 'react-i18next';
-import IconTooltip from '@/components/IconTooltip';
 import CVViewer from '@/components/CVViewer';
 import heroPortrait from '@/assets/hero-portrait-hq.png';
 import profileImage from '@/assets/new-profile.jpg';
@@ -26,7 +25,6 @@ const HeroInteractive = () => {
       return profileImage;
     });
   }, []);
-  const heroRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
   const skills = t('hero.skills', { returnObjects: true }) as string[];
@@ -40,14 +38,8 @@ const HeroInteractive = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeCurve } },
   };
 
-  const scrollToNext = useCallback(() => {
-    const next = heroRef.current?.nextElementSibling as HTMLElement | null;
-    next?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-  }, [reduceMotion]);
-
   return (
     <section
-      ref={heroRef}
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden bg-background"
     >
@@ -185,23 +177,6 @@ const HeroInteractive = () => {
 
         </div>
       </motion.div>
-
-      {/* Scroll indicator */}
-      <IconTooltip label="Scroll to next section">
-        <motion.button
-          onClick={scrollToNext}
-          aria-label="Scroll to next section"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          initial={{ opacity: 0 }}
-          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: [0, 6, 0] }}
-          transition={{
-            opacity: { delay: 0.8, duration: 0.4 },
-            y: { delay: 1, duration: 2, repeat: Infinity, ease: 'easeInOut' },
-          }}
-        >
-          <ArrowDown className="w-4 h-4" />
-        </motion.button>
-      </IconTooltip>
 
       <CVViewer open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>

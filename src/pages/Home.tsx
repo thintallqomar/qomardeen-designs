@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, UserRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
@@ -81,6 +81,14 @@ const Home = () => {
           <Footer />
         </div>
       </PageTransition>
+      <Link
+        to={localizedPath('/about')}
+        className={`fixed left-4 bottom-24 md:left-6 md:bottom-6 z-40 inline-flex min-h-12 items-center gap-2 rounded-full border border-border bg-background/90 px-5 text-sm font-semibold text-foreground shadow-lg backdrop-blur-md transition-colors hover:bg-secondary ${btnFocus}`}
+      >
+        <UserRound className="h-4 w-4 text-primary" aria-hidden="true" />
+        <span>{t('homeIntro.cta')}</span>
+        <ArrowRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+      </Link>
     </>
   );
 };

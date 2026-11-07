@@ -152,7 +152,14 @@ const HeroInteractive = () => {
             variants={item}
             className="relative w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] mx-auto lg:mx-0 lg:ml-auto"
           >
-            <div className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]">
+            <motion.div
+              className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]"
+              animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
+              transition={reduceMotion ? undefined : { duration: 7, ease: 'easeInOut', repeat: Infinity }}
+              whileHover={reduceMotion ? undefined : { scale: 1.025, rotateX: 1.25, rotateY: -1.25 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+              style={{ transformPerspective: 1000 }}
+            >
               {heroImgFailed ? (
                 <div
                   className="w-full h-full flex items-center justify-center bg-muted"
@@ -172,7 +179,7 @@ const HeroInteractive = () => {
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-            </div>
+            </motion.div>
           </motion.div>
 
         </div>

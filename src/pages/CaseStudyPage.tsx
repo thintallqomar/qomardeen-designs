@@ -169,6 +169,7 @@ const CaseStudyPage = () => {
                   title: s.title,
                   subtitle: s.subtitle,
                   description: s.description,
+                  descriptionJson: s.descriptionJson,
                   image: s.image,
                   imageAlt: s.imageAlt || s.title,
                   metrics: s.metrics,

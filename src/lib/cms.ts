@@ -16,7 +16,8 @@ export interface CaseStudyMetric {
 export interface CaseStudySection {
   title: string;
   subtitle?: string;
-  description: string;
+  description: string;      // plain-text copy (search, reading time, fallback)
+  descriptionJson?: unknown; // rich text (Tiptap JSON) — preferred when present
   image: string;
   imageAlt?: string;
   metrics?: CaseStudyMetric[];

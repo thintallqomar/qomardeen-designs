@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import AdminLayout from '@/components/admin/AdminLayout';
 import MediaPicker from '@/components/admin/MediaPicker';
+import RichTextField from '@/components/admin/RichTextField';
 import type { MediaAsset } from '@/lib/media';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canPublish } from '@/lib/roles';
@@ -311,7 +312,18 @@ const CaseStudyEditor = () => {
                     <Field label="Title"><input value={s.title} onChange={e => updateSection(i, { title: e.target.value })} className={input} placeholder="The Problem" /></Field>
                   </div>
                   <div className="mt-3">
-                    <Field label="Description"><textarea value={s.description} onChange={e => updateSection(i, { description: e.target.value })} rows={3} className={input} /></Field>
+                    {/* div (not <label>) so clicking the toolbar doesn't trigger a button */}
+                    <div>
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</span>
+                      <div className="mt-1.5">
+                        <RichTextField
+                          json={s.descriptionJson}
+                          text={s.description}
+                          placeholder="Describe this part of the story…"
+                          onChange={({ json, text }) => updateSection(i, { description: text, descriptionJson: json })}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-3 mt-3">
                     <Field label="Image">

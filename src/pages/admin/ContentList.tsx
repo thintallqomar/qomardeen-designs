@@ -24,7 +24,7 @@ const ContentList = () => {
   const remove = useMutation({
     mutationFn: async (id: string) => {
       await deleteContent(id);
-      await logAudit({ event_type: 'content.delete', target_table: 'content_items', target_id: id });
+      await logAudit({ event_type: 'content.deleted', target_table: 'content_items', target_id: id });
     },
     onSuccess: () => {
       toast.success('Deleted');

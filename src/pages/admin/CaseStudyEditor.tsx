@@ -215,7 +215,7 @@ const CaseStudyEditor = () => {
       } as never, isNew ? undefined : id);
 
       await logAudit({
-        event_type: isNew ? 'content.create' : 'content.update',
+        event_type: isNew ? 'content.created' : 'content.updated',
         target_table: 'content_items',
         target_id: saved.id,
         details: { status, type: 'case_study' },

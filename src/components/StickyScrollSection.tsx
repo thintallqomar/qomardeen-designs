@@ -1,10 +1,12 @@
 import { useRef } from 'react';
+import RichText from '@/components/RichText';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface StickyScrollItem {
   title: string;
   subtitle?: string;
   description: string;
+  descriptionJson?: unknown;
   image: string;
   imageAlt: string;
   accent?: string;
@@ -137,9 +139,11 @@ function StickyTextBlock({
       <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">
         {item.title}
       </h3>
-      <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg">
-        {item.description}
-      </p>
+      <RichText
+        json={item.descriptionJson}
+        fallback={item.description}
+        className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg"
+      />
 
       {item.metrics && (
         <div className="flex gap-6 mt-8">

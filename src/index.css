@@ -768,11 +768,6 @@
   }
 }
 
-    width: 100%;
-    height: auto;
-  }
-}
-
 /* ─── Rich text (admin RichTextField + public RichText renderer) ─── */
 .rich-text p { margin: 0 0 0.75em; }
 .rich-text p:last-child { margin-bottom: 0; }
@@ -790,10 +785,3 @@
   pointer-events: none;
   color: hsl(var(--muted-foreground) / 0.6);
 }
-.rich-text ul { list-style-type: disc !important; padding-left: 1.5rem !important; }
-
-.rich-text ol { list-style-type: decimal !important; padding-left: 1.5rem !important; }
-
-.rich-text ul li { display: list-item !important; }
-
-.rich-text ol li { display: list-item !important; }

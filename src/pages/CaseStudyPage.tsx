@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Progress } from '@/components/ui/progress';
+import ReadingProgress from '@/components/ReadingProgress';
+import FloatingBackButton from '@/components/FloatingBackButton';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -18,11 +20,11 @@ const LIVE_LINK_CLASS =
   'inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
 
 const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
+  const { t } = useTranslation();
   const params = useParams();
   const slug = slugProp ?? params.slug ?? '';
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
 
@@ -31,17 +33,6 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
     queryFn: () => fetchBySlug('case_study', slug),
     enabled: !!slug,
   });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-      setScrollProgress(Math.min(100, Math.max(0, progress)));
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleImageLoad = (index: number) =>
     setLoadedImages(prev => new Set([...prev, index]));
@@ -68,9 +59,9 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
       <>
         <Navigation />
         <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-2xl font-bold mb-3">Case study not found</h1>
-          <p className="text-muted-foreground mb-6">This case study may have been moved or unpublished.</p>
-          <Button onClick={() => navigate('/projects')}>Back to Projects</Button>
+          <h1 className="text-2xl font-bold mb-3">{t('caseStudy.notFoundTitle')}</h1>
+          <p className="text-muted-foreground mb-6">{t('caseStudy.notFoundBody')}</p>
+          <Button onClick={() => navigate('/projects')}>{t('caseStudy.back')}</Button>
         </div>
       </>
     );
@@ -96,23 +87,9 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
       />
       <PageTransition>
         <div className="min-h-screen">
-          {/* Reading Progress Bar */}
-          <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
-            <Progress value={scrollProgress} className="h-1 rounded-none" />
-          </div>
+          <ReadingProgress />
 
-          {/* Back to Projects */}
-          <div className="fixed top-20 left-4 z-40">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/projects')}
-              className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Projects
-            </Button>
-          </div>
+          <FloatingBackButton />
 
           <main className="pt-14">
             {/* Project Hero */}
@@ -133,25 +110,25 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
                   <div className="flex flex-wrap justify-center gap-4 mb-8">
                     {body.role && (
                       <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                        <span className="text-xs text-muted-foreground block">Role</span>
+                        <span className="text-xs text-muted-foreground block">{t('caseStudy.role')}</span>
                         <span className="font-medium">{body.role}</span>
                       </div>
                     )}
                     {body.scope && (
                       <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                        <span className="text-xs text-muted-foreground block">Scope</span>
+                        <span className="text-xs text-muted-foreground block">{t('caseStudy.scope')}</span>
                         <span className="font-medium">{body.scope}</span>
                       </div>
                     )}
                     {body.platform && (
                       <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                        <span className="text-xs text-muted-foreground block">Platform</span>
+                        <span className="text-xs text-muted-foreground block">{t('caseStudy.platform')}</span>
                         <span className="font-medium">{body.platform}</span>
                       </div>
                     )}
                     {body.timeline && (
                       <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                        <span className="text-xs text-muted-foreground block">Timeline</span>
+                        <span className="text-xs text-muted-foreground block">{t('caseStudy.timeline')}</span>
                         <span className="font-medium">{body.timeline}</span>
                       </div>
                     )}
@@ -160,7 +137,7 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
                     <div className="flex justify-center">
                       <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={LIVE_LINK_CLASS}>
                         <ExternalLink className="w-4 h-4" />
-                        View live link
+                        {t('caseStudy.viewLive')}
                       </a>
                     </div>
                   )}
@@ -189,8 +166,8 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
                 <ScrollReveal>
                   <div className="container-custom py-8">
                     <div className="text-center">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{isOther ? 'Project Frames' : 'Full Case Study'}</h2>
-                      <p className="text-muted-foreground">{isOther ? 'A closer look at the screens' : 'Scroll through every frame of the design process'}</p>
+                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{isOther ? t('caseStudy.framesTitle') : t('caseStudy.fullTitle')}</h2>
+                      <p className="text-muted-foreground">{isOther ? t('caseStudy.framesBlurb') : t('caseStudy.fullBlurb')}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -237,18 +214,18 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <div className="max-w-2xl mx-auto text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('caseStudy.wantMore')}</h2>
                   <p className="text-muted-foreground mb-8">
-                    {liveUrl ? 'Explore the live project, or get in touch to discuss yours.' : 'Get in touch to discuss your project.'}
+                    {liveUrl ? t('caseStudy.wantMoreLive') : t('caseStudy.wantMoreNoLive')}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button onClick={() => navigate('/contact')} className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6">
-                      Get in Touch
+                      {t('caseStudy.getInTouch')}
                     </button>
                     {liveUrl && (
                       <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={LIVE_LINK_CLASS}>
                         <ExternalLink className="w-4 h-4" />
-                        View live link
+                        {t('caseStudy.viewLive')}
                       </a>
                     )}
                   </div>

@@ -48,6 +48,11 @@ const variantStyles: Record<Icon3DVariant, string> = {
     'bg-gradient-to-br from-[hsl(350_70%_55%/0.15)] via-[hsl(350_70%_50%/0.25)] to-[hsl(340_75%_45%/0.4)] text-[hsl(350_70%_50%)] shadow-[0_4px_14px_-3px_hsl(350_70%_50%/0.3),inset_0_1px_1px_hsl(0_0%_100%/0.15)]',
 };
 
+// Brand consistency: decorative colour variants (blue, rose, violet, ...) all use the brand look.
+// Only the meaningful status colours (success / warning) keep their own colour.
+const BRAND_ALIASES: Icon3DVariant[] = ['blue', 'teal', 'accent', 'violet', 'emerald', 'amber', 'rose'];
+BRAND_ALIASES.forEach(v => { variantStyles[v] = variantStyles.primary; });
+
 const Icon3D = ({ children, variant = 'primary', size = 'md', className = '' }: Icon3DProps) => {
   return (
     <div
@@ -62,9 +67,6 @@ const Icon3D = ({ children, variant = 'primary', size = 'md', className = '' }: 
         before:pointer-events-none
         ${className}
       `}
-      style={{
-        transform: 'perspective(500px) rotateX(2deg)',
-      }}
     >
       {children}
     </div>

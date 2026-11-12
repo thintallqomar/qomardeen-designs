@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Progress } from '@/components/ui/progress';
+import ReadingProgress from '@/components/ReadingProgress';
+import FloatingBackButton from '@/components/FloatingBackButton';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -80,7 +81,6 @@ const stickyScrollItems = [
 const UptimeProject = () => {
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
 
@@ -88,17 +88,6 @@ const UptimeProject = () => {
     setViewerIndex(index);
     setViewerOpen(true);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-      setScrollProgress(Math.min(100, Math.max(0, progress)));
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set([...prev, index]));
@@ -109,23 +98,9 @@ const UptimeProject = () => {
       <Navigation />
       <PageTransition>
         <div className="min-h-screen">
-          {/* Reading Progress Bar */}
-          <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted/30">
-            <Progress value={scrollProgress} className="h-1 rounded-none" />
-          </div>
+          <ReadingProgress />
 
-          {/* Back to Projects */}
-          <div className="fixed top-20 left-4 z-40">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/projects')}
-              className="bg-background/80 backdrop-blur-sm border-border shadow-md hover:bg-background"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Projects
-            </Button>
-          </div>
+          <FloatingBackButton />
 
           <main className="pt-14">
             {/* Project Hero */}

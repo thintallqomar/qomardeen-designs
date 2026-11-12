@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import profileImage from '@/assets/qomardeen-profile.jpg';
+import profileImage from '@/assets/hero-portrait-hq.png';
 import PageSEO from '@/components/PageSEO';
 import InquiryForm from '@/components/InquiryForm';
 
@@ -119,7 +119,7 @@ const Hire = () => {
                         <div className="flex flex-col sm:flex-row gap-3">
                           <motion.a
                             href="mailto:qomardeentijani@gmail.com"
-                            className="modern-btn inline-flex items-center justify-center gap-2 group"
+                            className="btn-primary inline-flex items-center justify-center gap-2 group"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ duration: 0.2, ease }}
@@ -132,7 +132,7 @@ const Hire = () => {
                             href="https://linkedin.com/in/qomardeentijani"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="outline-btn inline-flex items-center justify-center gap-2"
+                            className="btn-outline inline-flex items-center justify-center gap-2"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ duration: 0.2, ease }}
@@ -339,7 +339,7 @@ const Hire = () => {
                         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                           <motion.a
                             href="mailto:qomardeentijani@gmail.com"
-                            className="modern-btn inline-flex items-center justify-center gap-2 group"
+                            className="btn-primary inline-flex items-center justify-center gap-2 group"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ duration: 0.2, ease }}
@@ -352,7 +352,7 @@ const Hire = () => {
                             href="https://linkedin.com/in/qomardeentijani"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="outline-btn inline-flex items-center justify-center gap-2"
+                            className="btn-outline inline-flex items-center justify-center gap-2"
                             whileHover={{ scale: 1.03, y: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ duration: 0.2, ease }}

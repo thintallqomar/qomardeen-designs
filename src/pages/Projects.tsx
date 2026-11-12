@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ExternalLink, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
@@ -15,6 +16,7 @@ import walpayCover from '@/assets/walpay/frame-01.png';
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const Projects = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Hardcoded flagship case studies (bundled assets, dedicated pages).
@@ -92,6 +94,29 @@ const Projects = () => {
   const otherProjects = projects.filter(project => project.kind === 'other' && project.status === 'completed');
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
 
+  // ── Tabs: Full case studies · Other projects · All projects (shareable via ?view=) ──
+  type View = 'full' | 'other' | 'all';
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rawView = searchParams.get('view');
+  const view: View = rawView === 'other' || rawView === 'all' ? rawView : 'full';
+  const setView = (v: View) => setSearchParams(v === 'full' ? {} : { view: v }, { replace: true });
+  const tabs: { id: View; label: string; count: number }[] = [
+    { id: 'full', label: t('projects.fullTitle'), count: featuredProjects.length },
+    { id: 'other', label: t('projects.otherTitle'), count: otherProjects.length },
+    { id: 'all', label: t('projects.tabAll'), count: featuredProjects.length + otherProjects.length },
+  ];
+  const onTabKey = (e: React.KeyboardEvent, i: number) => {
+    const move = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!move && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault();
+    const next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + move + tabs.length) % tabs.length;
+    setView(tabs[next].id);
+    document.getElementById(`projects-tab-${tabs[next].id}`)?.focus();
+  };
+  const showFull = view === 'full' || view === 'all';
+  const showOther = view === 'other' || view === 'all';
+  const showHeadings = view === 'all';
+
   const handleCardClick = (project: typeof projects[0]) => {
     if (project.hasPage && project.route) {
       navigate(project.route);
@@ -112,28 +137,60 @@ const Projects = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <div className="max-w-6xl mx-auto">
-                  <ScrollReveal>
-                    <div className="text-center mb-16">
-                      <h1 className="text-3xl md:text-4xl font-bold mb-4">Selected Case Studies</h1>
-                      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Real-world projects showcasing product design across dashboards, SaaS platforms, and user-focused interfaces.
-                      </p>
-                    </div>
-                  </ScrollReveal>
+                  <h1 className="sr-only">{t('nav.projects')}</h1>
 
-                  {featuredProjects.length > 0 && otherProjects.length > 0 && (
-                    <div className="flex justify-center gap-2 mb-12 -mt-8">
-                      <a href="#case-studies" className="px-4 py-1.5 rounded-full text-sm bg-secondary text-foreground hover:bg-secondary/70 transition-colors">Case studies · {featuredProjects.length}</a>
-                      <a href="#other-projects" className="px-4 py-1.5 rounded-full text-sm bg-secondary text-foreground hover:bg-secondary/70 transition-colors">Other projects · {otherProjects.length}</a>
+                  {/* Tab switcher */}
+                  <div className="sticky top-14 z-30 -mx-4 px-4 py-3 mb-10 bg-background/80 backdrop-blur-md">
+                    <div
+                      role="tablist"
+                      aria-label={t('nav.projects')}
+                      className="mx-auto flex w-full max-w-xl items-center gap-1 rounded-full border border-border bg-secondary/60 p-1"
+                    >
+                      {tabs.map((tab, i) => {
+                        const active = view === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            id={`projects-tab-${tab.id}`}
+                            role="tab"
+                            type="button"
+                            aria-selected={active}
+                            aria-controls="projects-panel"
+                            tabIndex={active ? 0 : -1}
+                            onClick={() => setView(tab.id)}
+                            onKeyDown={(e) => onTabKey(e, i)}
+                            className={`relative flex-1 min-w-0 rounded-full px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                              active ? 'text-background' : 'text-muted-foreground hover:text-foreground'
+                            }`}
+                          >
+                            {active && (
+                              <motion.span
+                                layoutId="projects-tab-pill"
+                                className="absolute inset-0 rounded-full bg-foreground"
+                                transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                              />
+                            )}
+                            <span className="relative z-10 flex items-center justify-center gap-1.5">
+                              <span className="truncate">{tab.label}</span>
+                              <span className={`hidden sm:inline text-[10px] tabular-nums ${active ? 'opacity-70' : 'opacity-60'}`}>{tab.count}</span>
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
+                  </div>
+
+                  <div id="projects-panel" role="tabpanel" aria-labelledby={`projects-tab-${view}`}>
+                  {((view === 'full' && featuredProjects.length === 0) || (view === 'other' && otherProjects.length === 0)) && (
+                    <p className="text-center text-muted-foreground py-16">{t('projects.empty')}</p>
                   )}
 
-                  {featuredProjects.length > 0 && (
+                  {showFull && featuredProjects.length > 0 && (
                     <div className="mb-16">
-                      <ScrollReveal>
-                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">Full Case Studies</h2>
-                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">End-to-end projects: research, process, design decisions and outcomes.</p>
-                      </ScrollReveal>
+                      {showHeadings && <ScrollReveal>
+                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">{t('projects.fullTitle')}</h2>
+                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">{t('projects.fullBlurb')}</p>
+                      </ScrollReveal>}
                       <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         {featuredProjects.map((project, index) => (
                           <motion.div
@@ -160,12 +217,12 @@ const Projects = () => {
                                   />
                                   {project.isLive && (
                                     <div className="absolute top-2 left-2">
-                                      <span className="text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">Live</span>
+                                      <span className="text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">{t('projects.live')}</span>
                                     </div>
                                   )}
                                   {project.hasPage && (
                                     <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                      <span className="text-white font-medium text-sm">View Case Study</span>
+                                      <span className="text-white font-medium text-sm">{t('projects.viewCaseStudy')}</span>
                                     </div>
                                   )}
                                 </div>
@@ -175,8 +232,8 @@ const Projects = () => {
                                   </div>
                                   <p className="text-sm text-muted-foreground leading-relaxed mb-3">{project.context}</p>
                                   <div className="space-y-1.5 text-xs text-muted-foreground/80">
-                                    {project.role && <p><span className="font-medium text-foreground/70">Role:</span> {project.role}</p>}
-                                    {project.keyDecisions && <p><span className="font-medium text-foreground/70">Key Decisions:</span> {project.keyDecisions}</p>}
+                                    {project.role && <p><span className="font-medium text-foreground/70">{t('projects.role')}</span> {project.role}</p>}
+                                    {project.keyDecisions && <p><span className="font-medium text-foreground/70">{t('projects.keyDecisions')}</span> {project.keyDecisions}</p>}
                                   </div>
                                 </CardHeader>
                                 <CardContent className="pt-0 px-5 pb-4 mt-auto">
@@ -187,7 +244,7 @@ const Projects = () => {
                                   </div>
                                   {project.hasPage && (
                                     <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-                                      <span className="text-xs text-primary font-medium">Click to view case study</span>
+                                      <span className="text-xs text-primary font-medium">{t('projects.clickToView')}</span>
                                       {project.liveUrl && <a
                                         href={project.liveUrl}
                                         target="_blank"
@@ -195,7 +252,7 @@ const Projects = () => {
                                         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                                         onClick={(e) => e.stopPropagation()}
                                       >
-                                        Live link
+                                        {t('projects.liveLink')}
                                         <ExternalLink size={12} />
                                       </a>}
                                     </div>
@@ -209,12 +266,12 @@ const Projects = () => {
                     </div>
                   )}
 
-                  {otherProjects.length > 0 && (
+                  {showOther && otherProjects.length > 0 && (
                     <div className="mb-16">
-                      <ScrollReveal>
-                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">Other Projects</h2>
-                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">Redesigns, explorations and focused UI work.</p>
-                      </ScrollReveal>
+                      {showHeadings && <ScrollReveal>
+                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">{t('projects.otherTitle')}</h2>
+                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">{t('projects.otherBlurb')}</p>
+                      </ScrollReveal>}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {otherProjects.map((project, index) => (
                           <motion.div
@@ -240,7 +297,7 @@ const Projects = () => {
                                   <h3 className="font-semibold leading-snug mb-1">{project.title}</h3>
                                   {project.context && <p className="text-sm text-muted-foreground line-clamp-2">{project.context}</p>}
                                   <div className="mt-3 flex items-center justify-between">
-                                    <span className="text-xs text-primary font-medium">View project</span>
+                                    <span className="text-xs text-primary font-medium">{t('projects.viewProject')}</span>
                                     {project.liveUrl && (
                                       <a
                                         href={project.liveUrl}
@@ -249,7 +306,7 @@ const Projects = () => {
                                         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                                         onClick={(e) => e.stopPropagation()}
                                       >
-                                        Live link <ExternalLink size={12} />
+                                        {t('projects.liveLink')} <ExternalLink size={12} />
                                       </a>
                                     )}
                                   </div>
@@ -262,7 +319,7 @@ const Projects = () => {
                     </div>
                   )}
 
-                  {placeholderProjects.length > 0 && (
+                  {view === 'all' && placeholderProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
                         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">More Projects</h2>
@@ -292,11 +349,13 @@ const Projects = () => {
                     </div>
                   )}
 
+                  </div>
+
                   <ScrollReveal>
                     <div className="text-center">
                       <div className="max-w-2xl mx-auto">
-                        <h3 className="text-2xl font-semibold mb-4">Interested in Working Together?</h3>
-                        <p className="text-muted-foreground mb-8">I'm always open to discussing new projects and opportunities.</p>
+                        <h3 className="text-2xl font-semibold mb-4">{t('projects.ctaTitle')}</h3>
+                        <p className="text-muted-foreground mb-8">{t('projects.ctaBody')}</p>
                         <motion.button
                           onClick={() => navigate('/contact')}
                           className="btn-primary inline-flex items-center gap-2"
@@ -304,7 +363,7 @@ const Projects = () => {
                           whileTap={{ scale: 0.98 }}
                           transition={{ duration: 0.2, ease }}
                         >
-                          Get In Touch
+                          {t('projects.ctaButton')}
                         </motion.button>
                       </div>
                     </div>

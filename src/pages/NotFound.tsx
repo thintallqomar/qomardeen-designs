@@ -34,7 +34,7 @@ const NotFound = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <motion.button
                   onClick={() => window.history.back()}
-                  className="outline-btn inline-flex items-center justify-center gap-2"
+                  className="btn-outline inline-flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2, ease }}
@@ -43,7 +43,7 @@ const NotFound = () => {
                 </motion.button>
                 <Link to="/">
                   <motion.div
-                    className="modern-btn inline-flex items-center justify-center gap-2"
+                    className="btn-primary inline-flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2, ease }}

@@ -163,10 +163,10 @@ const WalPayProject = () => {
                       href={BEHANCE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-8"
+                      className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      View on Behance
+                      View live link
                     </a>
                   </div>
                 </div>
@@ -230,19 +230,19 @@ const WalPayProject = () => {
                 <div className="max-w-2xl mx-auto text-center">
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
                   <p className="text-muted-foreground mb-8">
-                    View the full case study on Behance or get in touch to discuss your project.
+                    Explore the live project, or get in touch to discuss yours.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
                       href={BEHANCE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
+                      className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      View on Behance
+                      View live link
                     </a>
-                    <Button variant="outline" onClick={() => navigate('/contact')} className="h-11 px-6">
+                    <Button onClick={() => navigate('/contact')} className="h-11 px-6">
                       Get in Touch
                     </Button>
                   </div>

@@ -13,7 +13,7 @@ import {
   emptyCaseStudyBody,
   type ContentStatus, type ContentVisibility, type CaseStudyBody,
   type CaseStudySection, type CaseStudyFrame,
-} from '@/lib/cms';
+  PROJECT_KINDS } from '@/lib/cms';
 import {
   ArrowLeft, Save, Loader2, ImagePlus, X, Plus, Trash2, GripVertical, ChevronUp, ChevronDown,
 } from 'lucide-react';
@@ -182,6 +182,8 @@ const CaseStudyEditor = () => {
     setSaving(true);
     try {
       const body: CaseStudyBody = {
+        kind: cs.kind === 'other' ? 'other' : 'full',
+        timeline: cs.timeline || '',
         badge: cs.badge || 'UI/UX Case Study',
         role: cs.role || '',
         scope: cs.scope || '',
@@ -255,6 +257,33 @@ const CaseStudyEditor = () => {
         <div className="min-w-0 space-y-10">
           {/* Hero */}
           <section>
+            {/* Which group this project belongs to on the Projects page */}
+            <div className="mb-5">
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Project category</span>
+              <div role="radiogroup" aria-label="Project category" className="mt-1.5 grid sm:grid-cols-2 gap-3">
+                {PROJECT_KINDS.map(k => {
+                  const active = (cs.kind ?? 'full') === k.value;
+                  return (
+                    <button
+                      key={k.value}
+                      type="button"
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => setCsField('kind', k.value)}
+                      className={`text-left rounded-xl border p-3.5 transition-colors ${
+                        active ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border bg-secondary hover:border-primary/40'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2 text-sm font-semibold">
+                        <span className={`w-3.5 h-3.5 rounded-full border-2 ${active ? 'border-primary bg-primary' : 'border-muted-foreground/50'}`} />
+                        {k.label}
+                      </span>
+                      <span className="block text-xs text-muted-foreground mt-1 pl-[1.375rem]">{k.blurb}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <input
               value={form.title}
               onChange={e => { set('title', e.target.value); if (!slugTouched) set('slug', slugify(e.target.value)); }}
@@ -272,8 +301,9 @@ const CaseStudyEditor = () => {
               <Field label="Role"><input value={cs.role ?? ''} onChange={e => setCsField('role', e.target.value)} className={input} placeholder="Product Designer (UI/UX)" /></Field>
               <Field label="Scope"><input value={cs.scope ?? ''} onChange={e => setCsField('scope', e.target.value)} className={input} placeholder="End-to-End Design" /></Field>
               <Field label="Platform"><input value={cs.platform ?? ''} onChange={e => setCsField('platform', e.target.value)} className={input} placeholder="Web App (SaaS)" /></Field>
-              <div className="sm:col-span-2">
-                <Field label="Behance / live URL"><input value={cs.behanceUrl ?? ''} onChange={e => setCsField('behanceUrl', e.target.value)} className={input} placeholder="https://www.behance.net/gallery/…" /></Field>
+              <Field label="Timeline"><input value={cs.timeline ?? ''} onChange={e => setCsField('timeline', e.target.value)} className={input} placeholder="8 Weeks" /></Field>
+              <div className="sm:col-span-3">
+                <Field label="Live link (optional)"><input value={cs.behanceUrl ?? ''} onChange={e => setCsField('behanceUrl', e.target.value)} className={input} placeholder="https://… (Behance, website, Figma prototype)" /></Field>
               </div>
             </div>
           </section>
@@ -283,7 +313,11 @@ const CaseStudyEditor = () => {
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Story sections</h2>
-                <p className="text-[11px] text-muted-foreground/70">Sticky-scroll storytelling blocks — problem, research, design, outcome.</p>
+                <p className="text-[11px] text-muted-foreground/70">
+                  {cs.kind === 'other'
+                    ? 'Optional for other projects. You can skip this and just add your frames below.'
+                    : 'Sticky-scroll storytelling blocks: problem, research, design, outcome.'}
+                </p>
               </div>
               <button onClick={addSection} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary text-sm hover:bg-secondary/70">
                 <Plus className="w-4 h-4" /> Add section

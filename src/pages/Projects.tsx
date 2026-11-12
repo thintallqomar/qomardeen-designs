@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import PageSEO from '@/components/PageSEO';
-import { fetchPublished, type CaseStudyBody } from '@/lib/cms';
+import { fetchPublished, projectKind, type CaseStudyBody } from '@/lib/cms';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 
@@ -33,6 +33,8 @@ const Projects = () => {
       featured: true,
       isLive: true,
       hasPage: true,
+      kind: 'full' as const,
+      slug: 'uptime',
       route: '/projects/uptime'
     },
     {
@@ -49,6 +51,8 @@ const Projects = () => {
       featured: true,
       isLive: true,
       hasPage: true,
+      kind: 'full' as const,
+      slug: 'walpay',
       route: '/projects/walpay'
     },
   ];
@@ -67,7 +71,7 @@ const Projects = () => {
       context: item.subtitle || item.excerpt || '',
       role: body?.role || '',
       keyDecisions: body?.scope || '',
-      thumbnail: item.cover_image || uptimeCover,
+      thumbnail: item.cover_image || body?.gallery?.[0]?.src || body?.sections?.[0]?.image || uptimeCover,
       liveUrl: body?.behanceUrl || item.resource_url || '',
       technologies: (item.tags && item.tags.length ? item.tags : ['UI/UX', 'Case Study']),
       category: body?.badge || 'UI/UX Case Study',
@@ -75,13 +79,17 @@ const Projects = () => {
       featured: true,
       isLive: !!(body?.behanceUrl || item.resource_url),
       hasPage: true,
+      kind: projectKind(body),
+      slug: item.slug,
       route: `/projects/${item.slug}`,
     };
   });
 
-  const projects = [...staticProjects, ...cmsProjects];
+  const cmsSlugs = new Set(cmsProjects.map(p => p.slug));
+  const projects = [...staticProjects.filter(p => !cmsSlugs.has(p.slug)), ...cmsProjects];
 
-  const featuredProjects = projects.filter(project => project.featured && project.status === 'completed');
+  const featuredProjects = projects.filter(project => project.kind === 'full' && project.featured && project.status === 'completed');
+  const otherProjects = projects.filter(project => project.kind === 'other' && project.status === 'completed');
   const placeholderProjects = projects.filter(project => project.status === 'coming-soon');
 
   const handleCardClick = (project: typeof projects[0]) => {
@@ -113,10 +121,18 @@ const Projects = () => {
                     </div>
                   </ScrollReveal>
 
+                  {featuredProjects.length > 0 && otherProjects.length > 0 && (
+                    <div className="flex justify-center gap-2 mb-12 -mt-8">
+                      <a href="#case-studies" className="px-4 py-1.5 rounded-full text-sm bg-secondary text-foreground hover:bg-secondary/70 transition-colors">Case studies · {featuredProjects.length}</a>
+                      <a href="#other-projects" className="px-4 py-1.5 rounded-full text-sm bg-secondary text-foreground hover:bg-secondary/70 transition-colors">Other projects · {otherProjects.length}</a>
+                    </div>
+                  )}
+
                   {featuredProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
-                        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Featured Work</h2>
+                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">Full Case Studies</h2>
+                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">End-to-end projects: research, process, design decisions and outcomes.</p>
                       </ScrollReveal>
                       <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         {featuredProjects.map((project, index) => (
@@ -172,6 +188,60 @@ const Projects = () => {
                                   {project.hasPage && (
                                     <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                                       <span className="text-xs text-primary font-medium">Click to view case study</span>
+                                      {project.liveUrl && <a
+                                        href={project.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        Live link
+                                        <ExternalLink size={12} />
+                                      </a>}
+                                    </div>
+                                  )}
+                                </CardContent>
+                              </Card>
+                            </motion.div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {otherProjects.length > 0 && (
+                    <div className="mb-16">
+                      <ScrollReveal>
+                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">Other Projects</h2>
+                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">Redesigns, explorations and focused UI work.</p>
+                      </ScrollReveal>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {otherProjects.map((project, index) => (
+                          <motion.div
+                            key={project.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-40px' }}
+                            transition={{ delay: (index % 3) * 0.08, duration: 0.45, ease }}
+                          >
+                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.25, ease }} className="h-full">
+                              <div
+                                role="link"
+                                tabIndex={0}
+                                onClick={() => handleCardClick(project)}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCardClick(project); } }}
+                                className="group block w-full h-full text-left cursor-pointer rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                              >
+                                <div className="aspect-[4/3] bg-muted overflow-hidden relative">
+                                  <img src={project.thumbnail} alt={project.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                  <span className="absolute top-2.5 left-2.5 text-[10px] bg-background/90 text-foreground px-2 py-0.5 rounded-full font-medium backdrop-blur">{project.category}</span>
+                                </div>
+                                <div className="p-4">
+                                  <h3 className="font-semibold leading-snug mb-1">{project.title}</h3>
+                                  {project.context && <p className="text-sm text-muted-foreground line-clamp-2">{project.context}</p>}
+                                  <div className="mt-3 flex items-center justify-between">
+                                    <span className="text-xs text-primary font-medium">View project</span>
+                                    {project.liveUrl && (
                                       <a
                                         href={project.liveUrl}
                                         target="_blank"
@@ -179,13 +249,12 @@ const Projects = () => {
                                         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                                         onClick={(e) => e.stopPropagation()}
                                       >
-                                        Behance
-                                        <ExternalLink size={12} />
+                                        Live link <ExternalLink size={12} />
                                       </a>
-                                    </div>
-                                  )}
-                                </CardContent>
-                              </Card>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
                             </motion.div>
                           </motion.div>
                         ))}

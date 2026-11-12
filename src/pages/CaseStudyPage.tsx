@@ -12,10 +12,14 @@ import PageSEO from '@/components/PageSEO';
 import ImageViewer from '@/components/ImageViewer';
 import StickyScrollSection from '@/components/StickyScrollSection';
 import ScrollReveal from '@/components/ScrollReveal';
-import { fetchBySlug, type CaseStudyBody } from '@/lib/cms';
+import { fetchBySlug, projectKind, type CaseStudyBody } from '@/lib/cms';
 
-const CaseStudyPage = () => {
-  const { slug = '' } = useParams();
+const LIVE_LINK_CLASS =
+  'inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+
+const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
+  const params = useParams();
+  const slug = slugProp ?? params.slug ?? '';
   const navigate = useNavigate();
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -75,7 +79,8 @@ const CaseStudyPage = () => {
   const body = (data.body_json as CaseStudyBody | null) ?? { sections: [], gallery: [] };
   const sections = Array.isArray(body.sections) ? body.sections.filter(s => s.image) : [];
   const gallery = Array.isArray(body.gallery) ? body.gallery.filter(g => g.src) : [];
-  const behanceUrl = body.behanceUrl || data.resource_url || '';
+  const liveUrl = body.behanceUrl || data.resource_url || '';
+  const isOther = projectKind(body) === 'other';
   const viewerImages = gallery.map((g, i) => ({ src: g.src, alt: g.alt || g.label || `Frame ${i + 1}` }));
 
   const openViewer = (index: number) => { setViewerIndex(index); setViewerOpen(true); };
@@ -144,17 +149,18 @@ const CaseStudyPage = () => {
                         <span className="font-medium">{body.platform}</span>
                       </div>
                     )}
+                    {body.timeline && (
+                      <div className="px-4 py-2 bg-card border border-border rounded-lg">
+                        <span className="text-xs text-muted-foreground block">Timeline</span>
+                        <span className="font-medium">{body.timeline}</span>
+                      </div>
+                    )}
                   </div>
-                  {behanceUrl && (
+                  {liveUrl && (
                     <div className="flex justify-center">
-                      <a
-                        href={behanceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-8"
-                      >
+                      <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={LIVE_LINK_CLASS}>
                         <ExternalLink className="w-4 h-4" />
-                        View on Behance
+                        View live link
                       </a>
                     </div>
                   )}
@@ -183,8 +189,8 @@ const CaseStudyPage = () => {
                 <ScrollReveal>
                   <div className="container-custom py-8">
                     <div className="text-center">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">Full Case Study</h2>
-                      <p className="text-muted-foreground">Scroll through every frame of the design process</p>
+                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{isOther ? 'Project Frames' : 'Full Case Study'}</h2>
+                      <p className="text-muted-foreground">{isOther ? 'A closer look at the screens' : 'Scroll through every frame of the design process'}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -233,23 +239,18 @@ const CaseStudyPage = () => {
                 <div className="max-w-2xl mx-auto text-center">
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
                   <p className="text-muted-foreground mb-8">
-                    {behanceUrl ? 'View the full case study on Behance or get in touch to discuss your project.' : 'Get in touch to discuss your project.'}
+                    {liveUrl ? 'Explore the live project, or get in touch to discuss yours.' : 'Get in touch to discuss your project.'}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    {behanceUrl && (
-                      <a
-                        href={behanceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6"
-                      >
+                    <button onClick={() => navigate('/contact')} className="btn-primary inline-flex items-center justify-center gap-2 h-11 px-6">
+                      Get in Touch
+                    </button>
+                    {liveUrl && (
+                      <a href={liveUrl} target="_blank" rel="noopener noreferrer" className={LIVE_LINK_CLASS}>
                         <ExternalLink className="w-4 h-4" />
-                        View on Behance
+                        View live link
                       </a>
                     )}
-                    <Button variant="outline" onClick={() => navigate('/contact')} className="h-11 px-6">
-                      Get in Touch
-                    </Button>
                   </div>
                 </div>
               </div>

@@ -3,10 +3,11 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { fetchAllForAdmin, deleteContent, pathToType, CONTENT_TYPES, logAudit, type ContentStatus } from '@/lib/cms';
+import { fetchAllForAdmin, deleteContent, pathToType, CONTENT_TYPES, logAudit, projectKind, type ContentStatus } from '@/lib/cms';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
-import { canEditItem } from '@/lib/roles';
-import { Plus, Search, Trash2, ExternalLink } from 'lucide-react';
+import { canEditItem, canPublish } from '@/lib/roles';
+import { LEGACY_PROJECTS, importLegacyProject, legacyImageCount } from '@/lib/legacyProjects';
+import { Plus, Search, Trash2, ExternalLink, DownloadCloud, Loader2 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
 const STATUSES: (ContentStatus | 'all')[] = ['all', 'draft', 'published', 'scheduled', 'archived'];
@@ -32,6 +33,33 @@ const ContentList = () => {
     },
     onError: (e: any) => toast.error(e.message ?? 'Delete failed'),
   });
+
+  // Projects that were built as fixed pages (through Lovable chat) and can't be edited here yet.
+  const [importing, setImporting] = useState(false);
+  const [importNote, setImportNote] = useState('');
+  const importable = type === 'case_study' && !isLoading && canPublish(access)
+    ? LEGACY_PROJECTS.filter(p => !all.some(i => i.type === 'case_study' && i.slug === p.slug))
+    : [];
+
+  const runImport = async () => {
+    setImporting(true);
+    try {
+      for (const p of importable) {
+        setImportNote(`${p.title}: preparing ${legacyImageCount(p)} images…`);
+        await importLegacyProject(p, { userId: access.userId, email: access.email }, (done, total) =>
+          setImportNote(`${p.title}: uploaded image ${done} of ${total}`));
+      }
+      toast.success('Imported. You can now edit these projects here.');
+      qc.invalidateQueries({ queryKey: ['cms'] });
+      qc.invalidateQueries({ queryKey: ['projects'] });
+      qc.invalidateQueries({ queryKey: ['case-study'] });
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Import failed. Nothing was changed on your live site.');
+    } finally {
+      setImporting(false);
+      setImportNote('');
+    }
+  };
 
   const items = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -59,6 +87,29 @@ const ContentList = () => {
             <Plus className="w-4 h-4" /> New
           </Link>
         </div>
+
+        {importable.length > 0 && (
+          <div className="card-elegant p-4 mb-5 flex flex-wrap items-center gap-3 border-primary/30">
+            <DownloadCloud className="w-5 h-5 text-primary shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium">
+                {importable.map(p => p.title).join(' and ')} {importable.length > 1 ? 'were' : 'was'} added through chat and can't be edited here yet.
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Import copies the text and images into this dashboard. Your live pages keep working throughout.
+                {importing && importNote ? ` ${importNote}` : ''}
+              </p>
+            </div>
+            <button
+              onClick={runImport}
+              disabled={importing}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-60"
+            >
+              {importing ? <Loader2 className="w-4 h-4 animate-spin" /> : <DownloadCloud className="w-4 h-4" />}
+              {importing ? 'Importing…' : 'Import into admin'}
+            </button>
+          </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-2 mb-4">
           <div className="relative flex-1 min-w-[200px]">
@@ -96,6 +147,11 @@ const ContentList = () => {
                   <p className="text-sm font-medium truncate">{item.title}</p>
                   <p className="text-xs text-muted-foreground truncate">/{typePath}/{item.slug}</p>
                 </Link>
+                {type === 'case_study' && (
+                  <span className="hidden sm:inline text-[10px] tracking-wide px-2 py-1 rounded-full border border-border text-muted-foreground shrink-0">
+                    {projectKind(item.body_json) === 'other' ? 'Other project' : 'Full case study'}
+                  </span>
+                )}
                 <span className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-secondary text-muted-foreground shrink-0">
                   {item.status}
                 </span>

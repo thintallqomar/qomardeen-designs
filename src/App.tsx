@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { lazy, Suspense, useEffect } from "react";
@@ -12,6 +12,7 @@ import AIAssistantWidget from "./components/AIAssistantWidget";
 import { useVisitorTracking } from "./hooks/useVisitorTracking";
 import { supportedLanguages, rtlLanguages, type SupportedLanguage } from "./i18n";
 import { useStaffAuth } from "./hooks/useStaffAuth";
+import { fetchBySlug } from "./lib/cms";
 
 // Lazy-load non-critical routes
 const Projects = lazy(() => import("./pages/Projects"));
@@ -89,6 +90,21 @@ const PathRewrite = ({ from, to }: { from: string; to: string }) => {
   return <Navigate to={`${to}${rest}${location.search}`} replace />;
 };
 
+/**
+ * UpTime and WalPay started life as fixed pages. Once they are imported into the admin
+ * (and published) the editable version is shown; until then the original page is used,
+ * so nothing breaks.
+ */
+const ProjectRoute = ({ slug, Legacy }: { slug: string; Legacy: React.ComponentType }) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['case-study', slug],
+    queryFn: () => fetchBySlug('case_study', slug),
+  });
+  if (isLoading) return <PageLoader />;
+  const live = !!data && data.status === 'published' && data.visibility === 'public';
+  return live ? <CaseStudyPage slug={slug} /> : <Legacy />;
+};
+
 const LocalizedRoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
@@ -96,8 +112,8 @@ const LocalizedRoutes = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
-          <Route path="projects/uptime" element={<UptimeProject />} />
-          <Route path="projects/walpay" element={<WalPayProject />} />
+          <Route path="projects/uptime" element={<ProjectRoute slug="uptime" Legacy={UptimeProject} />} />
+          <Route path="projects/walpay" element={<ProjectRoute slug="walpay" Legacy={WalPayProject} />} />
           <Route path="projects/:slug" element={<CaseStudyPage />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />

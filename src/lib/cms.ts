@@ -27,21 +27,34 @@ export interface CaseStudyFrame {
   alt?: string;
   label?: string;
 }
+/** 'full' = complete case study; 'other' = redesigns / focused work with just a few frames. */
+export type ProjectKind = 'full' | 'other';
+export const PROJECT_KINDS: { value: ProjectKind; label: string; blurb: string }[] = [
+  { value: 'full', label: 'Full case study', blurb: 'Research, process, story sections and every frame.' },
+  { value: 'other', label: 'Other project', blurb: 'Redesigns and focused UI work, often just a couple of frames.' },
+];
+export const projectKind = (body: unknown): ProjectKind =>
+  (body as { kind?: string } | null)?.kind === 'other' ? 'other' : 'full';
+
 export interface CaseStudyBody {
+  kind?: ProjectKind;    // which group the project belongs to (defaults to 'full')
   badge?: string;        // e.g. "UI/UX Case Study"
   role?: string;         // e.g. "Product Designer (UI/UX)"
   scope?: string;        // e.g. "End-to-End Design"
   platform?: string;     // e.g. "Web App (SaaS)"
+  timeline?: string;     // e.g. "8 Weeks"
   behanceUrl?: string;   // external Behance / live link
   sections: CaseStudySection[];   // sticky-scroll storytelling
   gallery: CaseStudyFrame[];      // full-frame gallery
 }
 
 export const emptyCaseStudyBody = (): CaseStudyBody => ({
+  kind: 'full',
   badge: 'UI/UX Case Study',
   role: '',
   scope: '',
   platform: '',
+  timeline: '',
   behanceUrl: '',
   sections: [],
   gallery: [],

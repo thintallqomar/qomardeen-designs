@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "architecture": "Architecture",
+    "blog": "Blog",
+    "thinking": "Thinking",
+    "hire": "Hire",
+    "about": "About",
+    "explore": "Explore",
+    "architectureDesc": "System design & patterns",
+    "thinkingDesc": "Essays & frameworks",
+    "aboutDesc": "Background & experience"
+  },
+  "hero": {
+    "available": "Hello, I'm",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Product Designer",
+    "description": "Designing scalable digital products at the intersection of UX, AI, and systems thinking.",
+    "cta_explore": "Explore Case Studies",
+    "cta_hire": "Hire Me",
+    "skills": [
+      "UI Design",
+      "UX Research",
+      "Product Design",
+      "Systems Thinking",
+      "AI Integration"
+    ],
+    "badge": "Product Designer",
+    "cta_cv": "Download CV",
+    "cta_cv_short": "CV"
+  },
+  "metrics": {
+    "items": [
+      {
+        "label": "Focus",
+        "value": "Fintech & Enterprise SaaS"
+      },
+      {
+        "label": "Approach",
+        "value": "UX × AI × Systems Thinking"
+      },
+      {
+        "label": "Scope",
+        "value": "Discovery → Production"
+      },
+      {
+        "label": "Based in",
+        "value": "Nigeria · Building globally"
+      }
+    ]
+  },
+  "featured": {
+    "title": "Featured Projects",
+    "subtitle": "Flagship case studies showcasing scalable product design across industries",
+    "viewCase": "View Case Study",
+    "uptime": {
+      "industry": "Enterprise SaaS",
+      "problem": "Complex asset tracking workflows lacked clarity and scalability"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "International transfers needed trust-building and mobile-first flows"
+    }
+  },
+  "philosophy": {
+    "title": "Design Philosophy",
+    "subtitle": "The principles behind every decision I make.",
+    "principles": [
+      {
+        "title": "Clarity over cleverness",
+        "body": "Good design should feel obvious — not because it's simple, but because it's well-structured and thoughtfully considered."
+      },
+      {
+        "title": "Solve the right problem first",
+        "body": "Visual polish matters, but only after layout, hierarchy, and usability are resolved. Every decision should earn its place."
+      },
+      {
+        "title": "Design for how people actually read",
+        "body": "Users scan, they don't study. Clear hierarchy, predictable layouts, and familiar patterns let people act with confidence and minimal effort."
+      },
+      {
+        "title": "Think in systems, not screens",
+        "body": "Consistent components, spacing rules, and type scales improve the experience for users and the velocity of the team building it."
+      },
+      {
+        "title": "Iterate toward better",
+        "body": "Design is a continuous process — sharpened through feedback, iteration, and contact with the real world."
+      }
+    ]
+  },
+  "architecture": {
+    "title": "Architecture & System Design",
+    "subtitle": "How I think about product systems beyond the interface",
+    "explore": "Explore Architecture",
+    "database": {
+      "title": "Database Design Patterns",
+      "desc": "Scalable schema design for SaaS and fintech products"
+    },
+    "flows": {
+      "title": "System Flows & APIs",
+      "desc": "End-to-end architecture for complex product workflows"
+    },
+    "scaling": {
+      "title": "Scaling Strategies",
+      "desc": "Trade-offs and decisions behind production-ready systems"
+    }
+  },
+  "atlas": {
+    "title": "Meet Atlas",
+    "subtitle": "AI-powered portfolio guide — explore projects, ask questions, and navigate hands-free",
+    "prompt1": "Explain fintech work",
+    "prompt2": "Show case studies",
+    "prompt3": "How to hire",
+    "hint": "Click the orb in the bottom-right corner to start"
+  },
+  "insights": {
+    "title": "Latest Insights",
+    "subtitle": "Thoughts on product design, systems thinking, and AI",
+    "read": "Read",
+    "viewAll": "View All Posts"
+  },
+  "hireCta": {
+    "available": "Available for hire",
+    "title": "Let's Build Something Great",
+    "subtitle": "Looking for a product designer who understands systems, ships real products, and communicates clearly? Let's talk.",
+    "cta": "Hire Me",
+    "schedule": "Schedule a Call"
+  },
+  "footer": {
+    "description": "Product Designer focused on building scalable, user-centered digital products. Experienced in shipping real-world projects from discovery to production.",
+    "quickLinks": "Quick Links",
+    "getInTouch": "Get In Touch",
+    "location": "Nigeria",
+    "availableTitle": "Available for opportunities",
+    "availableDesc": "Open to freelance & full-time positions",
+    "copyright": "© {{year}} Qomardeen Tijani. All rights reserved.",
+    "tagline": "Got a complex challenge you're ready to tackle? I'm all ears. Let's dig in and craft a solution that's both intuitive and innovative."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights on product design, systems thinking, and building digital products",
+    "featured": "Featured",
+    "readArticle": "Read article",
+    "read": "Read article",
+    "search": "Search articles...",
+    "all": "All",
+    "noResults": "No articles found matching your search."
+  },
+  "thinking": {
+    "title": "Thinking",
+    "subtitle": "UX breakdowns, product teardowns, and strategic design thinking",
+    "readMore": "Read full essay"
+  },
+  "newsletter": {
+    "badge": "Stay in the loop",
+    "title": "Get design insights delivered",
+    "subtitle": "No spam, no fluff — just thoughtful essays on product design, systems thinking, and building with AI.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "success": "You're on the list!",
+    "alreadySubscribed": "You're already subscribed!",
+    "successToast": "Subscribed! Welcome aboard.",
+    "errorToast": "Something went wrong. Please try again."
+  },
+  "homeIntro": {
+    "title": "Design that ships",
+    "body": "I design products across fintech, SaaS and AI-native tools, and I work close to the code so ideas make it to production intact.",
+    "cta": "Learn more about me",
+    "viewAll": "View all work"
+  },
+  "homeCta": {
+    "title": "Have a project in mind?",
+    "body": "Tell me what you're building and I'll get back to you.",
+    "cta": "Get in touch"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Download",
+    "close": "Close",
+    "viewerLabel": "Full-screen CV viewer",
+    "openExternal": "Open CV in a new tab",
+    "openExternalHint": "The document could not be embedded here."
+  },
+  "projects": {
+    "title": "Selected Case Studies",
+    "subtitle": "Real-world projects showcasing product design across dashboards, SaaS platforms, and user-focused interfaces.",
+    "fullTitle": "Full Case Studies",
+    "fullBlurb": "End-to-end projects: research, process, design decisions and outcomes.",
+    "otherTitle": "Other Projects",
+    "otherBlurb": "Redesigns, explorations and focused UI work.",
+    "jumpFull": "Case studies",
+    "jumpOther": "Other projects",
+    "live": "Live",
+    "viewCaseStudy": "View Case Study",
+    "clickToView": "Click to view case study",
+    "viewProject": "View project",
+    "liveLink": "Live link",
+    "role": "Role:",
+    "keyDecisions": "Key Decisions:",
+    "ctaTitle": "Interested in Working Together?",
+    "ctaBody": "I'm always open to discussing new projects and opportunities.",
+    "ctaButton": "Get In Touch"
+  },
+  "caseStudy": {
+    "back": "Back to Projects",
+    "viewLive": "View live link",
+    "role": "Role",
+    "scope": "Scope",
+    "platform": "Platform",
+    "timeline": "Timeline",
+    "framesTitle": "Project Frames",
+    "framesBlurb": "A closer look at the screens",
+    "fullTitle": "Full Case Study",
+    "fullBlurb": "Scroll through every frame of the design process",
+    "wantMore": "Want to see more?",
+    "wantMoreLive": "Explore the live project, or get in touch to discuss yours.",
+    "wantMoreNoLive": "Get in touch to discuss your project.",
+    "getInTouch": "Get in Touch",
+    "notFoundTitle": "Case study not found",
+    "notFoundBody": "This case study may have been moved or unpublished."
+  }
+}

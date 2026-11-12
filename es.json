@@ -1,0 +1,197 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "architecture": "Arquitectura",
+    "blog": "Blog",
+    "thinking": "Pensamiento",
+    "hire": "Contratar",
+    "about": "Acerca de",
+    "explore": "Explorar",
+    "architectureDesc": "Diseño de sistemas & patrones",
+    "thinkingDesc": "Ensayos & marcos de trabajo",
+    "aboutDesc": "Trayectoria & experiencia"
+  },
+  "hero": {
+    "available": "Hola, soy",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Diseñador de Producto",
+    "description": "Diseñando productos digitales escalables en la intersección de UX, IA y pensamiento sistémico.",
+    "cta_explore": "Explorar Casos de Estudio",
+    "cta_hire": "Contrátame",
+    "skills": [
+      "Diseño UI",
+      "Investigación UX",
+      "Diseño de Producto",
+      "Pensamiento Sistémico",
+      "Integración IA"
+    ],
+    "badge": "Diseñador de Producto",
+    "cta_cv": "Descargar CV",
+    "cta_cv_short": "CV"
+  },
+  "metrics": {
+    "projects": "Proyectos Entregados",
+    "experience": "Años de Experiencia",
+    "users": "Usuarios Impactados",
+    "satisfaction": "Satisfacción del Cliente"
+  },
+  "featured": {
+    "title": "Proyectos Destacados",
+    "subtitle": "Casos de estudio insignia que muestran diseño de producto escalable en todas las industrias",
+    "viewCase": "Ver Caso de Estudio",
+    "uptime": {
+      "industry": "SaaS Empresarial",
+      "problem": "Los flujos complejos de seguimiento de activos carecían de claridad y escalabilidad"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Las transferencias internacionales necesitaban generar confianza y flujos mobile-first"
+    },
+    "ecommerce": {
+      "industry": "Analítica Retail",
+      "problem": "Los dashboards con muchos datos necesitaban una jerarquía de insights accionables"
+    }
+  },
+  "philosophy": {
+    "title": "Filosofía de Diseño",
+    "items": [
+      "Mi filosofía de diseño se basa en la claridad, la intención y la usabilidad. Creo que un buen diseño debe sentirse obvio, no porque sea simple, sino porque está bien estructurado y cuidadosamente pensado.",
+      "Priorizo resolver el problema correcto antes de enfocarme en la estética. El acabado visual es importante, pero solo después de que el layout, la jerarquía y la usabilidad estén resueltos.",
+      "Diseño entendiendo que los usuarios rara vez leen las interfaces en detalle — las escanean. Esto guía cómo estructuro dashboards, organizo contenido y defino patrones de interacción.",
+      "También pienso más allá de pantallas individuales y me enfoco en sistemas. Componentes consistentes, reglas de espaciado y escalas tipográficas mejoran tanto la experiencia del usuario como la eficiencia del equipo.",
+      "Sobre todo, veo el diseño como un proceso de aprendizaje continuo, refinado a través del feedback, la iteración y la aplicación real."
+    ]
+  },
+  "architecture": {
+    "title": "Arquitectura y Diseño de Sistemas",
+    "subtitle": "Cómo pienso sobre los sistemas de producto más allá de la interfaz",
+    "explore": "Explorar Arquitectura",
+    "database": {
+      "title": "Patrones de Base de Datos",
+      "desc": "Diseño de esquemas escalables para productos SaaS y fintech"
+    },
+    "flows": {
+      "title": "Flujos de Sistema y APIs",
+      "desc": "Arquitectura de extremo a extremo para flujos de producto complejos"
+    },
+    "scaling": {
+      "title": "Estrategias de Escalabilidad",
+      "desc": "Compensaciones y decisiones detrás de sistemas listos para producción"
+    }
+  },
+  "atlas": {
+    "title": "Conoce a Atlas",
+    "subtitle": "Guía de portafolio impulsada por IA — explora proyectos, haz preguntas y navega sin manos",
+    "prompt1": "Explicar trabajo fintech",
+    "prompt2": "Mostrar casos de estudio",
+    "prompt3": "Cómo contratar",
+    "hint": "Haz clic en el orbe en la esquina inferior derecha para comenzar"
+  },
+  "insights": {
+    "title": "Últimas Reflexiones",
+    "subtitle": "Pensamientos sobre diseño de producto, pensamiento sistémico e IA",
+    "read": "Leer",
+    "viewAll": "Ver Todos los Artículos"
+  },
+  "hireCta": {
+    "available": "Disponible para contratar",
+    "title": "Construyamos Algo Grandioso",
+    "subtitle": "¿Buscas un diseñador de producto que entienda sistemas, entregue productos reales y se comunique con claridad? Hablemos.",
+    "cta": "Contrátame",
+    "schedule": "Agendar una Llamada"
+  },
+  "footer": {
+    "description": "Diseñador de Producto enfocado en crear productos digitales escalables y centrados en el usuario. Con experiencia en entregar proyectos reales desde el descubrimiento hasta la producción.",
+    "quickLinks": "Enlaces Rápidos",
+    "getInTouch": "Contacto",
+    "location": "Nigeria",
+    "availableTitle": "Disponible para oportunidades",
+    "availableDesc": "Abierto a freelance y posiciones de tiempo completo",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Todos los derechos reservados.",
+    "tagline": "¿Tienes un desafío complejo que resolver? Soy todo oídos. Profundicemos y creemos una solución intuitiva e innovadora."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Ideas sobre diseño de producto, pensamiento sistémico y construcción de productos digitales",
+    "featured": "Destacado",
+    "readArticle": "Leer artículo",
+    "read": "Leer artículo",
+    "search": "Buscar artículos...",
+    "all": "Todos",
+    "noResults": "No se encontraron artículos que coincidan con tu búsqueda."
+  },
+  "thinking": {
+    "title": "Pensamiento",
+    "subtitle": "Análisis UX, desgloses de producto y pensamiento estratégico de diseño",
+    "readMore": "Leer ensayo completo"
+  },
+  "newsletter": {
+    "badge": "Mantente informado",
+    "title": "Recibe ideas de diseño",
+    "subtitle": "Sin spam ni relleno — solo ensayos sobre diseño de producto, pensamiento sistémico y construcción con IA.",
+    "placeholder": "tu@email.com",
+    "subscribe": "Suscribirse",
+    "success": "¡Estás en la lista!",
+    "alreadySubscribed": "¡Ya estás suscrito!",
+    "successToast": "¡Suscrito! Bienvenido.",
+    "errorToast": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "homeIntro": {
+    "title": "Diseño que se entrega",
+    "body": "Diseño productos para fintech, SaaS y herramientas nativas de IA, y trabajo cerca del código para que las ideas lleguen a producción intactas.",
+    "cta": "Conoce más sobre mí",
+    "viewAll": "Ver todos los proyectos"
+  },
+  "homeCta": {
+    "title": "¿Tienes un proyecto en mente?",
+    "body": "Cuéntame qué estás construyendo y te responderé.",
+    "cta": "Contáctame"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Descargar",
+    "close": "Cerrar",
+    "viewerLabel": "Visor de CV",
+    "openExternal": "Abrir el CV en una pestaña nueva",
+    "openExternalHint": "No se pudo incrustar el documento aquí."
+  },
+  "projects": {
+    "title": "Casos de estudio seleccionados",
+    "subtitle": "Proyectos reales que muestran diseño de producto en paneles, plataformas SaaS e interfaces centradas en el usuario.",
+    "fullTitle": "Casos de estudio completos",
+    "fullBlurb": "Proyectos de principio a fin: investigación, proceso, decisiones de diseño y resultados.",
+    "otherTitle": "Otros proyectos",
+    "otherBlurb": "Rediseños, exploraciones y trabajos de interfaz específicos.",
+    "jumpFull": "Casos de estudio",
+    "jumpOther": "Otros proyectos",
+    "live": "En vivo",
+    "viewCaseStudy": "Ver caso de estudio",
+    "clickToView": "Haz clic para ver el caso de estudio",
+    "viewProject": "Ver proyecto",
+    "liveLink": "Enlace en vivo",
+    "role": "Rol:",
+    "keyDecisions": "Decisiones clave:",
+    "ctaTitle": "¿Te interesa trabajar juntos?",
+    "ctaBody": "Siempre estoy abierto a hablar de nuevos proyectos y oportunidades.",
+    "ctaButton": "Ponte en contacto"
+  },
+  "caseStudy": {
+    "back": "Volver a proyectos",
+    "viewLive": "Ver enlace en vivo",
+    "role": "Rol",
+    "scope": "Alcance",
+    "platform": "Plataforma",
+    "timeline": "Duración",
+    "framesTitle": "Pantallas del proyecto",
+    "framesBlurb": "Una mirada más cercana a las pantallas",
+    "fullTitle": "Caso de estudio completo",
+    "fullBlurb": "Recorre cada pantalla del proceso de diseño",
+    "wantMore": "¿Quieres ver más?",
+    "wantMoreLive": "Explora el proyecto en vivo o contáctame para hablar del tuyo.",
+    "wantMoreNoLive": "Contáctame para hablar de tu proyecto.",
+    "getInTouch": "Ponte en contacto",
+    "notFoundTitle": "Caso de estudio no encontrado",
+    "notFoundBody": "Es posible que este caso de estudio se haya movido o despublicado."
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "architecture": "Architecture",
+    "blog": "Blog",
+    "thinking": "Réflexions",
+    "hire": "Embaucher",
+    "about": "À propos",
+    "explore": "Explorer",
+    "architectureDesc": "Conception système & patterns",
+    "thinkingDesc": "Essais & cadres de pensée",
+    "aboutDesc": "Parcours & expérience"
+  },
+  "hero": {
+    "available": "Bonjour, je suis",
+    "title": "Qomardeen Tijani",
+    "subtitle": "Designer Produit",
+    "description": "Conception de produits numériques évolutifs à l'intersection de l'UX, de l'IA et de la pensée systémique.",
+    "cta_explore": "Voir les Études de Cas",
+    "cta_hire": "M'embaucher",
+    "skills": [
+      "Design UI",
+      "Recherche UX",
+      "Design Produit",
+      "Pensée Systémique",
+      "Intégration IA"
+    ],
+    "badge": "Designer Produit",
+    "cta_cv": "Télécharger le CV",
+    "cta_cv_short": "CV"
+  },
+  "metrics": {
+    "projects": "Projets Livrés",
+    "experience": "Années d'Expérience",
+    "users": "Utilisateurs Impactés",
+    "satisfaction": "Satisfaction Client"
+  },
+  "featured": {
+    "title": "Projets Phares",
+    "subtitle": "Études de cas phares démontrant un design produit évolutif à travers les industries",
+    "viewCase": "Voir l'Étude de Cas",
+    "uptime": {
+      "industry": "SaaS Entreprise",
+      "problem": "Les flux de suivi d'actifs complexes manquaient de clarté et d'évolutivité"
+    },
+    "walpay": {
+      "industry": "Fintech",
+      "problem": "Les transferts internationaux nécessitaient la confiance et des flux mobile-first"
+    },
+    "ecommerce": {
+      "industry": "Analytique Retail",
+      "problem": "Les tableaux de bord riches en données nécessitaient une hiérarchie d'insights actionnables"
+    }
+  },
+  "philosophy": {
+    "title": "Philosophie de Design",
+    "items": [
+      "Ma philosophie de design repose sur la clarté, l'intention et l'utilisabilité. Je crois qu'un bon design doit sembler évident — non pas parce qu'il est simple, mais parce qu'il est bien structuré et soigneusement réfléchi.",
+      "Je priorise la résolution du bon problème avant de me concentrer sur l'esthétique. Le polish visuel est important, mais seulement après que la mise en page, la hiérarchie et l'utilisabilité sont résolues.",
+      "Je conçois en sachant que les utilisateurs lisent rarement les interfaces en détail — ils les parcourent. Cela guide ma façon de structurer les tableaux de bord, d'organiser le contenu et de définir les patterns d'interaction.",
+      "Je pense aussi au-delà des écrans individuels et je me concentre sur les systèmes. Des composants cohérents, des règles d'espacement et des échelles typographiques améliorent à la fois l'expérience utilisateur et l'efficacité de l'équipe.",
+      "Par-dessus tout, je considère le design comme un processus d'apprentissage continu, affiné par le feedback, l'itération et l'application réelle."
+    ]
+  },
+  "architecture": {
+    "title": "Architecture & Conception Système",
+    "subtitle": "Comment je pense les systèmes produit au-delà de l'interface",
+    "explore": "Explorer l'Architecture",
+    "database": {
+      "title": "Patterns de Base de Données",
+      "desc": "Conception de schémas évolutifs pour les produits SaaS et fintech"
+    },
+    "flows": {
+      "title": "Flux Système & APIs",
+      "desc": "Architecture bout en bout pour des flux produit complexes"
+    },
+    "scaling": {
+      "title": "Stratégies de Mise à l'Échelle",
+      "desc": "Compromis et décisions derrière les systèmes prêts pour la production"
+    }
+  },
+  "atlas": {
+    "title": "Rencontrez Atlas",
+    "subtitle": "Guide de portfolio propulsé par l'IA — explorez les projets, posez des questions et naviguez mains libres",
+    "prompt1": "Expliquer le travail fintech",
+    "prompt2": "Montrer les études de cas",
+    "prompt3": "Comment embaucher",
+    "hint": "Cliquez sur l'orbe en bas à droite pour commencer"
+  },
+  "insights": {
+    "title": "Dernières Réflexions",
+    "subtitle": "Réflexions sur le design produit, la pensée systémique et l'IA",
+    "read": "Lire",
+    "viewAll": "Voir Tous les Articles"
+  },
+  "hireCta": {
+    "available": "Disponible à l'embauche",
+    "title": "Construisons Quelque Chose de Grand",
+    "subtitle": "Vous cherchez un designer produit qui comprend les systèmes, livre de vrais produits et communique clairement ? Parlons-en.",
+    "cta": "Embauchez-moi",
+    "schedule": "Planifier un Appel"
+  },
+  "footer": {
+    "description": "Designer Produit axé sur la création de produits numériques évolutifs et centrés sur l'utilisateur. Expérimenté dans la livraison de projets réels de la découverte à la production.",
+    "quickLinks": "Liens Rapides",
+    "getInTouch": "Contact",
+    "location": "Nigeria",
+    "availableTitle": "Disponible pour des opportunités",
+    "availableDesc": "Ouvert au freelance et aux postes à temps plein",
+    "copyright": "© {{year}} Qomardeen Tyler Tijani. Tous droits réservés.",
+    "tagline": "Vous avez un défi complexe à relever ? Je suis tout ouïe. Creusons ensemble et créons une solution intuitive et innovante."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Réflexions sur le design produit, la pensée systémique et la création de produits numériques",
+    "featured": "À la une",
+    "readArticle": "Lire l'article",
+    "read": "Lire l’article",
+    "search": "Rechercher des articles...",
+    "all": "Tous",
+    "noResults": "Aucun article ne correspond à votre recherche."
+  },
+  "thinking": {
+    "title": "Réflexions",
+    "subtitle": "Analyses UX, déconstructions de produits et réflexion stratégique en design",
+    "readMore": "Lire l’essai complet"
+  },
+  "newsletter": {
+    "badge": "Restez connecté",
+    "title": "Recevez des insights design",
+    "subtitle": "Pas de spam — juste des essais réfléchis sur le design produit, la pensée systémique et la construction avec l'IA.",
+    "placeholder": "votre@email.com",
+    "subscribe": "S'abonner",
+    "success": "Vous êtes inscrit !",
+    "alreadySubscribed": "Vous êtes déjà inscrit !",
+    "successToast": "Inscrit ! Bienvenue.",
+    "errorToast": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "homeIntro": {
+    "title": "Un design qui se livre",
+    "body": "Je conçois des produits dans la fintech, le SaaS et les outils natifs IA, et je travaille au plus près du code pour que les idées arrivent intactes en production.",
+    "cta": "En savoir plus sur moi",
+    "viewAll": "Voir tous les projets"
+  },
+  "homeCta": {
+    "title": "Un projet en tête ?",
+    "body": "Parlez-moi de ce que vous créez et je vous réponds.",
+    "cta": "Me contacter"
+  },
+  "cv": {
+    "viewerTitle": "Qomardeen Tijani — CV",
+    "download": "Télécharger",
+    "close": "Fermer",
+    "viewerLabel": "Visionneuse de CV",
+    "openExternal": "Ouvrir le CV dans un nouvel onglet",
+    "openExternalHint": "Le document n'a pas pu être intégré ici."
+  },
+  "projects": {
+    "title": "Études de cas sélectionnées",
+    "subtitle": "Des projets concrets illustrant le design produit : tableaux de bord, plateformes SaaS et interfaces centrées sur l'utilisateur.",
+    "fullTitle": "Études de cas complètes",
+    "fullBlurb": "Des projets de bout en bout : recherche, processus, décisions de design et résultats.",
+    "otherTitle": "Autres projets",
+    "otherBlurb": "Refontes, explorations et travaux d'interface ciblés.",
+    "jumpFull": "Études de cas",
+    "jumpOther": "Autres projets",
+    "live": "En ligne",
+    "viewCaseStudy": "Voir l'étude de cas",
+    "clickToView": "Cliquez pour voir l'étude de cas",
+    "viewProject": "Voir le projet",
+    "liveLink": "Lien en ligne",
+    "role": "Rôle :",
+    "keyDecisions": "Décisions clés :",
+    "ctaTitle": "Envie de travailler ensemble ?",
+    "ctaBody": "Je suis toujours ouvert pour discuter de nouveaux projets et opportunités.",
+    "ctaButton": "Me contacter"
+  },
+  "caseStudy": {
+    "back": "Retour aux projets",
+    "viewLive": "Voir le lien en ligne",
+    "role": "Rôle",
+    "scope": "Périmètre",
+    "platform": "Plateforme",
+    "timeline": "Durée",
+    "framesTitle": "Écrans du projet",
+    "framesBlurb": "Un regard plus attentif sur les écrans",
+    "fullTitle": "Étude de cas complète",
+    "fullBlurb": "Parcourez chaque écran du processus de design",
+    "wantMore": "Envie d'en voir plus ?",
+    "wantMoreLive": "Explorez le projet en ligne, ou contactez-moi pour discuter du vôtre.",
+    "wantMoreNoLive": "Contactez-moi pour discuter de votre projet.",
+    "getInTouch": "Me contacter",
+    "notFoundTitle": "Étude de cas introuvable",
+    "notFoundBody": "Cette étude de cas a peut-être été déplacée ou dépubliée."
+  }
+}

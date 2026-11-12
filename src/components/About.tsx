@@ -1,10 +1,9 @@
 import { GraduationCap, Briefcase, MapPin, Download, Award } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import Icon3D from './Icon3D';
-import cvAsset from '@/assets/Qomardeen_Tijani_CV.pdf.asset.json';
+import CvDownloadButton from '@/components/CvDownloadButton';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -19,12 +18,7 @@ const About = () => {
               <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Product Designer building scalable, user-centered digital products.
               </p>
-              <Button asChild className="mt-6">
-                <a href={cvAsset.url} download="Qomardeen_Tijani_CV.pdf">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Resume
-                </a>
-              </Button>
+              <CvDownloadButton className="btn-primary mt-6" label="Download Resume" />
             </div>
           </ScrollReveal>
 

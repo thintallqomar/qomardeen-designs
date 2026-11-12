@@ -1,314 +1,350 @@
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Download, Globe2, Layers,
+  Clock, Lightbulb, Linkedin, Mail, PenTool, Rocket, Target, Zap,
+} from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import ScrollReveal from '@/components/ScrollReveal';
 import StaggeredReveal from '@/components/StaggeredReveal';
 import Icon3D from '@/components/Icon3D';
-import {
-  Linkedin, Mail, Calendar, Sparkles, Zap, Users, Layers,
-  ArrowRight, CheckCircle, Target, Lightbulb, Rocket,
-  Clock, Code2,
-} from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import profileImage from '@/assets/hero-portrait-hq.png';
 import PageSEO from '@/components/PageSEO';
 import InquiryForm from '@/components/InquiryForm';
+import StickyHireBar from '@/components/StickyHireBar';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
+import uptimeCover from '@/assets/uptime-cover.png';
+import walpayCover from '@/assets/walpay/frame-01.png';
+import HeroGlow from '@/components/HeroGlow';
+import HeroPortrait from '@/components/HeroPortrait';
+import CvDownloadButton from '@/components/CvDownloadButton';
 
-const ease = [0.25, 0.1, 0.25, 1] as const;
+const EMAIL = 'qomardeentijani@gmail.com';
+const BOOK_URL = 'https://cal.com/the_Qomardeen';
+const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
 
-/* ── Value Props ── */
-const valueProps = [
+/* Quick facts a recruiter looks for first */
+const facts = [
+  { icon: <CalendarDays />, label: 'Availability', value: 'Immediately' },
+  { icon: <Briefcase />, label: 'Open to', value: 'Full-time · Freelance' },
+  { icon: <Globe2 />, label: 'Work mode', value: 'Remote, local or international' },
+  { icon: <Clock />, label: 'Time zone', value: 'Nigeria · WAT (UTC+1)' },
+];
+
+/* Ways to work together */
+const engagements = [
   {
-    icon: <Target />,
-    variant: 'rose' as const,
-    title: 'Product-Led Thinking',
-    description: 'I don\'t just design screens — I understand business goals, user pain points, and how design drives measurable outcomes.',
+    icon: <Briefcase />,
+    title: 'Full-time role',
+    body: 'Product Designer or UI/UX Designer inside a product team: remote, with a local or international company. I can start immediately.',
+    cta: 'Discuss a role',
+  },
+  {
+    icon: <Rocket />,
+    title: 'Freelance project',
+    body: 'Dashboards, web apps and mobile flows, scoped end to end or in focused sprints, from discovery through to production-ready UI.',
+    cta: 'Start a project',
   },
   {
     icon: <Layers />,
-    variant: 'violet' as const,
-    title: 'Systems Over Screens',
-    description: 'Every component I create fits into a scalable system. Design tokens, reusable patterns, and consistent logic across surfaces.',
-  },
-  {
-    icon: <Code2 />,
-    variant: 'teal' as const,
-    title: 'Design ↔ Dev Bridge',
-    description: 'I understand how engineers think. I deliver specs they can actually build from — clear handoffs, logical component structures, and AI-assisted prototyping.',
-  },
-  {
-    icon: <Zap />,
-    variant: 'amber' as const,
-    title: 'Ship Fast, Ship Right',
-    description: 'From discovery to deployment in weeks, not months. I move quickly without sacrificing quality or user experience.',
+    title: 'Design system & handoff',
+    body: 'Component libraries, design tokens and developer-ready specs that keep what ships faithful to what was designed.',
+    cta: 'Talk it through',
   },
 ];
 
-/* ── Process Steps ── */
+const valueProps = [
+  { icon: <Target />, title: 'Product-led thinking', description: 'I look past the screen to business goals, user pain points and the outcome the design is meant to drive.' },
+  { icon: <Layers />, title: 'Systems over screens', description: 'Components, tokens and patterns that scale, so every new screen is faster to build and more consistent.' },
+  { icon: <Code2 />, title: 'Design ↔ dev bridge', description: 'I know how engineers think, so handoffs are specs they can actually build from.' },
+  { icon: <Zap />, title: 'Ship fast, ship right', description: 'Discovery to deployment in weeks, not months, without trading away quality or usability.' },
+];
+
 const processSteps = [
-  { icon: <Lightbulb />, variant: 'amber' as const, step: '01', title: 'Discovery', description: 'Understand the problem, users, business context, and constraints.' },
-  { icon: <Target />, variant: 'rose' as const, step: '02', title: 'Design', description: 'Wireframes → high-fidelity UI → interactive prototypes with real data thinking.' },
-  { icon: <Rocket />, variant: 'blue' as const, step: '03', title: 'Build & Handoff', description: 'Design system specs, developer-ready documentation, and AI-assisted prototyping for seamless implementation.' },
-  { icon: <Rocket />, variant: 'emerald' as const, step: '04', title: 'Deliver', description: 'QA, iteration, launch support, and documentation for long-term maintainability.' },
+  { icon: <Lightbulb />, title: 'Discover', description: 'Understand the problem, the users, the business context and the constraints.' },
+  { icon: <PenTool />, title: 'Design', description: 'Wireframes, high-fidelity UI and interactive prototypes grounded in real data.' },
+  { icon: <Code2 />, title: 'Hand off', description: 'Design-system specs and developer-ready documentation, with AI-assisted prototyping where it helps.' },
+  { icon: <Rocket />, title: 'Deliver', description: 'QA, iteration and launch support, with documentation that keeps the work maintainable.' },
 ];
 
-/* ── Services ── */
 const services = [
-  'Product Design (end-to-end)',
-  'UI/UX Design',
-  'Design Systems',
-  'Dashboard & Data Visualization',
-  'Mobile-First Design',
-  'Prototyping & User Testing',
-  'AI-Powered Product Interfaces',
-  'AI-Assisted Prototyping',
+  'Product design, end to end',
+  'UI/UX design',
+  'Design systems',
+  'Dashboards & data visualization',
+  'Mobile-first design',
+  'Prototyping & user testing',
+  'AI-powered product interfaces',
 ];
 
-/* ── What You Get ── */
 const deliverables = [
-  { text: 'Pixel-perfect Figma files with auto-layout and variants' },
-  { text: 'Interactive prototypes for stakeholder buy-in' },
-  { text: 'Developer-ready design specs and component documentation' },
-  { text: 'Design system tokens (colors, typography, spacing)' },
-  { text: 'Responsive layouts across all breakpoints' },
-  { text: 'Motion design specs for micro-interactions' },
+  'Figma files with auto-layout and variants',
+  'Interactive prototypes for stakeholder buy-in',
+  'Developer-ready specs and component documentation',
+  'Design tokens: colors, typography, spacing',
+  'Responsive layouts across breakpoints',
+  'Motion specs for micro-interactions',
 ];
 
-/* ── Top Projects ── */
-const topProjects = [
-  { title: 'UpTime CMMS', desc: 'Enterprise SaaS — asset management with complex workflows and dashboards.', route: '/projects/uptime' },
-  { title: 'WalPay', desc: 'Fintech — digital wallet, currency exchange, and trust-building mobile flows.', route: '/projects/walpay' },
+const work = [
+  { title: 'UpTime CMMS', tag: 'Enterprise SaaS', desc: 'Asset management with complex maintenance workflows and dashboards.', route: '/projects/uptime', image: uptimeCover },
+  { title: 'WalPay', tag: 'Fintech', desc: 'Digital wallet and currency exchange, with trust-building mobile flows.', route: '/projects/walpay', image: walpayCover },
+];
+
+const faqs = [
+  { q: 'When can you start?', a: 'Immediately. I am available now for full-time roles and freelance projects.' },
+  { q: 'What roles are you looking for?', a: 'Product Design and UI/UX Design roles, full-time or freelance, remote with local or international teams.' },
+  { q: 'Where are you based, and can you work across time zones?', a: 'I am based in Nigeria (WAT, UTC+1) and work remotely. Local and international teams are both welcome.' },
+  { q: 'What kind of products have you designed?', a: 'Fintech and enterprise SaaS: a CMMS platform, dashboards, a digital wallet and currency exchange, and websites. Each is shown as a case study on this site.' },
+  { q: 'How do you work with engineers?', a: 'I hand off developer-ready specs, design tokens and component documentation, and I prototype with AI assistance where it speeds things up, so what ships stays true to the design.' },
+  { q: 'What is the fastest way to reach you?', a: 'Book a call or send an email. You can also download my CV above, or use the form below.' },
 ];
 
 const Hire = () => {
-  const navigate = useNavigate();
+  const localizedPath = useLocalizedPath();
 
   return (
     <>
       <Navigation />
       <PageSEO
-        title="Hire Qomardeen Tijani — Product Designer Available for Projects"
-        description="Hire a Product Designer for fintech, SaaS, and AI-native products. Availability, process, and direct booking."
+        title="Hire Qomardeen Tijani — Product Designer (UI/UX), Available Now"
+        description="Product Designer for fintech and SaaS teams. Open to remote full-time and freelance roles, available immediately. Book a call or download my CV."
         path="/hire"
       />
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">
-
             {/* ── Hero ── */}
+            <section className="relative overflow-hidden section-padding">
+              <HeroGlow />
+              <div className="container-custom relative z-10">
+                <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-center">
+                  <ScrollReveal>
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/60 text-sm font-medium mb-6">
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-ping" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                        </span>
+                        Available immediately · Full-time & freelance
+                      </div>
+                      <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
+                        Product design that ships,<br />
+                        <span className="text-primary">from discovery to production.</span>
+                      </h1>
+                      <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
+                        I design clear, scalable interfaces for fintech and SaaS products, and I work close to engineering so the design survives handoff. Open to Product Design and UI/UX roles, remote, local or international.
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group">
+                          <CalendarDays className="w-4 h-4" />
+                          Book a call
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                        <CvDownloadButton className="btn-outline" />
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+                        <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
+                          <Mail className="w-4 h-4" /> {EMAIL}
+                        </a>
+                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
+                          <Linkedin className="w-4 h-4" /> LinkedIn
+                        </a>
+                      </div>
+                    </div>
+                  </ScrollReveal>
+
+                  {/* Identical to the Home hero portrait */}
+                  <HeroPortrait />
+                </div>
+
+                {/* Quick facts */}
+                <ScrollReveal delay={0.1}>
+                  <dl className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3">
+                    {facts.map(f => (
+                      <div key={f.label} className="card-elegant !p-4 flex items-center gap-3">
+                        <Icon3D variant="primary" size="sm">{f.icon}</Icon3D>
+                        <div className="min-w-0">
+                          <dt className="text-xs text-muted-foreground">{f.label}</dt>
+                          <dd className="text-sm font-semibold leading-snug">{f.value}</dd>
+                        </div>
+                      </div>
+                    ))}
+                  </dl>
+                </ScrollReveal>
+              </div>
+            </section>
+
+            {/* ── Ways to work together ── */}
+            <section className="section-padding bg-muted/30">
+              <div className="container-custom">
+                <ScrollReveal>
+                  <div className="text-center mb-10 max-w-2xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Ways we can work together</h2>
+                    <p className="text-muted-foreground">Whether you are hiring for a team or scoping a project, here is how it usually starts.</p>
+                  </div>
+                </ScrollReveal>
+                <StaggeredReveal className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
+                  {engagements.map(e => (
+                    <div key={e.title} className="card-elegant flex flex-col h-full">
+                      <Icon3D variant="primary" size="md" className="mb-4">{e.icon}</Icon3D>
+                      <h3 className="text-lg font-semibold mb-2">{e.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{e.body}</p>
+                      <a href="#contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                        {e.cta} <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  ))}
+                </StaggeredReveal>
+              </div>
+            </section>
+
+            {/* ── Selected work ── */}
             <section className="section-padding">
               <div className="container-custom">
-                <div className="max-w-5xl mx-auto">
-                  <ScrollReveal>
-                    <div className="grid md:grid-cols-[1fr_auto] gap-10 items-stretch">
+                <ScrollReveal>
+                  <div className="text-center mb-10 max-w-2xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Proof, not promises</h2>
+                    <p className="text-muted-foreground">Two end-to-end case studies, from research to final UI.</p>
+                  </div>
+                </ScrollReveal>
+                <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  {work.map(w => (
+                    <Link
+                      key={w.title}
+                      to={localizedPath(w.route)}
+                      className="group block rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      <div className="aspect-video bg-muted overflow-hidden">
+                        <img src={w.image} alt={`${w.title} case study`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="p-5">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-primary">{w.tag}</span>
+                        <h3 className="text-lg font-semibold mt-1 mb-1.5">{w.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                          View case study <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="text-center mt-8">
+                  <Link to={localizedPath('/projects')} className="btn-outline">
+                    See all projects <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* ── Why teams hire me ── */}
+            <section className="section-padding bg-muted/30">
+              <div className="container-custom">
+                <ScrollReveal>
+                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">Why teams hire me</h2>
+                </ScrollReveal>
+                <StaggeredReveal className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto" staggerDelay={0.1}>
+                  {valueProps.map(v => (
+                    <div key={v.title} className="card-elegant flex gap-4">
+                      <Icon3D variant="primary" size="md">{v.icon}</Icon3D>
                       <div>
-                        <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-                          <div className="w-2 h-2 bg-success rounded-full mr-2 animate-pulse" />
-                          <Sparkles className="w-4 h-4 mr-1" />
-                          Available for full time roles & freelance projects
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                          Let's Build Something<br />
-                          <span className="text-primary">Users Love</span>
-                        </h1>
-                        <p className="text-lg text-muted-foreground max-w-xl mb-8">
-                          Product Designer who turns complex problems into elegant, scalable interfaces. 
-                          I work at the intersection of UX, engineering, and business strategy to ship products that matter.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-3">
-                          <motion.a
-                            href="mailto:qomardeentijani@gmail.com"
-                            className="btn-primary inline-flex items-center justify-center gap-2 group"
-                            whileHover={{ scale: 1.03, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ duration: 0.2, ease }}
-                          >
-                            <Mail className="w-4 h-4" />
-                            Get in Touch
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </motion.a>
-                          <motion.a
-                            href="https://linkedin.com/in/qomardeentijani"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-outline inline-flex items-center justify-center gap-2"
-                            whileHover={{ scale: 1.03, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ duration: 0.2, ease }}
-                          >
-                            <Linkedin className="w-4 h-4" /> LinkedIn
-                          </motion.a>
-                        </div>
+                        <h3 className="font-semibold mb-1.5">{v.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
                       </div>
-                      <motion.div
-                        className="hidden md:flex items-stretch self-stretch"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.7, ease }}
-                      >
-                        <div className="relative w-72 lg:w-80 rounded-3xl overflow-hidden shadow-elegant group">
-                          <div className="absolute inset-0 bg-gradient-primary opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
-                          <div className="absolute -inset-4 bg-gradient-primary rounded-3xl blur-3xl opacity-15 scale-105 group-hover:opacity-25 transition-opacity duration-500" />
-                          <img
-                            src={profileImage}
-                            alt="Qomardeen Tijani — Product Designer"
-                            className="w-full h-full object-cover object-center relative z-10 rounded-3xl ring-1 ring-border/10"
-                          />
-                          <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/40 via-transparent to-transparent rounded-3xl" />
-                        </div>
-                      </motion.div>
                     </div>
-                  </ScrollReveal>
-                </div>
-              </div>
-            </section>
-
-            {/* ── Value Proposition ── */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Why Work With Me</h2>
-                  <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
-                    What sets me apart from other designers.
-                  </p>
-                </ScrollReveal>
-
-                <StaggeredReveal className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6" staggerDelay={0.1} equalHeight>
-                  {valueProps.map((item, i) => (
-                    <motion.div
-                      key={i}
-                      className="card-elegant h-full"
-                      whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
-                      transition={{ duration: 0.3, ease }}
-                    >
-                      <div className="flex items-start gap-4">
-                        <Icon3D variant={item.variant} size="md">
-                          {item.icon}
-                        </Icon3D>
-                        <div>
-                          <h3 className="font-semibold mb-1">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
-                        </div>
-                      </div>
-                    </motion.div>
                   ))}
                 </StaggeredReveal>
               </div>
             </section>
 
-            {/* ── Process ── */}
+            {/* ── How I work ── */}
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">How I Work</h2>
-                  <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
-                    A structured, transparent process from kickoff to launch.
-                  </p>
+                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">How I work</h2>
                 </ScrollReveal>
-
-                <div className="max-w-3xl mx-auto">
-                  {processSteps.map((step, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex gap-6 mb-8 last:mb-0"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.12, duration: 0.5, ease }}
-                    >
-                      <div className="flex flex-col items-center">
-                        <Icon3D variant={step.variant} size="lg">
-                          {step.icon}
-                        </Icon3D>
-                        {i < processSteps.length - 1 && (
-                          <div className="w-px flex-1 bg-border mt-2" />
-                        )}
+                <StaggeredReveal className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+                  {processSteps.map((s, i) => (
+                    <div key={s.title} className="card-elegant h-full">
+                      <div className="flex items-center justify-between mb-4">
+                        <Icon3D variant="primary" size="md">{s.icon}</Icon3D>
+                        <span className="text-sm font-semibold text-muted-foreground tabular-nums">0{i + 1}</span>
                       </div>
-                      <div className="pb-8">
-                        <span className="text-xs font-bold text-primary uppercase tracking-wider">{step.step}</span>
-                        <h3 className="font-semibold text-lg mt-1">{step.title}</h3>
-                        <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* ── Services & Deliverables ── */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
-                  <ScrollReveal>
-                    <div>
-                      <h2 className="text-2xl font-bold mb-6">Services</h2>
-                      <div className="flex flex-wrap gap-2">
-                        {services.map((s, i) => (
-                          <span key={i} className="skill-tag">{s}</span>
-                        ))}
-                      </div>
+                      <h3 className="font-semibold mb-1.5">{s.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
                     </div>
-                  </ScrollReveal>
-
-                  <ScrollReveal>
-                    <div>
-                      <h2 className="text-2xl font-bold mb-6">What You Get</h2>
-                      <div className="space-y-3">
-                        {deliverables.map((d, i) => (
-                          <div key={i} className="flex items-start gap-3">
-                            <Icon3D variant="success" size="sm">
-                              <CheckCircle />
-                            </Icon3D>
-                            <span className="text-sm text-muted-foreground">{d.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                </div>
-              </div>
-            </section>
-
-            {/* ── Featured Work ── */}
-            <section className="section-padding">
-              <div className="container-custom">
-                <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Featured Work</h2>
-                  <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
-                    Recent projects that showcase my approach.
-                  </p>
-                </ScrollReveal>
-
-                <StaggeredReveal className="max-w-3xl mx-auto grid md:grid-cols-2 gap-6" staggerDelay={0.12} equalHeight>
-                  {topProjects.map((project, i) => (
-                    <motion.div
-                      key={i}
-                      className="card-elegant group cursor-pointer h-full"
-                      whileHover={{ y: -4, boxShadow: 'var(--shadow-lg)' }}
-                      transition={{ duration: 0.3, ease }}
-                      onClick={() => navigate(project.route)}
-                    >
-                      <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{project.desc}</p>
-                      <div className="flex items-center gap-1 text-sm text-primary font-medium group-hover:gap-2 transition-all">
-                        View Case Study <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </motion.div>
                   ))}
                 </StaggeredReveal>
               </div>
             </section>
 
-            {/* ── Inquiry Form ── */}
-            <section id="inquiry" className="section-padding">
+            {/* ── What I do / what you get ── */}
+            <section className="section-padding bg-muted/30">
+              <div className="container-custom">
+                <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                  <ScrollReveal>
+                    <h2 className="text-xl md:text-2xl font-bold mb-5">What I do</h2>
+                    <ul className="space-y-3">
+                      {services.map(s => (
+                        <li key={s} className="flex items-start gap-3 text-sm md:text-base">
+                          <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollReveal>
+                  <ScrollReveal delay={0.1}>
+                    <h2 className="text-xl md:text-2xl font-bold mb-5">What you get</h2>
+                    <ul className="space-y-3">
+                      {deliverables.map(d => (
+                        <li key={d} className="flex items-start gap-3 text-sm md:text-base">
+                          <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollReveal>
+                </div>
+              </div>
+            </section>
+
+            {/* ── FAQ ── */}
+            <section className="section-padding">
               <div className="container-custom">
                 <div className="max-w-3xl mx-auto">
                   <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Start a Project</h2>
-                    <p className="text-muted-foreground text-center max-w-xl mx-auto mb-10">
-                      Share a few details and I'll come back with next steps, timing, and a realistic scope.
-                    </p>
+                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Questions recruiters ask</h2>
+                  </ScrollReveal>
+                  <Accordion type="single" collapsible className="w-full">
+                    {faqs.map((f, i) => (
+                      <AccordionItem key={f.q} value={`faq-${i}`}>
+                        <AccordionTrigger className="text-left text-base font-semibold">{f.q}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              </div>
+            </section>
+
+            {/* ── Contact ── */}
+            <section id="contact" className="section-padding bg-muted/30 scroll-mt-16">
+              <div className="container-custom">
+                <div className="max-w-3xl mx-auto">
+                  <ScrollReveal>
+                    <div className="text-center mb-10">
+                      <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's talk</h2>
+                      <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+                        Book a call, send an email, or share a few details below and I'll come back with next steps, timing and a realistic scope.
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                          <CalendarDays className="w-4 h-4" /> Book a call
+                        </a>
+                        <a href={`mailto:${EMAIL}`} className="btn-outline">
+                          <Mail className="w-4 h-4" /> Send an email
+                        </a>
+                      </div>
+                    </div>
                   </ScrollReveal>
                   <ScrollReveal delay={0.1}>
                     <InquiryForm />
@@ -316,66 +352,11 @@ const Hire = () => {
                 </div>
               </div>
             </section>
-
-            {/* ── Availability & CTA ── */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <div className="max-w-3xl mx-auto">
-                  <ScrollReveal>
-                    <div className="card-elegant p-8 md:p-12 text-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 pointer-events-none" />
-
-                      <div className="relative z-10">
-                        <div className="inline-flex items-center px-4 py-2 bg-success/20 rounded-full text-sm font-medium text-success mb-6">
-                          <div className="w-2 h-2 bg-success rounded-full mr-2 animate-pulse" />
-                          Open to freelance & full-time roles
-                        </div>
-
-                        <h2 className="text-2xl md:text-3xl font-bold mb-3">Ready to Start?</h2>
-                        <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                          Whether it's a quick redesign or a full product build, I'd love to hear about your project.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-                          <motion.a
-                            href="mailto:qomardeentijani@gmail.com"
-                            className="btn-primary inline-flex items-center justify-center gap-2 group"
-                            whileHover={{ scale: 1.03, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ duration: 0.2, ease }}
-                          >
-                            <Mail className="w-4 h-4" />
-                            Send an Email
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </motion.a>
-                          <motion.a
-                            href="https://linkedin.com/in/qomardeentijani"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-outline inline-flex items-center justify-center gap-2"
-                            whileHover={{ scale: 1.03, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ duration: 0.2, ease }}
-                          >
-                            <Linkedin className="w-4 h-4" /> Connect on LinkedIn
-                          </motion.a>
-                        </div>
-
-                        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                          <Clock className="w-4 h-4" />
-                          <span>Typical response within 24 hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                </div>
-              </div>
-            </section>
-
           </main>
           <Footer />
         </div>
       </PageTransition>
+      <StickyHireBar bookUrl={BOOK_URL} />
     </>
   );
 };

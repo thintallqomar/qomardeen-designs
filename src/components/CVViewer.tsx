@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Download, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import IconTooltip from './IconTooltip';
+import CvDownloadButton from '@/components/CvDownloadButton';
 import cvAsset from '@/assets/Qomardeen_Tijani_CV.pdf.asset.json';
 
 const btnFocus =
@@ -128,14 +129,10 @@ const CVViewer = ({ open, onClose }: CVViewerProps) => {
                 <p className="text-sm text-muted-foreground max-w-sm">
                   {t('cv.openExternalHint', 'The document could not be embedded here.')}
                 </p>
-                <a
-                  href={cvAsset.url}
-                  target="_blank"
-                  rel="noreferrer noopener"
+                <CvDownloadButton
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity ${btnFocus}`}
-                >
-                  {t('cv.openExternal', 'Open CV in a new tab')}
-                </a>
+                  label={t('cv.download')}
+                />
               </div>
             )}
             {blobUrl && (

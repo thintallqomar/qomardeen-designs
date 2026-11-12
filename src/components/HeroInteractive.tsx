@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { ArrowRight, Briefcase, Download } from 'lucide-react';
 import { useLocalizedNavigate, useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { useTranslation } from 'react-i18next';
 import CVViewer from '@/components/CVViewer';
-import heroPortrait from '@/assets/hero-portrait-hq.png';
-import profileImage from '@/assets/new-profile.jpg';
+import HeroGlow from '@/components/HeroGlow';
+import HeroPortrait from '@/components/HeroPortrait';
 
 const easeCurve = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -14,17 +14,6 @@ const HeroInteractive = () => {
   const navigate = useLocalizedNavigate();
   const localizedPath = useLocalizedPath();
   const [cvOpen, setCvOpen] = useState(false);
-  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait);
-  const [heroImgFailed, setHeroImgFailed] = useState(false);
-  const handleHeroImgError = useCallback(() => {
-    setHeroSrc((current) => {
-      if (current !== heroPortrait) {
-        setHeroImgFailed(true);
-        return current;
-      }
-      return profileImage;
-    });
-  }, []);
   const reduceMotion = useReducedMotion();
 
   const skills = t('hero.skills', { returnObjects: true }) as string[];
@@ -44,14 +33,7 @@ const HeroInteractive = () => {
       className="relative min-h-screen flex items-center overflow-hidden bg-background"
     >
       {/* Single soft glow */}
-      <div
-        aria-hidden="true"
-        className="absolute -top-1/4 -right-1/4 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full pointer-events-none opacity-[0.18] dark:opacity-[0.12]"
-        style={{
-          background: 'radial-gradient(circle at center, hsl(var(--primary) / 0.8), transparent 70%)',
-          filter: 'blur(80px)',
-        }}
-      />
+      <HeroGlow />
 
       <motion.div
         variants={container}
@@ -148,39 +130,7 @@ const HeroInteractive = () => {
           </div>
 
           {/* Right: Photo — restrained portrait, supports the name */}
-          <motion.div
-            variants={item}
-            className="relative w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] mx-auto lg:mx-0 lg:ml-auto"
-          >
-            <motion.div
-              className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]"
-              animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
-              transition={reduceMotion ? undefined : { duration: 7, ease: 'easeInOut', repeat: Infinity }}
-              whileHover={reduceMotion ? undefined : { scale: 1.025, rotateX: 1.25, rotateY: -1.25 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.99 }}
-              style={{ transformPerspective: 1000 }}
-            >
-              {heroImgFailed ? (
-                <div
-                  className="w-full h-full flex items-center justify-center bg-muted"
-                  aria-label="Portrait of Qomardeen Tijani"
-                  role="img"
-                >
-                  <span className="text-4xl font-semibold tracking-tight text-muted-foreground">QT</span>
-                </div>
-              ) : (
-                <img
-                  src={heroSrc}
-                  alt="Portrait of Qomardeen Tijani"
-                  loading="eager"
-                  decoding="async"
-                  onError={handleHeroImgError}
-                  className="w-full h-full object-cover object-center"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-            </motion.div>
-          </motion.div>
+          <HeroPortrait variants={item} />
 
         </div>
       </motion.div>

@@ -129,7 +129,7 @@ const ContentDetail = () => {
                 <a
                   href={item.resource_url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium mb-8"
                 >
                   <Download className="w-4 h-4" /> Download resource

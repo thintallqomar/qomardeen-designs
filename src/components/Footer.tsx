@@ -89,9 +89,6 @@ const Footer = () => {
           <div className="py-6 border-t border-border">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-sm text-muted-foreground">{t('footer.copyright', { year: currentYear })}</div>
-              <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                <span>{t('footer.tagline')}</span>
-              </div>
             </div>
           </div>
         </div>

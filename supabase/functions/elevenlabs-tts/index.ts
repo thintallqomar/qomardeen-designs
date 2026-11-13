@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { encode as base64Encode } from "https://deno.land/std@0.168.0/encoding/base64.ts";
+import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,12 +13,29 @@ serve(async (req) => {
   }
 
   try {
+    // Public endpoint that spends the owner's ElevenLabs credits, so it is rate limited and strictly validated.
+    const limit = await rateLimit(`tts:${await sha256(clientIp(req))}`, 20, 600);
+    if (!limit.allowed) {
+      return new Response(JSON.stringify({ error: "Too many requests. Please try again later." }), {
+        status: 429,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { text, voiceId = "JBFqnCBsd6RMkjVDRZzb" } = await req.json();
+    // The voice id goes into the request URL: allow only a plain id (no slashes or dots), so it cannot
+    // be used to reach other ElevenLabs endpoints with the owner's key.
+    if (typeof voiceId !== "string" || !/^[A-Za-z0-9]{10,40}$/.test(voiceId)) {
+      return new Response(JSON.stringify({ error: "Invalid voice" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     const ELEVENLABS_API_KEY = Deno.env.get("ELEVENLABS_API_KEY");
     if (!ELEVENLABS_API_KEY) throw new Error("ELEVENLABS_API_KEY is not configured");
 
-    if (!text || text.length > 5000) {
-      return new Response(JSON.stringify({ error: "Text is required and must be under 5000 characters" }), {
+    if (!text || typeof text !== "string" || text.length > 2000) {
+      return new Response(JSON.stringify({ error: "Text is required and must be under 2000 characters" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -61,7 +79,7 @@ serve(async (req) => {
     });
   } catch (e) {
     console.error("TTS error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
+    return new Response(JSON.stringify({ error: "TTS generation failed" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

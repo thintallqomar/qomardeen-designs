@@ -350,24 +350,6 @@ const Projects = () => {
                   )}
 
                   </div>
-
-                  <ScrollReveal>
-                    <div className="text-center">
-                      <div className="max-w-2xl mx-auto">
-                        <h3 className="text-2xl font-semibold mb-4">{t('projects.ctaTitle')}</h3>
-                        <p className="text-muted-foreground mb-8">{t('projects.ctaBody')}</p>
-                        <motion.button
-                          onClick={() => navigate('/contact')}
-                          className="btn-primary inline-flex items-center gap-2"
-                          whileHover={{ scale: 1.03, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
-                          transition={{ duration: 0.2, ease }}
-                        >
-                          {t('projects.ctaButton')}
-                        </motion.button>
-                      </div>
-                    </div>
-                  </ScrollReveal>
                 </div>
               </div>
             </section>

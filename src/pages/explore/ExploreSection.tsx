@@ -125,7 +125,7 @@ const ExploreSection = () => {
                     </>
                   );
                   return card.external ? (
-                    <a key={card.key} href={card.external} target="_blank" rel="noreferrer" className="card-elegant p-5 block hover:border-primary/40 transition-colors">
+                    <a key={card.key} href={card.external} target="_blank" rel="noopener noreferrer" className="card-elegant p-5 block hover:border-primary/40 transition-colors">
                       {inner}
                     </a>
                   ) : (

@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
+import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -84,11 +85,28 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    // Abuse protection: a visitor can chat freely, but not hammer the paid AI model.
+    const limit = await rateLimit(`ai-chat:${await sha256(clientIp(req))}`, 40, 600);
+    if (!limit.allowed) {
+      return new Response(JSON.stringify({ error: "You're sending messages too quickly. Please wait a few minutes and try again." }), {
+        status: 429,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { messages: rawMessages } = await req.json();
+    // Only plain user/assistant text is accepted from the browser. A visitor-supplied "system"
+    // message could otherwise override Atlas's instructions (prompt injection).
+    const messages = Array.isArray(rawMessages)
+      ? rawMessages
+          .filter((m: any) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+          .slice(-20)
+          .map((m: any) => ({ role: m.role, content: m.content.slice(0, 2000) }))
+      : rawMessages;
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 50) {
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
       return new Response(JSON.stringify({ error: "Invalid request" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -21,6 +22,15 @@ serve(async (req) => {
   }
 
   try {
+    // Stop the contact form being used to flood the inbox.
+    const limit = await rateLimit(`contact-email:${await sha256(clientIp(req))}`, 5, 3600);
+    if (!limit.allowed) {
+      return new Response(
+        JSON.stringify({ error: 'Too many messages. Please try again later.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
     if (!RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY is not configured');

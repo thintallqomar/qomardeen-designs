@@ -26,8 +26,8 @@ const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
 
 /* Quick facts a recruiter looks for first */
 const facts = [
-  { icon: <CalendarDays />, label: 'Availability', value: 'Immediately' },
-  { icon: <Briefcase />, label: 'Open to', value: 'Full-time · Freelance' },
+  { icon: <PenTool />, label: 'Roles', value: 'Product Design · UI/UX' },
+  { icon: <Briefcase />, label: 'Engagement', value: 'Full-time · Freelance' },
   { icon: <Globe2 />, label: 'Work mode', value: 'Remote, local or international' },
   { icon: <Clock />, label: 'Time zone', value: 'Nigeria · WAT (UTC+1)' },
 ];
@@ -56,7 +56,6 @@ const engagements = [
 
 const valueProps = [
   { icon: <Target />, title: 'Product-led thinking', description: 'I look past the screen to business goals, user pain points and the outcome the design is meant to drive.' },
-  { icon: <Layers />, title: 'Systems over screens', description: 'Components, tokens and patterns that scale, so every new screen is faster to build and more consistent.' },
   { icon: <Code2 />, title: 'Design ↔ dev bridge', description: 'I know how engineers think, so handoffs are specs they can actually build from.' },
   { icon: <Zap />, title: 'Ship fast, ship right', description: 'Discovery to deployment in weeks, not months, without trading away quality or usability.' },
 ];
@@ -64,18 +63,8 @@ const valueProps = [
 const processSteps = [
   { icon: <Lightbulb />, title: 'Discover', description: 'Understand the problem, the users, the business context and the constraints.' },
   { icon: <PenTool />, title: 'Design', description: 'Wireframes, high-fidelity UI and interactive prototypes grounded in real data.' },
-  { icon: <Code2 />, title: 'Hand off', description: 'Design-system specs and developer-ready documentation, with AI-assisted prototyping where it helps.' },
+  { icon: <Code2 />, title: 'Hand off', description: 'Specs, tokens and documentation your engineers can build from.' },
   { icon: <Rocket />, title: 'Deliver', description: 'QA, iteration and launch support, with documentation that keeps the work maintainable.' },
-];
-
-const services = [
-  'Product design, end to end',
-  'UI/UX design',
-  'Design systems',
-  'Dashboards & data visualization',
-  'Mobile-first design',
-  'Prototyping & user testing',
-  'AI-powered product interfaces',
 ];
 
 const deliverables = [
@@ -93,12 +82,9 @@ const work = [
 ];
 
 const faqs = [
-  { q: 'When can you start?', a: 'Immediately. I am available now for full-time roles and freelance projects.' },
-  { q: 'What roles are you looking for?', a: 'Product Design and UI/UX Design roles, full-time or freelance, remote with local or international teams.' },
-  { q: 'Where are you based, and can you work across time zones?', a: 'I am based in Nigeria (WAT, UTC+1) and work remotely. Local and international teams are both welcome.' },
   { q: 'What kind of products have you designed?', a: 'Fintech and enterprise SaaS: a CMMS platform, dashboards, a digital wallet and currency exchange, and websites. Each is shown as a case study on this site.' },
   { q: 'How do you work with engineers?', a: 'I hand off developer-ready specs, design tokens and component documentation, and I prototype with AI assistance where it speeds things up, so what ships stays true to the design.' },
-  { q: 'What is the fastest way to reach you?', a: 'Book a call or send an email. You can also download my CV above, or use the form below.' },
+  { q: 'What do you need to get started?', a: 'A short brief: the goal, who it is for, the timeline, and any existing designs or research. I will reply with questions, next steps and a realistic scope.' },
 ];
 
 const Hire = () => {
@@ -127,7 +113,7 @@ const Hire = () => {
                           <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-ping" />
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
                         </span>
-                        Available immediately · Full-time & freelance
+                        Available immediately
                       </div>
                       <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
                         Product design that ships,<br />
@@ -244,14 +230,12 @@ const Hire = () => {
                 <ScrollReveal>
                   <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">Why teams hire me</h2>
                 </ScrollReveal>
-                <StaggeredReveal className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto" staggerDelay={0.1}>
+                <StaggeredReveal className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto" staggerDelay={0.1}>
                   {valueProps.map(v => (
-                    <div key={v.title} className="card-elegant flex gap-4">
-                      <Icon3D variant="primary" size="md">{v.icon}</Icon3D>
-                      <div>
-                        <h3 className="font-semibold mb-1.5">{v.title}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
-                      </div>
+                    <div key={v.title} className="card-elegant h-full">
+                      <Icon3D variant="primary" size="md" className="mb-4">{v.icon}</Icon3D>
+                      <h3 className="font-semibold mb-1.5">{v.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
                     </div>
                   ))}
                 </StaggeredReveal>
@@ -279,23 +263,13 @@ const Hire = () => {
               </div>
             </section>
 
-            {/* ── What I do / what you get ── */}
+            {/* ── What you get ── */}
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
-                <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                <div className="max-w-3xl mx-auto">
                   <ScrollReveal>
-                    <h2 className="text-xl md:text-2xl font-bold mb-5">What I do</h2>
-                    <ul className="space-y-3">
-                      {services.map(s => (
-                        <li key={s} className="flex items-start gap-3 text-sm md:text-base">
-                          <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {s}
-                        </li>
-                      ))}
-                    </ul>
-                  </ScrollReveal>
-                  <ScrollReveal delay={0.1}>
-                    <h2 className="text-xl md:text-2xl font-bold mb-5">What you get</h2>
-                    <ul className="space-y-3">
+                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">What you get</h2>
+                    <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
                       {deliverables.map(d => (
                         <li key={d} className="flex items-start gap-3 text-sm md:text-base">
                           <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {d}

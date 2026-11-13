@@ -5,7 +5,7 @@ import { Download, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import IconTooltip from './IconTooltip';
 import CvDownloadButton from '@/components/CvDownloadButton';
-import cvAsset from '@/assets/Qomardeen_Tijani_CV.pdf.asset.json';
+import { fetchCvBlob, CV_FILENAME } from '@/lib/cv';
 
 const btnFocus =
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
@@ -34,9 +34,8 @@ const CVViewer = ({ open, onClose }: CVViewerProps) => {
 
     (async () => {
       try {
-        const res = await fetch(cvAsset.url, { cache: 'force-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const blob = await res.blob();
+        const blob = await fetchCvBlob();
+        if (!blob) throw new Error('CV unavailable');
         if (cancelled) return;
         createdUrl = URL.createObjectURL(blob);
         setBlobUrl(createdUrl);
@@ -54,9 +53,10 @@ const CVViewer = ({ open, onClose }: CVViewerProps) => {
   }, [open]);
 
   const handleDownload = useCallback(() => {
+    if (!blobUrl) return;
     const a = document.createElement('a');
-    a.href = blobUrl ?? cvAsset.url;
-    a.download = 'Qomardeen_Tijani_CV.pdf';
+    a.href = blobUrl;
+    a.download = CV_FILENAME;
     document.body.appendChild(a);
     a.click();
     a.remove();

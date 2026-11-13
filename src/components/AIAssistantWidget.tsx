@@ -327,7 +327,8 @@ const AIAssistantWidget = () => {
     const lastMsg = messages[messages.length - 1];
     if (lastMsg?.role === 'assistant' && !isLoading) {
       const { navPath } = parseNavigation(lastMsg.content);
-      if (navPath) {
+      // Only follow plain in-site paths (never //host or other tricks), even if the model is manipulated.
+      if (navPath && /^\/(?:[A-Za-z0-9][A-Za-z0-9_\-\/]*)?(?:[?#][A-Za-z0-9_\-=&%.\/]*)?$/.test(navPath)) {
         const currentLanguage = location.pathname.match(/^\/(en|ar|de|es|fr|ha|ig|pcm|pt|ru|yo)(?:\/|$)/)?.[1] ?? 'en';
         const localizedPath = navPath === '/' ? `/${currentLanguage}` : `/${currentLanguage}${navPath}`;
         const timer = setTimeout(() => navigate(localizedPath), 1500);
@@ -376,7 +377,7 @@ const AIAssistantWidget = () => {
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setInput(transcript);
       setIsListening(false);

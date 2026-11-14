@@ -258,7 +258,7 @@ const Navigation = () => {
             <IconTooltip label="Change language" side="bottom">
               <button
                 onClick={() => { setLangOpen(!langOpen); setIsOpen(false); }}
-                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors flex items-center gap-1"
+                className="h-10 min-w-10 px-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors inline-flex items-center justify-center gap-1"
                 aria-label="Change language"
               >
                 <img src={getFlagUrl(currentLang)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
@@ -267,7 +267,7 @@ const Navigation = () => {
             <IconTooltip label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} side="bottom">
               <motion.button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors"
+                className="h-10 w-10 inline-flex items-center justify-center rounded-lg bg-secondary/50 hover:bg-secondary text-foreground transition-colors"
                 whileTap={{ scale: 0.9 }}
                 aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               >
@@ -275,7 +275,7 @@ const Navigation = () => {
               </motion.button>
             </IconTooltip>
             <IconTooltip label={isOpen ? 'Close menu' : 'Open menu'} side="bottom">
-              <button onClick={() => { setIsOpen(!isOpen); setLangOpen(false); }} className="inline-flex items-center justify-center p-2 rounded-lg text-foreground hover:text-primary hover:bg-secondary transition-colors" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
+              <button onClick={() => { setIsOpen(!isOpen); setLangOpen(false); }} className="inline-flex items-center justify-center h-10 w-10 rounded-lg text-foreground hover:text-primary hover:bg-secondary transition-colors" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
                 {isOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
             </IconTooltip>

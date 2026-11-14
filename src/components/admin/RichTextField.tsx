@@ -107,7 +107,7 @@ const RichTextField = ({ json, text = '', onChange, placeholder = 'Write here…
     content: initial as never,
     editorProps: {
       attributes: {
-                class: 'rich-text focus:outline-none px-3 py-2.5 text-sm [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_li]:list-item',
+        class: 'rich-text focus:outline-none px-3 py-2.5 text-sm',
         style: `min-height:${minHeight}`,
       },
     },

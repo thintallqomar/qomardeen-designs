@@ -100,10 +100,10 @@ const Projects = () => {
   const rawView = searchParams.get('view');
   const view: View = rawView === 'other' || rawView === 'all' ? rawView : 'full';
   const setView = (v: View) => setSearchParams(v === 'full' ? {} : { view: v }, { replace: true });
-  const tabs: { id: View; label: string; count: number }[] = [
-    { id: 'full', label: t('projects.fullTitle'), count: featuredProjects.length },
-    { id: 'other', label: t('projects.otherTitle'), count: otherProjects.length },
-    { id: 'all', label: t('projects.tabAll'), count: featuredProjects.length + otherProjects.length },
+  const tabs: { id: View; label: string; short: string; count: number }[] = [
+    { id: 'full', label: t('projects.fullTitle'), short: t('projects.jumpFull'), count: featuredProjects.length },
+    { id: 'other', label: t('projects.otherTitle'), short: t('projects.jumpOther'), count: otherProjects.length },
+    { id: 'all', label: t('projects.tabAll'), short: t('projects.tabAll'), count: featuredProjects.length + otherProjects.length },
   ];
   const onTabKey = (e: React.KeyboardEvent, i: number) => {
     const move = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
@@ -134,7 +134,7 @@ const Projects = () => {
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">
-            <section className="section-padding">
+            <section className="section-padding !pt-6 md:!pt-10">
               <div className="container-custom">
                 <div className="max-w-6xl mx-auto">
                   <h1 className="sr-only">{t('nav.projects')}</h1>
@@ -159,7 +159,7 @@ const Projects = () => {
                             tabIndex={active ? 0 : -1}
                             onClick={() => setView(tab.id)}
                             onKeyDown={(e) => onTabKey(e, i)}
-                            className={`relative flex-1 min-w-0 rounded-full px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                            className={`relative flex-1 min-w-0 rounded-full px-2 sm:px-4 py-3 text-xs sm:text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                               active ? 'text-background' : 'text-muted-foreground hover:text-foreground'
                             }`}
                           >
@@ -171,7 +171,8 @@ const Projects = () => {
                               />
                             )}
                             <span className="relative z-10 flex items-center justify-center gap-1.5">
-                              <span className="truncate">{tab.label}</span>
+                              <span className="truncate sm:hidden">{tab.short}</span>
+                              <span className="hidden sm:inline truncate">{tab.label}</span>
                               <span className={`hidden sm:inline text-[10px] tabular-nums ${active ? 'opacity-70' : 'opacity-60'}`}>{tab.count}</span>
                             </span>
                           </button>
@@ -249,7 +250,7 @@ const Projects = () => {
                                         href={project.liveUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                                        className="inline-flex items-center gap-1 py-2 text-xs text-muted-foreground hover:text-primary transition-colors"
                                         onClick={(e) => e.stopPropagation()}
                                       >
                                         {t('projects.liveLink')}
@@ -303,7 +304,7 @@ const Projects = () => {
                                         href={project.liveUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                                        className="inline-flex items-center gap-1 py-2 text-xs text-muted-foreground hover:text-primary transition-colors"
                                         onClick={(e) => e.stopPropagation()}
                                       >
                                         {t('projects.liveLink')} <ExternalLink size={12} />

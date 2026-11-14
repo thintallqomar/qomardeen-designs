@@ -95,7 +95,7 @@ const ContentDetail = () => {
           <article className="section-padding">
             <div className="container-custom max-w-[700px]">
               <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-4">
-                <Link to={localizedPath('/explore')} className="hover:text-foreground">Explore</Link>
+                <Link to={localizedPath('/explore')} className="inline-block py-2 hover:text-foreground">Explore</Link>
                 <span className="mx-1.5">/</span>
                 <Link to={localizedPath(`/explore/${section}`)} className="hover:text-foreground capitalize">{section}</Link>
               </nav>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
-  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Download, Globe2, Layers,
-  Clock, Lightbulb, Linkedin, Mail, PenTool, Rocket, Target, Zap,
+  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Download, Layers,
+  Lightbulb, Linkedin, Mail, PenTool, Rocket, Target, Zap,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -23,14 +23,6 @@ import CvDownloadButton from '@/components/CvDownloadButton';
 const EMAIL = 'qomardeentijani@gmail.com';
 const BOOK_URL = 'https://cal.com/the_Qomardeen';
 const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
-
-/* Quick facts a recruiter looks for first */
-const facts = [
-  { icon: <PenTool />, label: 'Roles', value: 'Product Design · UI/UX' },
-  { icon: <Briefcase />, label: 'Engagement', value: 'Full-time · Freelance' },
-  { icon: <Globe2 />, label: 'Work mode', value: 'Remote, local or international' },
-  { icon: <Clock />, label: 'Time zone', value: 'Nigeria · WAT (UTC+1)' },
-];
 
 /* Ways to work together */
 const engagements = [
@@ -108,12 +100,12 @@ const Hire = () => {
                 <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-center">
                   <ScrollReveal>
                     <div>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/60 text-sm font-medium mb-6">
+                      <div className="inline-flex max-w-full items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/60 text-xs sm:text-sm font-medium mb-6">
                         <span className="relative flex h-2 w-2">
                           <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-ping" />
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
                         </span>
-                        Available immediately
+                        <span><span className="sm:hidden">Available now</span><span className="hidden sm:inline">Available immediately</span> · Nigeria (WAT, UTC+1)</span>
                       </div>
                       <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
                         Product design that ships,<br />
@@ -130,11 +122,11 @@ const Hire = () => {
                         </a>
                         <CvDownloadButton className="btn-outline" />
                       </div>
-                      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-                        <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
+                      <div className="flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
+                        <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
                           <Mail className="w-4 h-4" /> {EMAIL}
                         </a>
-                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
+                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
                           <Linkedin className="w-4 h-4" /> LinkedIn
                         </a>
                       </div>
@@ -144,21 +136,6 @@ const Hire = () => {
                   {/* Identical to the Home hero portrait */}
                   <HeroPortrait />
                 </div>
-
-                {/* Quick facts */}
-                <ScrollReveal delay={0.1}>
-                  <dl className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    {facts.map(f => (
-                      <div key={f.label} className="card-elegant !p-4 flex items-center gap-3">
-                        <Icon3D variant="primary" size="sm">{f.icon}</Icon3D>
-                        <div className="min-w-0">
-                          <dt className="text-xs text-muted-foreground">{f.label}</dt>
-                          <dd className="text-sm font-semibold leading-snug">{f.value}</dd>
-                        </div>
-                      </div>
-                    ))}
-                  </dl>
-                </ScrollReveal>
               </div>
             </section>
 
@@ -177,7 +154,7 @@ const Hire = () => {
                       <Icon3D variant="primary" size="md" className="mb-4">{e.icon}</Icon3D>
                       <h3 className="text-lg font-semibold mb-2">{e.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{e.body}</p>
-                      <a href="#contact" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                      <a href="#contact" className="inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-primary hover:underline">
                         {e.cta} <ArrowRight className="w-4 h-4" />
                       </a>
                     </div>
@@ -308,14 +285,11 @@ const Hire = () => {
                     <div className="text-center mb-10">
                       <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's talk</h2>
                       <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-                        Book a call, send an email, or share a few details below and I'll come back with next steps, timing and a realistic scope.
+                        Book a call, or share a few details below and I'll come back with next steps, timing and a realistic scope.
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                           <CalendarDays className="w-4 h-4" /> Book a call
-                        </a>
-                        <a href={`mailto:${EMAIL}`} className="btn-outline">
-                          <Mail className="w-4 h-4" /> Send an email
                         </a>
                       </div>
                     </div>

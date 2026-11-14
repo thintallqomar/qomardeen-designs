@@ -36,7 +36,7 @@ const Footer = () => {
       <footer className="bg-card border-t border-border">
         <div className="container-custom">
           <div className="py-12">
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 [&>*]:min-w-0 break-words">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent" aria-hidden="true">QT</span>
@@ -60,7 +60,7 @@ const Footer = () => {
                 <h3 className="font-semibold mb-4">{t('footer.quickLinks')}</h3>
                 <div className="space-y-2">
                   {quickLinks.map((link, index) => (
-                    <Link key={index} to={localizedPath(link.href)} className="block text-muted-foreground hover:text-primary transition-colors">
+                    <Link key={index} to={localizedPath(link.href)} className="block py-1.5 text-muted-foreground hover:text-primary transition-colors">
                       {link.name}
                     </Link>
                   ))}

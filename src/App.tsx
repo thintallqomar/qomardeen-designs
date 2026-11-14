@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -99,8 +99,16 @@ const ProjectRoute = ({ slug, Legacy }: { slug: string; Legacy: React.ComponentT
   const { data, isLoading } = useQuery({
     queryKey: ['case-study', slug],
     queryFn: () => fetchBySlug('case_study', slug),
+    retry: false,
+    staleTime: 5 * 60 * 1000,
   });
-  if (isLoading) return <PageLoader />;
+  // If the database is slow or unreachable, show the built-in page after 2.5s instead of a spinner.
+  const [waitedTooLong, setWaitedTooLong] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setWaitedTooLong(true), 2500);
+    return () => clearTimeout(id);
+  }, []);
+  if (isLoading && !waitedTooLong) return <PageLoader />;
   const live = !!data && data.status === 'published' && data.visibility === 'public';
   return live ? <CaseStudyPage slug={slug} /> : <Legacy />;
 };

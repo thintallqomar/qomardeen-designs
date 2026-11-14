@@ -122,7 +122,7 @@ const Contact = () => {
                       <div className="flex-1 min-w-0 break-words">
                         <div className="text-sm text-muted-foreground">{item.label}</div>
                         {item.href ? (
-                          <a href={item.href} className="font-medium hover:text-primary transition-colors"
+                          <a href={item.href} className="inline-block py-1.5 font-medium hover:text-primary transition-colors"
                             target={item.href.startsWith('http') ? '_blank' : undefined}
                             rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                           >{item.value}</a>

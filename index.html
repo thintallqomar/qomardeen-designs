@@ -49,6 +49,17 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      // Apply the theme before the page paints (no dark/light flash). Automatic = light 06:00-18:00, dark otherwise.
+      (function () {
+        try {
+          var pref = localStorage.getItem('theme-preference') || 'auto';
+          var h = new Date().getHours();
+          var light = pref === 'light' || (pref === 'auto' && h >= 6 && h < 18);
+          if (light) document.documentElement.classList.add('light');
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -396,5 +396,12 @@
   },
   "testimonials": {
     "title": "What people say"
+  },
+  "theme": {
+    "label": "Theme",
+    "auto": "Automatic",
+    "autoHint": "Light 06:00–18:00 · Dark 18:00–06:00",
+    "light": "Light",
+    "dark": "Dark"
   }
 }

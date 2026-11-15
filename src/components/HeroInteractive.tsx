@@ -95,11 +95,11 @@ const HeroInteractive = () => {
               </button>
               {/* Split pill: Hire me | CV — two actions inside one pill button */}
               <div
-                className="inline-flex items-stretch rounded-full border border-border text-foreground overflow-hidden h-12 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
+                className="flex w-full sm:inline-flex sm:w-auto sm:shrink-0 items-stretch rounded-full border border-border text-foreground overflow-hidden min-h-12 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background"
               >
                 <a
                   href={localizedPath('/hire')}
-                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                  className="flex flex-1 min-w-0 sm:flex-none sm:min-w-fit items-center justify-center gap-2 px-4 sm:px-6 py-2 text-center sm:whitespace-nowrap text-sm font-semibold leading-tight hover:bg-secondary transition-colors"
                 >
                   <Briefcase className="w-4 h-4" />
                   {t('hero.cta_hire')}
@@ -108,7 +108,7 @@ const HeroInteractive = () => {
                 <button
                   type="button"
                   onClick={() => setCvOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold hover:bg-secondary transition-colors"
+                  className="flex flex-1 min-w-0 sm:flex-none sm:min-w-fit items-center justify-center gap-2 px-4 sm:px-6 py-2 text-center sm:whitespace-nowrap text-sm font-semibold leading-tight hover:bg-secondary transition-colors"
                 >
                   <Download className="w-4 h-4" />
                   {t('hero.cta_cv_short')}

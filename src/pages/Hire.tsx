@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
-  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Download, Layers,
+  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Layers,
   Lightbulb, Linkedin, Mail, PenTool, Rocket, Target, Zap,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
@@ -12,75 +13,46 @@ import Icon3D from '@/components/Icon3D';
 import PageSEO from '@/components/PageSEO';
 import InquiryForm from '@/components/InquiryForm';
 import StickyHireBar from '@/components/StickyHireBar';
+import HeroGlow from '@/components/HeroGlow';
+import HeroPortrait from '@/components/HeroPortrait';
+import CvDownloadButton from '@/components/CvDownloadButton';
+import Testimonials from '@/components/Testimonials';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
-import HeroGlow from '@/components/HeroGlow';
-import HeroPortrait from '@/components/HeroPortrait';
-import CvDownloadButton from '@/components/CvDownloadButton';
 
 const EMAIL = 'qomardeentijani@gmail.com';
 const BOOK_URL = 'https://cal.com/the_Qomardeen';
 const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
 
-/* Ways to work together */
-const engagements = [
-  {
-    icon: <Briefcase />,
-    title: 'Full-time role',
-    body: 'Product Designer or UI/UX Designer inside a product team: remote, with a local or international company. I can start immediately.',
-    cta: 'Discuss a role',
-  },
-  {
-    icon: <Rocket />,
-    title: 'Freelance project',
-    body: 'Dashboards, web apps and mobile flows, scoped end to end or in focused sprints, from discovery through to production-ready UI.',
-    cta: 'Start a project',
-  },
-  {
-    icon: <Layers />,
-    title: 'Design system & handoff',
-    body: 'Component libraries, design tokens and developer-ready specs that keep what ships faithful to what was designed.',
-    cta: 'Talk it through',
-  },
-];
-
-const valueProps = [
-  { icon: <Target />, title: 'Product-led thinking', description: 'I look past the screen to business goals, user pain points and the outcome the design is meant to drive.' },
-  { icon: <Code2 />, title: 'Design ↔ dev bridge', description: 'I know how engineers think, so handoffs are specs they can actually build from.' },
-  { icon: <Zap />, title: 'Ship fast, ship right', description: 'Discovery to deployment in weeks, not months, without trading away quality or usability.' },
-];
-
-const processSteps = [
-  { icon: <Lightbulb />, title: 'Discover', description: 'Understand the problem, the users, the business context and the constraints.' },
-  { icon: <PenTool />, title: 'Design', description: 'Wireframes, high-fidelity UI and interactive prototypes grounded in real data.' },
-  { icon: <Code2 />, title: 'Hand off', description: 'Specs, tokens and documentation your engineers can build from.' },
-  { icon: <Rocket />, title: 'Deliver', description: 'QA, iteration and launch support, with documentation that keeps the work maintainable.' },
-];
-
-const deliverables = [
-  'Figma files with auto-layout and variants',
-  'Interactive prototypes for stakeholder buy-in',
-  'Developer-ready specs and component documentation',
-  'Design tokens: colors, typography, spacing',
-  'Responsive layouts across breakpoints',
-  'Motion specs for micro-interactions',
-];
-
-const work = [
-  { title: 'UpTime CMMS', tag: 'Enterprise SaaS', desc: 'Asset management with complex maintenance workflows and dashboards.', route: '/projects/uptime', image: uptimeCover },
-  { title: 'WalPay', tag: 'Fintech', desc: 'Digital wallet and currency exchange, with trust-building mobile flows.', route: '/projects/walpay', image: walpayCover },
-];
-
-const faqs = [
-  { q: 'What kind of products have you designed?', a: 'Fintech and enterprise SaaS: a CMMS platform, dashboards, a digital wallet and currency exchange, and websites. Each is shown as a case study on this site.' },
-  { q: 'How do you work with engineers?', a: 'I hand off developer-ready specs, design tokens and component documentation, and I prototype with AI assistance where it speeds things up, so what ships stays true to the design.' },
-  { q: 'What do you need to get started?', a: 'A short brief: the goal, who it is for, the timeline, and any existing designs or research. I will reply with questions, next steps and a realistic scope.' },
-];
-
 const Hire = () => {
+  const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
+
+  const engagements = [
+    { icon: <Briefcase />, title: t('hire.eng1Title'), body: t('hire.eng1Body'), cta: t('hire.eng1Cta') },
+    { icon: <Rocket />, title: t('hire.eng2Title'), body: t('hire.eng2Body'), cta: t('hire.eng2Cta') },
+    { icon: <Layers />, title: t('hire.eng3Title'), body: t('hire.eng3Body'), cta: t('hire.eng3Cta') },
+  ];
+  const valueProps = [
+    { icon: <Target />, title: t('hire.why1T'), description: t('hire.why1D') },
+    { icon: <Layers />, title: t('hire.why2T'), description: t('hire.why2D') },
+    { icon: <Code2 />, title: t('hire.why3T'), description: t('hire.why3D') },
+    { icon: <Zap />, title: t('hire.why4T'), description: t('hire.why4D') },
+  ];
+  const processSteps = [
+    { icon: <Lightbulb />, title: t('hire.how1T'), description: t('hire.how1D') },
+    { icon: <PenTool />, title: t('hire.how2T'), description: t('hire.how2D') },
+    { icon: <Code2 />, title: t('hire.how3T'), description: t('hire.how3D') },
+    { icon: <Rocket />, title: t('hire.how4T'), description: t('hire.how4D') },
+  ];
+  const deliverables = [1, 2, 3, 4, 5, 6].map(n => t(`hire.get${n}`));
+  const work = [
+    { title: 'UpTime CMMS', tag: t('hire.tagSaas'), desc: t('hire.uptimeDesc'), route: '/projects/uptime', image: uptimeCover },
+    { title: 'WalPay', tag: t('hire.tagFintech'), desc: t('hire.walpayDesc'), route: '/projects/walpay', image: walpayCover },
+  ];
+  const faqs = [1, 2, 3, 4, 5, 6].map(n => ({ q: t(`hire.faq${n}Q`), a: t(`hire.faq${n}A`) }));
 
   return (
     <>
@@ -105,22 +77,23 @@ const Hire = () => {
                           <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-ping" />
                           <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
                         </span>
-                        <span><span className="sm:hidden">Available now</span><span className="hidden sm:inline">Available immediately</span> · Nigeria (WAT, UTC+1)</span>
+                        <span>
+                          <span className="sm:hidden">{t('hire.badgeNow')}</span>
+                          <span className="hidden sm:inline">{t('hire.badgeImmediately')}</span> · {t('hire.badgeTz')}
+                        </span>
                       </div>
                       <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
-                        Product design that ships,<br />
-                        <span className="text-primary">from discovery to production.</span>
+                        {t('hire.h1a')}<br />
+                        <span className="text-primary">{t('hire.h1b')}</span>
                       </h1>
-                      <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
-                        I design clear, scalable interfaces for fintech and SaaS products, and I work close to engineering so the design survives handoff. Open to Product Design and UI/UX roles, remote, local or international.
-                      </p>
+                      <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">{t('hire.intro')}</p>
                       <div className="flex flex-col sm:flex-row gap-3 mb-6">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group">
                           <CalendarDays className="w-4 h-4" />
-                          Book a call
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          {t('hire.bookCall')}
+                          <ArrowRight className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 transition-transform" />
                         </a>
-                        <CvDownloadButton className="btn-outline" />
+                        <CvDownloadButton className="btn-outline" label={t('hire.downloadCv')} />
                       </div>
                       <div className="flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
                         <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
@@ -144,8 +117,8 @@ const Hire = () => {
               <div className="container-custom">
                 <ScrollReveal>
                   <div className="text-center mb-10 max-w-2xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Ways we can work together</h2>
-                    <p className="text-muted-foreground">Whether you are hiring for a team or scoping a project, here is how it usually starts.</p>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.waysTitle')}</h2>
+                    <p className="text-muted-foreground">{t('hire.waysSub')}</p>
                   </div>
                 </ScrollReveal>
                 <StaggeredReveal className="grid md:grid-cols-3 gap-5" staggerDelay={0.1}>
@@ -155,7 +128,7 @@ const Hire = () => {
                       <h3 className="text-lg font-semibold mb-2">{e.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{e.body}</p>
                       <a href="#contact" className="inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-primary hover:underline">
-                        {e.cta} <ArrowRight className="w-4 h-4" />
+                        {e.cta} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                       </a>
                     </div>
                   ))}
@@ -168,8 +141,8 @@ const Hire = () => {
               <div className="container-custom">
                 <ScrollReveal>
                   <div className="text-center mb-10 max-w-2xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Proof, not promises</h2>
-                    <p className="text-muted-foreground">Two end-to-end case studies, from research to final UI.</p>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.proofTitle')}</h2>
+                    <p className="text-muted-foreground">{t('hire.proofSub')}</p>
                   </div>
                 </ScrollReveal>
                 <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -180,14 +153,14 @@ const Hire = () => {
                       className="group block rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                       <div className="aspect-video bg-muted overflow-hidden">
-                        <img src={w.image} alt={`${w.title} case study`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src={w.image} alt={`${w.title}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                       <div className="p-5">
                         <span className="text-xs font-semibold uppercase tracking-widest text-primary">{w.tag}</span>
                         <h3 className="text-lg font-semibold mt-1 mb-1.5">{w.title}</h3>
                         <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                          View case study <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          {t('hire.viewCase')} <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </span>
                       </div>
                     </Link>
@@ -195,24 +168,29 @@ const Hire = () => {
                 </div>
                 <div className="text-center mt-8">
                   <Link to={localizedPath('/projects')} className="btn-outline">
-                    See all projects <ArrowRight className="w-4 h-4" />
+                    {t('hire.seeAll')} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                   </Link>
                 </div>
               </div>
             </section>
 
+            {/* ── Testimonials (appears once real ones are added in src/data/testimonials.ts) ── */}
+            <Testimonials />
+
             {/* ── Why teams hire me ── */}
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">Why teams hire me</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('hire.whyTitle')}</h2>
                 </ScrollReveal>
-                <StaggeredReveal className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto" staggerDelay={0.1}>
+                <StaggeredReveal className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto" staggerDelay={0.1}>
                   {valueProps.map(v => (
-                    <div key={v.title} className="card-elegant h-full">
-                      <Icon3D variant="primary" size="md" className="mb-4">{v.icon}</Icon3D>
-                      <h3 className="font-semibold mb-1.5">{v.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
+                    <div key={v.title} className="card-elegant flex gap-4">
+                      <Icon3D variant="primary" size="md">{v.icon}</Icon3D>
+                      <div>
+                        <h3 className="font-semibold mb-1.5">{v.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
+                      </div>
                     </div>
                   ))}
                 </StaggeredReveal>
@@ -223,7 +201,7 @@ const Hire = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">How I work</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('hire.howTitle')}</h2>
                 </ScrollReveal>
                 <StaggeredReveal className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
                   {processSteps.map((s, i) => (
@@ -243,10 +221,10 @@ const Hire = () => {
             {/* ── What you get ── */}
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
-                <div className="max-w-3xl mx-auto">
+                <div className="max-w-2xl mx-auto">
                   <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">What you get</h2>
-                    <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+                    <h2 className="text-xl md:text-2xl font-bold mb-5">{t('hire.getTitle')}</h2>
+                    <ul className="space-y-3">
                       {deliverables.map(d => (
                         <li key={d} className="flex items-start gap-3 text-sm md:text-base">
                           <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {d}
@@ -263,11 +241,11 @@ const Hire = () => {
               <div className="container-custom">
                 <div className="max-w-3xl mx-auto">
                   <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Questions recruiters ask</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">{t('hire.faqTitle')}</h2>
                   </ScrollReveal>
                   <Accordion type="single" collapsible className="w-full">
                     {faqs.map((f, i) => (
-                      <AccordionItem key={f.q} value={`faq-${i}`}>
+                      <AccordionItem key={i} value={`faq-${i}`}>
                         <AccordionTrigger className="text-left text-base font-semibold">{f.q}</AccordionTrigger>
                         <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
                       </AccordionItem>
@@ -283,13 +261,11 @@ const Hire = () => {
                 <div className="max-w-3xl mx-auto">
                   <ScrollReveal>
                     <div className="text-center mb-10">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's talk</h2>
-                      <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-                        Book a call, or share a few details below and I'll come back with next steps, timing and a realistic scope.
-                      </p>
+                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.talkTitle')}</h2>
+                      <p className="text-muted-foreground max-w-xl mx-auto mb-6">{t('hire.talkBody')}</p>
                       <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                          <CalendarDays className="w-4 h-4" /> Book a call
+                          <CalendarDays className="w-4 h-4" /> {t('hire.bookCall')}
                         </a>
                       </div>
                     </div>

@@ -51,4 +51,34 @@ describe('RichText renderer', () => {
   it('renders nothing when both are empty', () => {
     expect(render({ json: doc([p()]), fallback: '' })).toBe('');
   });
+
+  it('renders article content: headings, code, images, tables', () => {
+    const html = render({
+      variant: 'article',
+      json: doc([
+        { type: 'heading', attrs: { level: 2 }, content: [t('Big title')] },
+        { type: 'codeBlock', content: [t('const a = 1;')] },
+        { type: 'image', attrs: { src: 'https://example.com/a.webp', alt: 'A', caption: 'Figure 1', align: 'left', width: '50%' } },
+        { type: 'table', content: [{ type: 'tableRow', content: [{ type: 'tableHeader', content: [p(t('H'))] }, { type: 'tableCell', content: [p(t('C'))] }] }] },
+      ]),
+    });
+    expect(html).toContain('<h2>Big title</h2>');
+    expect(html).toContain('<pre><code>const a = 1;</code></pre>');
+    expect(html).toContain('src="https://example.com/a.webp"');
+    expect(html).toContain('Figure 1');
+    expect(html).toContain('<th>');
+    expect(html).toContain('<td>');
+  });
+
+  it('drops images with unsafe addresses', () => {
+    const html = render({
+      variant: 'article',
+      json: doc([
+        p(t('text')),
+        { type: 'image', attrs: { src: 'javascript:alert(1)' } },
+        { type: 'image', attrs: { src: 'data:text/html;base64,AAAA' } },
+      ]),
+    });
+    expect(html).not.toContain('<img');
+  });
 });

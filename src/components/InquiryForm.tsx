@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle, Loader2 } from 'lucide-react';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,14 +26,14 @@ const PROJECT_TYPES = [
 const BUDGETS = ['Under $1,000', '$1,000 – $3,000', '$3,000 – $7,000', '$7,000+', 'Not sure yet'];
 const TIMELINES = ['ASAP', 'Within 1 month', '1–3 months', 'Flexible'];
 
-const schema = z.object({
-  name: z.string().trim().min(1, 'Name is required').max(100),
-  email: z.string().trim().email('Enter a valid email').max(255),
+const buildSchema = (t: (key: string) => string) => z.object({
+  name: z.string().trim().min(1, t('inquiry.errName')).max(100),
+  email: z.string().trim().email(t('inquiry.errEmail')).max(255),
   company: z.string().trim().max(150).optional().or(z.literal('')),
-  projectType: z.string().trim().min(1, 'Select a project type').max(100),
+  projectType: z.string().trim().min(1, t('inquiry.errType')).max(100),
   budget: z.string().trim().max(100).optional().or(z.literal('')),
   timeline: z.string().trim().max(100).optional().or(z.literal('')),
-  message: z.string().trim().min(10, 'Tell me a little more (10+ characters)').max(4000),
+  message: z.string().trim().min(10, t('inquiry.errMsg')).max(4000),
 });
 
 const emptyForm = {
@@ -51,6 +52,8 @@ const InquiryForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
+  const schema = buildSchema(t);
 
   const set = (key: keyof typeof emptyForm, value: string) => {
     setForm(prev => ({ ...prev, [key]: value }));
@@ -84,11 +87,11 @@ const InquiryForm = () => {
       }
       setSuccess(true);
       setForm(emptyForm);
-      toast({ title: 'Inquiry sent', description: "Thanks — I'll get back to you within 24 hours." });
+      toast({ title: t('inquiry.toastOkTitle'), description: t('inquiry.toastOkBody') });
     } catch (err) {
       toast({
-        title: 'Could not send your inquiry',
-        description: err instanceof Error ? err.message : 'Please try again or email me directly.',
+        title: t('inquiry.toastFailTitle'),
+        description: t('inquiry.toastFailBody'),
         variant: 'destructive',
       });
     } finally {
@@ -107,47 +110,47 @@ const InquiryForm = () => {
             className="flex flex-col items-center text-center py-10"
           >
             <Icon3D variant="success" size="xl" className="mb-6"><CheckCircle /></Icon3D>
-            <h3 className="text-xl font-semibold mb-2">Inquiry received</h3>
+            <h3 className="text-xl font-semibold mb-2">{t('inquiry.okTitle')}</h3>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Thanks for the details — I read every inquiry personally and usually reply within 24 hours.
+              {t('inquiry.okBody')}
             </p>
-            <Button variant="outline" onClick={() => setSuccess(false)}>Send another inquiry</Button>
+            <Button variant="outline" onClick={() => setSuccess(false)}>{t('inquiry.another')}</Button>
           </motion.div>
         ) : (
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <h3 className="text-xl font-semibold mb-1">Tell me about your project</h3>
+            <h3 className="text-xl font-semibold mb-1">{t('inquiry.title')}</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              The more context you share, the more useful my first reply will be.
+              {t('inquiry.sub')}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="iq-name" className="text-sm font-medium">Name *</label>
+                  <label htmlFor="iq-name" className="text-sm font-medium">{t('inquiry.nameL')}</label>
                   <Input id="iq-name" value={form.name} onChange={e => set('name', e.target.value)}
-                    placeholder="Your full name" className={fieldClass(!!errors.name)} />
+                    placeholder={t('inquiry.namePh')} className={fieldClass(!!errors.name)} />
                   {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="iq-email" className="text-sm font-medium">Email *</label>
+                  <label htmlFor="iq-email" className="text-sm font-medium">{t('inquiry.emailL')}</label>
                   <Input id="iq-email" type="email" value={form.email} onChange={e => set('email', e.target.value)}
-                    placeholder="you@company.com" className={fieldClass(!!errors.email)} />
+                    placeholder={t('inquiry.emailPh')} className={fieldClass(!!errors.email)} />
                   {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
                 </div>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="iq-company" className="text-sm font-medium">Company <span className="text-muted-foreground font-normal">(optional)</span></label>
+                  <label htmlFor="iq-company" className="text-sm font-medium">{t('inquiry.companyL')} <span className="text-muted-foreground font-normal">{t('inquiry.optional')}</span></label>
                   <Input id="iq-company" value={form.company} onChange={e => set('company', e.target.value)}
-                    placeholder="Company or team" className={fieldClass()} />
+                    placeholder={t('inquiry.companyPh')} className={fieldClass()} />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="iq-type" className="text-sm font-medium">Project type *</label>
+                  <label htmlFor="iq-type" className="text-sm font-medium">{t('inquiry.typeL')}</label>
                   <select id="iq-type" value={form.projectType} onChange={e => set('projectType', e.target.value)}
                     className={`${selectClass} ${errors.projectType ? 'border-destructive' : ''}`}>
-                    <option value="">Select one…</option>
-                    {PROJECT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                    <option value="">{t('inquiry.typeSelect')}</option>
+                    {PROJECT_TYPES.map((v, i) => <option key={v} value={v}>{t(`inquiry.t${i + 1}`)}</option>)}
                   </select>
                   {errors.projectType && <p className="text-xs text-destructive">{errors.projectType}</p>}
                 </div>
@@ -155,25 +158,25 @@ const InquiryForm = () => {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="iq-budget" className="text-sm font-medium">Budget <span className="text-muted-foreground font-normal">(optional)</span></label>
+                  <label htmlFor="iq-budget" className="text-sm font-medium">{t('inquiry.budgetL')} <span className="text-muted-foreground font-normal">{t('inquiry.optional')}</span></label>
                   <select id="iq-budget" value={form.budget} onChange={e => set('budget', e.target.value)} className={selectClass}>
-                    <option value="">Select a range…</option>
-                    {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
+                    <option value="">{t('inquiry.budgetSelect')}</option>
+                    {BUDGETS.map((v, i) => <option key={v} value={v}>{i === BUDGETS.length - 1 ? t('inquiry.b5') : v}</option>)}
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="iq-timeline" className="text-sm font-medium">Timeline <span className="text-muted-foreground font-normal">(optional)</span></label>
+                  <label htmlFor="iq-timeline" className="text-sm font-medium">{t('inquiry.timelineL')} <span className="text-muted-foreground font-normal">{t('inquiry.optional')}</span></label>
                   <select id="iq-timeline" value={form.timeline} onChange={e => set('timeline', e.target.value)} className={selectClass}>
-                    <option value="">Select a timeline…</option>
-                    {TIMELINES.map(t => <option key={t} value={t}>{t}</option>)}
+                    <option value="">{t('inquiry.timelineSelect')}</option>
+                    {TIMELINES.map((v, i) => <option key={v} value={v}>{t(`inquiry.tl${i + 1}`)}</option>)}
                   </select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="iq-message" className="text-sm font-medium">Project details *</label>
+                <label htmlFor="iq-message" className="text-sm font-medium">{t('inquiry.messageL')}</label>
                 <Textarea id="iq-message" value={form.message} onChange={e => set('message', e.target.value)}
-                  placeholder="What are you building, who is it for, and what does success look like?"
+                  placeholder={t('inquiry.messagePh')}
                   className={`resize-none min-h-[140px] ${fieldClass(!!errors.message)}`} />
                 {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
               </div>
@@ -181,8 +184,8 @@ const InquiryForm = () => {
               <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>
                 <Button type="submit" disabled={submitting} className="w-full btn-primary disabled:opacity-50">
                   {submitting
-                    ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sending…</>
-                    : <><Send className="w-4 h-4 mr-2" />Send project inquiry</>}
+                    ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />{t('inquiry.sending')}</>
+                    : <><Send className="w-4 h-4 mr-2" />{t('inquiry.send')}</>}
                 </Button>
               </motion.div>
             </form>

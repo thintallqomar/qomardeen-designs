@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import PageSEO from '@/components/PageSEO';
 import ReadingProgress from '@/components/ReadingProgress';
+import RichText, { hasRenderableContent } from '@/components/RichText';
+import { ARTICLE_PROSE } from '@/lib/proseClasses';
 import ShareButtons from '@/components/ShareButtons';
 import ArticlePage from '@/pages/ArticlePage';
 import { fetchBySlug, pathToType } from '@/lib/cms';
@@ -136,10 +138,14 @@ const ContentDetail = () => {
                 </a>
               )}
 
-              {item.body_html && (
-                <div className="article-content prose prose-invert max-w-none">
-                  <ReactMarkdown>{item.body_html || ''}</ReactMarkdown>
-                </div>
+              {hasRenderableContent(item.body_json) ? (
+                <RichText variant="article" json={item.body_json} />
+              ) : (
+                item.body_html && (
+                  <div className={ARTICLE_PROSE}>
+                    <ReactMarkdown>{item.body_html}</ReactMarkdown>
+                  </div>
+                )
               )}
 
               <div className="mt-10 pt-6 border-t border-border">

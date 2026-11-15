@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CalendarDays } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Mobile-only "Book a call" bar that slides up once the visitor scrolls past the top of the Hire page.
@@ -8,6 +9,7 @@ import { CalendarDays } from 'lucide-react';
  */
 const StickyHireBar = ({ bookUrl }: { bookUrl: string }) => {
   const [show, setShow] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 520);
@@ -32,7 +34,7 @@ const StickyHireBar = ({ bookUrl }: { bookUrl: string }) => {
         className="btn-primary w-full !px-4 !py-3"
       >
         <CalendarDays className="w-4 h-4" />
-        Book a call
+        {t('hire.bookCall')}
       </a>
     </div>,
     document.body,

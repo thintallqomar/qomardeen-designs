@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import AdminLayout from '@/components/admin/AdminLayout';
-import TiptapEditor from '@/components/admin/TiptapEditor';
+import RichTextField from '@/components/admin/RichTextField';
 import MediaPicker from '@/components/admin/MediaPicker';
 import type { MediaAsset } from '@/lib/media';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
@@ -174,8 +174,12 @@ const ContentEditor = () => {
             placeholder="Subtitle"
             className="w-full bg-transparent text-lg text-muted-foreground outline-none mb-5"
           />
-          <TiptapEditor
-            content={body.json}
+          <RichTextField
+            variant="article"
+            json={body.json ?? undefined}
+            html={body.html || undefined}
+            text={body.text}
+            placeholder="Tell the story…"
             onChange={setBody}
             onRequestImage={insert => { setInsertBody(() => insert); setPickerFor('body'); }}
           />

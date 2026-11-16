@@ -22,4 +22,5 @@ export const ARTICLE_PROSE = [
   '[&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-2',
   '[&_img]:rounded-xl [&_img]:max-w-full [&_img]:h-auto',
   '[&_figure]:my-6',
+  '[&>:first-child]:mt-0',
 ].join(' ');

@@ -1,25 +1,24 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import heroPortrait from '@/assets/hero-portrait-hq.png';
 import profileImage from '@/assets/new-profile.jpg';
+import { useSiteSettingsState } from '@/hooks/useSiteSettings';
 
 /**
  * The Home hero portrait: faded edges, gentle float, hover tilt, fallback if the image fails.
  * Shared so the Hire page shows exactly the same treatment.
  * Pass `variants` when the parent animates its children (as the Home hero does).
  */
-const HeroPortrait = ({ variants, className = '' }: { variants?: Variants; className?: string }) => {
-  const [heroSrc, setHeroSrc] = useState<string>(heroPortrait);
-  const [heroImgFailed, setHeroImgFailed] = useState(false);
-  const handleHeroImgError = useCallback(() => {
-    setHeroSrc((current) => {
-      if (current !== heroPortrait) {
-        setHeroImgFailed(true);
-        return current;
-      }
-      return profileImage;
-    });
-  }, []);
+const HeroPortrait = ({ variants, className = '', slot = 'home' }: { variants?: Variants; className?: string; slot?: 'home' | 'hire' }) => {
+  // The image uploaded in Admin > Site (Hire falls back to the Home image), then the built-in photos.
+  const { settings, ready } = useSiteSettingsState();
+  const uploaded = slot === 'hire' ? settings.hireHero?.url ?? settings.homeHero?.url : settings.homeHero?.url;
+  const sources = [uploaded, heroPortrait, profileImage].filter(Boolean) as string[];
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => setAttempt(0), [uploaded]);
+  const heroImgFailed = attempt >= sources.length;
+  const heroSrc = sources[Math.min(attempt, sources.length - 1)];
+  const handleHeroImgError = () => setAttempt(a => a + 1);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -44,12 +43,13 @@ const HeroPortrait = ({ variants, className = '' }: { variants?: Variants; class
           </div>
         ) : (
           <img
-            src={heroSrc}
+            key={heroSrc}
+            src={ready ? heroSrc : undefined}
             alt="Portrait of Qomardeen Tijani"
             loading="eager"
             decoding="async"
             onError={handleHeroImgError}
-            className="w-full h-full object-cover object-center"
+            className={`w-full h-full object-cover object-center transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />

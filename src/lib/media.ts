@@ -4,6 +4,7 @@ export const MEDIA_BUCKET = 'media';
 /** Effectively permanent signed URL (10 years) — the bucket itself stays private. */
 const SIGNED_TTL = 315_360_000;
 export const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+export const MAX_DOC_BYTES = 10 * 1024 * 1024;
 export const STORAGE_QUOTA_BYTES = 1024 * 1024 * 1024; // 1 GB soft budget
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif', 'image/svg+xml'];
@@ -173,3 +174,16 @@ export const storageUsage = (assets: MediaAsset[]) => assets.reduce((sum, a) => 
 
 export const folderList = (assets: MediaAsset[]) =>
   Array.from(new Set(assets.map(a => a.folder || 'uploads'))).sort();
+
+/** Uploads a PDF (for example the CV). Returns a long-lived link, like images do. */
+export async function uploadDocument(file: File, folder = 'site') {
+  if (file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name)) throw new Error('Please choose a PDF file.');
+  if (file.size > MAX_DOC_BYTES) throw new Error(`${file.name} is larger than ${formatBytes(MAX_DOC_BYTES)}.`);
+  const head = new TextDecoder().decode(await file.slice(0, 5).arrayBuffer());
+  if (head !== '%PDF-') throw new Error('That file does not look like a valid PDF.');
+
+  const path = `${folder}/${Date.now()}-${safeName(file.name)}.pdf`;
+  const { error } = await supabase.storage.from(MEDIA_BUCKET).upload(path, file, { contentType: 'application/pdf', upsert: false });
+  if (error) throw error;
+  return { url: await signedUrl(path), path, size: file.size, name: file.name };
+}

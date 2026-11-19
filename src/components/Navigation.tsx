@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
 import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User, FileText, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,6 +15,12 @@ const LANG_PREFIX_RE = new RegExp(`^\\/(${supportedLanguages.join('|')})(?=\\/|$
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen]);
   const [langOpen, setLangOpen] = useState(false);
   const [exploreOpen, setExploreOpen] = useState(false);
   const exploreRef = useRef<HTMLDivElement>(null);
@@ -94,6 +101,17 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border shadow-sm">
+      {/* Tapping anywhere outside the open menu closes it (and the tap does not hit the page underneath).
+          Rendered into <body>: the header's blur effect would otherwise shrink a "full screen" layer to the header's size. */}
+      {(isOpen || langOpen) &&
+        createPortal(
+          <div
+            className="md:hidden fixed inset-0 z-40"
+            aria-hidden="true"
+            onClick={() => { setIsOpen(false); setLangOpen(false); }}
+          />,
+          document.body,
+        )}
       <div className="container-custom">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}

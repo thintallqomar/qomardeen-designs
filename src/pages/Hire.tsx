@@ -107,7 +107,7 @@ const Hire = () => {
                   </ScrollReveal>
 
                   {/* Identical to the Home hero portrait */}
-                  <HeroPortrait />
+                  <HeroPortrait slot="hire" />
                 </div>
               </div>
             </section>

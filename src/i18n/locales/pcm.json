@@ -39,7 +39,13 @@
     "atlas1": "Which project make I read first?",
     "atlas2": "Wetin you dey build with code?",
     "atlas3": "Which roles you dey open to?",
-    "now": "Now"
+    "now": "Now",
+    "designerTitle": "Designer",
+    "builderTitle": "<Builder />",
+    "designerDesc": "Product and UI/UX design for fintech and SaaS: research, flows and design systems.",
+    "builderDesc": "I dey learn how to ship my designs with code and AI.",
+    "splitLabel": "Show di designer or builder side",
+    "portraitAlt": "Picture of Qomardeen Tijani"
   },
   "metrics": {
     "projects": "Projects Wey Don Deliver",
@@ -388,5 +394,32 @@
     "autoHint": "Light 06:00–18:00 · Dark 18:00–06:00",
     "light": "Light",
     "dark": "Dark"
+  },
+  "aboutIntro": {
+    "big": "about me",
+    "lead": "I be Qomardeen, product designer wey dey Nigeria. I study human anatomy, fall in love with design, and now I dey learn how to build wetin I design.",
+    "partDesigner": "Part designer",
+    "partCoder": "part coder",
+    "splitNote": "{{design}}% design · {{code}}% code",
+    "designerList": [
+      "UI and UX design for Figma",
+      "User research and usability testing",
+      "Design systems and components",
+      "Dashboards and flows wey get plenty data",
+      "Shifting pixels one last time"
+    ],
+    "coderList": [
+      "I dey ship my own designs with Claude Code",
+      "I dey learn React and TypeScript",
+      "Front-end basics: HTML, CSS, Tailwind",
+      "Debugging after one plate of swallow"
+    ],
+    "factsTitle": "Small facts about me",
+    "facts": [
+      "I study human anatomy before I study design.",
+      "For my PS5: Ghost of Tsushima, Red Dead Redemption, Spider-Man 2.",
+      "Beans and plantain na my comfort food.",
+      "And yes, swallow. Always swallow."
+    ]
   }
 }

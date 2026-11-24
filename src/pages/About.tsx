@@ -2,6 +2,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 import PageSEO from '@/components/PageSEO';
+import AboutIntro from '@/components/AboutIntro';
 import AboutSection from '@/components/About';
 import DesignPhilosophy from '@/components/DesignPhilosophy';
 
@@ -17,6 +18,7 @@ const About = () => {
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">
+            <AboutIntro />
             <AboutSection />
             <DesignPhilosophy />
           </main>

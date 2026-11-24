@@ -39,7 +39,13 @@
     "atlas1": "Qual projeto devo ler primeiro?",
     "atlas2": "O que você constrói com código?",
     "atlas3": "Para quais vagas você está aberto?",
-    "now": "Agora"
+    "now": "Agora",
+    "designerTitle": "Designer",
+    "builderTitle": "<Construtor />",
+    "designerDesc": "Design de produto e UI/UX para fintech e SaaS: pesquisa, fluxos e design systems.",
+    "builderDesc": "Aprendendo a lançar meus designs com código e IA.",
+    "splitLabel": "Mostrar o lado designer ou construtor",
+    "portraitAlt": "Retrato de Qomardeen Tijani"
   },
   "metrics": {
     "projects": "Projetos Entregues",
@@ -388,5 +394,32 @@
     "autoHint": "Claro 06:00–18:00 · Escuro 18:00–06:00",
     "light": "Claro",
     "dark": "Escuro"
+  },
+  "aboutIntro": {
+    "big": "sobre",
+    "lead": "Sou Qomardeen, designer de produto na Nigéria. Estudei anatomia humana, me apaixonei por design e agora estou aprendendo a construir o que desenho.",
+    "partDesigner": "Parte designer",
+    "partCoder": "parte programador",
+    "splitNote": "{{design}}% design · {{code}}% código",
+    "designerList": [
+      "Design de UI e UX no Figma",
+      "Pesquisa com usuários e testes de usabilidade",
+      "Design systems e componentes",
+      "Dashboards e fluxos cheios de dados",
+      "Ajustando pixels uma última vez"
+    ],
+    "coderList": [
+      "Lançando meus próprios designs com Claude Code",
+      "Aprendendo React e TypeScript",
+      "Base de front-end: HTML, CSS, Tailwind",
+      "Depurando depois de um prato de swallow"
+    ],
+    "factsTitle": "Curiosidades",
+    "facts": [
+      "Estudei anatomia humana antes de estudar design.",
+      "No meu PS5: Ghost of Tsushima, Red Dead Redemption, Spider-Man 2.",
+      "Feijão com banana-da-terra é minha comida afetiva.",
+      "E sim, swallow. Sempre swallow."
+    ]
   }
 }

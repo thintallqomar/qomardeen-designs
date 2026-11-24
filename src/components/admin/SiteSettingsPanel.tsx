@@ -10,7 +10,7 @@ import {
   type SiteKey, type SiteSetting, type HeroStyle,
 } from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
-import heroPortrait from '@/assets/hero-cutout.webp';
+import heroPortrait from '@/assets/split-designer.webp';
 
 const FADE =
   '[mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]';
@@ -127,7 +127,7 @@ const HeroControls = ({
 }: { style: HeroStyle; nowLine: string; busy: boolean; onStyle: (s: HeroStyle) => void; onNow: (v: string) => void }) => {
   const [draft, setDraft] = useState(nowLine);
   const options: { value: HeroStyle; title: string; body: string }[] = [
-    { value: 'new', title: 'Designer who builds (new)', body: 'Headline, Ask Atlas prompts, a featured case study and the arch portrait. No intro section; the CV lives on Hire and About.' },
+    { value: 'new', title: 'Designer | Builder split (new)', body: 'Your name, your face split into designer and code halves that follow the mouse, and Ask Atlas prompts. No intro section; the CV lives on Hire and About.' },
     { value: 'classic', title: 'Classic', body: 'The previous hero with your name as the headline, the Hire me | CV button, skill tags and the intro section.' },
   ];
   return (
@@ -280,7 +280,7 @@ const SiteSettingsPanel = () => {
         description="The portrait next to your name on the Home page."
         tips={[
           'Portrait works best, about 4:5 (for example 1200 × 1500 px), face in the upper half.',
-          'Best: a PNG or WebP with the background removed (a cut-out). It is detected automatically and shown in the arch. A normal photo also works; its edges fade into the page.',
+          'Uploading a photo here replaces the designer/builder split with your photo (edges fade into the page). Use "Use built-in" to bring the split back.',
           `JPG, PNG or WebP up to ${formatBytes(MAX_UPLOAD_BYTES)}. It is compressed to WebP for you.`,
         ]}
         current={settings.homeHero}

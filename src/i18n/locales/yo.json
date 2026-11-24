@@ -39,7 +39,13 @@
     "atlas1": "Iṣẹ́ wo ni kí n kọ́kọ́ kà?",
     "atlas2": "Kí ni o ń kọ́ pẹ̀lú kóòdù?",
     "atlas3": "Àwọn iṣẹ́ wo ni o ṣetán fún?",
-    "now": "Nísinsìnyí"
+    "now": "Nísinsìnyí",
+    "designerTitle": "Olùṣàpẹẹrẹ",
+    "builderTitle": "<Akọ́lé />",
+    "designerDesc": "Àpẹẹrẹ ọjà àti UI/UX fún fintech àti SaaS: ìwádìí, ìṣàn àti ètò àpẹẹrẹ.",
+    "builderDesc": "Mo ń kọ́ bí a ṣe ń gbé àpẹẹrẹ mi jáde pẹ̀lú kóòdù àti AI.",
+    "splitLabel": "Fi ẹ̀gbẹ́ olùṣàpẹẹrẹ tàbí akọ́lé hàn",
+    "portraitAlt": "Àwòrán Qomardeen Tijani"
   },
   "metrics": {
     "projects": "Iṣẹ́ Tí A Fi Ránṣẹ́",
@@ -388,5 +394,32 @@
     "autoHint": "Ìmọ́lẹ̀ 06:00–18:00 · Òkùnkùn 18:00–06:00",
     "light": "Ìmọ́lẹ̀",
     "dark": "Òkùnkùn"
+  },
+  "aboutIntro": {
+    "big": "nípa mi",
+    "lead": "Èmi ni Qomardeen, olùṣàpẹẹrẹ ọjà ní Nàìjíríà. Mo kẹ́kọ̀ọ́ nípa ara ènìyàn, mo nífẹ̀ẹ́ sí àpẹẹrẹ, nísinsìnyí mo ń kọ́ bí a ṣe ń kọ́ ohun tí mo ṣe àpẹẹrẹ rẹ̀.",
+    "partDesigner": "Apá kan olùṣàpẹẹrẹ",
+    "partCoder": "apá kan olùkọ̀ kóòdù",
+    "splitNote": "{{design}}% àpẹẹrẹ · {{code}}% kóòdù",
+    "designerList": [
+      "Àpẹẹrẹ UI àti UX nínú Figma",
+      "Ìwádìí olùlò àti àyẹ̀wò ìrọ̀rùn lílo",
+      "Ètò àpẹẹrẹ àti àwọn ẹ̀yà",
+      "Dashboard àti ìṣàn tó kún fún dátà",
+      "Títún pixel ṣe fún ìgbà ìkẹyìn"
+    ],
+    "coderList": [
+      "Mo ń gbé àpẹẹrẹ mi jáde pẹ̀lú Claude Code",
+      "Mo ń kọ́ React àti TypeScript",
+      "Ìpìlẹ̀ iwájú: HTML, CSS, Tailwind",
+      "Títún kóòdù ṣe lẹ́yìn àwo swallow kan"
+    ],
+    "factsTitle": "Àwọn òtítọ́ díẹ̀",
+    "facts": [
+      "Mo kẹ́kọ̀ọ́ nípa ara ènìyàn kí n tó kọ́ àpẹẹrẹ.",
+      "Lórí PS5 mi: Ghost of Tsushima, Red Dead Redemption, Spider-Man 2.",
+      "Ẹ̀wà àti dòdò ni oúnjẹ tí mo fẹ́ràn jù.",
+      "Bẹ́ẹ̀ni, swallow. Swallow nígbà gbogbo."
+    ]
   }
 }

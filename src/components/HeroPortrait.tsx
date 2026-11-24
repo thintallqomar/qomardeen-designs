@@ -1,10 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import heroCutout from '@/assets/hero-cutout.webp';
 import heroPortrait from '@/assets/hero-portrait.webp';
 import profileImage from '@/assets/new-profile.jpg';
 import { useSiteSettingsState } from '@/hooks/useSiteSettings';
-import { heroStyleOf } from '@/lib/siteSettings';
 
 type Look = 'arch' | 'fade';
 interface Candidate { src: string; look: Look }
@@ -23,12 +21,11 @@ const HeroPortrait = ({
   variants, className = '', slot = 'home', children,
 }: { variants?: Variants; className?: string; slot?: 'home' | 'hire'; children?: ReactNode }) => {
   const { settings, ready } = useSiteSettingsState();
-  const style = heroStyleOf(settings);
   const uploaded = slot === 'hire' ? settings.hireHero ?? settings.homeHero : settings.homeHero;
 
   const candidates: Candidate[] = [];
-  if (uploaded?.url) candidates.push({ src: uploaded.url, look: uploaded.cutout && style === 'new' ? 'arch' : 'fade' });
-  if (style === 'new') candidates.push({ src: heroCutout, look: 'arch' });
+  // The arch was dropped: every photo now fades softly into the page.
+  if (uploaded?.url) candidates.push({ src: uploaded.url, look: 'fade' });
   candidates.push({ src: heroPortrait, look: 'fade' }, { src: profileImage, look: 'fade' });
 
   const [attempt, setAttempt] = useState(0);

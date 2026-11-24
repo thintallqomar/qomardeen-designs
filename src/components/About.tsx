@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import Icon3D from './Icon3D';
-import CvDownloadButton from '@/components/CvDownloadButton';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -14,16 +13,6 @@ const About = () => {
     <section id="about" className="section-padding bg-muted/30">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-10 md:mb-16">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4 leading-tight">{t('about.title')}</h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                {t('about.subtitle')}
-              </p>
-              <CvDownloadButton className="btn-primary mt-6" label={t('about.resume')} />
-            </div>
-          </ScrollReveal>
-
           <ScrollReveal delay={0.1}>
             <motion.div
               className="card-elegant mb-12"

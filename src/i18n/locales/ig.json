@@ -39,7 +39,13 @@
     "atlas1": "Kedu ọrụ m kwesịrị izizi ọgụgụ?",
     "atlas2": "Gịnị ka ị na-eji koodu ewu?",
     "atlas3": "Kedu ọrụ ị na-achọ?",
-    "now": "Ugbu a"
+    "now": "Ugbu a",
+    "designerTitle": "Onye nhazi",
+    "builderTitle": "<Onye na-ewu />",
+    "designerDesc": "Imewe ngwaahịa na UI/UX maka fintech na SaaS: nyocha, usoro na usoro imewe.",
+    "builderDesc": "Ana m amụ ka m ga-esi jiri koodu na AI wepụta imewe m.",
+    "splitLabel": "Gosi akụkụ onye nhazi ma ọ bụ onye na-ewu",
+    "portraitAlt": "Foto Qomardeen Tijani"
   },
   "metrics": {
     "projects": "Ọrụ Enyere",
@@ -388,5 +394,32 @@
     "autoHint": "Ìhè 06:00–18:00 · Ọchịchịrị 18:00–06:00",
     "light": "Ìhè",
     "dark": "Ọchịchịrị"
+  },
+  "aboutIntro": {
+    "big": "banyere m",
+    "lead": "Abụ m Qomardeen, onye nhazi ngwaahịa nọ na Naịjirịa. Agụrụ m nkà ahụ mmadụ, hụ imewe n'anya, ugbu a ana m amụ ka m ga-esi wuo ihe m na-emewe.",
+    "partDesigner": "Ọkara onye nhazi",
+    "partCoder": "ọkara onye koodu",
+    "splitNote": "{{design}}% imewe · {{code}}% koodu",
+    "designerList": [
+      "Imewe UI na UX na Figma",
+      "Nyocha ndị ọrụ na nnwale ịdị mfe iji",
+      "Usoro imewe na ihe ndị mejupụtara ya",
+      "Dashboard na usoro jupụtara na data",
+      "Imezi pixel otu ugboro ikpeazụ"
+    ],
+    "coderList": [
+      "Ana m eji Claude Code ewepụta imewe m",
+      "Ana m amụ React na TypeScript",
+      "Ntọala n'ihu: HTML, CSS, Tailwind",
+      "Imezi koodu mgbe efere swallow gasịrị"
+    ],
+    "factsTitle": "Ihe ndị ọzọ gbasara m",
+    "facts": [
+      "Agụrụ m nkà ahụ mmadụ tupu m mụọ imewe.",
+      "Na PS5 m: Ghost of Tsushima, Red Dead Redemption, Spider-Man 2.",
+      "Agwa na ọgẹdẹ bụ nri kacha amasị m.",
+      "Ee, swallow. Mgbe niile swallow."
+    ]
   }
 }

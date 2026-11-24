@@ -39,7 +39,13 @@
     "atlas1": "Wane aiki zan fara karantawa?",
     "atlas2": "Me kake ginawa da lamba?",
     "atlas3": "Waɗanne ayyuka kake nema?",
-    "now": "Yanzu"
+    "now": "Yanzu",
+    "designerTitle": "Mai ƙira",
+    "builderTitle": "<Mai gini />",
+    "designerDesc": "Ƙirar samfura da UI/UX don fintech da SaaS: bincike, tafiyar aiki da tsarin ƙira.",
+    "builderDesc": "Ina koyon fitar da ƙirata da lamba da AI.",
+    "splitLabel": "Nuna ɓangaren mai ƙira ko mai gini",
+    "portraitAlt": "Hoton Qomardeen Tijani"
   },
   "metrics": {
     "projects": "Ayyukan Da Aka Isar",
@@ -388,5 +394,32 @@
     "autoHint": "Haske 06:00–18:00 · Duhu 18:00–06:00",
     "light": "Haske",
     "dark": "Duhu"
+  },
+  "aboutIntro": {
+    "big": "game da ni",
+    "lead": "Ni ne Qomardeen, mai tsara samfura a Najeriya. Na karanci ilimin jikin ɗan adam, na kamu da son ƙira, yanzu kuma ina koyon gina abin da nake tsarawa.",
+    "partDesigner": "Rabin mai ƙira",
+    "partCoder": "rabin mai lamba",
+    "splitNote": "{{design}}% ƙira · {{code}}% lamba",
+    "designerList": [
+      "Ƙirar UI da UX a Figma",
+      "Binciken masu amfani da gwajin sauƙin amfani",
+      "Tsarin ƙira da ɓangarori",
+      "Dashboards da tafiyar aiki mai yawan bayanai",
+      "Gyaran pixel na ƙarshe"
+    ],
+    "coderList": [
+      "Ina fitar da ƙirata da Claude Code",
+      "Ina koyon React da TypeScript",
+      "Tushen gaba: HTML, CSS, Tailwind",
+      "Gyaran kuskure bayan farantin tuwo"
+    ],
+    "factsTitle": "Wasu abubuwa game da ni",
+    "facts": [
+      "Na karanci ilimin jikin ɗan adam kafin ƙira.",
+      "A PS5 ɗina: Ghost of Tsushima, Red Dead Redemption, Spider-Man 2.",
+      "Wake da ayaba abincin da na fi so ne.",
+      "Kuma eh, tuwo. Kullum tuwo."
+    ]
   }
 }

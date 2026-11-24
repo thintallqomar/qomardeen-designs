@@ -14,7 +14,8 @@ import PageSEO from '@/components/PageSEO';
 import InquiryForm from '@/components/InquiryForm';
 import StickyHireBar from '@/components/StickyHireBar';
 import HeroGlow from '@/components/HeroGlow';
-import HeroPortrait from '@/components/HeroPortrait';
+import SplitPortrait, { useSplit } from '@/components/SplitPortrait';
+import { useRef } from 'react';
 import CvDownloadButton from '@/components/CvDownloadButton';
 import Testimonials from '@/components/Testimonials';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -29,6 +30,8 @@ const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
 const Hire = () => {
   const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
+  const heroRef = useRef<HTMLElement>(null);
+  const split = useSplit(heroRef);
 
   const engagements = [
     { icon: <Briefcase />, title: t('hire.eng1Title'), body: t('hire.eng1Body'), cta: t('hire.eng1Cta') },
@@ -66,10 +69,10 @@ const Hire = () => {
         <div className="min-h-screen">
           <main className="pt-14">
             {/* ── Hero ── */}
-            <section className="relative overflow-hidden section-padding">
+            <section ref={heroRef} className="relative overflow-hidden section-padding">
               <HeroGlow />
               <div className="container-custom relative z-10">
-                <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-center">
+                <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
                   <ScrollReveal>
                     <div>
                       <div className="inline-flex max-w-full items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/60 text-xs sm:text-sm font-medium mb-6">
@@ -107,7 +110,16 @@ const Hire = () => {
                   </ScrollReveal>
 
                   {/* Identical to the Home hero portrait */}
-                  <HeroPortrait slot="hire" />
+                  <div className="flex flex-col items-center">
+                    <SplitPortrait split={split} slot="hire" />
+                    {split.fine && (
+                      <p className="mt-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                        <span>{t('hero.designerTitle')}</span>
+                        <span className="h-px w-10 bg-border" aria-hidden="true" />
+                        <span className="font-mono normal-case text-primary">{t('hero.builderTitle')}</span>
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>

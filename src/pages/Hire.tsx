@@ -82,11 +82,13 @@ const Hire = () => {
                           <span className="hidden sm:inline">{t('hire.badgeImmediately')}</span> · {t('hire.badgeTz')}
                         </span>
                       </div>
-                      <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
-                        {t('hire.h1a')}<br />
-                        <span className="text-primary">{t('hire.h1b')}</span>
+                      <h1 className="t-display">
+                        {t('nav.hire').toLocaleLowerCase()}<span className="text-primary">.</span>
                       </h1>
-                      <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">{t('hire.intro')}</p>
+                      <p className="mt-5 md:mt-6 text-xl md:text-2xl font-semibold tracking-tight max-w-xl">
+                        {t('hire.h1a')} <span className="text-primary">{t('hire.h1b')}</span>
+                      </p>
+                      <p className="t-lead mt-3 max-w-xl mb-8">{t('hire.intro')}</p>
                       <div className="flex flex-col sm:flex-row gap-3 mb-6">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group">
                           <CalendarDays className="w-4 h-4" />
@@ -116,8 +118,8 @@ const Hire = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <div className="text-center mb-10 max-w-2xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.waysTitle')}</h2>
+                  <div className="mb-10 max-w-2xl">
+                    <h2 className="t-h2 mb-3">{t('hire.waysTitle')}</h2>
                     <p className="text-muted-foreground">{t('hire.waysSub')}</p>
                   </div>
                 </ScrollReveal>
@@ -125,7 +127,7 @@ const Hire = () => {
                   {engagements.map(e => (
                     <div key={e.title} className="card-elegant flex flex-col h-full">
                       <Icon3D variant="primary" size="md" className="mb-4">{e.icon}</Icon3D>
-                      <h3 className="text-lg font-semibold mb-2">{e.title}</h3>
+                      <h3 className="t-h3 mb-2">{e.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{e.body}</p>
                       <a href="#contact" className="inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-primary hover:underline">
                         {e.cta} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
@@ -140,12 +142,12 @@ const Hire = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <div className="text-center mb-10 max-w-2xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.proofTitle')}</h2>
+                  <div className="mb-10 max-w-2xl">
+                    <h2 className="t-h2 mb-3">{t('hire.proofTitle')}</h2>
                     <p className="text-muted-foreground">{t('hire.proofSub')}</p>
                   </div>
                 </ScrollReveal>
-                <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div className="grid sm:grid-cols-2 gap-6">
                   {work.map(w => (
                     <Link
                       key={w.title}
@@ -157,7 +159,7 @@ const Hire = () => {
                       </div>
                       <div className="p-5">
                         <span className="text-xs font-semibold uppercase tracking-widest text-primary">{w.tag}</span>
-                        <h3 className="text-lg font-semibold mt-1 mb-1.5">{w.title}</h3>
+                        <h3 className="t-h3 mt-1 mb-1.5">{w.title}</h3>
                         <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
                           {t('hire.viewCase')} <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -166,7 +168,7 @@ const Hire = () => {
                     </Link>
                   ))}
                 </div>
-                <div className="text-center mt-8">
+                <div className="mt-8">
                   <Link to={localizedPath('/projects')} className="btn-outline">
                     {t('hire.seeAll')} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                   </Link>
@@ -181,9 +183,9 @@ const Hire = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('hire.whyTitle')}</h2>
+                  <h2 className="t-h2 mb-10">{t('hire.whyTitle')}</h2>
                 </ScrollReveal>
-                <StaggeredReveal className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto" staggerDelay={0.1}>
+                <StaggeredReveal className="grid sm:grid-cols-2 gap-5" staggerDelay={0.1}>
                   {valueProps.map(v => (
                     <div key={v.title} className="card-elegant flex gap-4">
                       <Icon3D variant="primary" size="md">{v.icon}</Icon3D>
@@ -201,7 +203,7 @@ const Hire = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('hire.howTitle')}</h2>
+                  <h2 className="t-h2 mb-10">{t('hire.howTitle')}</h2>
                 </ScrollReveal>
                 <StaggeredReveal className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
                   {processSteps.map((s, i) => (
@@ -221,9 +223,9 @@ const Hire = () => {
             {/* ── What you get ── */}
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
-                <div className="max-w-2xl mx-auto">
+                <div className="max-w-2xl">
                   <ScrollReveal>
-                    <h2 className="text-xl md:text-2xl font-bold mb-5">{t('hire.getTitle')}</h2>
+                    <h2 className="t-h2 mb-5">{t('hire.getTitle')}</h2>
                     <ul className="space-y-3">
                       {deliverables.map(d => (
                         <li key={d} className="flex items-start gap-3 text-sm md:text-base">
@@ -239,9 +241,9 @@ const Hire = () => {
             {/* ── FAQ ── */}
             <section className="section-padding">
               <div className="container-custom">
-                <div className="max-w-3xl mx-auto">
+                <div className="max-w-3xl">
                   <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">{t('hire.faqTitle')}</h2>
+                    <h2 className="t-h2 mb-8">{t('hire.faqTitle')}</h2>
                   </ScrollReveal>
                   <Accordion type="single" collapsible className="w-full">
                     {faqs.map((f, i) => (
@@ -258,12 +260,12 @@ const Hire = () => {
             {/* ── Contact ── */}
             <section id="contact" className="section-padding bg-muted/30 scroll-mt-16">
               <div className="container-custom">
-                <div className="max-w-3xl mx-auto">
+                <div className="max-w-3xl">
                   <ScrollReveal>
-                    <div className="text-center mb-10">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('hire.talkTitle')}</h2>
-                      <p className="text-muted-foreground max-w-xl mx-auto mb-6">{t('hire.talkBody')}</p>
-                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <div className="mb-10">
+                      <h2 className="t-h2 mb-3">{t('hire.talkTitle')}</h2>
+                      <p className="text-muted-foreground max-w-xl mb-6">{t('hire.talkBody')}</p>
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                           <CalendarDays className="w-4 h-4" /> {t('hire.bookCall')}
                         </a>

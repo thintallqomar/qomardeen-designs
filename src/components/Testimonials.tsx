@@ -13,10 +13,10 @@ const Testimonials = () => {
     <section className="section-padding">
       <div className="container-custom">
         <ScrollReveal>
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">{t('testimonials.title')}</h2>
+          <h2 className="t-h2 mb-10">{t('testimonials.title')}</h2>
         </ScrollReveal>
         <StaggeredReveal
-          className={`grid gap-5 mx-auto ${testimonials.length === 1 ? 'max-w-2xl' : 'max-w-5xl sm:grid-cols-2'}`}
+          className={`grid gap-5 ${testimonials.length === 1 ? 'max-w-2xl' : 'max-w-5xl sm:grid-cols-2'}`}
           staggerDelay={0.1}
         >
           {testimonials.map((item, i) => (

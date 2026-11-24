@@ -102,7 +102,7 @@ const ContentDetail = () => {
                 <Link to={localizedPath(`/explore/${section}`)} className="hover:text-foreground capitalize">{section}</Link>
               </nav>
 
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">{item.title}</h1>
+              <h1 className="t-title mb-3">{item.title}</h1>
               {item.subtitle && <p className="text-lg text-muted-foreground mb-4">{item.subtitle}</p>}
 
               <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-8">

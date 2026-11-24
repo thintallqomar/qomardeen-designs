@@ -40,7 +40,7 @@ const FeaturedProjects = () => {
       <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('featured.title')}</h2>
+            <h2 className="t-h2 mb-4">{t('featured.title')}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('featured.subtitle')}</p>
           </div>
         </ScrollReveal>
@@ -53,7 +53,7 @@ const FeaturedProjects = () => {
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">{project.industry}</span>
-                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                <h3 className="t-h3 mb-2">{project.title}</h3>
                 <p className="text-sm text-muted-foreground mb-4 flex-1">{project.problem}</p>
                 <div className="flex items-center gap-1 text-sm text-primary font-medium group-hover:gap-2 transition-all">
                   {t('featured.viewCase')} <ArrowRight className="w-4 h-4" />

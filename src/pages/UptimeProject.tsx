@@ -110,7 +110,7 @@ const UptimeProject = () => {
                   <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
                     UI/UX Case Study
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold mb-6">UpTime CMMS</h1>
+                  <h1 className="t-title mb-6">UpTime CMMS</h1>
                   <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                     A powerful maintenance and equipment tracking tool that reduces downtime through scheduled tasks, offline functionality, and smart reporting.
                   </p>
@@ -150,7 +150,7 @@ const UptimeProject = () => {
             <ScrollReveal>
               <div className="container-custom py-8">
                 <div className="text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3">Full Case Study</h2>
+                  <h2 className="t-h2 mb-3">Full Case Study</h2>
                   <p className="text-muted-foreground">Scroll through every frame of the design process</p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ const UptimeProject = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <div className="max-w-2xl mx-auto text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Want to see more?</h2>
+                  <h2 className="t-h2 mb-4">Want to see more?</h2>
                   <p className="text-muted-foreground mb-8">
                     Explore the live project, or get in touch to discuss yours.
                   </p>

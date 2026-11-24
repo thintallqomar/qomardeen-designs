@@ -101,7 +101,7 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
                       {body.badge}
                     </div>
                   )}
-                  <h1 className="text-4xl md:text-5xl font-bold mb-6">{data.title}</h1>
+                  <h1 className="t-title mb-6">{data.title}</h1>
                   {(data.subtitle || data.excerpt) && (
                     <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                       {data.subtitle || data.excerpt}
@@ -166,7 +166,7 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
                 <ScrollReveal>
                   <div className="container-custom py-8">
                     <div className="text-center">
-                      <h2 className="text-2xl md:text-3xl font-bold mb-3">{isOther ? t('caseStudy.framesTitle') : t('caseStudy.fullTitle')}</h2>
+                      <h2 className="t-h2 mb-3">{isOther ? t('caseStudy.framesTitle') : t('caseStudy.fullTitle')}</h2>
                       <p className="text-muted-foreground">{isOther ? t('caseStudy.framesBlurb') : t('caseStudy.fullBlurb')}</p>
                     </div>
                   </div>

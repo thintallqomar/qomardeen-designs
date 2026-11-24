@@ -54,7 +54,7 @@ const Blog = () => {
                   {/* Header */}
                   <ScrollReveal>
                     <div className="text-center mb-12">
-                      <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('blog.title')}</h1>
+                      <h1 className="t-title mb-4">{t('blog.title')}</h1>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         {t('blog.subtitle')}
                       </p>
@@ -79,7 +79,7 @@ const Blog = () => {
                           <span className="text-xs font-semibold text-primary uppercase tracking-wider">{featured.category}</span>
                           <span className="text-xs text-muted-foreground">{featured.publishDate}</span>
                         </div>
-                        <h2 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
+                        <h2 className="t-h2 mb-3 group-hover:text-primary transition-colors">
                           {featured.title}
                         </h2>
                         <p className="text-muted-foreground mb-4 max-w-2xl">{featured.excerpt}</p>

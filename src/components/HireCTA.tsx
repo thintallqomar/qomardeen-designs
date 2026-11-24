@@ -23,7 +23,7 @@ const HireCTA = () => {
                   <Sparkles className="w-4 h-4 mr-1" />
                   {t('hireCta.available')}
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('hireCta.title')}</h2>
+                <h2 className="t-h2 mb-4">{t('hireCta.title')}</h2>
                 <p className="text-muted-foreground mb-8 max-w-lg mx-auto">{t('hireCta.subtitle')}</p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                   <motion.button onClick={() => navigate('/hire')} className="modern-btn inline-flex items-center justify-center gap-2 group" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.2, ease }}>

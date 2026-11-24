@@ -86,7 +86,7 @@ const NewsletterCapture = ({ compact = false }: { compact?: boolean }) => {
           {t('newsletter.badge')}
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-bold mb-3">
+        <h2 className="t-h2 mb-3">
           {t('newsletter.title')}
         </h2>
         <p className="text-muted-foreground text-sm md:text-base mb-8 max-w-md mx-auto">

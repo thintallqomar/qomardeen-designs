@@ -41,7 +41,7 @@ const AIAssistantPreview = () => {
                     <AtlasLogo size={28} />
                   </Icon3D>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight">{t('atlas.title')}</h2>
+                <h2 className="t-h2 mb-3 tracking-tight">{t('atlas.title')}</h2>
                 <p className="text-muted-foreground mb-8 max-w-md mx-auto text-[15px] leading-relaxed">{t('atlas.subtitle')}</p>
                 <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
                   {prompts.map((prompt, index) => (

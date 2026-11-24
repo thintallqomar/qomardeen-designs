@@ -23,7 +23,7 @@ const ArchitecturePreview = () => {
       <div className="container-custom">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('architecture.title')}</h2>
+            <h2 className="t-h2 mb-4">{t('architecture.title')}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('architecture.subtitle')}</p>
           </div>
         </ScrollReveal>
@@ -34,7 +34,7 @@ const ArchitecturePreview = () => {
               <Icon3D variant={item.variant} size="md" className="mb-4">
                 {item.icon}
               </Icon3D>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <h3 className="t-h3 mb-2">{item.title}</h3>
               <p className="text-sm text-muted-foreground">{item.desc}</p>
             </motion.div>
           ))}

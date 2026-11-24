@@ -9,12 +9,12 @@ const PageIntro = ({ word, lead, action, above }: { word: string; lead?: ReactNo
   <ScrollReveal>
     <header className="mb-10 md:mb-14">
       {above}
-      <h1 className="text-[clamp(3rem,11vw,7.5rem)] font-bold tracking-tighter leading-[0.9] break-words">
+      <h1 className="t-display">
         {word.toLocaleLowerCase()}<span className="text-primary">.</span>
       </h1>
       {(lead || action) && (
         <div className="mt-5 md:mt-6 grid md:grid-cols-[minmax(0,1fr)_auto] gap-5 items-end">
-          {lead && <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">{lead}</p>}
+          {lead && <p className="t-lead max-w-2xl">{lead}</p>}
           {action && <div className="justify-self-start md:justify-self-end">{action}</div>}
         </div>
       )}

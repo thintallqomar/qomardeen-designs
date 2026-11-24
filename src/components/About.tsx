@@ -53,7 +53,7 @@ const About = () => {
                 <Icon3D variant="amber" size="md">
                   <GraduationCap />
                 </Icon3D>
-                <h3 className="text-xl font-semibold">{t('about.education')}</h3>
+                <h3 className="t-h3">{t('about.education')}</h3>
               </div>
               <div className="grid sm:grid-cols-2 gap-x-8">
                 <div className="border-t border-border py-4">
@@ -77,7 +77,7 @@ const About = () => {
                 <Icon3D variant="teal" size="md">
                   <Briefcase />
                 </Icon3D>
-                <h3 className="text-xl font-semibold">{t('about.experience')}</h3>
+                <h3 className="t-h3">{t('about.experience')}</h3>
               </div>
               <div className="relative space-y-7 border-l border-border ml-2 pl-5 sm:ml-0">
                 <div className="relative before:absolute before:-left-[26px] before:top-1.5 before:h-2.5 before:w-2.5 before:rounded-full before:bg-primary">
@@ -126,7 +126,7 @@ const About = () => {
                 <Icon3D variant="violet" size="md">
                   <Award />
                 </Icon3D>
-                <h3 className="text-xl font-semibold">{t('about.certifications')}</h3>
+                <h3 className="t-h3">{t('about.certifications')}</h3>
               </div>
               <ul className="grid sm:grid-cols-2 gap-x-8">
                 {[

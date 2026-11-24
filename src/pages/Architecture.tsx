@@ -167,7 +167,7 @@ const Architecture = () => {
                         <CircuitBoard className="w-4 h-4 mr-2" />
                         Systems Thinking in Practice
                       </div>
-                      <h1 className="text-4xl md:text-5xl font-bold mb-4">Architecture & System Design</h1>
+                      <h1 className="t-title mb-4">Architecture & System Design</h1>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         How I think about product systems, data structures, and the engineering decisions behind scalable design.
                       </p>
@@ -181,7 +181,7 @@ const Architecture = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">System Overview</h2>
+                  <h2 className="t-h2 text-center mb-3">System Overview</h2>
                   <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
                     A simplified view of how the layers connect in a typical product I design and build.
                   </p>
@@ -231,7 +231,7 @@ const Architecture = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Tech Stack</h2>
+                  <h2 className="t-h2 text-center mb-3">Tech Stack</h2>
                   <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
                     Tools I use across the design-to-development pipeline.
                   </p>
@@ -261,7 +261,7 @@ const Architecture = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">API Design Patterns</h2>
+                  <h2 className="t-h2 text-center mb-3">API Design Patterns</h2>
                   <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
                     How I structure interfaces between client and server.
                   </p>
@@ -299,7 +299,7 @@ const Architecture = () => {
             <section className="section-padding">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Scaling Strategies</h2>
+                  <h2 className="t-h2 text-center mb-3">Scaling Strategies</h2>
                   <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
                     Performance decisions I make to keep products fast as they grow.
                   </p>
@@ -332,7 +332,7 @@ const Architecture = () => {
             <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <ScrollReveal>
-                  <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">Trade-off Decisions</h2>
+                  <h2 className="t-h2 text-center mb-3">Trade-off Decisions</h2>
                   <p className="text-muted-foreground text-center max-w-xl mx-auto mb-12">
                     Real architectural decisions and why I made them.
                   </p>

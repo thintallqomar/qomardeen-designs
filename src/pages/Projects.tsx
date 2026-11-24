@@ -145,7 +145,7 @@ const Projects = () => {
                     <div
                       role="tablist"
                       aria-label={t('nav.projects')}
-                      className="flex w-full max-w-xl items-center gap-1 rounded-full border border-border bg-secondary/60 p-1"
+                      className="flex w-full items-center gap-1.5 rounded-full border border-border/60 p-1"
                     >
                       {tabs.map((tab, i) => {
                         const active = view === tab.id;
@@ -161,7 +161,7 @@ const Projects = () => {
                             onClick={() => setView(tab.id)}
                             onKeyDown={(e) => onTabKey(e, i)}
                             className={`relative flex-1 min-w-0 rounded-full px-2 sm:px-4 py-3 text-xs sm:text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                              active ? 'text-background' : 'text-muted-foreground hover:text-foreground'
+                              active ? 'text-background' : 'bg-foreground/[0.04] text-muted-foreground hover:bg-foreground/[0.08] hover:text-foreground'
                             }`}
                           >
                             {active && (
@@ -190,7 +190,7 @@ const Projects = () => {
                   {showFull && featuredProjects.length > 0 && (
                     <div className="mb-16">
                       {showHeadings && <ScrollReveal>
-                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 scroll-mt-24">{t('projects.fullTitle')}</h2>
+                        <h2 id="case-studies" className="t-h2 mb-3 scroll-mt-24">{t('projects.fullTitle')}</h2>
                         <p className="text-muted-foreground max-w-xl mb-8">{t('projects.fullBlurb')}</p>
                       </ScrollReveal>}
                       <div className="grid sm:grid-cols-2 gap-6">
@@ -271,7 +271,7 @@ const Projects = () => {
                   {showOther && otherProjects.length > 0 && (
                     <div className="mb-16">
                       {showHeadings && <ScrollReveal>
-                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 scroll-mt-24">{t('projects.otherTitle')}</h2>
+                        <h2 id="other-projects" className="t-h2 mb-3 scroll-mt-24">{t('projects.otherTitle')}</h2>
                         <p className="text-muted-foreground max-w-xl mb-8">{t('projects.otherBlurb')}</p>
                       </ScrollReveal>}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -324,7 +324,7 @@ const Projects = () => {
                   {view === 'all' && placeholderProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
-                        <h2 className="text-2xl md:text-3xl font-bold mb-8">More Projects</h2>
+                        <h2 className="t-h2 mb-8">More Projects</h2>
                       </ScrollReveal>
                       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {placeholderProjects.map((project, index) => (

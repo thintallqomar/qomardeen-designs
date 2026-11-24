@@ -49,7 +49,7 @@ const AboutIntro = () => {
         <ScrollReveal delay={0.05}>
           <div className="mt-10 card-elegant p-6 md:p-8">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-xl md:text-2xl font-bold">
+              <h2 className="t-h2">
                 {t('aboutIntro.partDesigner')} <span className="text-muted-foreground font-normal">/</span>{' '}
                 <span className="font-mono text-primary">{t('aboutIntro.partCoder')}</span>
               </h2>

@@ -69,6 +69,9 @@ const SplitToggle = ({ raw }: { raw: MotionValue<number> }) => {
  * Your face split in two: the real photo on the left, a code-editor version on the right.
  * If you uploaded a hero image in Admin > Site, that photo is shown instead (no split).
  */
+/* Soft oval fade so the photo melts into the page instead of sitting in a box */
+const BLEND = 'radial-gradient(ellipse 50% 58% at 50% 42%, #000 62%, transparent 100%)';
+
 const SplitPortrait = ({
   split, slot = 'home', className = '',
 }: { split?: ReturnType<typeof useSplit>; slot?: 'home' | 'hire'; className?: string }) => {
@@ -86,7 +89,10 @@ const SplitPortrait = ({
 
   return (
     <div className={`flex w-full flex-col items-center ${className}`}>
-      <div className="relative w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem] aspect-square select-none">
+      <div
+        className="relative w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem] aspect-square select-none"
+        style={{ WebkitMaskImage: BLEND, maskImage: BLEND }}
+      >
         <img
           src={designerImg}
           alt={t('hero.portraitAlt')}

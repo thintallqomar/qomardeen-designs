@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import PageIntro from '@/components/PageIntro';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import Navigation from '@/components/Navigation';
@@ -82,16 +83,18 @@ const ExploreSection = () => {
       <PageTransition>
         <main className="min-h-screen pt-14">
           <section className="section-padding">
-            <div className="container-custom max-w-4xl">
-              <ScrollReveal>
-                <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-4">
-                  <Link to={localizedPath('/explore')} className="inline-block py-2 hover:text-foreground">Explore</Link>
-                  <span className="mx-1.5">/</span>
-                  <span className="text-foreground">{meta.label}</span>
-                </nav>
-                <h1 className="text-3xl md:text-4xl font-bold mb-3">{meta.label}</h1>
-                <p className="text-lg text-muted-foreground mb-8 max-w-2xl">{meta.blurb}</p>
-              </ScrollReveal>
+            <div className="container-custom">
+              <PageIntro
+                word={meta.label}
+                lead={meta.blurb}
+                above={
+                  <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground mb-3">
+                    <Link to={localizedPath('/explore')} className="inline-block py-2 hover:text-foreground">Explore</Link>
+                    <span className="mx-1.5">/</span>
+                    <span className="text-foreground">{meta.label}</span>
+                  </nav>
+                }
+              />
 
               <div className="relative mb-8">
                 <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />

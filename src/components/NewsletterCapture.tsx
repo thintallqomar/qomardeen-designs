@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 const emailSchema = z.string().trim().email('Please enter a valid email').max(255);
 
-const NewsletterCapture = () => {
+const NewsletterCapture = ({ compact = false }: { compact?: boolean }) => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const { t } = useTranslation();
@@ -44,6 +44,33 @@ const NewsletterCapture = () => {
       setStatus('idle');
     }
   };
+
+  if (compact) {
+    return status === 'success' ? (
+      <p className="flex items-center gap-1.5 text-sm text-primary"><CheckCircle className="w-4 h-4" />{t('newsletter.success')}</p>
+    ) : (
+      <form onSubmit={handleSubmit} className="flex w-full sm:w-auto items-center gap-2" aria-label={t('newsletter.title')}>
+        <label htmlFor="footer-newsletter" className="sr-only">{t('newsletter.title')}</label>
+        <input
+          id="footer-newsletter"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder={t('newsletter.placeholder')}
+          required
+          disabled={status === 'loading'}
+          className="h-10 min-w-0 flex-1 sm:w-56 rounded-full border border-border bg-background px-4 text-sm outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="h-10 shrink-0 rounded-full bg-foreground px-4 text-sm font-semibold text-background hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-1.5"
+        >
+          {status === 'loading' ? <Loader2 className="w-4 h-4 animate-spin" /> : t('newsletter.subscribe')}
+        </button>
+      </form>
+    );
+  }
 
   return (
     <section className="py-16 md:py-20">

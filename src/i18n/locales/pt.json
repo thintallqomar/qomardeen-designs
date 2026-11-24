@@ -10,7 +10,8 @@
     "explore": "Explorar",
     "architectureDesc": "Design de sistemas & padrões",
     "thinkingDesc": "Ensaios & frameworks",
-    "aboutDesc": "Experiência & trajetória"
+    "aboutDesc": "Experiência & trajetória",
+    "contact": "Contato"
   },
   "hero": {
     "available": "Olá, eu sou",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "Lançando meus próprios designs com Claude Code",
-      "Aprendendo React e TypeScript",
       "Base de front-end: HTML, CSS, Tailwind",
       "Depurando depois de um prato de swallow"
     ],

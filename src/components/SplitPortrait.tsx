@@ -71,13 +71,16 @@ const SplitToggle = ({ raw }: { raw: MotionValue<number> }) => {
  */
 const SplitPortrait = ({
   split, slot = 'home', className = '',
-}: { split: ReturnType<typeof useSplit>; slot?: 'home' | 'hire'; className?: string }) => {
+}: { split?: ReturnType<typeof useSplit>; slot?: 'home' | 'hire'; className?: string }) => {
   const { t } = useTranslation();
   const { settings } = useSiteSettingsState();
   const uploaded = slot === 'hire' ? settings.hireHero ?? settings.homeHero : settings.homeHero;
   const [failed, setFailed] = useState(false);
-  const clip = useTransform(split.pos, v => `inset(0 0 0 ${v}%)`);
-  const left = useTransform(split.pos, v => `${v}%`);
+  // without `split` (Hire page) only the real photo is shown
+  const still = useMotionValue(100);
+  const pos = split?.pos ?? still;
+  const clip = useTransform(pos, v => `inset(0 0 0 ${v}%)`);
+  const left = useTransform(pos, v => `${v}%`);
 
   if (uploaded?.url || failed) return <HeroPortrait slot={slot} className={className} />;
 
@@ -94,7 +97,7 @@ const SplitPortrait = ({
           draggable={false}
           onError={() => setFailed(true)}
         />
-        <motion.img
+        {split && <motion.img
           src={builderImg}
           alt=""
           aria-hidden="true"
@@ -103,17 +106,17 @@ const SplitPortrait = ({
           decoding="async"
           draggable={false}
           onError={() => setFailed(true)}
-        />
+        />}
         {/* the seam */}
-        <motion.div aria-hidden="true" className="absolute top-[6%] bottom-0 w-px bg-primary/70" style={{ left }}>
+        {split && <motion.div aria-hidden="true" className="absolute top-[6%] bottom-0 w-px bg-primary/70" style={{ left }}>
           <span className="absolute top-[18%] -translate-x-1/2 grid h-7 w-7 place-items-center rounded-full border border-primary/60 bg-background/80 backdrop-blur text-[10px] font-mono text-primary">
             {'</>'}
           </span>
-        </motion.div>
+        </motion.div>}
         {/* soft floor so the shoulders sit on the page instead of ending in a hard line */}
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-background to-transparent" />
       </div>
-      {!split.fine && <SplitToggle raw={split.raw} />}
+      {split && !split.fine && <SplitToggle raw={split.raw} />}
     </div>
   );
 };

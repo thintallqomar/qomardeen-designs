@@ -10,7 +10,8 @@
     "explore": "Обзор",
     "architectureDesc": "Проектирование систем и паттерны",
     "thinkingDesc": "Эссе и фреймворки",
-    "aboutDesc": "Опыт и биография"
+    "aboutDesc": "Опыт и биография",
+    "contact": "Контакты"
   },
   "hero": {
     "available": "Привет, я",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "Выпускаю свои дизайны с помощью Claude Code",
-      "Изучаю React и TypeScript",
       "Основы фронтенда: HTML, CSS, Tailwind",
       "Отладка после тарелки swallow"
     ],

@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import PageIntro from '@/components/PageIntro';
 import { ExternalLink, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
@@ -134,17 +135,17 @@ const Projects = () => {
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">
-            <section className="section-padding !pt-6 md:!pt-10">
+            <section className="section-padding">
               <div className="container-custom">
-                <div className="max-w-6xl mx-auto">
-                  <h1 className="sr-only">{t('nav.projects')}</h1>
+                <div>
+                  <PageIntro word={t('nav.projects')} lead={t('projects.subtitle')} />
 
                   {/* Tab switcher */}
                   <div className="sticky top-14 z-30 -mx-4 px-4 py-3 mb-10 bg-background/80 backdrop-blur-md">
                     <div
                       role="tablist"
                       aria-label={t('nav.projects')}
-                      className="mx-auto flex w-full max-w-xl items-center gap-1 rounded-full border border-border bg-secondary/60 p-1"
+                      className="flex w-full max-w-xl items-center gap-1 rounded-full border border-border bg-secondary/60 p-1"
                     >
                       {tabs.map((tab, i) => {
                         const active = view === tab.id;
@@ -183,16 +184,16 @@ const Projects = () => {
 
                   <div id="projects-panel" role="tabpanel" aria-labelledby={`projects-tab-${view}`}>
                   {((view === 'full' && featuredProjects.length === 0) || (view === 'other' && otherProjects.length === 0)) && (
-                    <p className="text-center text-muted-foreground py-16">{t('projects.empty')}</p>
+                    <p className="text-muted-foreground py-16">{t('projects.empty')}</p>
                   )}
 
                   {showFull && featuredProjects.length > 0 && (
                     <div className="mb-16">
                       {showHeadings && <ScrollReveal>
-                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">{t('projects.fullTitle')}</h2>
-                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">{t('projects.fullBlurb')}</p>
+                        <h2 id="case-studies" className="text-2xl md:text-3xl font-bold mb-3 scroll-mt-24">{t('projects.fullTitle')}</h2>
+                        <p className="text-muted-foreground max-w-xl mb-8">{t('projects.fullBlurb')}</p>
                       </ScrollReveal>}
-                      <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                      <div className="grid sm:grid-cols-2 gap-6">
                         {featuredProjects.map((project, index) => (
                           <motion.div
                             key={project.id}
@@ -270,8 +271,8 @@ const Projects = () => {
                   {showOther && otherProjects.length > 0 && (
                     <div className="mb-16">
                       {showHeadings && <ScrollReveal>
-                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 text-center scroll-mt-24">{t('projects.otherTitle')}</h2>
-                        <p className="text-muted-foreground text-center max-w-xl mx-auto mb-8">{t('projects.otherBlurb')}</p>
+                        <h2 id="other-projects" className="text-2xl md:text-3xl font-bold mb-3 scroll-mt-24">{t('projects.otherTitle')}</h2>
+                        <p className="text-muted-foreground max-w-xl mb-8">{t('projects.otherBlurb')}</p>
                       </ScrollReveal>}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {otherProjects.map((project, index) => (
@@ -323,7 +324,7 @@ const Projects = () => {
                   {view === 'all' && placeholderProjects.length > 0 && (
                     <div className="mb-16">
                       <ScrollReveal>
-                        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">More Projects</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold mb-8">More Projects</h2>
                       </ScrollReveal>
                       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {placeholderProjects.map((project, index) => (

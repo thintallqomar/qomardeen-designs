@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PageIntro from './PageIntro';
 import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle, Globe, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -93,17 +94,10 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-muted/30">
+    <section id="contact" className="section-padding">
       <div className="container-custom">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {t('contact.subtitle')}
-              </p>
-            </div>
-          </ScrollReveal>
+        <div>
+          <PageIntro word={t('nav.contact')} lead={t('contact.subtitle')} />
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             <div className="flex flex-col min-w-0">

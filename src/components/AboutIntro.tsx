@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Gamepad2, Microscope, Soup, UtensilsCrossed } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import PageIntro from './PageIntro';
 import CvDownloadButton from '@/components/CvDownloadButton';
 import { aboutPhotos } from '@/data/aboutPhotos';
 
@@ -18,20 +19,16 @@ const AboutIntro = () => {
   const icons = [Microscope, Gamepad2, UtensilsCrossed, Soup];
 
   return (
-    <section className="pt-12 md:pt-20 pb-12 md:pb-16">
-      <div className="container-custom max-w-5xl">
-        <ScrollReveal>
-          <h1 className="text-[clamp(3.5rem,13vw,9rem)] font-bold tracking-tighter leading-[0.85]">
-            {t('aboutIntro.big')}<span className="text-primary">.</span>
-          </h1>
-          <div className="mt-6 grid md:grid-cols-[minmax(0,1.4fr)_auto] gap-6 items-end">
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">{t('aboutIntro.lead')}</p>
-            <CvDownloadButton className="btn-outline justify-self-start md:justify-self-end" label={t('about.resume')} />
-          </div>
-        </ScrollReveal>
+    <section className="pt-16 md:pt-24 pb-12 md:pb-16">
+      <div className="container-custom">
+        <PageIntro
+          word={t('aboutIntro.big')}
+          lead={t('aboutIntro.lead')}
+          action={<CvDownloadButton className="btn-outline" label={t('about.resume')} />}
+        />
 
         {aboutPhotos.length > 0 && (
-          <div className="mt-10 -mx-4 px-4 flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-4 md:overflow-visible">
+          <div className="-mx-4 px-4 flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-4 md:overflow-visible">
             {aboutPhotos.slice(0, 4).map((p, i) => (
               <motion.img
                 key={p.src}
@@ -50,7 +47,7 @@ const AboutIntro = () => {
 
         {/* Part designer / part coder */}
         <ScrollReveal delay={0.05}>
-          <div className="mt-14 card-elegant p-6 md:p-8">
+          <div className="mt-10 card-elegant p-6 md:p-8">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-xl md:text-2xl font-bold">
                 {t('aboutIntro.partDesigner')} <span className="text-muted-foreground font-normal">/</span>{' '}

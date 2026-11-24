@@ -10,7 +10,8 @@
     "explore": "Bincika",
     "architectureDesc": "Tsarin ƙira & salon",
     "thinkingDesc": "Maƙalu & tsarin tunani",
-    "aboutDesc": "Tarihi & gogewa"
+    "aboutDesc": "Tarihi & gogewa",
+    "contact": "Tuntuɓa"
   },
   "hero": {
     "available": "Sannu, ni ne",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "Ina fitar da ƙirata da Claude Code",
-      "Ina koyon React da TypeScript",
       "Tushen gaba: HTML, CSS, Tailwind",
       "Gyaran kuskure bayan farantin tuwo"
     ],

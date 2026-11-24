@@ -10,7 +10,8 @@
     "explore": "Ṣàwárí",
     "architectureDesc": "Àpẹẹrẹ ètò & ìlànà",
     "thinkingDesc": "Àkọlé & ìlànà ìrònú",
-    "aboutDesc": "Ìtàn àti ìrírí"
+    "aboutDesc": "Ìtàn àti ìrírí",
+    "contact": "Kàn sí mi"
   },
   "hero": {
     "available": "Ẹ káàbọ̀, èmi ni",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "Mo ń gbé àpẹẹrẹ mi jáde pẹ̀lú Claude Code",
-      "Mo ń kọ́ React àti TypeScript",
       "Ìpìlẹ̀ iwájú: HTML, CSS, Tailwind",
       "Títún kóòdù ṣe lẹ́yìn àwo swallow kan"
     ],

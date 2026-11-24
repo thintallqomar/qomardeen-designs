@@ -10,7 +10,8 @@
     "explore": "Explore",
     "architectureDesc": "System design & patterns",
     "thinkingDesc": "Essays & thinking ways",
-    "aboutDesc": "Background & experience"
+    "aboutDesc": "Background & experience",
+    "contact": "Contact"
   },
   "hero": {
     "available": "I dey available for new work",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "I dey ship my own designs with Claude Code",
-      "I dey learn React and TypeScript",
       "Front-end basics: HTML, CSS, Tailwind",
       "Debugging after one plate of swallow"
     ],

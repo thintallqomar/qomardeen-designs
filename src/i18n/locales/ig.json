@@ -10,7 +10,8 @@
     "explore": "Nyochaa",
     "architectureDesc": "Nhazi usoro & ụdị",
     "thinkingDesc": "Edemede & usoro echiche",
-    "aboutDesc": "Akụkọ & ahụmahụ"
+    "aboutDesc": "Akụkọ & ahụmahụ",
+    "contact": "Kpọtụrụ"
   },
   "hero": {
     "available": "Nnọọ, abụ m",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "Ana m eji Claude Code ewepụta imewe m",
-      "Ana m amụ React na TypeScript",
       "Ntọala n'ihu: HTML, CSS, Tailwind",
       "Imezi koodu mgbe efere swallow gasịrị"
     ],

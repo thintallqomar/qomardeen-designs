@@ -10,7 +10,8 @@
     "explore": "استكشف",
     "architectureDesc": "تصميم الأنظمة والأنماط",
     "thinkingDesc": "مقالات وأطر عمل",
-    "aboutDesc": "الخلفية والخبرة"
+    "aboutDesc": "الخلفية والخبرة",
+    "contact": "تواصل"
   },
   "hero": {
     "available": "مرحباً، أنا",
@@ -410,7 +411,6 @@
     ],
     "coderList": [
       "أُطلق تصاميمي بنفسي باستخدام Claude Code",
-      "أتعلّم React وTypeScript",
       "أساسيات الواجهات: HTML وCSS وTailwind",
       "تصحيح الأخطاء بعد طبق من السوالو"
     ],

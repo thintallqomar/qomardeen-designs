@@ -12,7 +12,7 @@ const About = () => {
   return (
     <section id="about" className="section-padding bg-muted/30">
       <div className="container-custom">
-        <div className="max-w-4xl mx-auto">
+        <div>
           <ScrollReveal delay={0.1}>
             <motion.div
               className="card-elegant mb-12"

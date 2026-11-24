@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -17,7 +17,6 @@ import { fetchBySlug } from "./lib/cms";
 // Lazy-load non-critical routes
 const Projects = lazy(() => import("./pages/Projects"));
 const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
 const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
@@ -75,13 +74,19 @@ const LanguageRedirect = () => {
   return <Navigate to={`/${detectedLang}`} replace />;
 };
 
+// The Contact page now lives at the bottom of Hire. Old /contact links land on that section.
+const ContactRedirect = () => {
+  const { lang } = useParams<{ lang: string }>();
+  return <Navigate to={`/${lang || 'en'}/hire#contact`} replace />;
+};
+
 const LanguageRedirectWithPath = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
   const detectedLang = supportedLanguages.includes(i18n.language?.slice(0, 2) as SupportedLanguage)
     ? i18n.language.slice(0, 2)
     : 'en';
-  return <Navigate to={`/${detectedLang}${location.pathname}`} replace />;
+  return <Navigate to={`/${detectedLang}${location.pathname}${location.search}${location.hash}`} replace />;
 };
 
 /** Permanent client-side redirect for retired paths (e.g. /blog -> /explore/articles). */
@@ -125,7 +130,7 @@ const LocalizedRoutes = () => {
           <Route path="projects/walpay" element={<ProjectRoute slug="walpay" Legacy={WalPayProject} />} />
           <Route path="projects/:slug" element={<CaseStudyPage />} />
           <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="contact" element={<ContactRedirect />} />
           <Route path="architecture" element={<Architecture />} />
           <Route path="thinking" element={<Thinking />} />
           <Route path="hire" element={<Hire />} />
@@ -162,9 +167,27 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   useVisitorTracking();
 
+  const lastPath = useRef(location.pathname);
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    const pageChanged = lastPath.current !== location.pathname;
+    lastPath.current = location.pathname;
+    if (!location.hash) {
+      if (pageChanged) window.scrollTo(0, 0);
+      return;
+    }
+    // Links like /hire#contact: open the page, then glide to that section once it exists.
+    if (pageChanged) window.scrollTo(0, 0);
+    const id = decodeURIComponent(location.hash.slice(1));
+    let tries = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const go = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else if (tries++ < 30) timer = setTimeout(go, 100);
+    };
+    timer = setTimeout(go, pageChanged ? 500 : 0);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.hash]);
   
   return (
     <AnimatePresence mode="wait">

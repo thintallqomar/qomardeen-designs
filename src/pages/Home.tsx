@@ -76,7 +76,7 @@ const Home = () => {
                       {t('homeCta.body')}
                     </p>
                     <Link
-                      to={localizedPath('/contact')}
+                      to={localizedPath('/hire#contact')}
                       className={`inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity group ${btnFocus}`}
                     >
                       {t('homeCta.cta')}

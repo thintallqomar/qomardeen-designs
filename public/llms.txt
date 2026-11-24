@@ -11,7 +11,7 @@ Qomardeen Tijani is a Product Designer focused on building scalable, user-center
 - [Projects](/en/projects): Case studies of shipped product work.
 - [Architecture](/en/architecture): How systems are designed beyond the interface.
 - [Hire](/en/hire): Availability, process, and booking.
-- [Contact](/en/contact): Direct contact channels.
+- [Contact](/en/hire#contact): Message form, email, LinkedIn and booking link (bottom of the Hire page).
 
 ## Blog
 

@@ -26,7 +26,7 @@ const Footer = () => {
     { name: t('nav.blog', { defaultValue: 'Articles' }), href: '/explore/articles' },
     { name: t('nav.thinking'), href: '/explore/thinking' },
     { name: t('nav.architecture'), href: '/explore/architecture' },
-    { name: t('nav.contact', { defaultValue: 'Contact' }), href: '/contact' },
+    { name: t('nav.contact', { defaultValue: 'Contact' }), href: '/hire#contact' },
   ];
   const socials = [
     { icon: <Linkedin className="w-4 h-4" />, href: 'https://linkedin.com/in/qomardeentijani', label: 'LinkedIn' },

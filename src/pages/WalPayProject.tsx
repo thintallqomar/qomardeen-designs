@@ -219,7 +219,7 @@ const WalPayProject = () => {
                       <ExternalLink className="w-4 h-4" />
                       View live link
                     </a>
-                    <Button onClick={() => navigate('/contact')} className="h-11 px-6">
+                    <Button onClick={() => navigate('/hire#contact')} className="h-11 px-6">
                       Get in Touch
                     </Button>
                   </div>

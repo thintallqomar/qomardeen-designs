@@ -283,7 +283,7 @@ const ArticleLayout = ({ post, prev, next }: ArticleLayoutProps) => {
                       Enjoyed this article? Let's connect and discuss ideas.
                     </p>
                     <div className="flex gap-3 justify-center">
-                      <button onClick={() => navigate('/contact')} className="btn-primary">
+                      <button onClick={() => navigate('/hire#contact')} className="btn-primary">
                         Get in Touch
                       </button>
                       <button onClick={() => navigate(backPath)} className="btn-outline">

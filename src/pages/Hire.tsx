@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Layers,
-  Lightbulb, Linkedin, Mail, PenTool, Rocket, Target, Zap,
+  Lightbulb, Linkedin, Mail, PenTool, Phone, Rocket, Target, Zap,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -258,7 +258,7 @@ const Hire = () => {
             </section>
 
             {/* ── Contact ── */}
-            <section id="contact" className="section-padding bg-muted/30 scroll-mt-16">
+            <section id="contact" className="section-padding bg-muted/30 scroll-mt-14">
               <div className="container-custom">
                 <div className="max-w-3xl">
                   <ScrollReveal>
@@ -268,6 +268,18 @@ const Hire = () => {
                       <div className="flex flex-col sm:flex-row gap-3">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                           <CalendarDays className="w-4 h-4" /> {t('hire.bookCall')}
+                        </a>
+                      </div>
+                      {/* Direct lines, carried over from the old Contact page */}
+                      <div className="mt-5 flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
+                        <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
+                          <Mail className="w-4 h-4" /> {EMAIL}
+                        </a>
+                        <a href="tel:+2348139469192" className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
+                          <Phone className="w-4 h-4" /> +234 813 946 9192
+                        </a>
+                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
+                          <Linkedin className="w-4 h-4" /> LinkedIn
                         </a>
                       </div>
                     </div>

@@ -12,7 +12,12 @@ const StickyHireBar = ({ bookUrl }: { bookUrl: string }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 520);
+    // Hide again once the contact section (which has its own Book a call button) is on screen.
+    const onScroll = () => {
+      const contact = document.getElementById('contact');
+      const contactVisible = contact ? contact.getBoundingClientRect().top < window.innerHeight * 0.85 : false;
+      setShow(window.scrollY > 520 && !contactVisible);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);

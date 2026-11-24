@@ -28,7 +28,18 @@
     ],
     "badge": "Designer Produit",
     "cta_cv": "Télécharger le CV",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "Ouvert aux opportunités",
+    "headline1": "Je conçois des produits.",
+    "headline2": "Puis je les construis.",
+    "sub": "Design, code front-end et IA dans une seule paire de mains.",
+    "nameTag": "Product designer qui construit",
+    "peekLabel": "Étude de cas à la une",
+    "atlasLabel": "Demander à Atlas",
+    "atlas1": "Quel projet lire en premier ?",
+    "atlas2": "Que construisez-vous avec du code ?",
+    "atlas3": "Quels postes recherchez-vous ?",
+    "now": "En ce moment"
   },
   "metrics": {
     "projects": "Projets Livrés",
@@ -102,7 +113,7 @@
     "schedule": "Planifier un Appel"
   },
   "footer": {
-    "description": "Designer Produit axé sur la création de produits numériques évolutifs et centrés sur l'utilisateur. Expérimenté dans la livraison de projets réels de la découverte à la production.",
+    "description": "Product designer qui construit",
     "quickLinks": "Liens Rapides",
     "getInTouch": "Contact",
     "location": "Nigeria",

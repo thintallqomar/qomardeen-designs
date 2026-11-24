@@ -28,7 +28,18 @@
     ],
     "badge": "Onye Nhazi Ngwaahịa",
     "cta_cv": "Budata CV",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "Adị m njikere maka ọrụ",
+    "headline1": "Ana m emewe ngwaahịa.",
+    "headline2": "Mgbe ahụ, ana m ewu ha.",
+    "sub": "Imewe, koodu n'ihu na AI n'aka otu.",
+    "nameTag": "Onye nhazi ngwaahịa na-ewu ha",
+    "peekLabel": "Nyocha ọrụ a họọrọ",
+    "atlasLabel": "Jụọ Atlas",
+    "atlas1": "Kedu ọrụ m kwesịrị izizi ọgụgụ?",
+    "atlas2": "Gịnị ka ị na-eji koodu ewu?",
+    "atlas3": "Kedu ọrụ ị na-achọ?",
+    "now": "Ugbu a"
   },
   "metrics": {
     "projects": "Ọrụ Enyere",
@@ -102,7 +113,7 @@
     "schedule": "Hazie Oku"
   },
   "footer": {
-    "description": "Onye Nhazi Ngwaahịa lekwasịrị anya n'iwu ngwaahịa dijitalụ na-eto eto nke dabere na onye ọrụ. Nwere ahụmahụ n'inye ọrụ n'ezie site na nchọpụta ruo mmepụta.",
+    "description": "Onye nhazi ngwaahịa na-ewu ha",
     "quickLinks": "Njikọ Ngwa Ngwa",
     "getInTouch": "Kpọtụrụ Anyị",
     "location": "Naịjirịa",

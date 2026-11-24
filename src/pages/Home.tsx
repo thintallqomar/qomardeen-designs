@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
+import HeroBuilder from '@/components/HeroBuilder';
+import { useHeroConfig } from '@/hooks/useSiteSettings';
 import FeaturedProjects from '@/components/FeaturedProjects';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
@@ -16,6 +18,8 @@ const btnFocus =
 const Home = () => {
   const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
+  const { heroStyle } = useHeroConfig();
+  const classic = heroStyle === 'classic';
 
   return (
     <>
@@ -28,9 +32,11 @@ const Home = () => {
       <PageTransition>
         <div className="min-h-screen">
           <main className="pt-14">
-            <Hero />
+            {classic ? <Hero /> : <HeroBuilder />}
 
-            {/* Short intro */}
+            {/* Short intro: classic style only (the new hero already carries this message) */}
+            {classic && (
+              <>
             <section className="section-padding" aria-labelledby="home-intro">
               <div className="container-custom">
                 <ScrollReveal>
@@ -52,6 +58,9 @@ const Home = () => {
                 </ScrollReveal>
               </div>
             </section>
+
+              </>
+            )}
 
             <FeaturedProjects />
 

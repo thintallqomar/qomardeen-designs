@@ -28,7 +28,18 @@
     ],
     "badge": "Product Designer",
     "cta_cv": "Download CV",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "I dey open to roles",
+    "headline1": "I dey design products.",
+    "headline2": "Den I dey build dem.",
+    "sub": "Design, front-end code and AI inside one pair of hands.",
+    "nameTag": "Product designer wey dey build",
+    "peekLabel": "Case study wey I pick",
+    "atlasLabel": "Ask Atlas",
+    "atlas1": "Which project make I read first?",
+    "atlas2": "Wetin you dey build with code?",
+    "atlas3": "Which roles you dey open to?",
+    "now": "Now"
   },
   "metrics": {
     "projects": "Projects Wey Don Deliver",
@@ -102,7 +113,7 @@
     "schedule": "Book a Call"
   },
   "footer": {
-    "description": "Product Designer wey dey focus on building scalable, user-centered digital products. I get experience to ship real-world projects from discovery to production.",
+    "description": "Product designer wey dey build",
     "quickLinks": "Quick Links",
     "getInTouch": "Reach Out",
     "location": "Nigeria",

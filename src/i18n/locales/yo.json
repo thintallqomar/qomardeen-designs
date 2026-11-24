@@ -28,7 +28,18 @@
     ],
     "badge": "Olùṣe Àpẹẹrẹ Ọja",
     "cta_cv": "Gba CV sílẹ̀",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "Mo ṣetán fún iṣẹ́",
+    "headline1": "Mo ń ṣe àpẹẹrẹ ọjà.",
+    "headline2": "Lẹ́yìn náà mo kọ́ wọn.",
+    "sub": "Àpẹẹrẹ, kóòdù iwájú àti AI ní ọwọ́ kan.",
+    "nameTag": "Olùṣàpẹẹrẹ ọjà tó ń kọ́ wọn",
+    "peekLabel": "Ìwádìí iṣẹ́ àkànṣe tí a yàn",
+    "atlasLabel": "Béèrè lọ́wọ́ Atlas",
+    "atlas1": "Iṣẹ́ wo ni kí n kọ́kọ́ kà?",
+    "atlas2": "Kí ni o ń kọ́ pẹ̀lú kóòdù?",
+    "atlas3": "Àwọn iṣẹ́ wo ni o ṣetán fún?",
+    "now": "Nísinsìnyí"
   },
   "metrics": {
     "projects": "Iṣẹ́ Tí A Fi Ránṣẹ́",
@@ -102,7 +113,7 @@
     "schedule": "Ṣètò Ìpè"
   },
   "footer": {
-    "description": "Olùṣe Àpẹẹrẹ Ọja tó dojú kọ kíkọ́ àwọn ọja oníṣirò tó ń gbòòrò tó sì dá lórí olùlò. Ó ní ìrírí nínú fífi àwọn iṣẹ́ gidi ránṣẹ́ láti ìwádìí dé iṣẹ́.",
+    "description": "Olùṣàpẹẹrẹ ọjà tó ń kọ́ wọn",
     "quickLinks": "Àwọn Ìjápọ̀ Kíákíá",
     "getInTouch": "Kàn Sí Wa",
     "location": "Nàìjíríà",

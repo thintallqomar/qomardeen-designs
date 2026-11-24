@@ -28,7 +28,18 @@
     ],
     "badge": "Mai Tsara Kaya",
     "cta_cv": "Sauke CV",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "A shirye don ayyuka",
+    "headline1": "Ina tsara samfura.",
+    "headline2": "Sannan na gina su.",
+    "sub": "Ƙira, lambar gaba da AI a hannu ɗaya.",
+    "nameTag": "Mai tsara samfura da ke gina su",
+    "peekLabel": "Nazarin aiki da aka zaɓa",
+    "atlasLabel": "Tambayi Atlas",
+    "atlas1": "Wane aiki zan fara karantawa?",
+    "atlas2": "Me kake ginawa da lamba?",
+    "atlas3": "Waɗanne ayyuka kake nema?",
+    "now": "Yanzu"
   },
   "metrics": {
     "projects": "Ayyukan Da Aka Isar",
@@ -102,7 +113,7 @@
     "schedule": "Shirya Kira"
   },
   "footer": {
-    "description": "Mai Tsara Kaya wanda ke mayar da hankali wajen gina kayayyakin dijital masu girma da ke mai da hankali ga mai amfani. Yana da gogewa wajen isar da ayyuka na gaske daga bincike zuwa samarwa.",
+    "description": "Mai tsara samfura da ke gina su",
     "quickLinks": "Hanyoyin Sauri",
     "getInTouch": "Tuntuɓe Mu",
     "location": "Najeriya",

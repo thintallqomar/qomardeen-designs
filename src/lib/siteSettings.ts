@@ -12,6 +12,8 @@ export const SITE_SLUGS = {
   homeHero: 'site-setting-home-hero',
   hireHero: 'site-setting-hire-hero',
   cv: 'site-setting-cv',
+  heroStyle: 'site-setting-hero-style',
+  nowLine: 'site-setting-now-line',
 } as const;
 export type SiteKey = keyof typeof SITE_SLUGS;
 
@@ -19,13 +21,20 @@ const TITLES: Record<SiteKey, string> = {
   homeHero: 'Site setting: Home hero image',
   hireHero: 'Site setting: Hire hero image',
   cv: 'Site setting: CV',
+  heroStyle: 'Site setting: Hero style',
+  nowLine: 'Site setting: Now line',
 };
+
+/** Keys that hold a short piece of text (kept in the entry's subtitle) instead of a file. */
+export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine'];
 
 export interface SiteSetting {
   url: string;
   fileName: string;
   size: number | null;
   updatedAt: string;
+  /** Image with a transparent background (a cut-out). */
+  cutout?: boolean;
 }
 export type SiteSettings = Partial<Record<SiteKey, SiteSetting>>;
 
@@ -45,7 +54,7 @@ export const cachedSiteSettings = (): SiteSettings | undefined => {
 export async function fetchSiteSettings(): Promise<SiteSettings> {
   const { data, error } = await supabase
     .from('content_items')
-    .select('slug, resource_url, subtitle, resource_file_size, updated_at')
+    .select('slug, resource_url, subtitle, resource_file_size, updated_at, tags')
     .eq('type', 'resource')
     .in('slug', Object.values(SITE_SLUGS));
   if (error) throw error;
@@ -53,12 +62,14 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
   const out: SiteSettings = {};
   for (const row of data ?? []) {
     const key = (Object.keys(SITE_SLUGS) as SiteKey[]).find(k => SITE_SLUGS[k] === row.slug);
-    if (key && row.resource_url) {
+    if (!key) continue;
+    if (TEXT_KEYS.includes(key) || row.resource_url) {
       out[key] = {
-        url: row.resource_url,
+        url: row.resource_url ?? '',
         fileName: row.subtitle ?? '',
         size: row.resource_file_size ?? null,
         updatedAt: row.updated_at,
+        cutout: Array.isArray(row.tags) && row.tags.includes('cutout'),
       };
     }
   }
@@ -81,11 +92,18 @@ export function getSiteSettings(force = false): Promise<SiteSettings> {
 }
 
 export interface SavedFile {
-  url: string;
+  url: string | null;
   fileName: string;
   size: number | null;
   mime: string | null;
+  /** The image has a transparent background. */
+  cutout?: boolean;
 }
+
+export type HeroStyle = 'new' | 'classic';
+/** The "designer who builds" hero is the default; "classic" restores the previous hero, intro and CV button. */
+export const heroStyleOf = (settings: SiteSettings): HeroStyle => (settings.heroStyle?.fileName === 'classic' ? 'classic' : 'new');
+export const nowLineOf = (settings: SiteSettings): string => settings.nowLine?.fileName?.trim() ?? '';
 
 export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { userId: string | null; email: string | null }) {
   const slug = SITE_SLUGS[key];
@@ -103,8 +121,8 @@ export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { u
     slug,
     subtitle: file.fileName,
     excerpt: null,
-    tags: [] as string[],
-    cover_image: key === 'cv' ? null : file.url,
+    tags: (file.cutout ? ['cutout'] : []) as string[],
+    cover_image: key === 'cv' || TEXT_KEYS.includes(key) ? null : file.url,
     cover_image_alt: null,
     seo_title: null,
     seo_description: null,
@@ -129,6 +147,10 @@ export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { u
   inflight = null;
   return saved;
 }
+
+/** Saves a short text setting (hero style, now line). */
+export const saveSiteValue = (key: SiteKey, value: string, author: { userId: string | null; email: string | null }) =>
+  saveSiteSetting(key, { url: null, fileName: value, size: null, mime: null }, author);
 
 /** Go back to the built-in image / CV. */
 export async function clearSiteSetting(key: SiteKey) {

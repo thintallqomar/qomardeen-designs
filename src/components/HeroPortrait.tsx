@@ -1,25 +1,60 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import heroPortrait from '@/assets/hero-portrait-hq.png';
+import heroCutout from '@/assets/hero-cutout.webp';
+import heroPortrait from '@/assets/hero-portrait.webp';
 import profileImage from '@/assets/new-profile.jpg';
 import { useSiteSettingsState } from '@/hooks/useSiteSettings';
+import { heroStyleOf } from '@/lib/siteSettings';
+
+type Look = 'arch' | 'fade';
+interface Candidate { src: string; look: Look }
+
+const FADE_MASK =
+  '[mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]';
 
 /**
- * The Home hero portrait: faded edges, gentle float, hover tilt, fallback if the image fails.
- * Shared so the Hire page shows exactly the same treatment.
- * Pass `variants` when the parent animates its children (as the Home hero does).
+ * The hero portrait, shared by Home and Hire.
+ *  - "arch": a cut-out (transparent background) inside a brand-tinted arch. Used by the new hero.
+ *  - "fade": a photo with its own backdrop, faded softly into the page (the classic look).
+ * Order: the image uploaded in Admin > Site, the built-in cut-out (new hero only), the built-in photo, the older
+ * photo, then initials. If an image fails to load, the next one is tried automatically.
  */
-const HeroPortrait = ({ variants, className = '', slot = 'home' }: { variants?: Variants; className?: string; slot?: 'home' | 'hire' }) => {
-  // The image uploaded in Admin > Site (Hire falls back to the Home image), then the built-in photos.
+const HeroPortrait = ({
+  variants, className = '', slot = 'home', children,
+}: { variants?: Variants; className?: string; slot?: 'home' | 'hire'; children?: ReactNode }) => {
   const { settings, ready } = useSiteSettingsState();
-  const uploaded = slot === 'hire' ? settings.hireHero?.url ?? settings.homeHero?.url : settings.homeHero?.url;
-  const sources = [uploaded, heroPortrait, profileImage].filter(Boolean) as string[];
+  const style = heroStyleOf(settings);
+  const uploaded = slot === 'hire' ? settings.hireHero ?? settings.homeHero : settings.homeHero;
+
+  const candidates: Candidate[] = [];
+  if (uploaded?.url) candidates.push({ src: uploaded.url, look: uploaded.cutout && style === 'new' ? 'arch' : 'fade' });
+  if (style === 'new') candidates.push({ src: heroCutout, look: 'arch' });
+  candidates.push({ src: heroPortrait, look: 'fade' }, { src: profileImage, look: 'fade' });
+
   const [attempt, setAttempt] = useState(0);
-  useEffect(() => setAttempt(0), [uploaded]);
-  const heroImgFailed = attempt >= sources.length;
-  const heroSrc = sources[Math.min(attempt, sources.length - 1)];
-  const handleHeroImgError = () => setAttempt(a => a + 1);
+  const key = candidates.map(c => c.src).join('|');
+  useEffect(() => setAttempt(0), [key]);
+  const failedAll = attempt >= candidates.length;
+  const current = candidates[Math.min(attempt, candidates.length - 1)];
   const reduceMotion = useReducedMotion();
+  const arch = !failedAll && current.look === 'arch';
+
+  const img = failedAll ? (
+    <div className="w-full h-full flex items-center justify-center bg-muted" aria-label="Portrait of Qomardeen Tijani" role="img">
+      <span className="text-4xl font-semibold tracking-tight text-muted-foreground">QT</span>
+    </div>
+  ) : (
+    <img
+      key={current.src}
+      src={ready ? current.src : undefined}
+      alt="Portrait of Qomardeen Tijani"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      onError={() => setAttempt(a => a + 1)}
+      className={`${arch ? 'absolute inset-0 w-full h-full object-contain object-bottom' : 'w-full h-full object-cover object-center'} transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
+    />
+  );
 
   return (
     <motion.div
@@ -30,30 +65,26 @@ const HeroPortrait = ({ variants, className = '', slot = 'home' }: { variants?: 
       className={`relative w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[28rem] mx-auto lg:mx-0 lg:ml-auto ${className}`}
     >
       <motion.div
-        className="relative aspect-[4/5] overflow-hidden [mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]"
+        className={`relative aspect-[4/5] ${!failedAll && !arch ? `overflow-hidden ${FADE_MASK}` : ''}`}
         animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
         transition={reduceMotion ? undefined : { duration: 7, ease: 'easeInOut', repeat: Infinity }}
         whileHover={reduceMotion ? undefined : { scale: 1.025, rotateX: 1.25, rotateY: -1.25 }}
         whileTap={reduceMotion ? undefined : { scale: 0.99 }}
         style={{ transformPerspective: 1000 }}
       >
-        {heroImgFailed ? (
-          <div className="w-full h-full flex items-center justify-center bg-muted" aria-label="Portrait of Qomardeen Tijani" role="img">
-            <span className="text-4xl font-semibold tracking-tight text-muted-foreground">QT</span>
+        {arch ? (
+          <div
+            className="absolute inset-x-[5%] top-[10%] bottom-0 overflow-hidden rounded-t-[999px] rounded-b-3xl border border-primary/25"
+            style={{ background: 'linear-gradient(180deg, hsl(var(--primary) / 0.32) 0%, hsl(var(--primary) / 0.10) 70%, hsl(var(--primary) / 0.18) 100%)' }}
+          >
+            {img}
           </div>
         ) : (
-          <img
-            key={heroSrc}
-            src={ready ? heroSrc : undefined}
-            alt="Portrait of Qomardeen Tijani"
-            loading="eager"
-            decoding="async"
-            onError={handleHeroImgError}
-            className={`w-full h-full object-cover object-center transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
-          />
+          img
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        {!failedAll && !arch && <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />}
       </motion.div>
+      {children}
     </motion.div>
   );
 };

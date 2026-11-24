@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { cachedSiteSettings, getSiteSettings, type SiteSettings } from '@/lib/siteSettings';
+import { cachedSiteSettings, getSiteSettings, heroStyleOf, nowLineOf, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
 
 /**
  * Uploaded hero images / CV. Returns the settings plus `ready`: true once we know whether anything was uploaded
@@ -25,3 +25,9 @@ export const useSiteSettingsState = (): { settings: SiteSettings; ready: boolean
 };
 
 export const useSiteSettings = (): SiteSettings => useSiteSettingsState().settings;
+
+/** Which hero to show and the optional "Now" line, from Admin > Site. Defaults to the new hero. */
+export const useHeroConfig = (): { heroStyle: HeroStyle; nowLine: string } => {
+  const settings = useSiteSettings();
+  return { heroStyle: heroStyleOf(settings), nowLine: nowLineOf(settings) };
+};

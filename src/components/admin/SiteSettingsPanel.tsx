@@ -1,16 +1,37 @@
 import { useRef, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { FileText, ImagePlus, Loader2, RotateCcw, Download } from 'lucide-react';
+import { FileText, ImagePlus, Loader2, RotateCcw, Download, Check } from 'lucide-react';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canPublish } from '@/lib/roles';
 import { uploadMedia, uploadDocument, formatBytes, MAX_UPLOAD_BYTES, MAX_DOC_BYTES } from '@/lib/media';
-import { fetchSiteSettings, saveSiteSetting, clearSiteSetting, type SiteKey, type SiteSetting } from '@/lib/siteSettings';
+import {
+  fetchSiteSettings, saveSiteSetting, saveSiteValue, clearSiteSetting, heroStyleOf, nowLineOf,
+  type SiteKey, type SiteSetting, type HeroStyle,
+} from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
-import heroPortrait from '@/assets/hero-portrait-hq.png';
+import heroPortrait from '@/assets/hero-cutout.webp';
 
 const FADE =
   '[mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]';
+
+/** True when the image's edges are mostly transparent, i.e. a cut-out portrait. */
+async function isCutout(file: File): Promise<boolean> {
+  if (!/png|webp|avif/.test(file.type)) return false;
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((ok, fail) => { const i = new Image(); i.onload = () => ok(i); i.onerror = fail; i.src = url; });
+    const c = document.createElement('canvas'); c.width = 64; c.height = 64;
+    const ctx = c.getContext('2d')!; ctx.drawImage(img, 0, 0, 64, 64);
+    const d = ctx.getImageData(0, 0, 64, 64).data;
+    let clear = 0, total = 0;
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+      if (y > 3 && x > 3 && x < 60) continue; // only the top rows and side columns
+      total++; if (d[(y * 64 + x) * 4 + 3] < 16) clear++;
+    }
+    return clear / total > 0.6;
+  } catch { return false; } finally { URL.revokeObjectURL(url); }
+}
 
 const when = (iso?: string) => (iso ? new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '');
 
@@ -44,7 +65,7 @@ const SettingCard = ({ title, description, tips, current, defaultLabel, busy, ac
             {current ? (
               <span className="font-medium">
                 Uploaded · <span className="break-all">{current.fileName || 'file'}</span>
-                {current.size ? ` · ${formatBytes(current.size)}` : ''} · {when(current.updatedAt)}
+                {current.size ? ` · ${formatBytes(current.size)}` : ''}{current.cutout ? ' · cut-out' : ''} · {when(current.updatedAt)}
               </span>
             ) : (
               <span className="font-medium">{defaultLabel}</span>
@@ -101,6 +122,65 @@ const HeroPreview = ({ src }: { src: string }) => (
   </div>
 );
 
+const HeroControls = ({
+  style, nowLine, busy, onStyle, onNow,
+}: { style: HeroStyle; nowLine: string; busy: boolean; onStyle: (s: HeroStyle) => void; onNow: (v: string) => void }) => {
+  const [draft, setDraft] = useState(nowLine);
+  const options: { value: HeroStyle; title: string; body: string }[] = [
+    { value: 'new', title: 'Designer who builds (new)', body: 'Headline, Ask Atlas prompts, a featured case study and the arch portrait. No intro section; the CV lives on Hire and About.' },
+    { value: 'classic', title: 'Classic', body: 'The previous hero with your name as the headline, the Hire me | CV button, skill tags and the intro section.' },
+  ];
+  return (
+    <section className="card-elegant p-5 md:p-6">
+      <h2 className="text-lg font-semibold">Home hero</h2>
+      <p className="text-sm text-muted-foreground mt-1">Switch between the two hero designs at any time. Nothing is deleted either way.</p>
+      <div role="radiogroup" aria-label="Hero style" className="mt-4 grid sm:grid-cols-2 gap-3">
+        {options.map(o => {
+          const active = style === o.value;
+          return (
+            <button
+              key={o.value}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              disabled={busy}
+              onClick={() => !active && onStyle(o.value)}
+              className={`text-left rounded-xl border p-3.5 transition-colors disabled:opacity-60 ${active ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border bg-secondary hover:border-primary/40'}`}
+            >
+              <span className="flex items-center gap-2 text-sm font-semibold">
+                <span className={`w-3.5 h-3.5 rounded-full border-2 ${active ? 'border-primary bg-primary' : 'border-muted-foreground/50'}`} />
+                {o.title}
+              </span>
+              <span className="block text-xs text-muted-foreground mt-1 pl-[1.375rem]">{o.body}</span>
+            </button>
+          );
+        })}
+      </div>
+      <label className="block mt-5">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Now line (optional, new hero only)</span>
+        <div className="mt-1.5 flex flex-col sm:flex-row gap-2">
+          <input
+            value={draft}
+            maxLength={90}
+            onChange={e => setDraft(e.target.value)}
+            placeholder="Studying computer science at UoPeople"
+            className="flex-1 rounded-xl border border-border bg-secondary px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+          />
+          <button
+            type="button"
+            disabled={busy || draft.trim() === nowLine}
+            onClick={() => onNow(draft.trim())}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-50"
+          >
+            {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />} Save
+          </button>
+        </div>
+        <span className="block text-xs text-muted-foreground mt-1.5">A short, true line about what you are doing now. Leave it empty to hide it.</span>
+      </label>
+    </section>
+  );
+};
+
 const SiteSettingsPanel = () => {
   const access = useStaffAuth();
   const qc = useQueryClient();
@@ -126,9 +206,10 @@ const SiteSettingsPanel = () => {
   const uploadImage = async (key: SiteKey, label: string, file: File) => {
     setBusy(key);
     try {
+      const cutout = await isCutout(file);
       const asset = await uploadMedia(file, 'site', label);
-      await saveSiteSetting(key, { url: asset.public_url, fileName: file.name, size: asset.file_size, mime: asset.mime_type }, author);
-      toast.success(`${label} updated. Visitors see it within a few minutes.`);
+      await saveSiteSetting(key, { url: asset.public_url, fileName: file.name, size: asset.file_size, mime: asset.mime_type, cutout }, author);
+      toast.success(`${label} updated${cutout ? ' (cut-out detected: shown in the arch)' : ''}. Visitors see it within a few minutes.`);
       refresh();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : 'Upload failed');
@@ -165,10 +246,31 @@ const SiteSettingsPanel = () => {
     }
   };
 
+  const saveValue = async (key: SiteKey, value: string, done: string) => {
+    setBusy(key);
+    try {
+      if (value) await saveSiteValue(key, value, author);
+      else await clearSiteSetting(key);
+      toast.success(done);
+      refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Could not save');
+    } finally {
+      setBusy(null);
+    }
+  };
+
   if (isLoading) return <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />;
 
   return (
     <div className="space-y-6">
+      <HeroControls
+        style={heroStyleOf(settings)}
+        nowLine={nowLineOf(settings)}
+        busy={busy === 'heroStyle' || busy === 'nowLine'}
+        onStyle={st => saveValue('heroStyle', st === 'classic' ? 'classic' : '', st === 'classic' ? 'Home now uses the classic hero.' : 'Home now uses the new hero.')}
+        onNow={v => saveValue('nowLine', v, v ? 'Now line saved.' : 'Now line removed.')}
+      />
       {isError && (
         <p className="text-sm text-destructive">Could not load the current files. You can still upload; refresh the page to see their status.</p>
       )}
@@ -178,7 +280,7 @@ const SiteSettingsPanel = () => {
         description="The portrait next to your name on the Home page."
         tips={[
           'Portrait works best, about 4:5 (for example 1200 × 1500 px), face in the upper half.',
-          'A plain or white background blends into the page best: the edges fade out automatically.',
+          'Best: a PNG or WebP with the background removed (a cut-out). It is detected automatically and shown in the arch. A normal photo also works; its edges fade into the page.',
           `JPG, PNG or WebP up to ${formatBytes(MAX_UPLOAD_BYTES)}. It is compressed to WebP for you.`,
         ]}
         current={settings.homeHero}

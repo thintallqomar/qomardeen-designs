@@ -28,7 +28,18 @@
     ],
     "badge": "Product Designer",
     "cta_cv": "Download CV",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "Open to roles",
+    "headline1": "I design products.",
+    "headline2": "Then I build them.",
+    "sub": "Design, front-end code and AI in one pair of hands.",
+    "nameTag": "Product designer who builds",
+    "peekLabel": "Featured case study",
+    "atlasLabel": "Ask Atlas",
+    "atlas1": "Which project should I read first?",
+    "atlas2": "What do you build with code?",
+    "atlas3": "What roles are you open to?",
+    "now": "Now"
   },
   "metrics": {
     "items": [
@@ -128,7 +139,7 @@
     "schedule": "Schedule a Call"
   },
   "footer": {
-    "description": "Product Designer focused on building scalable, user-centered digital products. Experienced in shipping real-world projects from discovery to production.",
+    "description": "Product designer who builds",
     "quickLinks": "Quick Links",
     "getInTouch": "Get In Touch",
     "location": "Nigeria",

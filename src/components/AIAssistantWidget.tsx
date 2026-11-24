@@ -228,6 +228,7 @@ const AIAssistantWidget = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const requestRef = useRef<AbortController | null>(null);
   const sendingRef = useRef(false);
+  const sendRef = useRef<((text: string) => void) | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { isAdmin } = useAdminAuth();
@@ -279,6 +280,22 @@ const AIAssistantWidget = () => {
     window.addEventListener(ATLAS_OPEN_EVENT, handler);
     return () => window.removeEventListener(ATLAS_OPEN_EVENT, handler);
   }, [openThread]);
+
+  // Let other parts of the site (the hero's "Ask Atlas" chips) open Atlas with a question.
+  useEffect(() => {
+    (window as unknown as { __atlasReady?: boolean }).__atlasReady = true;
+    const ask = (e: Event) => {
+      const prompt = (e as CustomEvent<{ prompt?: string }>).detail?.prompt;
+      if (!prompt) return;
+      setIsOpen(true);
+      setTimeout(() => sendRef.current?.(prompt), 60);
+    };
+    window.addEventListener('atlas:ask', ask);
+    return () => {
+      window.removeEventListener('atlas:ask', ask);
+      (window as unknown as { __atlasReady?: boolean }).__atlasReady = false;
+    };
+  }, []);
 
   const stopSpeaking = useCallback(() => {
     if (audioRef.current) {
@@ -537,6 +554,8 @@ const AIAssistantWidget = () => {
       content: "No problem! The draft has been discarded. Let me know if you'd like me to try a different approach."
     }]);
   };
+
+  sendRef.current = send;
 
   return (
     <>

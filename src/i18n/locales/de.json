@@ -28,7 +28,18 @@
     ],
     "badge": "Produktdesigner",
     "cta_cv": "CV herunterladen",
-    "cta_cv_short": "CV"
+    "cta_cv_short": "CV",
+    "status": "Offen für neue Rollen",
+    "headline1": "Ich gestalte Produkte.",
+    "headline2": "Und baue sie dann selbst.",
+    "sub": "Design, Frontend-Code und KI in einer Hand.",
+    "nameTag": "Product Designer, der selbst baut",
+    "peekLabel": "Ausgewählte Fallstudie",
+    "atlasLabel": "Atlas fragen",
+    "atlas1": "Welches Projekt sollte ich zuerst lesen?",
+    "atlas2": "Was baust du mit Code?",
+    "atlas3": "Für welche Rollen bist du offen?",
+    "now": "Aktuell"
   },
   "metrics": {
     "projects": "Abgeschlossene Projekte",
@@ -102,7 +113,7 @@
     "schedule": "Gespräch planen"
   },
   "footer": {
-    "description": "Produktdesigner, der sich auf den Aufbau skalierbarer, nutzerzentrierter digitaler Produkte konzentriert.",
+    "description": "Product Designer, der selbst baut",
     "quickLinks": "Schnelllinks",
     "getInTouch": "Kontakt",
     "location": "Nigeria",

@@ -172,7 +172,7 @@ const Navigation = () => {
                           key={item.href}
                           to={localizedPath(item.href)}
                           onClick={() => setExploreOpen(false)}
-                          className={`flex items-start gap-3 p-3 rounded-xl transition-colors group ${isActive(item.href) ? 'bg-primary/10 text-primary' : 'hover:bg-secondary/70'}`}
+                          className={`flex items-start gap-3 p-3 rounded-xl transition-colors group ${isActive(item.href) ? 'text-primary hover:bg-foreground/[0.05]' : 'hover:bg-foreground/[0.05]'}`}
                         >
                           {item.icon}
                           <div>
@@ -223,7 +223,7 @@ const Navigation = () => {
                         <button
                           key={lng}
                           onClick={() => switchLanguage(lng)}
-                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
+                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium hover:bg-foreground/[0.05]' : 'text-foreground hover:bg-foreground/[0.05]'}`}
                         >
                           <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                           <span>{languageNames[lng]}</span>
@@ -240,7 +240,7 @@ const Navigation = () => {
                         <button
                           key={lng}
                           onClick={() => switchLanguage(lng)}
-                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-secondary/70'}`}
+                          className={`flex items-center gap-3 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium hover:bg-foreground/[0.05]' : 'text-foreground hover:bg-foreground/[0.05]'}`}
                         >
                           <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                           <span>{languageNames[lng]}</span>
@@ -291,7 +291,7 @@ const Navigation = () => {
                   <button
                     key={lng}
                     onClick={() => switchLanguage(lng)}
-                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium hover:bg-foreground/[0.05]' : 'text-foreground hover:bg-foreground/[0.05]'}`}
                   >
                     <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                     <span>{languageNames[lng]}</span>
@@ -306,7 +306,7 @@ const Navigation = () => {
                   <button
                     key={lng}
                     onClick={() => switchLanguage(lng)}
-                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium bg-primary/10' : 'text-foreground hover:bg-secondary/70'}`}
+                    className={`flex items-center gap-2.5 w-full p-2.5 rounded-xl text-sm transition-colors ${currentLang === lng ? 'text-primary font-medium hover:bg-foreground/[0.05]' : 'text-foreground hover:bg-foreground/[0.05]'}`}
                   >
                     <img src={getFlagUrl(lng)} alt="" className="w-5 h-3.5 rounded-[2px] object-cover" />
                     <span>{languageNames[lng]}</span>
@@ -327,7 +327,7 @@ const Navigation = () => {
                     <Link
                       to={localizedPath(item.href)}
                       onClick={() => setIsOpen(false)}
-                      className={`block px-3 py-2.5 rounded-lg transition-colors text-sm ${isActive(item.href) ? 'text-primary font-medium bg-secondary' : 'text-foreground hover:text-primary hover:bg-secondary/50'}`}
+                      className={`block px-3 py-2.5 rounded-lg transition-colors text-sm ${isActive(item.href) ? 'text-primary font-medium hover:bg-foreground/[0.05]' : 'text-foreground hover:text-primary hover:bg-foreground/[0.05]'}`}
                     >
                       {item.name}
                     </Link>

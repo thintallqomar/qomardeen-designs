@@ -47,7 +47,7 @@ const SplitToggle = ({ raw }: { raw: MotionValue<number> }) => {
     raw.set(next === 'designer' ? 100 : next === 'builder' ? 0 : 50);
   };
   return (
-    <div role="group" aria-label={t('hero.splitLabel')} className="mt-4 inline-flex rounded-full border border-border bg-secondary/60 p-1">
+    <div role="group" aria-label={t('hero.splitLabel')} className="mt-4 inline-flex rounded-full border border-border bg-foreground/[0.04] p-1">
       {(['designer', 'builder'] as const).map(s => (
         <button
           key={s}

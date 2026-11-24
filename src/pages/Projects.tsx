@@ -145,7 +145,7 @@ const Projects = () => {
                     <div
                       role="tablist"
                       aria-label={t('nav.projects')}
-                      className="flex w-full items-center gap-1.5 rounded-full border border-border/60 p-1"
+                      className="flex w-full items-center gap-1 rounded-full border border-border bg-foreground/[0.04] p-1"
                     >
                       {tabs.map((tab, i) => {
                         const active = view === tab.id;
@@ -161,7 +161,7 @@ const Projects = () => {
                             onClick={() => setView(tab.id)}
                             onKeyDown={(e) => onTabKey(e, i)}
                             className={`relative flex-1 min-w-0 rounded-full px-2 sm:px-4 py-3 text-xs sm:text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                              active ? 'text-background' : 'bg-foreground/[0.04] text-muted-foreground hover:bg-foreground/[0.08] hover:text-foreground'
+                              active ? 'text-background' : 'text-muted-foreground hover:text-foreground'
                             }`}
                           >
                             {active && (

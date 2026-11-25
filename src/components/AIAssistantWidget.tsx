@@ -14,6 +14,7 @@ import AtlasOrb, { type OrbState } from '@/components/atlas/AtlasOrb';
 import AtlasIntroCard, { type IntroDetails } from '@/components/atlas/AtlasIntroCard';
 import * as store from '@/lib/atlasStore';
 import type { AtlasChatMessage } from '@/lib/atlasStore';
+import { invokeFunction } from '@/lib/invokeFunction';
 
 /** Other parts of the app (e.g. /admin/atlas) can open Atlas on a saved conversation. */
 export const ATLAS_OPEN_EVENT = 'atlas:open-thread';
@@ -386,13 +387,9 @@ const AIAssistantWidget = () => {
     setIntroError('');
     const name = d.name.trim();
     try {
-      const { data, error } = await supabase.functions.invoke('submit-inquiry', {
-        body: { kind: 'atlas-intro', name, company: d.role.trim(), projectType: d.reason, email: d.email.trim(), message: d.note.trim() },
+      await invokeFunction('submit-inquiry', {
+        kind: 'atlas-intro', name, company: d.role.trim(), projectType: d.reason, email: d.email.trim(), message: d.note.trim(),
       });
-      if (error || (data as { error?: string } | null)?.error) {
-        const msg = (data as { error?: string } | null)?.error;
-        throw new Error(msg || "That didn't go through. Check your connection and try again.");
-      }
       store.markIntroduced();
       setIntroduced(true);
       setIntroOpen(false);

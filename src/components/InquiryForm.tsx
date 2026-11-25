@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 import Icon3D from './Icon3D';
+import { invokeFunction } from '@/lib/invokeFunction';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -79,19 +79,16 @@ const InquiryForm = () => {
 
     setSubmitting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('submit-inquiry', {
-        body: parsed.data,
-      });
-      if (error || (data && (data as { error?: string }).error)) {
-        throw new Error((data as { error?: string })?.error ?? error?.message ?? 'Failed');
-      }
+      await invokeFunction('submit-inquiry', parsed.data);
       setSuccess(true);
       setForm(emptyForm);
       toast({ title: t('inquiry.toastOkTitle'), description: t('inquiry.toastOkBody') });
     } catch (err) {
+      // Show the server's own reason when there is one (e.g. too many messages), else the usual text.
+      const reason = err instanceof Error && !/check your connection/i.test(err.message) ? err.message : '';
       toast({
         title: t('inquiry.toastFailTitle'),
-        description: t('inquiry.toastFailBody'),
+        description: reason || t('inquiry.toastFailBody'),
         variant: 'destructive',
       });
     } finally {

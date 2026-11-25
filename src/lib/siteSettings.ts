@@ -196,6 +196,7 @@ export const BUILT_IN_PROJECTS = [
   { slug: 'walpay', title: 'WalPay' },
   { slug: 'portfolio', title: 'This portfolio' },
   { slug: 'fragrance', title: 'Leafie (fragrance app)' },
+  { slug: 'wellness', title: 'Unwind (mood & mindfulness app)' },
 ] as const;
 export const isBuiltInProject = (slug: string) => BUILT_IN_PROJECTS.some(p => p.slug === slug);
 

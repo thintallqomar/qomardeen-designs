@@ -18,6 +18,7 @@ import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 import portfolioCover from '@/assets/portfolio/card.webp';
 import fragranceCover from '@/assets/fragrance/card.webp';
+import wellnessCover from '@/assets/wellness/card.webp';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -99,6 +100,24 @@ const Projects = () => {
       kind: 'other' as const,
       slug: 'fragrance',
       route: '/projects/fragrance'
+    },
+    {
+      id: 5,
+      title: "Unwind — Mood & Mindfulness App",
+      context: "Four screens from a mood check-in to a finished session",
+      role: "Product Designer (UI)",
+      keyDecisions: "A mood in one tap, steps that open in order, a clear ending",
+      thumbnail: wellnessCover,
+      liveUrl: "https://www.figma.com/proto/xFT0ynq0VdlT2DLoQJFJIh?node-id=36-509&starting-point-node-id=36%3A509",
+      technologies: ["Mobile", "Wellness", "Figma"],
+      category: "Mobile app",
+      status: "completed",
+      featured: false,
+      isLive: false,
+      hasPage: true,
+      kind: 'other' as const,
+      slug: 'wellness',
+      route: '/projects/wellness'
     },
   ];
 

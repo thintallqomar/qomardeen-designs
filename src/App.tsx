@@ -22,6 +22,7 @@ const About = lazy(() => import("./pages/About"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
 const FragranceProject = lazy(() => import("./pages/FragranceProject"));
+const WellnessProject = lazy(() => import("./pages/WellnessProject"));
 const PortfolioProject = lazy(() => import("./pages/PortfolioProject"));
 const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
 const Architecture = lazy(() => import("./pages/Architecture"));
@@ -143,6 +144,7 @@ const LocalizedRoutes = () => {
           <Route path="projects/walpay" element={<ProjectRoute slug="walpay" Legacy={WalPayProject} />} />
           <Route path="projects/portfolio" element={<ProjectRoute slug="portfolio" Legacy={PortfolioProject} />} />
           <Route path="projects/fragrance" element={<ProjectRoute slug="fragrance" Legacy={FragranceProject} />} />
+          <Route path="projects/wellness" element={<ProjectRoute slug="wellness" Legacy={WellnessProject} />} />
           <Route path="projects/:slug" element={<CaseStudyPage />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactRedirect />} />

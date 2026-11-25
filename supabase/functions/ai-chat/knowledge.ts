@@ -72,6 +72,12 @@ export const KNOWLEDGE = `
 - Decisions visible in the screens: one job per screen; product photo first, then price, rating, scent and size chips (selected chip = gold outline); Add To Cart pinned at the bottom; checkout on one page with quantity steppers, address, payment and shipping, and tax and shipping listed before the total; success screen with order summary and Track Order.
 - System: purple #551A8B for actions, gold #D4AF37 for prices and selection, Poppins for headings, Inter for text. There is a clickable Figma prototype linked on the page.
 
+# Other project: Unwind, a mood and mindfulness app (/projects/wellness)
+- What: Unwind (working name), a four-screen mobile app designed by Qomardeen in Figma for an AltSchool Africa product design assignment (third semester, month 2, week 1): home mood check-in, recommended workout, guided exercise steps, session complete.
+- Listed under "Other projects", not the full case studies. A design exercise: no research, users or results to report, so never claim any.
+- Decisions visible in the screens: five moods (Sad, Relaxed, Happy, Excited, Ecstatic) with one selected look (blue ring, bolder label); an optional note; Log Mood opens a card that leads to a workout; the recommended session shows posture, level, burn and length; four exercise steps open one at a time with a tip under each, done steps turn green and later ones stay locked, with a progress bar; the session complete screen sums up the session and an achievement.
+- System: blue #4F8EF7 for actions, green #22C55E for progress, red #D41212 only for tips, Quicksand for all text. There is a clickable Figma prototype linked on the page.
+
 # Case study: This portfolio (/projects/portfolio)
 - What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages. It has its own admin ("the studio") where Qomardeen edits case studies, articles, the About page, hero photos and his CV without code, can switch anything off instead of deleting it, and signs in with a password plus a code from an authenticator app (two-step sign-in).
 - Problem: the first version said a lot and showed little ("designer at the intersection of UX, AI and systems thinking"); Hire, Contact and the footer repeated each other; every page had its own layout.
@@ -97,6 +103,6 @@ export const KNOWLEDGE = `
 - Division of labour: Qomardeen sets the direction, chooses the visual rules, spots problems in use and decides what ships. Claude writes most of the code, translates copy, audits security and tests every change.
 
 # Site map (for navigation)
-- / Home · /projects All projects (tabs: Full case studies, Other projects, All projects) · /projects/uptime · /projects/walpay · /projects/portfolio · /projects/fragrance
+- / Home · /projects All projects (tabs: Full case studies, Other projects, All projects) · /projects/uptime · /projects/walpay · /projects/portfolio · /projects/fragrance · /projects/wellness
 - /hire Hire (availability, ways to work, proof, process, FAQ) · /hire#contact contact form and direct contact · /about About · /explore Explore hub · /explore/articles Articles · /explore/thinking Thinking · /explore/architecture Architecture
 `;

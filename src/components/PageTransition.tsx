@@ -19,7 +19,7 @@ const CURTAIN = { duration: 0.8, times: [0, 0.4, 0.55, 1], ease: [0.76, 0, 0.24,
 
 const Curtains = ({ onDone }: { onDone: () => void }) =>
   createPortal(
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[80]">
+    <div aria-hidden="true" data-page-curtain="" className="pointer-events-none fixed inset-0 z-[80]">
       <motion.div
         className="absolute inset-y-0 left-0 w-1/2 bg-background border-r border-primary/40"
         initial={{ x: '-100%' }}

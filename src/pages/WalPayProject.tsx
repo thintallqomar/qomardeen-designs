@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import PageSEO from '@/components/PageSEO';
+import { CaseStudyHeader, CaseStudyFrames, CaseStudyEnd } from '@/components/caseStudy/CaseStudyParts';
 import ReadingProgress from '@/components/ReadingProgress';
 import FloatingBackButton from '@/components/FloatingBackButton';
 import Navigation from '@/components/Navigation';
@@ -11,7 +10,6 @@ import PageTransition from '@/components/PageTransition';
 import ImageViewer from '@/components/ImageViewer';
 import StickyScrollSection from '@/components/StickyScrollSection';
 
-import ScrollReveal from '@/components/ScrollReveal';
 
 import frame01 from '@/assets/walpay/frame-01.png';
 import frame02 from '@/assets/walpay/frame-02.png';
@@ -52,10 +50,6 @@ const stickyScrollItems = [
     description: 'International money transfers were riddled with hidden fees, slow processing, and fragmented experiences — leaving users anxious about where their money was at any given moment.',
     image: frame03,
     imageAlt: 'Frustrations and Solutions',
-    metrics: [
-      { label: 'Avg. Transfer Fee', value: '7.5%' },
-      { label: 'Processing Time', value: '3-5 days' },
-    ],
   },
   {
     title: 'Understanding Users',
@@ -77,17 +71,12 @@ const stickyScrollItems = [
     description: 'Every screen was designed for thumb-friendly interaction on mobile. The send-money flow was reduced from 8 steps to 3, with real-time rate visibility and instant confirmation.',
     image: frame10,
     imageAlt: 'Onboarding Screens',
-    metrics: [
-      { label: 'Steps Reduced', value: '62%' },
-      { label: 'Task Success', value: '97%' },
-    ],
   },
 ];
 
 
 const WalPayProject = () => {
-  const navigate = useNavigate();
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const { t } = useTranslation();
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
 
@@ -96,13 +85,11 @@ const WalPayProject = () => {
     setViewerOpen(true);
   };
 
-  const handleImageLoad = (index: number) => {
-    setLoadedImages(prev => new Set([...prev, index]));
-  };
 
   return (
     <>
       <Navigation />
+      <PageSEO title="WalPay — Fintech UI/UX Case Study by Qomardeen Tijani" description="How I designed WalPay, a digital wallet and currency exchange app for cross-border transfers." path="/projects/walpay" />
       <PageTransition>
         <div className="min-h-screen">
           <ReadingProgress />
@@ -110,122 +97,25 @@ const WalPayProject = () => {
           <FloatingBackButton />
 
           <main className="pt-14">
-            {/* Project Hero */}
-            <section className="pt-20 pb-2 md:pt-24 md:pb-4 bg-gradient-subtle">
-              <div className="container-custom">
-                <div className="max-w-4xl mx-auto text-center">
-                  <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-                    UI/UX Case Study
-                  </div>
-                  <h1 className="t-title mb-6">WalPay</h1>
-                  <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                    A digital wallet and currency exchange platform designed to remove the friction from international finance, enabling instant transfers with institutional-grade rates.
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-4 mb-8">
-                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                      <span className="text-xs text-muted-foreground block">Role</span>
-                      <span className="font-medium">Product Designer (UI/UX)</span>
-                    </div>
-                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                      <span className="text-xs text-muted-foreground block">Timeline</span>
-                      <span className="font-medium">8 Weeks</span>
-                    </div>
-                    <div className="px-4 py-2 bg-card border border-border rounded-lg">
-                      <span className="text-xs text-muted-foreground block">Platform</span>
-                      <span className="font-medium">iOS App & Website</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <a
-                      href={BEHANCE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      View live link
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <CaseStudyHeader
+              badge="UI/UX Case Study"
+              title="WalPay"
+              lead="A digital wallet and currency exchange platform designed to take the friction out of international transfers."
+              facts={[{ label: t('caseStudy.role'), value: 'Product Designer (UI/UX)' }, { label: t('caseStudy.timeline'), value: '8 weeks' }, { label: t('caseStudy.platform'), value: 'iOS app & website' }]}
+              liveUrl={BEHANCE_URL}
+            />
 
             {/* Sticky Scroll Storytelling */}
             <StickyScrollSection items={stickyScrollItems} />
 
-            {/* Divider */}
-            <ScrollReveal>
-              <div className="container-custom py-8">
-                <div className="text-center">
-                  <h2 className="t-h2 mb-3">Full Case Study</h2>
-                  <p className="text-muted-foreground">Scroll through every frame of the design process</p>
-                </div>
-              </div>
-            </ScrollReveal>
+            <CaseStudyFrames
+              title={t('caseStudy.fullTitle')}
+              blurb={t('caseStudy.fullBlurb')}
+              frames={caseStudyImages}
+              onOpen={openViewer}
+            />
 
-            {/* Case Study Content */}
-            <section id="case-study-content" className="py-12 md:py-20">
-              <div className="container-custom">
-                <div className="max-w-[1512px] mx-auto space-y-8 md:space-y-12">
-                  {caseStudyImages.map((image, index) => (
-                    <div key={index} className="relative">
-                      {image.label && (
-                        <div className="mb-4 flex items-center gap-3">
-                          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-semibold">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <span className="text-sm font-medium text-muted-foreground">{image.label}</span>
-                        </div>
-                      )}
-                      <button
-                        onClick={() => openViewer(index)}
-                        className="relative rounded-xl overflow-hidden border border-border bg-card shadow-sm w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                        aria-label={`View ${image.alt} in fullscreen`}
-                      >
-                        {!loadedImages.has(index) && <Skeleton className="w-full aspect-[16/9]" />}
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          loading="lazy"
-                          decoding="async"
-                          onLoad={() => handleImageLoad(index)}
-                          style={{ imageRendering: 'auto' }}
-                          className={`w-full h-auto max-w-none transition-opacity duration-300 ${
-                            loadedImages.has(index) ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                          }`}
-                        />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Bottom CTA */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center">
-                  <h2 className="t-h2 mb-4">Want to see more?</h2>
-                  <p className="text-muted-foreground mb-8">
-                    Explore the live project, or get in touch to discuss yours.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a
-                      href={BEHANCE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full border border-border bg-background text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      View live link
-                    </a>
-                    <Button onClick={() => navigate('/hire#contact')} className="h-11 px-6">
-                      Get in Touch
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <CaseStudyEnd next={{ title: 'This portfolio', route: '/projects/portfolio', blurb: 'How I designed and built the site you are on.' }} />
           </main>
 
           <Footer />

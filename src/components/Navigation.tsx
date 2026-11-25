@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useParams } from 'react-router-dom';
-import { Menu, X, Sun, Moon, ChevronDown, Compass, Brain, User, FileText, Download } from 'lucide-react';
+import { Menu, X, ChevronDown, Compass, Brain, User, FileText, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeMenu from '@/components/ThemeMenu';
 import { useTranslation } from 'react-i18next';

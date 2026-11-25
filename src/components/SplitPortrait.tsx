@@ -98,7 +98,7 @@ const SplitPortrait = ({
           alt={t('hero.portraitAlt')}
           className="absolute inset-0 w-full h-full object-contain object-bottom"
           loading="eager"
-          fetchPriority="high"
+          {...{ fetchpriority: 'high' }}
           decoding="async"
           draggable={false}
           onError={() => setFailed(true)}

@@ -792,3 +792,30 @@
   pointer-events: none;
   color: hsl(var(--muted-foreground) / 0.6);
 }
+
+/* ── Atlas orb (AI guide) ──────────────────────────────────────────── */
+.atlas-orb .atlas-orb-ring { transform-origin: 20px 20px; transform-box: view-box; animation: atlas-spin 18s linear infinite; }
+.atlas-orb .atlas-orb-ring-b { animation-duration: 24s; animation-direction: reverse; }
+.atlas-orb .atlas-orb-ring-c { animation-duration: 30s; }
+.atlas-orb .atlas-orb-core { transform-origin: 20px 20px; transform-box: view-box; }
+.atlas-orb[data-state="thinking"] .atlas-orb-ring { animation-duration: 1.6s; }
+.atlas-orb[data-state="thinking"] .atlas-orb-ring-b { animation-duration: 2.2s; }
+.atlas-orb[data-state="thinking"] .atlas-orb-ring-c { animation-duration: 2.8s; }
+.atlas-orb[data-state="speaking"] .atlas-orb-core { animation: atlas-pulse 0.9s ease-in-out infinite; }
+@keyframes atlas-spin { to { transform: rotate(360deg); } }
+@keyframes atlas-pulse { 50% { transform: scale(1.35); } }
+/* the shimmer on "Thinking…" */
+.atlas-shimmer {
+  background: linear-gradient(90deg, hsl(var(--muted-foreground)) 0%, hsl(var(--foreground)) 50%, hsl(var(--muted-foreground)) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: atlas-shimmer 1.6s linear infinite;
+}
+@keyframes atlas-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .atlas-orb .atlas-orb-ring, .atlas-orb .atlas-orb-core, .atlas-shimmer { animation: none !important; }
+  .atlas-shimmer { color: hsl(var(--muted-foreground)); background: none; }
+}
+
+/* Lets scroll-linked effects (case study story, reading bar) measure positions exactly. */
+html { position: relative; }

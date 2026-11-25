@@ -47,7 +47,7 @@ const HeroPortrait = ({
       alt="Portrait of Qomardeen Tijani"
       loading="eager"
       decoding="async"
-      fetchPriority="high"
+      {...{ fetchpriority: 'high' }}
       onError={() => setAttempt(a => a + 1)}
       className={`${arch ? 'absolute inset-0 w-full h-full object-contain object-bottom' : 'w-full h-full object-cover object-center'} transition-opacity duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
     />

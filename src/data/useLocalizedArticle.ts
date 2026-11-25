@@ -11,7 +11,7 @@ export function getLocalizedPost(post: BlogPost, _lang: string): BlogPost {
   return post;
 }
 
-export function useLocalizedPost(post: BlogPost): BlogPost {
+export function useLocalizedPost<T extends BlogPost | undefined>(post: T): T {
   // Keep the hook call to preserve hook count consistency
   useTranslation();
   return post;

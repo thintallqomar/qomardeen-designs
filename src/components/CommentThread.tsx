@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { MessageSquare, Reply, Pencil, Trash2, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { Reply, Pencil, Trash2, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import type { Comment } from '@/hooks/useComments';
 import { useCurrentUser } from '@/hooks/useComments';
 import CommentForm from './CommentForm';

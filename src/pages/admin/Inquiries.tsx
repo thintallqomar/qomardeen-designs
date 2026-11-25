@@ -80,19 +80,21 @@ const AdminInquiries = () => {
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground break-words">
-                    {item.email}{item.company ? ` · ${item.company}` : ''}
+                    {item.email && !item.email.endsWith('@intro.invalid') ? item.email : 'No email given'}{item.company ? ` · ${item.company}` : ''}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <IconTooltip label="Reply by email">
-                    <a
-                      href={`mailto:${item.email}?subject=Re: your project inquiry`}
-                      aria-label="Reply by email"
-                      className="w-9 h-9 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
-                    >
-                      <Mail className="w-4 h-4" />
-                    </a>
-                  </IconTooltip>
+                  {item.email && !item.email.endsWith('@intro.invalid') && (
+                    <IconTooltip label="Reply by email">
+                      <a
+                        href={`mailto:${item.email}?subject=${item.project_type.startsWith('Atlas introduction') ? 'Thanks for stopping by' : 'Re: your project inquiry'}`}
+                        aria-label="Reply by email"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+                      >
+                        <Mail className="w-4 h-4" />
+                      </a>
+                    </IconTooltip>
+                  )}
                   <IconTooltip label={item.status === 'handled' ? 'Mark as new' : 'Mark as handled'}>
                     <button
                       onClick={() => setStatus(item.id, item.status === 'handled' ? 'new' : 'handled')}

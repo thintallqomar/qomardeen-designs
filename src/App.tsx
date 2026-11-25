@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-quer
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { startScrambleHeadings } from "@/lib/scramble";
+import { useHiddenProjects } from "@/hooks/useSiteSettings";
 import { useTranslation } from "react-i18next";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -19,6 +21,7 @@ const Projects = lazy(() => import("./pages/Projects"));
 const About = lazy(() => import("./pages/About"));
 const UptimeProject = lazy(() => import("./pages/UptimeProject"));
 const WalPayProject = lazy(() => import("./pages/WalPayProject"));
+const PortfolioProject = lazy(() => import("./pages/PortfolioProject"));
 const CaseStudyPage = lazy(() => import("./pages/CaseStudyPage"));
 const Architecture = lazy(() => import("./pages/Architecture"));
 const Thinking = lazy(() => import("./pages/Thinking"));
@@ -35,6 +38,7 @@ const AdminMediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 const AdminAtlasHistory = lazy(() => import("./pages/admin/AtlasHistory"));
 const AdminInquiries = lazy(() => import("./pages/admin/Inquiries"));
 const AdminSiteSettings = lazy(() => import("./pages/admin/SiteSettings"));
+const AdminAboutEditor = lazy(() => import("./pages/admin/AboutEditor"));
 const ExploreHub = lazy(() => import("./pages/explore/ExploreHub"));
 const ExploreSection = lazy(() => import("./pages/explore/ExploreSection"));
 const ContentDetail = lazy(() => import("./pages/explore/ContentDetail"));
@@ -52,16 +56,20 @@ const LanguageSync = ({ children }: { children: React.ReactNode }) => {
   const { lang } = useParams<{ lang: string }>();
   const { i18n } = useTranslation();
 
+  const valid = !!lang && supportedLanguages.includes(lang as SupportedLanguage);
+
   useEffect(() => {
-    if (lang && supportedLanguages.includes(lang as SupportedLanguage) && i18n.language !== lang) {
-      i18n.changeLanguage(lang);
+    if (valid && i18n.language !== lang) {
+      i18n.changeLanguage(lang!);
     }
     // Set RTL direction for Arabic
-    const isRtl = rtlLanguages.includes((lang || 'en') as SupportedLanguage);
-    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang || 'en';
-  }, [lang, i18n]);
+    const current = valid ? lang! : 'en';
+    document.documentElement.dir = rtlLanguages.includes(current as SupportedLanguage) ? 'rtl' : 'ltr';
+    document.documentElement.lang = current;
+  }, [lang, valid, i18n]);
 
+  // "/zzz" isn't a language: show "not found" instead of treating it as one and showing Home.
+  if (!valid) return <NotFound />;
   return <>{children}</>;
 };
 
@@ -114,7 +122,10 @@ const ProjectRoute = ({ slug, Legacy }: { slug: string; Legacy: React.ComponentT
     const id = setTimeout(() => setWaitedTooLong(true), 2500);
     return () => clearTimeout(id);
   }, []);
+  const hidden = useHiddenProjects();
   if (isLoading && !waitedTooLong) return <PageLoader />;
+  // Switched off in the admin: show the friendly "not available" page instead of the built-in one.
+  if (hidden.has(slug)) return <CaseStudyPage slug={slug} />;
   const live = !!data && data.status === 'published' && data.visibility === 'public';
   return live ? <CaseStudyPage slug={slug} /> : <Legacy />;
 };
@@ -128,6 +139,7 @@ const LocalizedRoutes = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="projects/uptime" element={<ProjectRoute slug="uptime" Legacy={UptimeProject} />} />
           <Route path="projects/walpay" element={<ProjectRoute slug="walpay" Legacy={WalPayProject} />} />
+          <Route path="projects/portfolio" element={<ProjectRoute slug="portfolio" Legacy={PortfolioProject} />} />
           <Route path="projects/:slug" element={<CaseStudyPage />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactRedirect />} />
@@ -144,6 +156,9 @@ const LocalizedRoutes = () => {
           {/* Blog migrated into Explore > Articles */}
           <Route path="blog" element={<Navigate to="../explore/articles" replace />} />
           <Route path="blog/:slug" element={<BlogSlugRedirect />} />
+
+          {/* Anything else under a language (a typo, an old link) gets the real "not found" page, not a blank screen */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </LanguageSync>
     </Suspense>
@@ -166,6 +181,7 @@ const RequireStaff = ({ children }: { children: React.ReactNode }) => {
 const AnimatedRoutes = () => {
   const location = useLocation();
   useVisitorTracking();
+  useEffect(() => startScrambleHeadings(), []);
 
   const lastPath = useRef(location.pathname);
   useEffect(() => {
@@ -223,6 +239,7 @@ const AnimatedRoutes = () => {
           <Route path="/admin/content/:typePath/:id" element={<RequireStaff><AdminContentEditor /></RequireStaff>} />
           <Route path="/admin/media" element={<RequireStaff><AdminMediaLibrary /></RequireStaff>} />
           <Route path="/admin/site" element={<RequireStaff><AdminSiteSettings /></RequireStaff>} />
+          <Route path="/admin/about" element={<RequireStaff><AdminAboutEditor /></RequireStaff>} />
           <Route path="/admin/inquiries" element={<RequireStaff><AdminInquiries /></RequireStaff>} />
           <Route path="/admin/atlas" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />
           <Route path="/admin/atlas/:threadId" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />

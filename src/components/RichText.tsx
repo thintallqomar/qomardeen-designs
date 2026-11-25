@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { safeHref, safeSrc } from '@/lib/safeUrl';
 import { ARTICLE_PROSE } from '@/lib/proseClasses';
 
 /**
@@ -16,12 +17,6 @@ interface PMNode {
   content?: PMNode[];
 }
 
-const safeHref = (href: unknown): string | undefined =>
-  typeof href === 'string' && /^(https?:\/\/|mailto:|tel:|\/|#)/i.test(href.trim()) ? href.trim() : undefined;
-
-/** Images may only come from http(s) or this site. */
-const safeSrc = (src: unknown): string | undefined =>
-  typeof src === 'string' && /^(https?:\/\/|\/)/i.test(src.trim()) ? src.trim() : undefined;
 
 const safeWidth = (w: unknown): string | undefined =>
   typeof w === 'string' && /^\d{1,4}(px|%)$/.test(w.trim()) ? w.trim() : undefined;

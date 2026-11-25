@@ -1,61 +1,42 @@
-import { useLocation, Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { ArrowLeft, Home } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
+import PageIntro from '@/components/PageIntro';
+import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 
-const ease = [0.25, 0.1, 0.25, 1] as const;
-
+/** Shown for any address that doesn't exist, in every language. Same opening as every other page. */
 const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error('404 Error: User attempted to access non-existent route:', location.pathname);
-  }, [location.pathname]);
+  const navigate = useNavigate();
+  const localizedPath = useLocalizedPath();
 
   return (
     <>
       <Navigation />
       <PageTransition>
-        <div className="min-h-screen flex items-center justify-center">
-          <main className="text-center px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease }}
-            >
-              <h1 className="text-8xl md:text-9xl font-bold text-primary/20 mb-4">404</h1>
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Page Not Found</h2>
-              <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                The page you're looking for doesn't exist or has been moved.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <motion.button
-                  onClick={() => window.history.back()}
-                  className="btn-outline inline-flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2, ease }}
-                >
-                  <ArrowLeft className="w-4 h-4" /> Go Back
-                </motion.button>
-                <Link to="/">
-                  <motion.div
-                    className="btn-primary inline-flex items-center justify-center gap-2"
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ duration: 0.2, ease }}
-                  >
-                    <Home className="w-4 h-4" /> Home
-                  </motion.div>
-                </Link>
+        <div className="min-h-screen">
+          <main className="pt-14">
+            <section className="section-padding">
+              <div className="container-custom">
+                <PageIntro
+                  word="404"
+                  lead="This page doesn't exist or has moved. Here are the places most people are looking for."
+                />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to={localizedPath('/projects')} className="btn-primary">
+                    See projects <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                  </Link>
+                  <Link to={localizedPath('/hire')} className="btn-outline">Hire Qomardeen</Link>
+                  <button type="button" onClick={() => navigate(-1)} className="btn-outline">
+                    <ArrowLeft className="w-4 h-4 rtl:rotate-180" /> Go back
+                  </button>
+                </div>
               </div>
-            </motion.div>
+            </section>
           </main>
+          <Footer />
         </div>
-        <Footer />
       </PageTransition>
     </>
   );

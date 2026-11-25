@@ -51,8 +51,10 @@ const ArticlePage = () => {
   // Check static posts first, then AI-generated posts
   const rawPost = slug ? getPostBySlug(slug) : undefined;
   const aiPost = !rawPost && slug ? aiPosts.find(p => p.slug === slug) : undefined;
-  const resolvedPost = rawPost || aiPost;
-  const post = rawPost ? useLocalizedPost(rawPost) : resolvedPost;
+  // Hooks must run on every render, so localise unconditionally (moving between a built-in
+  // article and an AI-written one used to change the hook count and crash the page).
+  const localized = useLocalizedPost(rawPost);
+  const post = localized ?? aiPost;
 
   if (!post) {
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { cachedSiteSettings, getSiteSettings, heroStyleOf, nowLineOf, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
+import { cachedSiteSettings, getSiteSettings, heroStyleOf, hiddenProjectsOf, nowLineOf, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
 
 /**
  * Uploaded hero images / CV. Returns the settings plus `ready`: true once we know whether anything was uploaded
@@ -21,7 +21,7 @@ export const useSiteSettingsState = (): { settings: SiteSettings; ready: boolean
     const id = setTimeout(() => setTimedOut(true), 800);
     return () => clearTimeout(id);
   }, []);
-  return { settings: query.data ?? {}, ready: !!cached || query.isFetched || query.isError || timedOut };
+  return { settings: query.data ?? cached ?? {}, ready: !!cached || query.isFetched || query.isError || timedOut };
 };
 
 export const useSiteSettings = (): SiteSettings => useSiteSettingsState().settings;
@@ -31,3 +31,6 @@ export const useHeroConfig = (): { heroStyle: HeroStyle; nowLine: string } => {
   const settings = useSiteSettings();
   return { heroStyle: heroStyleOf(settings), nowLine: nowLineOf(settings) };
 };
+
+/** Projects switched off in the admin (built-in ones and their imported copies). */
+export const useHiddenProjects = (): Set<string> => hiddenProjectsOf(useSiteSettings());

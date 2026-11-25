@@ -14,6 +14,8 @@ export const SITE_SLUGS = {
   cv: 'site-setting-cv',
   heroStyle: 'site-setting-hero-style',
   nowLine: 'site-setting-now-line',
+  hiddenProjects: 'site-setting-hidden-projects',
+  atlasNotes: 'site-setting-atlas-notes',
 } as const;
 export type SiteKey = keyof typeof SITE_SLUGS;
 
@@ -23,10 +25,12 @@ const TITLES: Record<SiteKey, string> = {
   cv: 'Site setting: CV',
   heroStyle: 'Site setting: Hero style',
   nowLine: 'Site setting: Now line',
+  hiddenProjects: 'Site setting: Projects switched off',
+  atlasNotes: 'Site setting: Notes for Atlas',
 };
 
 /** Keys that hold a short piece of text (kept in the entry's subtitle) instead of a file. */
-export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine'];
+export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine', 'hiddenProjects', 'atlasNotes'];
 
 export interface SiteSetting {
   url: string;
@@ -104,6 +108,7 @@ export type HeroStyle = 'new' | 'classic';
 /** The "designer who builds" hero is the default; "classic" restores the previous hero, intro and CV button. */
 export const heroStyleOf = (settings: SiteSettings): HeroStyle => (settings.heroStyle?.fileName === 'classic' ? 'classic' : 'new');
 export const nowLineOf = (settings: SiteSettings): string => settings.nowLine?.fileName?.trim() ?? '';
+export const atlasNotesOf = (settings: SiteSettings): string => settings.atlasNotes?.fileName ?? '';
 
 export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { userId: string | null; email: string | null }) {
   const slug = SITE_SLUGS[key];
@@ -157,4 +162,27 @@ export async function clearSiteSetting(key: SiteKey) {
   const { error } = await supabase.from('content_items').delete().eq('type', 'resource').eq('slug', SITE_SLUGS[key]);
   if (error) throw error;
   inflight = null;
+}
+
+/* ── On / off for projects ────────────────────────────────────────────────────────────────
+ * UpTime, WalPay and "This portfolio" are built into the site (not stored in the database),
+ * so their on/off switch is kept here: a list of the project addresses (slugs) that are off.
+ * Visitors can read this list, so every page that shows projects can leave them out.
+ */
+export const BUILT_IN_PROJECTS = [
+  { slug: 'uptime', title: 'UpTime CMMS' },
+  { slug: 'walpay', title: 'WalPay' },
+  { slug: 'portfolio', title: 'This portfolio' },
+] as const;
+export const isBuiltInProject = (slug: string) => BUILT_IN_PROJECTS.some(p => p.slug === slug);
+
+export const hiddenProjectsOf = (settings: SiteSettings): Set<string> =>
+  new Set((settings.hiddenProjects?.fileName ?? '').split(',').map(s => s.trim()).filter(Boolean));
+
+/** Turn a built-in project on or off for visitors. */
+export async function setProjectHidden(slug: string, hidden: boolean, author: { userId: string | null; email: string | null }) {
+  const current = hiddenProjectsOf(await getSiteSettings(true));
+  if (hidden === current.has(slug)) return;
+  if (hidden) current.add(slug); else current.delete(slug);
+  await saveSiteValue('hiddenProjects', [...current].sort().join(','), author);
 }

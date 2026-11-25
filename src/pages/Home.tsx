@@ -40,7 +40,7 @@ const Home = () => {
             <section className="section-padding" aria-labelledby="home-intro">
               <div className="container-custom">
                 <ScrollReveal>
-                  <div className="max-w-2xl mx-auto text-center">
+                  <div className="max-w-2xl">
                     <h2 id="home-intro" className="t-h2 mb-4">
                       {t('homeIntro.title')}
                     </h2>
@@ -68,13 +68,15 @@ const Home = () => {
             <section className="section-padding" aria-labelledby="home-cta">
               <div className="container-custom">
                 <ScrollReveal>
-                  <div className="card-elegant max-w-3xl mx-auto p-8 md:p-12 text-center">
+                  <div className="card-elegant p-8 md:p-12 grid md:grid-cols-[minmax(0,1fr)_auto] gap-6 md:items-end">
+                    <div className="max-w-2xl">
                     <h2 id="home-cta" className="t-h2 mb-4">
                       {t('homeCta.title')}
                     </h2>
-                    <p className="text-lg text-muted-foreground mb-8">
+                    <p className="text-lg text-muted-foreground">
                       {t('homeCta.body')}
                     </p>
+                    </div>
                     <Link
                       to={localizedPath('/hire#contact')}
                       className={`inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-foreground text-background font-semibold text-sm hover:opacity-90 transition-opacity group ${btnFocus}`}

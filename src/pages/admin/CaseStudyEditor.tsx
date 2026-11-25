@@ -8,6 +8,7 @@ import RichTextField from '@/components/admin/RichTextField';
 import type { MediaAsset } from '@/lib/media';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canPublish } from '@/lib/roles';
+import { isBuiltInProject, setProjectHidden } from '@/lib/siteSettings';
 import {
   fetchById, saveContent, slugify, estimateReading, logAudit,
   emptyCaseStudyBody,
@@ -222,6 +223,11 @@ const CaseStudyEditor = () => {
         target_id: saved.id,
         details: { status, type: 'case_study' },
       });
+      // UpTime / WalPay / portfolio: keep the built-in page hidden while this copy isn't live
+      if (isBuiltInProject(slug)) {
+        try { await setProjectHidden(slug, !(status === 'published' && form.visibility === 'public'), { userId: access.userId, email: access.email }); } catch { /* the save itself succeeded */ }
+        qc.invalidateQueries({ queryKey: ['site-settings'] });
+      }
 
       qc.invalidateQueries({ queryKey: ['cms'] });
       toast.success(status === 'published' ? 'Published' : 'Saved');

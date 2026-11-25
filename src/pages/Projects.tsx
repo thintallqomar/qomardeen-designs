@@ -1,5 +1,8 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import RollingNumber from '@/components/RollingNumber';
+import { safeHref } from '@/lib/safeUrl';
+import { useHiddenProjects } from '@/hooks/useSiteSettings';
 import PageIntro from '@/components/PageIntro';
 import { ExternalLink, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -13,12 +16,14 @@ import PageSEO from '@/components/PageSEO';
 import { fetchPublished, projectKind, type CaseStudyBody } from '@/lib/cms';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
+import portfolioCover from '@/assets/portfolio/card.webp';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const Projects = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const hidden = useHiddenProjects();
 
   // Hardcoded flagship case studies (bundled assets, dedicated pages).
   const staticProjects = [
@@ -58,6 +63,24 @@ const Projects = () => {
       slug: 'walpay',
       route: '/projects/walpay'
     },
+    {
+      id: 3,
+      title: "This Portfolio — Designed & Built",
+      context: "The site you're on: one idea, one design system, every section earning its place",
+      role: "Designer & builder (solo)",
+      keyDecisions: "Designer-who-builds positioning, one type scale across pages, measured cuts (81% smaller footer)",
+      thumbnail: portfolioCover,
+      liveUrl: "",
+      technologies: ["Product Design", "Design System", "React", "Supabase"],
+      category: "Designed & Built",
+      status: "completed",
+      featured: true,
+      isLive: false,
+      hasPage: true,
+      kind: 'full' as const,
+      slug: 'portfolio',
+      route: '/projects/portfolio'
+    },
   ];
 
   // CMS-authored case studies (published), mapped to the same card shape.
@@ -89,7 +112,7 @@ const Projects = () => {
   });
 
   const cmsSlugs = new Set(cmsProjects.map(p => p.slug));
-  const projects = [...staticProjects.filter(p => !cmsSlugs.has(p.slug)), ...cmsProjects];
+  const projects = [...staticProjects.filter(p => !cmsSlugs.has(p.slug)), ...cmsProjects].filter(p => !hidden.has(p.slug));
 
   const featuredProjects = projects.filter(project => project.kind === 'full' && project.featured && project.status === 'completed');
   const otherProjects = projects.filter(project => project.kind === 'other' && project.status === 'completed');
@@ -174,7 +197,7 @@ const Projects = () => {
                             <span className="relative z-10 flex items-center justify-center gap-1.5">
                               <span className="truncate sm:hidden">{tab.short}</span>
                               <span className="hidden sm:inline truncate">{tab.label}</span>
-                              <span className={`hidden sm:inline text-[10px] tabular-nums ${active ? 'opacity-70' : 'opacity-60'}`}>{tab.count}</span>
+                              <span className={`hidden sm:inline text-[10px] tabular-nums ${active ? 'opacity-70' : 'opacity-60'}`}><RollingNumber value={tab.count} /></span>
                             </span>
                           </button>
                         );
@@ -189,11 +212,13 @@ const Projects = () => {
 
                   {showFull && featuredProjects.length > 0 && (
                     <div className="mb-16">
+                      {/* On a single tab the tab itself names the list, so the heading is kept for screen readers only */}
+                      {!showHeadings && <h2 className="sr-only">{t('projects.fullTitle')}</h2>}
                       {showHeadings && <ScrollReveal>
                         <h2 id="case-studies" className="t-h2 mb-3 scroll-mt-24">{t('projects.fullTitle')}</h2>
                         <p className="text-muted-foreground max-w-xl mb-8">{t('projects.fullBlurb')}</p>
                       </ScrollReveal>}
-                      <div className="grid sm:grid-cols-2 gap-6">
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {featuredProjects.map((project, index) => (
                           <motion.div
                             key={project.id}
@@ -247,8 +272,8 @@ const Projects = () => {
                                   {project.hasPage && (
                                     <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                                       <span className="text-xs text-primary font-medium">{t('projects.clickToView')}</span>
-                                      {project.liveUrl && <a
-                                        href={project.liveUrl}
+                                      {safeHref(project.liveUrl) && <a
+                                        href={safeHref(project.liveUrl)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-1 py-2 text-xs text-muted-foreground hover:text-primary transition-colors"
@@ -270,6 +295,8 @@ const Projects = () => {
 
                   {showOther && otherProjects.length > 0 && (
                     <div className="mb-16">
+                      {/* On a single tab the tab itself names the list, so the heading is kept for screen readers only */}
+                      {!showHeadings && <h2 className="sr-only">{t('projects.otherTitle')}</h2>}
                       {showHeadings && <ScrollReveal>
                         <h2 id="other-projects" className="t-h2 mb-3 scroll-mt-24">{t('projects.otherTitle')}</h2>
                         <p className="text-muted-foreground max-w-xl mb-8">{t('projects.otherBlurb')}</p>
@@ -300,9 +327,9 @@ const Projects = () => {
                                   {project.context && <p className="text-sm text-muted-foreground line-clamp-2">{project.context}</p>}
                                   <div className="mt-3 flex items-center justify-between">
                                     <span className="text-xs text-primary font-medium">{t('projects.viewProject')}</span>
-                                    {project.liveUrl && (
+                                    {safeHref(project.liveUrl) && (
                                       <a
-                                        href={project.liveUrl}
+                                        href={safeHref(project.liveUrl)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-1 py-2 text-xs text-muted-foreground hover:text-primary transition-colors"

@@ -5,11 +5,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import StaggeredReveal from '@/components/StaggeredReveal';
 import Icon3D from '@/components/Icon3D';
 import PageSEO from '@/components/PageSEO';
-import {
-  Database, Workflow, Server, GitBranch, Layers, Scale,
-  ArrowRight, Box, Cpu, Globe, Shield, Zap, Code2,
-  MonitorSmartphone, CircuitBoard, BarChart3
-} from 'lucide-react';
+import { Database, Workflow, Server, Layers, ArrowRight, Box, Cpu, Globe, Shield, Zap, MonitorSmartphone, CircuitBoard, BarChart3 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;

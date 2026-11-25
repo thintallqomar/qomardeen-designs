@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { FileText, ImagePlus, Loader2, RotateCcw, Download, Check } from 'lucide-react';
@@ -6,7 +6,7 @@ import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canPublish } from '@/lib/roles';
 import { uploadMedia, uploadDocument, formatBytes, MAX_UPLOAD_BYTES, MAX_DOC_BYTES } from '@/lib/media';
 import {
-  fetchSiteSettings, saveSiteSetting, saveSiteValue, clearSiteSetting, heroStyleOf, nowLineOf,
+  fetchSiteSettings, saveSiteSetting, saveSiteValue, clearSiteSetting, heroStyleOf, nowLineOf, atlasNotesOf,
   type SiteKey, type SiteSetting, type HeroStyle,
 } from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
@@ -181,6 +181,44 @@ const HeroControls = ({
   );
 };
 
+/** Extra facts for Atlas, the site's AI guide. Atlas trusts these over older facts. */
+const AtlasNotes = ({ value, busy, onSave }: { value: string; busy: boolean; onSave: (v: string) => void }) => {
+  const [draft, setDraft] = useState(value);
+  useEffect(() => setDraft(value), [value]);
+  return (
+    <section className="card-elegant p-5 md:p-6">
+      <h2 className="text-lg font-semibold">Notes for Atlas</h2>
+      <p className="text-sm text-muted-foreground mt-1">
+        Atlas already knows your About, Hire and case study pages, everything you publish here, and how the site was built.
+        Add anything else you want it to know: a new role, a recent project, what you're learning, how you like to work.
+        Write plain facts, one per line. Atlas will say it doesn't know rather than guess.
+      </p>
+      <label className="block mt-4">
+        <span className="sr-only">Notes for Atlas</span>
+        <textarea
+          value={draft}
+          maxLength={6000}
+          rows={8}
+          onChange={e => setDraft(e.target.value)}
+          placeholder={'Started a contract with … in December 2026.\nCurrently learning motion design in Figma.\nPrefers async collaboration and weekly demos.'}
+          className="w-full rounded-xl border border-border bg-secondary px-3 py-2.5 text-sm leading-relaxed focus:outline-none focus:ring-1 focus:ring-primary"
+        />
+      </label>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+        <span className="text-xs text-muted-foreground">{draft.length.toLocaleString()} / 6,000 · Visitors can see anything Atlas knows, so don't add private details.</span>
+        <button
+          type="button"
+          disabled={busy || draft.trim() === value.trim()}
+          onClick={() => onSave(draft.trim())}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-50"
+        >
+          {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />} Save notes
+        </button>
+      </div>
+    </section>
+  );
+};
+
 const SiteSettingsPanel = () => {
   const access = useStaffAuth();
   const qc = useQueryClient();
@@ -270,6 +308,11 @@ const SiteSettingsPanel = () => {
         busy={busy === 'heroStyle' || busy === 'nowLine'}
         onStyle={st => saveValue('heroStyle', st === 'classic' ? 'classic' : '', st === 'classic' ? 'Home now uses the classic hero.' : 'Home now uses the new hero.')}
         onNow={v => saveValue('nowLine', v, v ? 'Now line saved.' : 'Now line removed.')}
+      />
+      <AtlasNotes
+        value={atlasNotesOf(settings)}
+        busy={busy === 'atlasNotes'}
+        onSave={v => saveValue('atlasNotes', v, v ? 'Atlas will use these notes from its next answer.' : 'Notes for Atlas removed.')}
       />
       {isError && (
         <p className="text-sm text-destructive">Could not load the current files. You can still upload; refresh the page to see their status.</p>

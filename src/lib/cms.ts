@@ -237,6 +237,32 @@ export async function saveContent(
   return data as unknown as ContentItem;
 }
 
+/** Live on the site = published and public. "Off" keeps everything but hides it from visitors. */
+export const isLiveItem = (i: Pick<ContentItem, 'status' | 'visibility'>) => i.status === 'published' && i.visibility === 'public';
+export const isSwitchedOff = (i: Pick<ContentItem, 'visibility'>) => i.visibility === 'private';
+
+/**
+ * The on/off switch in the admin. Off = private (the database then refuses to show it to visitors).
+ * On = public and published (a scheduled item stays scheduled). Nothing else changes.
+ */
+export async function setContentLive(item: ContentItem, on: boolean) {
+  const now = new Date().toISOString();
+  const patch = on
+    ? {
+        visibility: 'public' as const,
+        status: item.status === 'scheduled' ? ('scheduled' as const) : ('published' as const),
+        publish_date: item.publish_date ?? now,
+      }
+    : { visibility: 'private' as const };
+  const saved = await saveContent({ type: item.type, title: item.title, slug: item.slug, ...patch }, item.id);
+  await logAudit({
+    event_type: on ? 'content.switched_on' : 'content.switched_off',
+    target_table: 'content_items',
+    target_id: item.id,
+  });
+  return saved;
+}
+
 export async function deleteContent(id: string) {
   const { error } = await supabase.from('content_items').delete().eq('id', id);
   if (error) throw error;

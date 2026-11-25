@@ -52,7 +52,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
         <div className="container-custom w-full">
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-14 items-center">
             {/* Text */}
-            <div className="relative h-[40vh] lg:h-[60vh] flex items-center">
+            <div className="relative h-[46vh] lg:h-[60vh] flex items-center">
               {items.map((item, i) => (
                 <div
                   key={i}
@@ -62,19 +62,19 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
                   } ${state(i, 'translate-y-6', '-translate-y-6')}`}
                 >
                   {item.subtitle && (
-                    <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{item.subtitle}</span>
+                    <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-2 sm:mb-3">{item.subtitle}</span>
                   )}
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">{item.title}</h3>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 tracking-tight">{item.title}</h2>
                   <RichText
                     json={item.descriptionJson}
                     fallback={item.description}
-                    className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg"
+                    className="text-[15px] sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg"
                   />
                   {item.metrics && item.metrics.length > 0 && (
-                    <div className="flex gap-6 mt-8">
+                    <div className="flex gap-6 mt-4 sm:mt-8">
                       {item.metrics.map((m, k) => (
                         <div key={k}>
-                          <span className="text-2xl md:text-3xl font-bold text-primary">{m.value}</span>
+                          <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-primary">{m.value}</span>
                           <span className="block text-xs text-muted-foreground mt-1">{m.label}</span>
                         </div>
                       ))}
@@ -85,7 +85,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
             </div>
 
             {/* Image: always shown whole (scaled to fit), never cropped. All images load up front so none pops in late. */}
-            <div className="relative h-[40vh] lg:h-[70vh]">
+            <div className="relative h-[36vh] lg:h-[70vh]">
               {items.map((item, i) => (
                 <div
                   key={i}
@@ -98,7 +98,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
                     src={item.image}
                     alt={item.imageAlt}
                     decoding="async"
-                    fetchPriority={i === 0 ? 'high' : 'auto'}
+                    {...{ fetchpriority: i === 0 ? 'high' : 'auto' }}
                     className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl border border-border bg-card shadow-lg transform-gpu"
                   />
                 </div>
@@ -109,7 +109,7 @@ const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps
 
         {/* Progress dots */}
         {items.length > 1 && (
-          <div className="absolute right-3 lg:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3">
+          <div aria-hidden="true" className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
             {items.map((_, i) => (
               <span
                 key={i}

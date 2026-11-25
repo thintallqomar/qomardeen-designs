@@ -1,5 +1,5 @@
 import { Lightbulb, Target, Layout, Layers, RefreshCw } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { useAboutContent } from '@/hooks/useAboutContent';
 import ScrollReveal from './ScrollReveal';
 import StaggeredReveal from './StaggeredReveal';
 import Icon3D from './Icon3D';
@@ -12,28 +12,20 @@ const iconData = [
   { icon: <RefreshCw />, variant: 'teal' as const },
 ];
 
-interface Principle {
-  title: string;
-  body: string;
-}
-
 const DesignPhilosophy = () => {
-  const { t } = useTranslation();
-  const raw = t('philosophy.principles', { returnObjects: true });
-  const principles: Principle[] = Array.isArray(raw) ? (raw as Principle[]) : [];
+  const c = useAboutContent();
+  const principles = c.principles;
 
   if (principles.length === 0) return null;
 
   return (
     <section id="philosophy" className="section-padding">
       <div className="container-custom">
-        <div className="max-w-5xl mx-auto">
+        <div>
           <ScrollReveal>
-            <div className="text-center mb-16">
-              <h2 className="t-h2 mb-4">{t('philosophy.title')}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {t('philosophy.subtitle', { defaultValue: '' })}
-              </p>
+            <div className="mb-10 max-w-2xl">
+              <h2 className="t-h2 mb-3">{c.philosophyTitle}</h2>
+              {c.philosophySubtitle && <p className="text-muted-foreground">{c.philosophySubtitle}</p>}
             </div>
           </ScrollReveal>
 
@@ -41,21 +33,14 @@ const DesignPhilosophy = () => {
             className="grid md:grid-cols-2 gap-6"
             staggerDelay={0.1}
             equalHeight
-            itemClassName={(index) =>
-              index === principles.length - 1 && principles.length % 2 === 1
-                ? 'md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto w-full'
-                : ''
-            }
           >
             {principles.map((p, index) => (
               <div
-                key={p.title}
+                key={index}
                 className="card-elegant h-full flex flex-col"
               >
-                <Icon3D variant={iconData[index]?.variant || 'primary'} size="md">
-                  {iconData[index]?.icon}
-                </Icon3D>
-                <h3 className="mt-5 mb-2 text-lg font-semibold text-foreground">{p.title}</h3>
+                <Icon3D size="md">{iconData[index % iconData.length].icon}</Icon3D>
+                <h3 className="t-h3 mt-5 mb-2">{p.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{p.body}</p>
               </div>
             ))}

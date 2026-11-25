@@ -75,7 +75,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <span className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-secondary text-muted-foreground shrink-0">
-                {item.status}
+                {item.visibility === 'private' ? 'off' : item.status}
               </span>
             </Link>
           ))}

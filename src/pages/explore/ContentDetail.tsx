@@ -14,6 +14,7 @@ import ArticlePage from '@/pages/ArticlePage';
 import { fetchBySlug, pathToType } from '@/lib/cms';
 import { getPostBySlug } from '@/data/articles';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
+import { safeHref } from '@/lib/safeUrl';
 import { Clock, Download } from 'lucide-react';
 
 const SITE_ORIGIN = 'https://qomardeentijani.lovable.app';
@@ -127,9 +128,9 @@ const ContentDetail = () => {
                 </aside>
               )}
 
-              {item.resource_url && (
+              {safeHref(item.resource_url) && (
                 <a
-                  href={item.resource_url}
+                  href={safeHref(item.resource_url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium mb-8"

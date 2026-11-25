@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
-  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, Code2, Layers,
-  Lightbulb, Linkedin, Mail, PenTool, Phone, Rocket, Target, Zap,
+  ArrowRight, ArrowUpRight, Briefcase, CalendarDays, Code2, Layers,
+  Lightbulb, Linkedin, Mail, PenTool, Phone, Rocket,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -15,12 +15,15 @@ import InquiryForm from '@/components/InquiryForm';
 import StickyHireBar from '@/components/StickyHireBar';
 import HeroGlow from '@/components/HeroGlow';
 import SplitPortrait from '@/components/SplitPortrait';
+import RollingNumber from '@/components/RollingNumber';
+import { useHiddenProjects } from '@/hooks/useSiteSettings';
 import CvDownloadButton from '@/components/CvDownloadButton';
 import Testimonials from '@/components/Testimonials';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
+import portfolioCover from '@/assets/portfolio/card.webp';
 
 const EMAIL = 'qomardeentijani@gmail.com';
 const BOOK_URL = 'https://cal.com/the_Qomardeen';
@@ -29,17 +32,12 @@ const LINKEDIN_URL = 'https://linkedin.com/in/qomardeentijani';
 const Hire = () => {
   const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
+  const hidden = useHiddenProjects();
 
   const engagements = [
     { icon: <Briefcase />, title: t('hire.eng1Title'), body: t('hire.eng1Body'), cta: t('hire.eng1Cta') },
     { icon: <Rocket />, title: t('hire.eng2Title'), body: t('hire.eng2Body'), cta: t('hire.eng2Cta') },
     { icon: <Layers />, title: t('hire.eng3Title'), body: t('hire.eng3Body'), cta: t('hire.eng3Cta') },
-  ];
-  const valueProps = [
-    { icon: <Target />, title: t('hire.why1T'), description: t('hire.why1D') },
-    { icon: <Layers />, title: t('hire.why2T'), description: t('hire.why2D') },
-    { icon: <Code2 />, title: t('hire.why3T'), description: t('hire.why3D') },
-    { icon: <Zap />, title: t('hire.why4T'), description: t('hire.why4D') },
   ];
   const processSteps = [
     { icon: <Lightbulb />, title: t('hire.how1T'), description: t('hire.how1D') },
@@ -47,12 +45,13 @@ const Hire = () => {
     { icon: <Code2 />, title: t('hire.how3T'), description: t('hire.how3D') },
     { icon: <Rocket />, title: t('hire.how4T'), description: t('hire.how4D') },
   ];
-  const deliverables = [1, 2, 3, 4, 5, 6].map(n => t(`hire.get${n}`));
   const work = [
     { title: 'UpTime CMMS', tag: t('hire.tagSaas'), desc: t('hire.uptimeDesc'), route: '/projects/uptime', image: uptimeCover },
     { title: 'WalPay', tag: t('hire.tagFintech'), desc: t('hire.walpayDesc'), route: '/projects/walpay', image: walpayCover },
+    { title: t('hire.portfolioTitle'), tag: t('hire.tagBuilt'), desc: t('hire.portfolioDesc'), route: '/projects/portfolio', image: portfolioCover },
   ];
-  const faqs = [1, 2, 3, 4, 5, 6].map(n => ({ q: t(`hire.faq${n}Q`), a: t(`hire.faq${n}A`) }));
+  const shownWork = work.filter(w => !hidden.has(w.route.split('/').pop() ?? ''));
+  const faqs = [2, 3, 5].map(n => ({ q: t(`hire.faq${n}Q`), a: t(`hire.faq${n}A`) }));
 
   return (
     <>
@@ -89,7 +88,7 @@ const Hire = () => {
                         {t('hire.h1a')} <span className="text-primary">{t('hire.h1b')}</span>
                       </p>
                       <p className="t-lead mt-3 max-w-xl mb-8">{t('hire.intro')}</p>
-                      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group">
                           <CalendarDays className="w-4 h-4" />
                           {t('hire.bookCall')}
@@ -97,19 +96,49 @@ const Hire = () => {
                         </a>
                         <CvDownloadButton className="btn-outline" label={t('hire.downloadCv')} />
                       </div>
-                      <div className="flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
-                        <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
-                          <Mail className="w-4 h-4" /> {EMAIL}
-                        </a>
-                        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
-                          <Linkedin className="w-4 h-4" /> LinkedIn
-                        </a>
-                      </div>
                     </div>
                   </ScrollReveal>
 
                   {/* Identical to the Home hero portrait */}
                   <SplitPortrait slot="hire" />
+                </div>
+              </div>
+            </section>
+
+            {/* ── Selected work ── */}
+            <section className="section-padding">
+              <div className="container-custom">
+                <ScrollReveal>
+                  <div className="mb-10 max-w-2xl">
+                    <h2 className="t-h2 mb-3">{t('hire.proofTitle')}</h2>
+                    <p className="text-muted-foreground">{t('hire.proofSub')}</p>
+                  </div>
+                </ScrollReveal>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {shownWork.map(w => (
+                    <Link
+                      key={w.title}
+                      to={localizedPath(w.route)}
+                      className="group block rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      <div className="aspect-video bg-muted overflow-hidden">
+                        <img src={w.image} alt={`${w.title}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="p-5">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-primary">{w.tag}</span>
+                        <h3 className="t-h3 mt-1 mb-1.5">{w.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                          {t('hire.viewCase')} <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <Link to={localizedPath('/projects')} className="btn-outline">
+                    {t('hire.seeAll')} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                  </Link>
                 </div>
               </div>
             </section>
@@ -138,67 +167,6 @@ const Hire = () => {
               </div>
             </section>
 
-            {/* ── Selected work ── */}
-            <section className="section-padding">
-              <div className="container-custom">
-                <ScrollReveal>
-                  <div className="mb-10 max-w-2xl">
-                    <h2 className="t-h2 mb-3">{t('hire.proofTitle')}</h2>
-                    <p className="text-muted-foreground">{t('hire.proofSub')}</p>
-                  </div>
-                </ScrollReveal>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {work.map(w => (
-                    <Link
-                      key={w.title}
-                      to={localizedPath(w.route)}
-                      className="group block rounded-2xl border border-border bg-card overflow-hidden hover:shadow-elegant transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                    >
-                      <div className="aspect-video bg-muted overflow-hidden">
-                        <img src={w.image} alt={`${w.title}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      </div>
-                      <div className="p-5">
-                        <span className="text-xs font-semibold uppercase tracking-widest text-primary">{w.tag}</span>
-                        <h3 className="t-h3 mt-1 mb-1.5">{w.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-4">{w.desc}</p>
-                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                          {t('hire.viewCase')} <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <Link to={localizedPath('/projects')} className="btn-outline">
-                    {t('hire.seeAll')} <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-                  </Link>
-                </div>
-              </div>
-            </section>
-
-            {/* ── Testimonials (appears once real ones are added in src/data/testimonials.ts) ── */}
-            <Testimonials />
-
-            {/* ── Why teams hire me ── */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <ScrollReveal>
-                  <h2 className="t-h2 mb-10">{t('hire.whyTitle')}</h2>
-                </ScrollReveal>
-                <StaggeredReveal className="grid sm:grid-cols-2 gap-5" staggerDelay={0.1}>
-                  {valueProps.map(v => (
-                    <div key={v.title} className="card-elegant flex gap-4">
-                      <Icon3D variant="primary" size="md">{v.icon}</Icon3D>
-                      <div>
-                        <h3 className="font-semibold mb-1.5">{v.title}</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{v.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </StaggeredReveal>
-              </div>
-            </section>
-
             {/* ── How I work ── */}
             <section className="section-padding">
               <div className="container-custom">
@@ -210,7 +178,7 @@ const Hire = () => {
                     <div key={s.title} className="card-elegant h-full">
                       <div className="flex items-center justify-between mb-4">
                         <Icon3D variant="primary" size="md">{s.icon}</Icon3D>
-                        <span className="text-sm font-semibold text-muted-foreground tabular-nums">0{i + 1}</span>
+                        <span className="text-sm font-semibold text-muted-foreground tabular-nums"><RollingNumber value={i + 1} pad={2} /></span>
                       </div>
                       <h3 className="font-semibold mb-1.5">{s.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
@@ -220,26 +188,11 @@ const Hire = () => {
               </div>
             </section>
 
-            {/* ── What you get ── */}
-            <section className="section-padding bg-muted/30">
-              <div className="container-custom">
-                <div className="max-w-2xl">
-                  <ScrollReveal>
-                    <h2 className="t-h2 mb-5">{t('hire.getTitle')}</h2>
-                    <ul className="space-y-3">
-                      {deliverables.map(d => (
-                        <li key={d} className="flex items-start gap-3 text-sm md:text-base">
-                          <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {d}
-                        </li>
-                      ))}
-                    </ul>
-                  </ScrollReveal>
-                </div>
-              </div>
-            </section>
+            {/* ── Testimonials (appears once real ones are added in src/data/testimonials.ts) ── */}
+            <Testimonials />
 
             {/* ── FAQ ── */}
-            <section className="section-padding">
+            <section className="section-padding bg-muted/30">
               <div className="container-custom">
                 <div className="max-w-3xl">
                   <ScrollReveal>
@@ -258,20 +211,15 @@ const Hire = () => {
             </section>
 
             {/* ── Contact ── */}
-            <section id="contact" className="section-padding bg-muted/30 scroll-mt-14">
+            <section id="contact" className="section-padding scroll-mt-14">
               <div className="container-custom">
                 <div className="max-w-3xl">
                   <ScrollReveal>
                     <div className="mb-10">
                       <h2 className="t-h2 mb-3">{t('hire.talkTitle')}</h2>
-                      <p className="text-muted-foreground max-w-xl mb-6">{t('hire.talkBody')}</p>
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                          <CalendarDays className="w-4 h-4" /> {t('hire.bookCall')}
-                        </a>
-                      </div>
+                      <p className="text-muted-foreground max-w-xl mb-2">{t('hire.talkBody')}</p>
                       {/* Direct lines, carried over from the old Contact page */}
-                      <div className="mt-5 flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
+                      <div className="flex flex-wrap items-center gap-x-5 text-sm text-muted-foreground">
                         <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-1.5 py-2 hover:text-primary transition-colors">
                           <Mail className="w-4 h-4" /> {EMAIL}
                         </a>

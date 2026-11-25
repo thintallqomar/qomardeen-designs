@@ -99,12 +99,12 @@ export interface ContentItem {
   updated_at: string;
 }
 
-export const CONTENT_TYPES: { value: ContentType; label: string; path: string; blurb: string }[] = [
-  { value: 'case_study', label: 'Case Studies', path: 'case-studies', blurb: 'In-depth product design case studies with scroll storytelling and galleries.' },
-  { value: 'article', label: 'Articles', path: 'articles', blurb: 'Long-form essays on product design, UX and systems.' },
-  { value: 'thinking', label: 'Thinking', path: 'thinking', blurb: 'Short opinion pieces, teardowns and design lessons.' },
-  { value: 'architecture', label: 'Architecture', path: 'architecture', blurb: 'PRDs, system design, user flows and decision logs.' },
-  { value: 'resource', label: 'Resources', path: 'resources', blurb: 'Templates, checklists, kits and downloads.' },
+export const CONTENT_TYPES: { value: ContentType; label: string; one: string; path: string; blurb: string }[] = [
+  { value: 'case_study', label: 'Case Studies', one: 'Case Study', path: 'case-studies', blurb: 'Product design case studies: a short story, then every frame.' },
+  { value: 'article', one: 'Article', label: 'Articles', path: 'articles', blurb: 'Long-form essays on product design, UX and systems.' },
+  { value: 'thinking', one: 'Thinking', label: 'Thinking', path: 'thinking', blurb: 'Short opinion pieces, teardowns and design lessons.' },
+  { value: 'architecture', one: 'Architecture', label: 'Architecture', path: 'architecture', blurb: 'PRDs, system design, user flows and decision logs.' },
+  { value: 'resource', one: 'Resource', label: 'Resources', path: 'resources', blurb: 'Templates, checklists, kits and downloads.' },
 ];
 
 export const typeToPath = (t: ContentType) =>

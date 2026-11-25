@@ -49,7 +49,7 @@ const Dashboard = () => {
             >
               <Icon3D variant="primary" size="sm"><Plus className="w-4 h-4" /></Icon3D>
               <div>
-                <p className="text-sm font-medium">New {t.label.replace(/s$/, '')}</p>
+                <p className="text-sm font-medium">New {t.one}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{t.blurb}</p>
               </div>
             </Link>

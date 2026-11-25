@@ -20,6 +20,8 @@ import system from '@/assets/portfolio/system.webp';
 import footer from '@/assets/portfolio/footer.webp';
 import themes from '@/assets/portfolio/themes.webp';
 import phones from '@/assets/portfolio/phones.webp';
+import admin from '@/assets/portfolio/admin.webp';
+import adminOverview from '@/assets/portfolio/admin-overview.webp';
 
 /*
  * Case study of this site. Every number here was measured on the real site:
@@ -35,8 +37,10 @@ const frames = [
   { src: system, alt: 'Projects and About pages sharing the same opening and type scale', label: 'One system across pages' },
   { src: footer, alt: 'Footer before (863px tall) and after (162px tall)', label: 'The footer: 863px to 162px' },
   { src: themes, alt: 'Home page in light mode and dark mode', label: 'Light by day, dark by night' },
-  { src: phones, alt: 'Home, Hire and Projects pages on a phone', label: 'On a phone' },
+  { src: phones, alt: 'Home, Projects and About pages on a phone, in light mode', label: 'On a phone' },
+  { src: admin, alt: 'The admin: the overview, and the articles list with an on/off switch on each (email blurred)', label: 'The studio: my own admin' },
 ];
+const ADMIN_FRAME = frames.length - 1;
 
 const story = [
   {
@@ -106,13 +110,20 @@ const decisions = [
   {
     title: 'Everything editable from my own admin, with an on/off switch',
     why: 'I should not need code, or credits, to fix a typo or swap a project. Case studies, articles, my CV and hero photos all live in the admin, and anything can be switched off while I rework it.',
-    cost: 'More to build up front: roles, an editor, image uploads and security rules so visitors only ever see what is switched on.',
+    cost: 'More to build up front: roles, an editor, image uploads, two-step sign-in and security rules so visitors only ever see what is switched on.',
   },
   {
     title: 'Eleven languages, including Yoruba, Hausa, Igbo and Pidgin',
     why: 'I am a Nigerian designer applying locally and abroad. Speaking a visitor\'s language, at home or overseas, is a small signal that I think about who is on the other side of the screen.',
     cost: 'Every copy change is eleven changes. Case study text stays in English for now.',
   },
+];
+
+/* Why the site has its own admin ("the studio"). */
+const studio = [
+  { title: 'Change it in minutes', body: 'A typo, a new CV or a new case study is a form to fill in, not a code change. Content no longer costs me Lovable credits or a developer.' },
+  { title: 'Switch off instead of delete', body: 'Anything can be hidden while I rework it, then switched back on exactly as it was. Visitors never see a half-finished page.' },
+  { title: 'Locked down', body: 'Only my account can publish, and visitors only ever see what is switched on. Signing in needs a code from an authenticator app as well as the password.' },
 ];
 
 /* How the work was actually split between me, Lovable and Claude. */
@@ -131,7 +142,7 @@ const iDid = [
 const claudeDid = [
   'Wrote most of the code changes, from the footer to the on/off switches',
   'Translated new copy into all 11 languages',
-  'Audited and fixed security issues in the backend functions',
+  'Audited and fixed security issues, and added two-step sign-in to the admin',
   'Tested every change at 1440, 768, 375 and 320px, in both themes',
 ];
 
@@ -220,6 +231,39 @@ const PortfolioProject = () => {
                     </li>
                   ))}
                 </ol>
+              </div>
+            </section>
+
+            {/* The admin behind the site */}
+            <section className="section-padding">
+              <div className="container-custom">
+                <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-14 lg:items-start">
+                  <ScrollReveal>
+                    <h2 className="t-h2 mb-3">The studio behind the site</h2>
+                    <p className="text-muted-foreground leading-relaxed max-w-xl">
+                      A portfolio goes stale when changing it is hard, so the site has its own admin. Case studies, articles, the About page, hero photos, my CV, messages from visitors and Atlas's memory are all edited there, without code.
+                    </p>
+                    <ul className="mt-6">
+                      {studio.map(w => (
+                        <li key={w.title} className="border-t border-border py-4">
+                          <h3 className="t-h3 mb-1">{w.title}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{w.body}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollReveal>
+                  <ScrollReveal delay={0.1}>
+                    <button
+                      type="button"
+                      onClick={() => openViewer(ADMIN_FRAME)}
+                      className="block w-full overflow-hidden rounded-2xl border border-border bg-card cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      aria-label="The admin: open full screen"
+                    >
+                      <img src={adminOverview} alt="The admin overview: published, draft and scheduled counts, shortcuts to create content, and recent activity (email blurred)" loading="lazy" decoding="async" className="w-full h-auto" />
+                    </button>
+                    <p className="mt-3 text-sm text-muted-foreground">The overview. Tap to see it next to the on/off switches. My email is blurred.</p>
+                  </ScrollReveal>
+                </div>
               </div>
             </section>
 

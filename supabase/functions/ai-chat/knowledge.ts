@@ -67,7 +67,7 @@ export const KNOWLEDGE = `
 - Do not quote outcome percentages for WalPay; none were measured.
 
 # Case study: This portfolio (/projects/portfolio)
-- What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages.
+- What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages. It has its own admin ("the studio") where Qomardeen edits case studies, articles, the About page, hero photos and his CV without code, can switch anything off instead of deleting it, and signs in with a password plus a code from an authenticator app (two-step sign-in).
 - Problem: the first version said a lot and showed little ("designer at the intersection of UX, AI and systems thinking"); Hire, Contact and the footer repeated each other; every page had its own layout.
 - Measured results (same 1440px screen width, before vs after): footer 863px → 162px (81% less height); Hire page 5,615px → 4,360px (22% shorter); Hire sections 8 → 6 with a single "Book a call"; 11 languages; every change checked at 4 screen widths (1440, 768, 375, 320) in light and dark mode.
 - Key decisions and trade-offs:

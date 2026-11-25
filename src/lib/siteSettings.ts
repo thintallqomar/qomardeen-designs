@@ -140,7 +140,7 @@ export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { u
     publish_date: now,
     updated_date: now,
     body_json: {},
-    reading_time_minutes: null,
+    reading_time_minutes: 1, // the database requires a number here (null made every Site setting save fail)
     word_count: 0,
   };
 

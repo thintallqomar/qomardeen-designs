@@ -271,7 +271,8 @@ const Projects = () => {
                                   </div>
                                   {project.hasPage && (
                                     <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-                                      <span className="text-xs text-primary font-medium">{t('projects.clickToView')}</span>
+                                      {/* Same padding as the live link, so cards with and without one end at the same line */}
+                                      <span className="py-2 text-xs text-primary font-medium">{t('projects.clickToView')}</span>
                                       {safeHref(project.liveUrl) && <a
                                         href={safeHref(project.liveUrl)}
                                         target="_blank"
@@ -326,7 +327,7 @@ const Projects = () => {
                                   <h3 className="font-semibold leading-snug mb-1">{project.title}</h3>
                                   {project.context && <p className="text-sm text-muted-foreground line-clamp-2">{project.context}</p>}
                                   <div className="mt-3 flex items-center justify-between">
-                                    <span className="text-xs text-primary font-medium">{t('projects.viewProject')}</span>
+                                    <span className="py-2 text-xs text-primary font-medium">{t('projects.viewProject')}</span>
                                     {safeHref(project.liveUrl) && (
                                       <a
                                         href={safeHref(project.liveUrl)}

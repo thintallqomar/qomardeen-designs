@@ -948,3 +948,8 @@ html { position: relative; }
   .footer-scene { transition: none; transform: none; }
   .fs-sway, .fs-leaf, .fs-spin { animation: none; }
 }
+
+/* Header mark: the dot gives a small nod on hover */
+.brand-link svg circle:last-child { transition: transform .35s cubic-bezier(.34,1.56,.64,1); transform-origin: 44px 34px; transform-box: view-box; }
+.brand-link:hover svg circle:last-child { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) { .brand-link svg circle:last-child { transition: none; } }

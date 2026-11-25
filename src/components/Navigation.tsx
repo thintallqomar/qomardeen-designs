@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import BrandMark from './BrandMark';
 import { Link, useParams } from 'react-router-dom';
 import { Menu, X, ChevronDown, Compass, Brain, User, FileText, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -115,11 +116,13 @@ const Navigation = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link to={localizedPath('/')} className="flex items-center gap-2 group shrink-0">
-            <span className="text-lg font-bold tracking-tight">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">Qomardeen</span>
-              <span className="text-foreground"> Tijani</span>
-            </span>
+          <Link
+            to={localizedPath('/')}
+            aria-label="Qomardeen Tijani, home"
+            title="Qomardeen Tijani"
+            className="brand-link flex items-center shrink-0 rounded-md text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <BrandMark className="h-7 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

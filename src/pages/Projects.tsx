@@ -17,6 +17,7 @@ import { fetchPublished, projectKind, type CaseStudyBody } from '@/lib/cms';
 import uptimeCover from '@/assets/uptime-cover.png';
 import walpayCover from '@/assets/walpay/frame-01.png';
 import portfolioCover from '@/assets/portfolio/card.webp';
+import fragranceCover from '@/assets/fragrance/card.webp';
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -80,6 +81,24 @@ const Projects = () => {
       kind: 'full' as const,
       slug: 'portfolio',
       route: '/projects/portfolio'
+    },
+    {
+      id: 4,
+      title: "Fragrance Store — Mobile Shopping Flow",
+      context: "Four screens from browsing scents to a paid order",
+      role: "Product Designer (UI)",
+      keyDecisions: "One job per screen, one selected look, every cost shown before paying",
+      thumbnail: fragranceCover,
+      liveUrl: "https://www.figma.com/proto/ajsn9pYWQaKwRDl1MOQRO9?node-id=52-753&starting-point-node-id=52%3A753",
+      technologies: ["Mobile", "E-commerce", "Figma"],
+      category: "Mobile app",
+      status: "completed",
+      featured: false,
+      isLive: false,
+      hasPage: true,
+      kind: 'other' as const,
+      slug: 'fragrance',
+      route: '/projects/fragrance'
     },
   ];
 

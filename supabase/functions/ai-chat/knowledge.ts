@@ -66,6 +66,12 @@ export const KNOWLEDGE = `
 - Mobile-first: thumb-friendly screens; the send-money flow was simplified (from 8 steps to 3) with real-time rate visibility and instant confirmation. Screens include onboarding, send money and wallet transactions, profile and settings, and a KYC verification flow.
 - Do not quote outcome percentages for WalPay; none were measured.
 
+# Other project: Fragrance Store (/projects/fragrance)
+- What: a four-screen mobile shopping flow for a fragrance store, designed by Qomardeen in Figma: home/product listing, product page, checkout, payment success.
+- Listed under "Other projects", not the full case studies. A design exercise: no research, users or results to report, so never claim any.
+- Decisions visible in the screens: one job per screen; product photo first, then price, rating, scent and size chips (selected chip = gold outline); Add To Cart pinned at the bottom; checkout on one page with quantity steppers, address, payment and shipping, and tax and shipping listed before the total; success screen with order summary and Track Order.
+- System: purple #551A8B for actions, gold #D4AF37 for prices and selection, Poppins for headings, Inter for text. There is a clickable Figma prototype linked on the page.
+
 # Case study: This portfolio (/projects/portfolio)
 - What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages. It has its own admin ("the studio") where Qomardeen edits case studies, articles, the About page, hero photos and his CV without code, can switch anything off instead of deleting it, and signs in with a password plus a code from an authenticator app (two-step sign-in).
 - Problem: the first version said a lot and showed little ("designer at the intersection of UX, AI and systems thinking"); Hire, Contact and the footer repeated each other; every page had its own layout.
@@ -91,6 +97,6 @@ export const KNOWLEDGE = `
 - Division of labour: Qomardeen sets the direction, chooses the visual rules, spots problems in use and decides what ships. Claude writes most of the code, translates copy, audits security and tests every change.
 
 # Site map (for navigation)
-- / Home · /projects All projects (tabs: Full case studies, Other projects, All projects) · /projects/uptime · /projects/walpay · /projects/portfolio
+- / Home · /projects All projects (tabs: Full case studies, Other projects, All projects) · /projects/uptime · /projects/walpay · /projects/portfolio · /projects/fragrance
 - /hire Hire (availability, ways to work, proof, process, FAQ) · /hire#contact contact form and direct contact · /about About · /explore Explore hub · /explore/articles Articles · /explore/thinking Thinking · /explore/architecture Architecture
 `;

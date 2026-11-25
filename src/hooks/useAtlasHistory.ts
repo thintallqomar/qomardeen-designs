@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export type AtlasThread = { id: string; title: string; updated_at: string };
@@ -42,7 +42,7 @@ export const useAtlasHistory = (enabled: boolean) => {
       .single();
     if (error || !data) { console.error('atlas create thread', error?.message); return null; }
     setThreads(prev => [data, ...prev]);
-    localStorage.setItem(LAST_THREAD_KEY, data.id);
+    try { localStorage.setItem(LAST_THREAD_KEY, data.id); } catch { /* storage blocked */ }
     return data.id;
   }, []);
 
@@ -55,7 +55,7 @@ export const useAtlasHistory = (enabled: boolean) => {
 
   const deleteThread = useCallback(async (id: string) => {
     setThreads(prev => prev.filter(t => t.id !== id));
-    if (localStorage.getItem(LAST_THREAD_KEY) === id) localStorage.removeItem(LAST_THREAD_KEY);
+    try { if (localStorage.getItem(LAST_THREAD_KEY) === id) localStorage.removeItem(LAST_THREAD_KEY); } catch { /* storage blocked */ }
     const { error } = await supabase.from('atlas_threads').delete().eq('id', id);
     if (error) console.error('atlas delete', error.message);
   }, []);
@@ -86,7 +86,9 @@ export const useAtlasHistory = (enabled: boolean) => {
     });
   }, []);
 
-  return {
+  // One stable object per change of data. A fresh object on every render made pages that
+  // depend on it re-run their effects endlessly (the Atlas conversations page froze the admin).
+  return useMemo(() => ({
     threads,
     loadingThreads,
     refreshThreads,
@@ -95,7 +97,7 @@ export const useAtlasHistory = (enabled: boolean) => {
     deleteThread,
     loadMessages,
     appendMessage,
-    lastThreadId: () => localStorage.getItem(LAST_THREAD_KEY),
-    rememberThread: (id: string | null) => id ? localStorage.setItem(LAST_THREAD_KEY, id) : localStorage.removeItem(LAST_THREAD_KEY),
-  };
+    lastThreadId: () => { try { return localStorage.getItem(LAST_THREAD_KEY); } catch { return null; } },
+    rememberThread: (id: string | null) => { try { if (id) localStorage.setItem(LAST_THREAD_KEY, id); else localStorage.removeItem(LAST_THREAD_KEY); } catch { /* storage blocked */ } },
+  }), [threads, loadingThreads, refreshThreads, createThread, renameThread, deleteThread, loadMessages, appendMessage]);
 };

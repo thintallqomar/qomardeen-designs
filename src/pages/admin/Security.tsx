@@ -4,6 +4,7 @@ import { Loader2, ShieldCheck, ShieldAlert, Copy, Trash2 } from 'lucide-react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { getTotpFactor, startEnrollment, confirmEnrollment, removeFactor, isSixDigits } from '@/lib/mfa';
 import { errorMessage } from '@/lib/errorMessage';
+import { refreshStaffAuth } from '@/hooks/useStaffAuth';
 
 type Factor = Awaited<ReturnType<typeof getTotpFactor>>;
 type Setup = { factorId: string; qr: string; secret: string };
@@ -47,7 +48,7 @@ const Security = () => {
       await confirmEnrollment(setup.factorId, code);
       setSetup(null);
       toast.success('Two-step sign-in is on. You will need a code from the app every time you sign in.');
-      await load();
+      await Promise.all([load(), refreshStaffAuth()]);
     } catch (e) {
       setCode('');
       toast.error(errorMessage(e, 'That code did not work.'));
@@ -63,7 +64,7 @@ const Security = () => {
     try {
       await removeFactor(factor.id);
       toast.success('Two-step sign-in is off.');
-      await load();
+      await Promise.all([load(), refreshStaffAuth()]);
     } catch (e) {
       toast.error(errorMessage(e, 'Could not turn it off.'));
     } finally {

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { NavLink, useNavigate, Navigate, useLocation, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
@@ -31,6 +31,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { loading, isStaff, needsMfa, mfaEnabled, email, roles } = useStaffAuth();
   const { pathname } = useLocation();
+  const railRef = useRef<HTMLDivElement>(null);
+  // Phone menu scrolls sideways: bring the current page's button into view.
+  useEffect(() => {
+    railRef.current?.querySelector<HTMLElement>('[aria-current="page"]')?.scrollIntoView({ inline: 'center', block: 'nearest' });
+  }, [pathname]);
   const { theme, toggleTheme } = useTheme();
 
   const signOut = useCallback(async () => {
@@ -113,10 +118,18 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
 
       {/* Mobile rail */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur flex justify-around py-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] overflow-x-auto">
+      {/* Scrolls sideways: 15 buttons don't fit on a phone, so each keeps its full tap size instead of being squeezed. */}
+      <div ref={railRef} className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur flex gap-1 px-2 py-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:shrink-0">
         {links.map(({ to, label, icon: Icon, end }) => (
           <IconTooltip key={to} label={label} side="top">
-            <NavLink to={to} end={end} aria-label={label} className={({ isActive }) => `min-w-11 min-h-11 flex items-center justify-center rounded-lg ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            {/* A plain class string: the tooltip wrapper can't merge NavLink's function-style className,
+                which left these buttons unstyled and squeezed to 20px. */}
+            <NavLink
+              to={to}
+              end={end}
+              aria-label={label}
+              className={`w-11 h-11 shrink-0 flex items-center justify-center rounded-lg ${(end ? pathname === to : pathname === to || pathname.startsWith(`${to}/`)) ? 'text-primary bg-primary/10' : 'text-muted-foreground'}`}
+            >
               <Icon className="w-5 h-5" />
             </NavLink>
           </IconTooltip>

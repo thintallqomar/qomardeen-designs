@@ -20,13 +20,14 @@ const AtlasHistory = () => {
   const [loadingMessages, setLoadingMessages] = useState(false);
 
   // Route-driven active thread: reloading /admin/atlas/<id> restores that conversation.
+  const { loadMessages } = history;
   useEffect(() => {
-    if (!isAdmin || !threadId) { setMessages([]); return; }
+    if (!isAdmin || !threadId) { setMessages(prev => (prev.length ? [] : prev)); return; }
     let active = true;
     setLoadingMessages(true);
-    history.loadMessages(threadId).then(m => { if (active) { setMessages(m); setLoadingMessages(false); } });
+    loadMessages(threadId).then(m => { if (active) { setMessages(m); setLoadingMessages(false); } });
     return () => { active = false; };
-  }, [isAdmin, threadId, history]);
+  }, [isAdmin, threadId, loadMessages]);
 
   const handleNew = async () => {
     const id = await history.createThread();

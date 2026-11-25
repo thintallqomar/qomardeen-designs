@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import AdminLayout from '@/components/admin/AdminLayout';
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import { Activity, Eye, Globe, MousePointerClick, LogOut, ArrowLeft, Users, TrendingUp, Mail } from 'lucide-react';
+import { Activity, Eye, Globe, MousePointerClick, Users, TrendingUp, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import Icon3D from '@/components/Icon3D';
 
@@ -90,13 +91,8 @@ const AdminAnalytics = () => {
     fetchSubscribers();
   }, [isAdmin]);
 
-  if (authLoading || !isAdmin) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
+  // The route guard and the admin layout already check access; only admins see analytics.
+  if (authLoading || !isAdmin) return <AdminLayout><div /></AdminLayout>;
 
   // Derived stats
   const pageViews = events.filter(e => e.event_type === 'page_view');
@@ -146,44 +142,31 @@ const AdminAnalytics = () => {
     .sort((a, b) => b[1] - a[1])
     .map(([name, value]) => ({ name: name.replace(/_/g, ' '), value }));
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button onClick={() => navigate('/')} className="text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-            <h1 className="text-lg font-bold">Analytics</h1>
+    <AdminLayout>
+      <div className="p-4 md:p-10 max-w-6xl">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-2xl font-bold mb-1">Analytics</h1>
+            <p className="text-sm text-muted-foreground">Visits, pages and newsletter sign-ups.</p>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex gap-1 bg-secondary rounded-lg p-0.5">
-              {(['7d', '30d', 'all'] as const).map(r => (
-                <button
-                  key={r}
-                  onClick={() => setRange(r)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-                    range === r ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {r === 'all' ? 'All' : r}
-                </button>
-              ))}
-            </div>
-            <button onClick={handleLogout} className="text-muted-foreground hover:text-foreground transition-colors">
-              <LogOut className="w-4 h-4" />
-            </button>
+          <div role="tablist" aria-label="Time range" className="flex gap-1 bg-secondary rounded-xl p-1">
+            {(['7d', '30d', 'all'] as const).map(r => (
+              <button
+                key={r}
+                role="tab"
+                aria-selected={range === r}
+                onClick={() => setRange(r)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                  range === r ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {r === 'all' ? 'All time' : r === '7d' ? '7 days' : '30 days'}
+              </button>
+            ))}
           </div>
         </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+      <div className="space-y-8">
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -337,8 +320,9 @@ const AdminAnalytics = () => {
             </motion.div>
           </>
         )}
-      </main>
-    </div>
+      </div>
+      </div>
+    </AdminLayout>
   );
 };
 

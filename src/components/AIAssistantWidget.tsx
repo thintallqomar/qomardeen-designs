@@ -372,7 +372,7 @@ const AIAssistantWidget = () => {
       setNudge(true);
     }, 10000);
     return () => clearTimeout(id);
-  }, [isAdmin, location.pathname]);
+  }, [hiddenForVisitors, isAdmin, location.pathname]);
   useEffect(() => { if (isOpen) setNudge(false); }, [isOpen]);
 
   const startIntro = () => {
@@ -708,7 +708,7 @@ const AIAssistantWidget = () => {
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-5 right-5 z-50 flex h-12 items-center gap-2 rounded-full bg-foreground pl-1.5 pr-4 text-background shadow-lg hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className={`fixed right-5 z-50 flex h-12 items-center gap-2 rounded-full bg-foreground pl-1.5 pr-4 text-background shadow-lg ${location.pathname.startsWith('/admin') ? 'bottom-[4.75rem] md:bottom-5' : 'bottom-5'} hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
             aria-label="Ask Atlas, the AI guide to Qomardeen's work"
             aria-haspopup="dialog"
           >

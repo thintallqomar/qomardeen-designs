@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Icon3D from '@/components/Icon3D';
 import { getMfaState, verifyCode, isSixDigits } from '@/lib/mfa';
 import { errorMessage } from '@/lib/errorMessage';
+import { refreshStaffAuth } from '@/hooks/useStaffAuth';
 
 /** Wrong authenticator codes allowed before the half-finished sign-in is cancelled. */
 const MAX_CODE_TRIES = 5;
@@ -126,6 +127,7 @@ const AdminLogin = () => {
     }
 
     await guard({ action: 'record', email: user.email ?? email, success: true });
+    await refreshStaffAuth(); // so the studio opens straight away instead of bouncing back here
     toast.success('Welcome back!');
     navigate(next ?? '/admin');
   };

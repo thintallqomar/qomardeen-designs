@@ -2,13 +2,19 @@ import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
+// Browsers that block storage throw here; fall back to an id for this page load instead of crashing.
+let memorySessionId: string | null = null;
 const getSessionId = () => {
-  let id = sessionStorage.getItem('visitor_session_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    sessionStorage.setItem('visitor_session_id', id);
+  try {
+    let id = sessionStorage.getItem('visitor_session_id');
+    if (!id) {
+      id = crypto.randomUUID();
+      sessionStorage.setItem('visitor_session_id', id);
+    }
+    return id;
+  } catch {
+    return (memorySessionId ??= crypto.randomUUID());
   }
-  return id;
 };
 
 const trackEvent = async (eventType: string, pagePath: string, metadata?: Record<string, unknown>) => {

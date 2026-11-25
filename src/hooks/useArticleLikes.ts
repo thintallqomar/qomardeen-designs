@@ -4,13 +4,18 @@ import { supabase } from '@/integrations/supabase/client';
 const VISITOR_KEY = 'designqit:visitor_id';
 const LIKED_KEY = 'designqit:liked_articles';
 
+let memoryVisitorId: string | null = null;
 function getVisitorId(): string {
-  let id = localStorage.getItem(VISITOR_KEY);
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem(VISITOR_KEY, id);
+  try {
+    let id = localStorage.getItem(VISITOR_KEY);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(VISITOR_KEY, id);
+    }
+    return id;
+  } catch {
+    return (memoryVisitorId ??= crypto.randomUUID());
   }
-  return id;
 }
 
 function getLikedSet(): Set<string> {
@@ -23,8 +28,8 @@ function getLikedSet(): Set<string> {
 
 function setLikedLocal(slug: string, liked: boolean) {
   const set = getLikedSet();
-  liked ? set.add(slug) : set.delete(slug);
-  localStorage.setItem(LIKED_KEY, JSON.stringify([...set]));
+  if (liked) set.add(slug); else set.delete(slug);
+  try { localStorage.setItem(LIKED_KEY, JSON.stringify([...set])); } catch { /* storage blocked: the like still counts on the server */ }
 }
 
 export function useArticleLikes(articleSlug: string) {

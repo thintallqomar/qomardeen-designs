@@ -1,36 +1,7 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useStaffAuth } from '@/hooks/useStaffAuth';
 
+/** Is the signed-in person an admin (with their authenticator code entered, if they use one)? Shares the one auth check. */
 export const useAdminAuth = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAdmin = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
-
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin');
-
-      setIsAdmin(!!(roles && roles.length > 0));
-      setLoading(false);
-    };
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAdmin();
-    });
-
-    checkAdmin();
-    return () => subscription.unsubscribe();
-  }, []);
-
+  const { isAdmin, loading } = useStaffAuth();
   return { isAdmin, loading };
 };

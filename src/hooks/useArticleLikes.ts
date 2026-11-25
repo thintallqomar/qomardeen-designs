@@ -73,7 +73,7 @@ export function useArticleLikes(articleSlug: string) {
         const { error } = await del;
         if (error) throw error;
       } else {
-        const payload = userId
+        const payload: { article_slug: string; user_id?: string; visitor_id?: string } = userId
           ? { article_slug: articleSlug, user_id: userId }
           : { article_slug: articleSlug, visitor_id: visitorId };
         const { error } = await supabase.from('blog_likes').insert(payload);

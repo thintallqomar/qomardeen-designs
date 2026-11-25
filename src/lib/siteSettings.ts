@@ -17,6 +17,7 @@ export const SITE_SLUGS = {
   hiddenProjects: 'site-setting-hidden-projects',
   atlasNotes: 'site-setting-atlas-notes',
   atlas: 'site-setting-atlas',
+  footerScenes: 'site-setting-footer-scenes',
 } as const;
 export type SiteKey = keyof typeof SITE_SLUGS;
 
@@ -29,10 +30,11 @@ const TITLES: Record<SiteKey, string> = {
   hiddenProjects: 'Site setting: Projects switched off',
   atlasNotes: 'Site setting: Notes for Atlas',
   atlas: 'Site setting: Atlas on/off',
+  footerScenes: 'Site setting: Footer scenery on/off',
 };
 
 /** Keys that hold a short piece of text (kept in the entry's subtitle) instead of a file. */
-export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine', 'hiddenProjects', 'atlasNotes', 'atlas'];
+export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine', 'hiddenProjects', 'atlasNotes', 'atlas', 'footerScenes'];
 
 export interface SiteSetting {
   url: string;
@@ -125,6 +127,9 @@ export const atlasConfigOf = (settings: SiteSettings): AtlasConfig => {
     idleSeconds: secs !== undefined && Number.isFinite(n) && n >= 0 ? n : ATLAS_IDLE_DEFAULT,
   };
 };
+/** Game scenery behind the footer. Nothing saved = on; "off" hides it. */
+export const footerScenesOf = (settings: SiteSettings): boolean => settings.footerScenes?.fileName !== 'off';
+
 export const atlasConfigValue = (c: AtlasConfig) => `${c.enabled ? 'on' : 'off'}|${c.idleSeconds}`;
 
 export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { userId: string | null; email: string | null }) {

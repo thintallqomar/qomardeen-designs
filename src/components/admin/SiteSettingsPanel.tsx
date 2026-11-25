@@ -7,7 +7,7 @@ import { canPublish } from '@/lib/roles';
 import { uploadMedia, uploadDocument, formatBytes, MAX_UPLOAD_BYTES, MAX_DOC_BYTES } from '@/lib/media';
 import {
   fetchSiteSettings, saveSiteSetting, saveSiteValue, clearSiteSetting, heroStyleOf, nowLineOf, atlasNotesOf,
-  atlasConfigOf, atlasConfigValue, ATLAS_IDLE_CHOICES, type AtlasConfig,
+  atlasConfigOf, atlasConfigValue, ATLAS_IDLE_CHOICES, footerScenesOf, type AtlasConfig,
   type SiteKey, type SiteSetting, type HeroStyle,
 } from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
@@ -231,6 +231,26 @@ const AtlasSwitch = ({ config, busy, onChange }: { config: AtlasConfig; busy: bo
   </section>
 );
 
+const FooterScenesSwitch = ({ on, busy, onChange }: { on: boolean; busy: boolean; onChange: (on: boolean) => void }) => (
+  <section className="card-elegant p-5 md:p-6">
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <h2 className="text-lg font-semibold">Footer scenery</h2>
+        <p className="text-sm text-muted-foreground mt-1">
+          {on
+            ? 'On: faded scenes inspired by your favourite games (a neon coast, a frontier at dusk, a moonlit field, a city at night) take turns behind the footer on every page.'
+            : 'Off: the footer shows no scenery.'}
+        </p>
+        <p className="text-xs text-muted-foreground mt-1.5">Visitors who turn on reduced motion see one still scene.</p>
+      </div>
+      <label className={`flex items-center gap-2 shrink-0 ${busy ? 'opacity-50' : 'cursor-pointer'}`}>
+        <span className={`w-6 text-right text-xs font-medium ${on ? 'text-foreground' : 'text-muted-foreground'}`}>{on ? 'On' : 'Off'}</span>
+        <Switch checked={on} disabled={busy} onCheckedChange={onChange} aria-label="Show scenery behind the footer" />
+      </label>
+    </div>
+  </section>
+);
+
 const AtlasNotes = ({ value, busy, onSave }: { value: string; busy: boolean; onSave: (v: string) => void }) => {
   const [draft, setDraft] = useState(value);
   useEffect(() => setDraft(value), [value]);
@@ -364,6 +384,11 @@ const SiteSettingsPanel = () => {
         config={atlasConfigOf(settings)}
         busy={busy === 'atlas'}
         onChange={c => saveValue('atlas', atlasConfigValue(c), c.enabled ? (c.idleSeconds ? `Atlas is on and closes after ${c.idleSeconds} seconds without activity.` : 'Atlas is on and stays open until closed.') : 'Atlas is off for visitors.')}
+      />
+      <FooterScenesSwitch
+        on={footerScenesOf(settings)}
+        busy={busy === 'footerScenes'}
+        onChange={on => saveValue('footerScenes', on ? '' : 'off', on ? 'Footer scenery is on.' : 'Footer scenery is off.')}
       />
       <AtlasNotes
         value={atlasNotesOf(settings)}

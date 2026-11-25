@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Mail, Phone } from 'lucide-react';
+import { ArrowUp, Linkedin, Mail, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
+import { useFooterScenes } from '@/hooks/useSiteSettings';
 import NewsletterCapture from './NewsletterCapture';
+import FooterScenes from './FooterScenes';
 
 const XIcon = () => (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -10,14 +13,34 @@ const XIcon = () => (
   </svg>
 );
 
+/** Qomardeen's local time (Lagos), refreshed every 30 seconds. */
+const useLagosTime = () => {
+  const fmt = () => {
+    try {
+      return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Lagos' }).format(new Date());
+    } catch {
+      return '';
+    }
+  };
+  const [time, setTime] = useState(fmt);
+  useEffect(() => {
+    const id = window.setInterval(() => setTime(fmt()), 30_000);
+    return () => window.clearInterval(id);
+  }, []);
+  return time;
+};
+
 /**
  * Minimal footer: who, where to go, how to reach you, newsletter, copyright. Two rows on desktop.
- * Every item is a link or a working form.
+ * Every item is a link or a working form. Behind it sits quiet scenery from the games Qomardeen plays
+ * (switch it off in Admin › Site).
  */
 const Footer = () => {
   const year = new Date().getFullYear();
   const { t } = useTranslation();
   const localizedPath = useLocalizedPath();
+  const scenesOn = useFooterScenes();
+  const lagosTime = useLagosTime();
 
   const links = [
     { name: t('nav.projects'), href: '/projects' },
@@ -34,22 +57,28 @@ const Footer = () => {
     { icon: <Phone className="w-4 h-4" />, href: 'tel:+2348139469192', label: 'Phone' },
     { icon: <XIcon />, href: 'https://x.com/the_Qomardeen', label: 'X (Twitter)' },
   ];
-  const linkCls = 'py-1 text-sm text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded';
+  const ring = 'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+  const linkCls = `footer-link py-1 text-sm text-muted-foreground hover:text-foreground transition-colors rounded ${ring}`;
+  const toTop = () => {
+    const smooth = !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+  };
 
   return (
-    <footer className="border-t border-border bg-card/40">
-      <div className="container-custom">
-        <div className="flex flex-col gap-4 py-6 lg:flex-row lg:items-center lg:justify-between">
-          <Link to={localizedPath('/')} className="shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
-            <span className="font-semibold">Qomardeen Tijani</span>
-            <span className="text-sm text-muted-foreground"> · {t('footer.description')}</span>
+    <footer className="site-footer relative isolate overflow-hidden">
+      {scenesOn && <FooterScenes />}
+      <div className="container-custom relative">
+        <div className="flex flex-col gap-5 pt-10 pb-6 lg:flex-row lg:items-end lg:justify-between">
+          <Link to={localizedPath('/')} className={`group shrink-0 rounded ${ring}`}>
+            <span className="block text-xl font-semibold tracking-tight md:text-2xl">Qomardeen Tijani</span>
+            <span className="mt-0.5 block text-sm text-muted-foreground">{t('footer.description')}</span>
           </Link>
           <nav aria-label={t('footer.quickLinks')} className="flex flex-wrap gap-x-5 gap-y-1">
             {links.map(l => (
               <Link key={l.href} to={localizedPath(l.href)} className={linkCls}>{l.name}</Link>
             ))}
           </nav>
-          <div className="flex items-center gap-1 -ml-2 lg:ml-0">
+          <div className="flex items-center gap-2">
             {socials.map(s => (
               <a
                 key={s.label}
@@ -58,22 +87,41 @@ const Footer = () => {
                 title={s.label}
                 target={s.href.startsWith('http') ? '_blank' : undefined}
                 rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="grid h-10 w-10 place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className={`footer-icon grid h-10 w-10 place-items-center rounded-full text-muted-foreground hover:text-foreground transition-colors ${ring}`}
               >
                 {s.icon}
               </a>
             ))}
           </div>
         </div>
-        <div className="flex flex-col-reverse gap-3 border-t border-border py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="footer-rule" aria-hidden="true" />
+        <div className="flex flex-col-reverse gap-4 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            {t('footer.copyright', { year })} ·{' '}
+            {t('footer.copyright', { year })}
+            <span className="mx-1.5" aria-hidden="true">·</span>
             <Link to={localizedPath('/hire')} className="inline-flex items-center gap-1.5 hover:text-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden="true" />
-              {t('footer.location')} · {t('footer.availableTitle')}
+              {t('footer.availableTitle')}
             </Link>
+            {lagosTime && (
+              <>
+                <span className="mx-1.5" aria-hidden="true">·</span>
+                <span className="tabular-nums">{t('footer.location')} {lagosTime} WAT</span>
+              </>
+            )}
           </p>
-          <NewsletterCapture compact />
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <NewsletterCapture compact />
+            <button
+              type="button"
+              onClick={toTop}
+              aria-label={t('footer.backToTop', { defaultValue: 'Back to top' })}
+              title={t('footer.backToTop', { defaultValue: 'Back to top' })}
+              className={`footer-icon grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground hover:text-foreground transition-colors ${ring}`}
+            >
+              <ArrowUp className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

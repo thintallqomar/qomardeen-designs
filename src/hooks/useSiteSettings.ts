@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { atlasConfigOf, cachedSiteSettings, getSiteSettings, heroStyleOf, hiddenProjectsOf, nowLineOf, type AtlasConfig, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
+import { atlasConfigOf, cachedSiteSettings, footerScenesOf, getSiteSettings, heroStyleOf, hiddenProjectsOf, nowLineOf, type AtlasConfig, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
 
 /**
  * Uploaded hero images / CV. Returns the settings plus `ready`: true once we know whether anything was uploaded
@@ -37,3 +37,6 @@ export const useHiddenProjects = (): Set<string> => hiddenProjectsOf(useSiteSett
 
 /** Atlas on/off and its auto-close time, from Admin › Site. */
 export const useAtlasConfig = (): AtlasConfig => atlasConfigOf(useSiteSettings());
+
+/** Game scenery behind the footer, from Admin › Site (on unless switched off). */
+export const useFooterScenes = (): boolean => footerScenesOf(useSiteSettings());

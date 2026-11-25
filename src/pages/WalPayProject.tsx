@@ -59,13 +59,6 @@ const stickyScrollItems = [
     imageAlt: 'User Persona - Sarah Jenkins',
   },
   {
-    title: 'Design Language',
-    subtitle: 'Visual System',
-    description: 'A fintech product demands trust. We built a design system around clean geometry, a confidence-inspiring blue palette, and typography that balances authority with approachability.',
-    image: frame09,
-    imageAlt: 'Style Guide',
-  },
-  {
     title: 'Mobile-First Experience',
     subtitle: 'Final Designs',
     description: 'Every screen was designed for thumb-friendly interaction on mobile. The send-money flow was reduced from 8 steps to 3, with real-time rate visibility and instant confirmation.',
@@ -105,7 +98,7 @@ const WalPayProject = () => {
               liveUrl={BEHANCE_URL}
             />
 
-            {/* Sticky Scroll Storytelling */}
+            {/* Story: three steps */}
             <StickyScrollSection items={stickyScrollItems} />
 
             <CaseStudyFrames

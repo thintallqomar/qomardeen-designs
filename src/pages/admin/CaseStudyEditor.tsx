@@ -15,6 +15,7 @@ import {
   type ContentStatus, type ContentVisibility, type CaseStudyBody,
   type CaseStudySection, type CaseStudyFrame,
   PROJECT_KINDS } from '@/lib/cms';
+import { MAX_STORY_STEPS } from '@/components/StickyScrollSection';
 import {
   ArrowLeft, Save, Loader2, ImagePlus, X, Plus, Trash2, GripVertical, ChevronUp, ChevronDown,
 } from 'lucide-react';
@@ -314,7 +315,7 @@ const CaseStudyEditor = () => {
             </div>
           </section>
 
-          {/* Sticky-scroll sections */}
+          {/* Story sections (the page shows the first MAX_STORY_STEPS) */}
           <section>
             <div className="flex items-center justify-between mb-3">
               <div>
@@ -322,10 +323,10 @@ const CaseStudyEditor = () => {
                 <p className="text-[11px] text-muted-foreground/70">
                   {cs.kind === 'other'
                     ? 'Optional for other projects. You can skip this and just add your frames below.'
-                    : 'Sticky-scroll storytelling blocks: problem, research, design, outcome.'}
+                    : `Up to ${MAX_STORY_STEPS} steps, for example the problem, the key decision and the result.`}
                 </p>
               </div>
-              <button onClick={addSection} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary text-sm hover:bg-secondary/70">
+              <button onClick={addSection} disabled={cs.sections.length >= MAX_STORY_STEPS} title={cs.sections.length >= MAX_STORY_STEPS ? `The page shows ${MAX_STORY_STEPS} steps at most` : undefined} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary text-sm hover:bg-secondary/70 disabled:opacity-40 disabled:cursor-not-allowed">
                 <Plus className="w-4 h-4" /> Add section
               </button>
             </div>
@@ -340,6 +341,7 @@ const CaseStudyEditor = () => {
                   <div className="flex items-center justify-between mb-3">
                     <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
                       <GripVertical className="w-3.5 h-3.5" /> Section {i + 1}
+                      {i >= MAX_STORY_STEPS && <span className="text-amber-600 dark:text-amber-400">Not shown on the page. Remove it or move it up.</span>}
                     </span>
                     <div className="flex items-center gap-1">
                       <button onClick={() => moveSection(i, -1)} disabled={i === 0} aria-label="Move up" className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground disabled:opacity-30"><ChevronUp className="w-4 h-4" /></button>

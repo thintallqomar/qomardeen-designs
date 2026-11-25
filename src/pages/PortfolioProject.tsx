@@ -51,17 +51,9 @@ const story = [
     subtitle: 'Positioning',
     title: 'One idea: a designer who builds',
     description:
-      'Everything hangs on one line: "I design products. Then I build them." The Home portrait splits into the designer and a code-made version; your pointer slides the seam. About keeps it honest with an 80/20 split, because I am still early on the building side.',
+      'Everything hangs on one line: "I design products. Then I build them." The Home portrait splits into the designer and a code-made version; your pointer slides the seam. About keeps it honest with an 80/20 split. Every page then follows the same rules: one type scale, one left edge, and only what you point at gets a fill.',
     image: hero,
     imageAlt: 'The split-portrait Home hero: designer on one side, builder on the other',
-  },
-  {
-    subtitle: 'Design system',
-    title: 'Every page follows the same rules',
-    description:
-      'Each page opens with one lowercase word and a dot, then follows one type scale, one left edge and one highlight rule: only what you point at gets a fill. Light mode runs from 6am to 6pm, dark after that, and visitors can switch.',
-    image: system,
-    imageAlt: 'Projects and About pages sharing the same opening',
   },
   {
     subtitle: 'Iteration',
@@ -73,18 +65,6 @@ const story = [
     metrics: [
       { label: 'Smaller footer', value: '81%' },
       { label: 'Hire sections', value: '8 → 6' },
-    ],
-  },
-  {
-    subtitle: 'Build',
-    title: 'Built so I can run it myself',
-    description:
-      'I started it in Lovable, then kept improving it with Claude: I decide and review, Claude builds and tests. I edit everything from my own admin, and it ships in 11 languages.',
-    image: phones,
-    imageAlt: 'The site on a phone',
-    metrics: [
-      { label: 'Languages', value: '11' },
-      { label: 'Screen widths checked', value: '4' },
     ],
   },
 ];
@@ -140,7 +120,7 @@ const workflow = [
   { step: 'Built in Lovable', body: 'I started the site in Lovable: the first pages, the Supabase database and the AI assistant. It got me live quickly.' },
   { step: 'Moved to Claude', body: 'When my Lovable credits ran out, I gave Claude my site\'s code from GitHub. I describe what I want in plain words, often with screenshots, and Claude reads the code and makes the change.' },
   { step: 'Checked before I see it', body: 'Claude builds every change and checks it in a real browser at four screen widths, in light and dark mode, measuring things like footer height instead of eyeballing them.' },
-  { step: 'I review and ship', body: 'Every update comes back as one package with a plain-English list of what changed. I review it, upload it to GitHub, and Lovable deploys it.' },
+  { step: 'I review and ship', body: 'Every update comes back as one package with a plain-English list of what changed. I review it, upload it to GitHub, then publish it from Lovable.' },
 ];
 const iDid = [
   'Set the direction: "designer who builds", and honest about the 80/20',

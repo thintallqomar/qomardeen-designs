@@ -44,7 +44,7 @@ export interface CaseStudyBody {
   platform?: string;     // e.g. "Web App (SaaS)"
   timeline?: string;     // e.g. "8 Weeks"
   behanceUrl?: string;   // external Behance / live link
-  sections: CaseStudySection[];   // sticky-scroll storytelling
+  sections: CaseStudySection[];   // story steps (the page shows up to 3)
   gallery: CaseStudyFrame[];      // full-frame gallery
 }
 

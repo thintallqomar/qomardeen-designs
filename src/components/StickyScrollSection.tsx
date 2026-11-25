@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import RichText from '@/components/RichText';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import ScrollReveal from '@/components/ScrollReveal';
+import ImageViewer from '@/components/ImageViewer';
 
-interface StickyScrollItem {
+interface StoryItem {
   title: string;
   subtitle?: string;
   description: string;
@@ -13,114 +14,89 @@ interface StickyScrollItem {
   metrics?: { label: string; value: string }[];
 }
 
-interface StickyScrollSectionProps {
-  items: StickyScrollItem[];
+interface StoryProps {
+  items: StoryItem[];
   className?: string;
 }
 
-/** How far you scroll (in screen heights) before moving to the next story step. */
-const VH_PER_STEP = 70;
+/** A case study story stays short: the problem, what changed, the result. Extra steps are not shown. */
+export const MAX_STORY_STEPS = 3;
 
 /**
- * Story section that stays pinned while you scroll.
+ * The story part of every case study (UpTime, WalPay, the portfolio and admin-made ones).
  *
- * Scrolling only decides WHICH step is showing. The fade between steps is a short CSS
- * transition that runs on the graphics card, so it stays smooth even on slow phones
- * (the previous version recalculated every element on every scroll tick, which is what
- * made it stutter).
+ * Plain rows that scroll at the visitor's own pace: words on the left, picture on the
+ * right, every step visible while skimming. This replaced a pinned "sticky scroll"
+ * version that held the page still and hid each step until you scrolled far enough,
+ * which felt slow and made recruiters skip it. Tap a picture to open it full screen.
+ * (The file keeps its old name so existing imports keep working.)
  */
-const StickyScrollSection = ({ items, className = '' }: StickyScrollSectionProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] });
-
-  const pick = (v: number) => {
-    const i = Math.min(items.length - 1, Math.max(0, Math.floor(v * items.length)));
-    setActive(prev => (prev === i ? prev : i));
-  };
-  useMotionValueEvent(scrollYProgress, 'change', pick);
-  useEffect(() => { pick(scrollYProgress.get()); /* eslint-disable-next-line */ }, [items.length]);
-
-  const scrollHeight = `${100 + (items.length - 1) * VH_PER_STEP}vh`;
-  const fade = 'transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none';
-  const state = (i: number, from: string, to: string) =>
-    i === active ? 'opacity-100 translate-y-0 scale-100' : i < active ? `opacity-0 ${to}` : `opacity-0 ${from}`;
+const CaseStudyStory = ({ items, className = '' }: StoryProps) => {
+  const steps = items.slice(0, MAX_STORY_STEPS);
+  const [open, setOpen] = useState<number | null>(null);
+  if (steps.length === 0) return null;
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: scrollHeight }}>
-      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
-        <div className="container-custom w-full">
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-14 items-center">
-            {/* Text */}
-            <div className="relative h-[46vh] lg:h-[60vh] flex items-center">
-              {items.map((item, i) => (
-                <div
-                  key={i}
-                  aria-hidden={i !== active}
-                  className={`absolute inset-0 flex flex-col justify-center will-change-[opacity,transform] ${fade} ${
-                    i === active ? '' : 'pointer-events-none'
-                  } ${state(i, 'translate-y-6', '-translate-y-6')}`}
-                >
-                  {item.subtitle && (
-                    <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-2 sm:mb-3">{item.subtitle}</span>
-                  )}
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 tracking-tight">{item.title}</h2>
-                  <RichText
-                    json={item.descriptionJson}
-                    fallback={item.description}
-                    className="text-[15px] sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg"
-                  />
-                  {item.metrics && item.metrics.length > 0 && (
-                    <div className="flex gap-6 mt-4 sm:mt-8">
-                      {item.metrics.map((m, k) => (
-                        <div key={k}>
-                          <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-primary">{m.value}</span>
-                          <span className="block text-xs text-muted-foreground mt-1">{m.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+    <section className={`section-padding ${className}`}>
+      <div className="container-custom">
+        <ol className="space-y-14 md:space-y-20">
+          {steps.map((item, i) => (
+            <li key={i}>
+              <ScrollReveal>
+                <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-6 lg:gap-14 lg:items-center border-t border-border pt-8 md:pt-10">
+                  <div className="max-w-xl">
+                    <p className="mb-3 flex items-baseline gap-3 text-sm">
+                      <span className="font-mono text-primary tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                      {item.subtitle && <span className="font-medium text-muted-foreground">{item.subtitle}</span>}
+                    </p>
+                    <h2 className="t-h2 mb-3 md:mb-4">{item.title}</h2>
+                    <RichText
+                      json={item.descriptionJson}
+                      fallback={item.description}
+                      className="text-[15px] md:text-base text-muted-foreground leading-relaxed"
+                    />
+                    {item.metrics && item.metrics.length > 0 && (
+                      <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
+                        {item.metrics.map((m, k) => (
+                          <div key={k}>
+                            <p className="text-2xl md:text-3xl font-bold tracking-tight text-primary">{m.value}</p>
+                            <p className="text-sm text-muted-foreground mt-1">{m.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
-            {/* Image: always shown whole (scaled to fit), never cropped. All images load up front so none pops in late. */}
-            <div className="relative h-[36vh] lg:h-[70vh]">
-              {items.map((item, i) => (
-                <div
-                  key={i}
-                  aria-hidden={i !== active}
-                  className={`absolute inset-0 flex items-center justify-center will-change-[opacity,transform] ${fade} ${
-                    i === active ? '' : 'pointer-events-none'
-                  } ${state(i, 'translate-y-4 scale-[0.98]', '-translate-y-4 scale-[0.98]')}`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.imageAlt}
-                    decoding="async"
-                    {...{ fetchpriority: i === 0 ? 'high' : 'auto' }}
-                    className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl border border-border bg-card shadow-lg transform-gpu"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setOpen(i)}
+                    className="block w-full overflow-hidden rounded-2xl border border-border bg-card cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    aria-label={`${item.imageAlt}: open full screen`}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto max-h-[70vh] object-contain"
+                    />
+                  </button>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Progress dots */}
-        {items.length > 1 && (
-          <div aria-hidden="true" className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
-            {items.map((_, i) => (
-              <span
-                key={i}
-                className={`w-2 h-2 rounded-full bg-primary transition-all duration-300 ${i === active ? 'opacity-100 scale-150' : 'opacity-30'}`}
-              />
-            ))}
-          </div>
-        )}
+              </ScrollReveal>
+            </li>
+          ))}
+        </ol>
       </div>
-    </div>
+
+      <ImageViewer
+        images={steps.map(s => ({ src: s.image, alt: s.imageAlt }))}
+        currentIndex={open ?? 0}
+        isOpen={open !== null}
+        onClose={() => setOpen(null)}
+        onNavigate={setOpen}
+      />
+    </section>
   );
 };
 
-export default StickyScrollSection;
+export default CaseStudyStory;

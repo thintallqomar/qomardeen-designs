@@ -98,7 +98,7 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
               liveUrl={liveUrl || undefined}
             />
 
-            {/* Sticky Scroll Storytelling */}
+            {/* Story (up to three steps) */}
             {sections.length > 0 && (
               <StickyScrollSection
                 items={sections.map(s => ({

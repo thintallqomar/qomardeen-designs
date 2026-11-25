@@ -52,13 +52,6 @@ const stickyScrollItems = [
     imageAlt: 'User Persona',
   },
   {
-    title: 'Design System & Identity',
-    subtitle: 'Visual Foundation',
-    description: 'We crafted a professional yet approachable brand identity with a clean color palette, structured typography, and iconography that communicates reliability and precision.',
-    image: frame07,
-    imageAlt: 'Brand Identity',
-  },
-  {
     title: 'The Dashboard',
     subtitle: 'Core Experience',
     description: 'The central hub provides real-time asset health, upcoming maintenance schedules, and actionable alerts — transforming data overload into clear, prioritized insights.',
@@ -98,7 +91,7 @@ const UptimeProject = () => {
               liveUrl={"https://www.behance.net/gallery/239892845/UpTime"}
             />
 
-            {/* Sticky Scroll Storytelling */}
+            {/* Story: three steps */}
             <StickyScrollSection items={stickyScrollItems} />
 
             <CaseStudyFrames

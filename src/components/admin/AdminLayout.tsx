@@ -1,12 +1,13 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { NavLink, useNavigate, Navigate, useLocation, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { useTheme } from '@/hooks/useTheme';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare, Inbox, SlidersHorizontal, UserRound, ShieldCheck, ShieldAlert,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare, Inbox, SlidersHorizontal, UserRound, ShieldCheck, ShieldAlert, Menu,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet';
 
 const links = [
   { to: '/admin', end: true, label: 'Overview', icon: LayoutDashboard },
@@ -31,11 +32,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { loading, isStaff, needsMfa, mfaEnabled, email, roles } = useStaffAuth();
   const { pathname } = useLocation();
-  const railRef = useRef<HTMLDivElement>(null);
-  // Phone menu scrolls sideways: bring the current page's button into view.
-  useEffect(() => {
-    railRef.current?.querySelector<HTMLElement>('[aria-current="page"]')?.scrollIntoView({ inline: 'center', block: 'nearest' });
-  }, [pathname]);
+  // Phones: the menu lives behind a button at the top right, and closes after you pick a page.
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  const isCurrent = (to: string, end?: boolean) => (end ? pathname === to : pathname === to || pathname.startsWith(`${to}/`));
+  const current = links.find(l => isCurrent(l.to, l.end));
   const { theme, toggleTheme } = useTheme();
 
   const signOut = useCallback(async () => {
@@ -117,34 +118,59 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </aside>
 
-      {/* Mobile rail */}
-      {/* Scrolls sideways: 15 buttons don't fit on a phone, so each keeps its full tap size instead of being squeezed. */}
-      <div ref={railRef} className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-background/95 backdrop-blur flex gap-1 px-2 py-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&>*]:shrink-0">
-        {links.map(({ to, label, icon: Icon, end }) => (
-          <IconTooltip key={to} label={label} side="top">
-            {/* A plain class string: the tooltip wrapper can't merge NavLink's function-style className,
-                which left these buttons unstyled and squeezed to 20px. */}
-            <NavLink
-              to={to}
-              end={end}
-              aria-label={label}
-              className={`w-11 h-11 shrink-0 flex items-center justify-center rounded-lg ${(end ? pathname === to : pathname === to || pathname.startsWith(`${to}/`)) ? 'text-primary bg-primary/10' : 'text-muted-foreground'}`}
-            >
-              <Icon className="w-5 h-5" />
-            </NavLink>
-          </IconTooltip>
-        ))}
-        <IconTooltip label={theme === 'dark' ? 'Light mode' : 'Dark mode'} side="top">
-          <button onClick={toggleTheme} aria-label="Toggle theme" className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-muted-foreground">
-            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      <main className="flex-1 min-w-0 overflow-x-hidden">
+        {/* Phone top bar: where you are, and the menu button */}
+        <div className="md:hidden sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-border bg-background/90 px-4 py-2 pt-[calc(0.5rem+env(safe-area-inset-top))] backdrop-blur">
+          <div className="min-w-0">
+            <p className="text-sm font-bold leading-tight">Studio</p>
+            <p className="truncate text-xs text-muted-foreground">{current?.label ?? 'Admin'}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            className="grid h-11 w-11 place-items-center rounded-xl text-foreground hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Menu className="h-5 w-5" />
           </button>
-        </IconTooltip>
-        <IconTooltip label="Sign out" side="top">
-          <button onClick={signOut} aria-label="Sign out" className="min-w-11 min-h-11 flex items-center justify-center rounded-lg text-muted-foreground"><LogOut className="w-5 h-5" /></button>
-        </IconTooltip>
-      </div>
-
-      <main className="flex-1 min-w-0 overflow-x-hidden pb-24 md:pb-0">
+        </div>
+        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+          <SheetContent side="right" className="md:hidden flex w-[min(20rem,85vw)] flex-col gap-0 p-0">
+            <div className="px-5 pt-[calc(1.25rem+env(safe-area-inset-top))] pb-4 pr-12 border-b border-border">
+              <SheetTitle className="text-base">Studio</SheetTitle>
+              <SheetDescription className="truncate text-xs">{email}</SheetDescription>
+              <p className="text-[10px] uppercase tracking-wider text-primary mt-1">{roles.join(' · ') || 'staff'}</p>
+            </div>
+            <nav aria-label="Admin" className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+              {links.map(({ to, label, icon: Icon, end }) => {
+                const on = isCurrent(to, end);
+                return (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    end={end}
+                    className={`flex min-h-10 items-center gap-3 rounded-xl px-3 text-[15px] transition-colors ${on ? 'bg-primary/10 text-primary font-medium' : 'text-foreground/80 hover:bg-secondary'}`}
+                  >
+                    <Icon className="h-4 w-4 shrink-0" />
+                    {label}
+                  </NavLink>
+                );
+              })}
+            </nav>
+            <div className="border-t border-border px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] space-y-0.5">
+              <button onClick={toggleTheme} className="flex min-h-10 w-full items-center gap-3 rounded-xl px-3 text-[15px] text-foreground/80 hover:bg-secondary">
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />} {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+              </button>
+              <button onClick={() => navigate('/')} className="flex min-h-10 w-full items-center gap-3 rounded-xl px-3 text-[15px] text-foreground/80 hover:bg-secondary">
+                <ArrowLeft className="h-4 w-4" /> Back to site
+              </button>
+              <button onClick={signOut} className="flex min-h-10 w-full items-center gap-3 rounded-xl px-3 text-[15px] text-foreground/80 hover:bg-secondary">
+                <LogOut className="h-4 w-4" /> Sign out
+              </button>
+            </div>
+          </SheetContent>
+        </Sheet>
         {!mfaEnabled && pathname !== '/admin/security' && (
           <Link
             to="/admin/security"

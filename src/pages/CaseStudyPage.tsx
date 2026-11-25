@@ -1,27 +1,17 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import ReadingProgress from '@/components/ReadingProgress';
-import FloatingBackButton from '@/components/FloatingBackButton';
 import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import PageTransition from '@/components/PageTransition';
-import PageSEO from '@/components/PageSEO';
-import ImageViewer from '@/components/ImageViewer';
-import StickyScrollSection from '@/components/StickyScrollSection';
-import { CaseStudyHeader, CaseStudyFrames, CaseStudyEnd } from '@/components/caseStudy/CaseStudyParts';
-import { fetchBySlug, projectKind, type CaseStudyBody } from '@/lib/cms';
+import { fetchBySlug, type CaseStudyBody } from '@/lib/cms';
+import CaseStudyView from '@/components/caseStudy/CaseStudyView';
 
 const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
   const { t } = useTranslation();
   const params = useParams();
   const slug = slugProp ?? params.slug ?? '';
   const navigate = useNavigate();
-  const [viewerOpen, setViewerOpen] = useState(false);
-  const [viewerIndex, setViewerIndex] = useState(0);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['case-study', slug],
@@ -61,85 +51,16 @@ const CaseStudyPage = ({ slug: slugProp }: { slug?: string }) => {
   }
 
   const body = (data.body_json as CaseStudyBody | null) ?? { sections: [], gallery: [] };
-  const sections = Array.isArray(body.sections) ? body.sections.filter(s => s.image) : [];
-  const gallery = Array.isArray(body.gallery) ? body.gallery.filter(g => g.src) : [];
-  const liveUrl = body.behanceUrl || data.resource_url || '';
-  const isOther = projectKind(body) === 'other';
-  const viewerImages = gallery.map((g, i) => ({ src: g.src, alt: g.alt || g.label || `Frame ${i + 1}` }));
-
-  const openViewer = (index: number) => { setViewerIndex(index); setViewerOpen(true); };
-
   return (
-    <>
-      <Navigation />
-      <PageSEO
-        title={data.seo_title || `${data.title} — Qomardeen Tijani`}
-        description={data.seo_description || data.excerpt || data.subtitle || ''}
-        path={`/projects/${data.slug}`}
-        image={data.cover_image || undefined}
-      />
-      <PageTransition>
-        <div className="min-h-screen">
-          <ReadingProgress />
-
-          <FloatingBackButton />
-
-          <main className="pt-14">
-            <CaseStudyHeader
-              badge={body.badge}
-              title={data.title}
-              lead={data.subtitle || data.excerpt || undefined}
-              facts={[
-                { label: t('caseStudy.role'), value: body.role || '' },
-                { label: t('caseStudy.scope'), value: body.scope || '' },
-                { label: t('caseStudy.platform'), value: body.platform || '' },
-                { label: t('caseStudy.timeline'), value: body.timeline || '' },
-              ]}
-              liveUrl={liveUrl || undefined}
-            />
-
-            {/* Story (up to three steps) */}
-            {sections.length > 0 && (
-              <StickyScrollSection
-                items={sections.map(s => ({
-                  title: s.title,
-                  subtitle: s.subtitle,
-                  description: s.description,
-                  descriptionJson: s.descriptionJson,
-                  image: s.image,
-                  imageAlt: s.imageAlt || s.title,
-                  metrics: s.metrics,
-                }))}
-              />
-            )}
-
-            {/* Full-frame gallery */}
-            {gallery.length > 0 && (
-              <CaseStudyFrames
-                title={isOther ? t('caseStudy.framesTitle') : t('caseStudy.fullTitle')}
-                blurb={isOther ? t('caseStudy.framesBlurb') : t('caseStudy.fullBlurb')}
-                frames={gallery.map((g, i) => ({ src: g.src, alt: g.alt || g.label || `Frame ${i + 1}`, label: g.label }))}
-                onOpen={openViewer}
-              />
-            )}
-
-            <CaseStudyEnd />
-          </main>
-
-          <Footer />
-
-          {gallery.length > 0 && (
-            <ImageViewer
-              images={viewerImages}
-              currentIndex={viewerIndex}
-              isOpen={viewerOpen}
-              onClose={() => setViewerOpen(false)}
-              onNavigate={setViewerIndex}
-            />
-          )}
-        </div>
-      </PageTransition>
-    </>
+    <CaseStudyView
+      slug={data.slug}
+      title={data.title}
+      lead={data.subtitle || data.excerpt || undefined}
+      seoTitle={data.seo_title || undefined}
+      seoDescription={data.seo_description || data.excerpt || data.subtitle || undefined}
+      seoImage={data.cover_image || undefined}
+      body={{ ...body, behanceUrl: body.behanceUrl || data.resource_url || '' }}
+    />
   );
 };
 

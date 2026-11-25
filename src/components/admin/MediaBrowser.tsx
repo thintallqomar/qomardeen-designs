@@ -6,20 +6,24 @@ import {
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 import {
-  listMedia, uploadMedia, deleteMedia, replaceMedia, updateMedia, storageUsage,
-  folderList, formatBytes, STORAGE_QUOTA_BYTES, type MediaAsset,
+  listMedia, uploadMedia, uploadVideo, deleteMedia, replaceMedia, updateMedia, storageUsage,
+  folderList, formatBytes, STORAGE_QUOTA_BYTES, isVideoAsset, type MediaAsset,
 } from '@/lib/media';
 
 interface Props {
   /** When set, clicking a tile selects it instead of just opening details. */
   onSelect?: (asset: MediaAsset) => void;
   compact?: boolean;
+  /** What to show and accept. Pickers default to images; the library shows everything. */
+  kind?: 'image' | 'video' | 'all';
 }
 
 const inputCls =
   'w-full px-3 py-2 bg-secondary border border-border rounded-xl text-sm outline-none focus:ring-1 focus:ring-primary';
 
-const MediaBrowser = ({ onSelect, compact }: Props) => {
+const MediaBrowser = ({ onSelect, compact, kind: kindProp }: Props) => {
+  const kind = kindProp ?? (onSelect ? 'image' : 'all');
+  const accept = kind === 'video' ? 'video/mp4,video/webm' : kind === 'image' ? 'image/*' : 'image/*,video/mp4,video/webm';
   const qc = useQueryClient();
   const { data: assets = [], isLoading } = useQuery({ queryKey: ['media'], queryFn: listMedia });
 
@@ -38,11 +42,13 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return assets.filter(a => {
+      if (kind === 'video' && !isVideoAsset(a)) return false;
+      if (kind === 'image' && isVideoAsset(a)) return false;
       if (folder !== 'all' && (a.folder || 'uploads') !== folder) return false;
       if (!q) return true;
       return `${a.file_name} ${a.alt_text ?? ''} ${a.folder}`.toLowerCase().includes(q);
     });
-  }, [assets, query, folder]);
+  }, [assets, query, folder, kind]);
 
   const refresh = () => qc.invalidateQueries({ queryKey: ['media'] });
 
@@ -53,7 +59,8 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
     let ok = 0;
     for (const file of list) {
       try {
-        await uploadMedia(file, folder === 'all' ? 'uploads' : folder);
+        if (file.type.startsWith('video/')) await uploadVideo(file, folder === 'all' ? 'videos' : folder);
+        else await uploadMedia(file, folder === 'all' ? 'uploads' : folder);
         ok++;
       } catch (e: any) {
         toast.error(`${file.name}: ${e.message ?? 'upload failed'}`);
@@ -138,7 +145,7 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
         <input
           ref={fileRef}
           type="file"
-          accept="image/*"
+          accept={accept}
           multiple
           hidden
           onChange={e => { if (e.target.files) handleFiles(e.target.files); e.target.value = ''; }}
@@ -160,7 +167,7 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
       {!isLoading && filtered.length === 0 && (
         <div className="border border-dashed border-border rounded-2xl py-14 text-center">
           <ImageIcon className="w-6 h-6 mx-auto text-muted-foreground mb-2" />
-          <p className="text-sm text-muted-foreground">Drag and drop images here, or use Upload.</p>
+          <p className="text-sm text-muted-foreground">{kind === 'video' ? 'Drag and drop an MP4 or WebM video here, or use Upload.' : 'Drag and drop images here, or use Upload.'}</p>
         </div>
       )}
 
@@ -172,13 +179,17 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
               onClick={() => (onSelect ? onSelect(asset) : setActive(asset))}
               className="block w-full aspect-[4/3] bg-secondary"
             >
-              <img
-                src={asset.public_url}
-                alt={asset.alt_text ?? asset.file_name}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
+              {isVideoAsset(asset) ? (
+                <video src={asset.public_url} muted playsInline preload="metadata" className="w-full h-full object-cover" aria-label={asset.alt_text ?? asset.file_name} />
+              ) : (
+                <img
+                  src={asset.public_url}
+                  alt={asset.alt_text ?? asset.file_name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              )}
             </button>
             <div className="p-2.5">
               <p className="text-xs font-medium truncate" title={asset.file_name}>{asset.file_name}</p>
@@ -208,7 +219,9 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
       {active && (
         <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setActive(null)}>
           <div className="card-elegant w-full max-w-lg p-5 space-y-4 max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <img src={active.public_url} alt={active.alt_text ?? active.file_name} className="w-full rounded-xl" />
+            {isVideoAsset(active)
+              ? <video src={active.public_url} controls muted playsInline className="w-full rounded-xl" />
+              : <img src={active.public_url} alt={active.alt_text ?? active.file_name} className="w-full rounded-xl" />}
             <label className="block">
               <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Alt text</span>
               <input
@@ -222,9 +235,9 @@ const MediaBrowser = ({ onSelect, compact }: Props) => {
             <div className="flex flex-wrap gap-2">
               <button onClick={() => copyUrl(active)} className="px-3 py-1.5 rounded-xl bg-secondary text-sm">Copy URL</button>
               <button onClick={() => rename(active)} className="px-3 py-1.5 rounded-xl bg-secondary text-sm">Rename</button>
-              <button onClick={() => replaceRef.current?.click()} className="px-3 py-1.5 rounded-xl bg-secondary text-sm">Replace image</button>
+              {!isVideoAsset(active) && <button onClick={() => replaceRef.current?.click()} className="px-3 py-1.5 rounded-xl bg-secondary text-sm">Replace image</button>}
               {onSelect && (
-                <button onClick={() => onSelect(active)} className="px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium">Use this image</button>
+                <button onClick={() => onSelect(active)} className="px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium">{isVideoAsset(active) ? 'Use this video' : 'Use this image'}</button>
               )}
               <button onClick={() => setActive(null)} className="px-3 py-1.5 rounded-xl text-sm text-muted-foreground ml-auto">Close</button>
             </div>

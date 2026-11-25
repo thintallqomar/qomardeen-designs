@@ -5,6 +5,8 @@ export const MEDIA_BUCKET = 'media';
 const SIGNED_TTL = 315_360_000;
 export const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
 export const MAX_DOC_BYTES = 10 * 1024 * 1024;
+export const MAX_VIDEO_BYTES = 40 * 1024 * 1024;
+export const VIDEO_TYPES = ['video/mp4', 'video/webm'];
 export const STORAGE_QUOTA_BYTES = 1024 * 1024 * 1024; // 1 GB soft budget
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif', 'image/svg+xml'];
@@ -187,3 +189,28 @@ export async function uploadDocument(file: File, folder = 'site') {
   if (error) throw error;
   return { url: await signedUrl(path), path, size: file.size, name: file.name };
 }
+
+/** Uploads a short video (MP4 or WebM) as-is, and records it in the media library. */
+export async function uploadVideo(file: File, folder = 'videos', altText = '') {
+  const type = file.type || (/\.webm$/i.test(file.name) ? 'video/webm' : 'video/mp4');
+  if (!VIDEO_TYPES.includes(type)) throw new Error('Please choose an MP4 or WebM video.');
+  if (file.size > MAX_VIDEO_BYTES) throw new Error(`${file.name} is larger than ${formatBytes(MAX_VIDEO_BYTES)}. Export a shorter or smaller clip.`);
+  const ext = type === 'video/webm' ? 'webm' : 'mp4';
+  const path = `${folder}/${Date.now()}-${safeName(file.name)}.${ext}`;
+  const { error } = await supabase.storage.from(MEDIA_BUCKET).upload(path, file, { contentType: type, upsert: false });
+  if (error) throw error;
+  const url = await signedUrl(path);
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data, error: dbError } = await supabase
+    .from('media_assets')
+    .insert({
+      file_name: file.name, folder, storage_path: path, public_url: url, alt_text: altText || null,
+      mime_type: type, file_size: file.size, width: null, height: null, uploaded_by: user?.id ?? null,
+    })
+    .select('*')
+    .single();
+  if (dbError) throw dbError;
+  return data as unknown as MediaAsset;
+}
+
+export const isVideoAsset = (a: Pick<MediaAsset, 'mime_type'>) => !!a.mime_type && a.mime_type.startsWith('video/');

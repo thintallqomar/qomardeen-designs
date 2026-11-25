@@ -16,6 +16,7 @@ import {
   type CaseStudySection, type CaseStudyFrame,
   PROJECT_KINDS } from '@/lib/cms';
 import { MAX_STORY_STEPS } from '@/components/StickyScrollSection';
+import { VideoField, FactsEditor, PrototypeEditor, BlocksEditor, NextEditor } from './CaseStudyExtras';
 import {
   ArrowLeft, Save, Loader2, ImagePlus, X, Plus, Trash2, GripVertical, ChevronUp, ChevronDown,
 } from 'lucide-react';
@@ -63,7 +64,13 @@ const ImageField = ({
 type PickerTarget =
   | { kind: 'cover' }
   | { kind: 'section'; index: number }
-  | { kind: 'frame'; index: number };
+  | { kind: 'frame'; index: number }
+  | { kind: 'sectionVideo'; index: number }
+  | { kind: 'frameVideo'; index: number }
+  | { kind: 'protoVideo' }
+  | { kind: 'protoPoster' }
+  | { kind: 'blockImage'; index: number; field: 'image' | 'zoomImage' };
+const isVideoTarget = (p: PickerTarget | null) => !!p && (p.kind === 'sectionVideo' || p.kind === 'frameVideo' || p.kind === 'protoVideo');
 
 const CaseStudyEditor = () => {
   const { id } = useParams();
@@ -171,6 +178,17 @@ const CaseStudyEditor = () => {
       updateSection(picker.index, { image: url, imageAlt: cs.sections[picker.index]?.imageAlt || alt });
     } else if (picker.kind === 'frame') {
       updateFrame(picker.index, { src: url, alt: cs.gallery[picker.index]?.alt || alt });
+    } else if (picker.kind === 'sectionVideo') {
+      updateSection(picker.index, { video: url });
+    } else if (picker.kind === 'frameVideo') {
+      updateFrame(picker.index, { video: url });
+    } else if (picker.kind === 'protoVideo') {
+      setCs(prev => ({ ...prev, prototype: { ...(prev.prototype ?? {}), video: url } }));
+    } else if (picker.kind === 'protoPoster') {
+      setCs(prev => ({ ...prev, prototype: { ...(prev.prototype ?? {}), poster: url } }));
+    } else if (picker.kind === 'blockImage') {
+      const { index, field } = picker;
+      setCs(prev => ({ ...prev, blocks: (prev.blocks ?? []).map((b, j) => (j === index ? ({ ...b, [field]: url } as typeof b) : b)) }));
     }
     setPicker(null);
   };
@@ -184,6 +202,7 @@ const CaseStudyEditor = () => {
     setSaving(true);
     try {
       const body: CaseStudyBody = {
+        ...cs, // keeps videos, facts, prototype, extra sections and the next link
         kind: cs.kind === 'other' ? 'other' : 'full',
         timeline: cs.timeline || '',
         badge: cs.badge || 'UI/UX Case Study',
@@ -309,9 +328,13 @@ const CaseStudyEditor = () => {
               <Field label="Scope"><input value={cs.scope ?? ''} onChange={e => setCsField('scope', e.target.value)} className={input} placeholder="End-to-End Design" /></Field>
               <Field label="Platform"><input value={cs.platform ?? ''} onChange={e => setCsField('platform', e.target.value)} className={input} placeholder="Web App (SaaS)" /></Field>
               <Field label="Timeline"><input value={cs.timeline ?? ''} onChange={e => setCsField('timeline', e.target.value)} className={input} placeholder="8 Weeks" /></Field>
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-2">
                 <Field label="Live link (optional)"><input value={cs.behanceUrl ?? ''} onChange={e => setCsField('behanceUrl', e.target.value)} className={input} placeholder="https://… (Behance, website, Figma prototype)" /></Field>
               </div>
+              <Field label="Live link button"><input value={cs.liveLabel ?? ''} onChange={e => setCsField('liveLabel', e.target.value)} className={input} placeholder="View live" /></Field>
+            </div>
+            <div className="mt-4">
+              <FactsEditor facts={cs.facts ?? []} onChange={f => setCsField('facts', f.length ? f : undefined)} />
             </div>
           </section>
 
@@ -375,6 +398,11 @@ const CaseStudyEditor = () => {
                         onManualUrl={url => updateSection(i, { image: url })} />
                     </Field>
                     <Field label="Image alt text"><input value={s.imageAlt ?? ''} onChange={e => updateSection(i, { imageAlt: e.target.value })} className={input} /></Field>
+                    <div className="sm:col-span-2">
+                      <Field label="Video (optional)" hint="Plays instead of the image; the image becomes its poster.">
+                        <VideoField value={s.video} onPick={() => setPicker({ kind: 'sectionVideo', index: i })} onChange={url => updateSection(i, { video: url || undefined })} />
+                      </Field>
+                    </div>
                   </div>
                   {/* Metrics */}
                   <div className="mt-3">
@@ -426,6 +454,7 @@ const CaseStudyEditor = () => {
                     <input value={g.src} onChange={e => updateFrame(i, { src: e.target.value })} placeholder="Image URL" className={input} />
                     <input value={g.label ?? ''} onChange={e => updateFrame(i, { label: e.target.value })} placeholder="Label (e.g. Dashboard)" className={input} />
                     <input value={g.alt ?? ''} onChange={e => updateFrame(i, { alt: e.target.value })} placeholder="Alt text" className={input} />
+                    <VideoField value={g.video} onPick={() => setPicker({ kind: 'frameVideo', index: i })} onChange={url => updateFrame(i, { video: url || undefined })} />
                   </div>
                   <div className="flex sm:flex-col gap-1">
                     <button onClick={() => moveFrame(i, -1)} disabled={i === 0} aria-label="Move up" className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground disabled:opacity-30"><ChevronUp className="w-4 h-4" /></button>
@@ -435,7 +464,26 @@ const CaseStudyEditor = () => {
                 </div>
               ))}
             </div>
+            <div className="grid sm:grid-cols-2 gap-3 mt-4">
+              <Field label="Gallery heading (optional)"><input value={cs.framesTitle ?? ''} onChange={e => setCsField('framesTitle', e.target.value || undefined)} className={input} placeholder="Every frame" /></Field>
+              <Field label="Gallery intro (optional)"><input value={cs.framesBlurb ?? ''} onChange={e => setCsField('framesBlurb', e.target.value || undefined)} className={input} /></Field>
+            </div>
           </section>
+
+          <PrototypeEditor
+            cs={cs}
+            set={p => setCsField('prototype', p)}
+            pickVideo={() => setPicker({ kind: 'protoVideo' })}
+            pickPoster={() => setPicker({ kind: 'protoPoster' })}
+          />
+
+          <BlocksEditor
+            blocks={cs.blocks ?? []}
+            onChange={b => setCsField('blocks', b)}
+            pickImage={(index, field) => setPicker({ kind: 'blockImage', index, field })}
+          />
+
+          <NextEditor next={cs.next} onChange={n => setCsField('next', n)} />
         </div>
 
         {/* Sidebar — meta */}
@@ -445,6 +493,12 @@ const CaseStudyEditor = () => {
           </Field>
           <Field label="Excerpt" hint="Short summary for the projects listing & SEO.">
             <textarea value={form.excerpt} onChange={e => set('excerpt', e.target.value)} rows={3} className={input} />
+          </Field>
+          <Field label="Card title (optional)" hint="Title on the Projects card, if different from the page.">
+            <input value={cs.cardTitle ?? ''} onChange={e => setCsField('cardTitle', e.target.value || undefined)} className={input} />
+          </Field>
+          <Field label="Card note (optional)" hint="One line of key decisions on the Projects card.">
+            <input value={cs.cardNote ?? ''} onChange={e => setCsField('cardNote', e.target.value || undefined)} className={input} />
           </Field>
           <Field label="Tags (comma separated)">
             <input value={form.tags} onChange={e => set('tags', e.target.value)} className={input} placeholder="UI/UX, SaaS, Dashboard" />
@@ -490,7 +544,8 @@ const CaseStudyEditor = () => {
         open={picker !== null}
         onClose={() => setPicker(null)}
         onSelect={handlePicked}
-        title={picker?.kind === 'cover' ? 'Choose a cover image' : 'Choose an image'}
+        title={picker?.kind === 'cover' ? 'Choose a cover image' : isVideoTarget(picker) ? 'Choose or upload a video' : 'Choose an image'}
+        kind={isVideoTarget(picker) ? 'video' : 'image'}
       />
     </AdminLayout>
   );

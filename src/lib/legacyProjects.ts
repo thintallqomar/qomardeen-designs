@@ -24,7 +24,8 @@ import wp12 from '@/assets/walpay/frame-12.png';
 import wp13 from '@/assets/walpay/frame-13.png';
 import { supabase } from '@/integrations/supabase/client';
 import { saveContent, estimateReading, type CaseStudyBody } from '@/lib/cms';
-import { uploadMedia } from '@/lib/media';
+import { uploadMedia, uploadVideo } from '@/lib/media';
+import type { BuiltInCaseStudy } from '@/content/builtInCaseStudies';
 
 /**
  * The two flagship projects that were originally built as fixed pages through Lovable chat.
@@ -202,6 +203,84 @@ export async function importLegacyProject(
     type: 'case_study', title: p.title, subtitle: p.subtitle, slug: p.slug, excerpt: p.excerpt, tags: p.tags,
     cover_image: cover, cover_image_alt: p.coverAlt, seo_title: null, seo_description: null, resource_url: p.liveUrl,
     status: 'published', visibility: 'public', is_featured: true, publish_date: now, updated_date: now,
+    body_json: body, reading_time_minutes: reading.minutes, word_count: reading.words,
+    author_id: author.userId, author_name: author.email,
+  } as never);
+}
+
+/* ── The coded case studies (portfolio, Leafie, Unwind) ──
+ * Their content already has the admin's shape (src/content/builtInCaseStudies.ts), so import walks
+ * it, uploads every image and video into the media library, and saves the copy with the new links. */
+
+const MEDIA_KEYS = new Set(['image', 'src', 'video', 'poster', 'zoomImage']);
+const isLocalAsset = (v: unknown): v is string =>
+  typeof v === 'string' && (v.startsWith('/') || v.startsWith('data:') || v.startsWith(location.origin));
+
+const collectMedia = (node: unknown, out: Set<string>) => {
+  if (Array.isArray(node)) node.forEach(n => collectMedia(n, out));
+  else if (node && typeof node === 'object') {
+    for (const [k, v] of Object.entries(node)) {
+      if (MEDIA_KEYS.has(k) && isLocalAsset(v)) out.add(v);
+      else collectMedia(v, out);
+    }
+  }
+};
+const replaceMedia = (node: unknown, map: Map<string, string>): unknown => {
+  if (Array.isArray(node)) return node.map(n => replaceMedia(n, map));
+  if (node && typeof node === 'object') {
+    return Object.fromEntries(Object.entries(node).map(([k, v]) =>
+      [k, MEDIA_KEYS.has(k) && typeof v === 'string' && map.has(v) ? map.get(v) : replaceMedia(v, map)]));
+  }
+  return node;
+};
+
+export const builtInMediaCount = (cs: BuiltInCaseStudy) => {
+  const set = new Set<string>([cs.card]);
+  collectMedia(cs.body, set);
+  return set.size;
+};
+
+const fileName = (url: string, slug: string) => {
+  const base = url.split('?')[0].split('/').pop() || 'file';
+  return `${slug}-${base}`;
+};
+
+export async function importBuiltInCaseStudy(
+  cs: BuiltInCaseStudy,
+  author: { userId: string | null; email: string | null },
+  onStep?: (done: number, total: number) => void,
+) {
+  const { data: clash } = await supabase.from('content_items').select('id').eq('type', 'case_study' as never).eq('slug', cs.slug).maybeSingle();
+  if (clash) return null;
+
+  const urls = new Set<string>([cs.card]);
+  collectMedia(cs.body, urls);
+  const total = urls.size;
+  const map = new Map<string, string>();
+  let done = 0;
+  for (const url of urls) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Could not read ${url}`);
+    const blob = await res.blob();
+    const isVideo = /\.(mp4|webm)(\?|$)/i.test(url) || blob.type.startsWith('video/');
+    const name = fileName(url, cs.slug);
+    const file = new File([blob], name, { type: blob.type || (isVideo ? 'video/mp4' : 'image/webp') });
+    const asset = isVideo
+      ? await uploadVideo(file, `projects/${cs.slug}`, '')
+      : await uploadMedia(file, `projects/${cs.slug}`, '');
+    map.set(url, asset.public_url);
+    onStep?.(++done, total);
+  }
+
+  const body = replaceMedia(cs.body, map) as CaseStudyBody;
+  const words = [cs.lead, ...cs.body.sections.map(s => `${s.title} ${s.description}`)].join(' ');
+  const reading = estimateReading(words);
+  const now = new Date().toISOString();
+  return saveContent({
+    type: 'case_study', title: cs.title, subtitle: cs.lead, slug: cs.slug, excerpt: cs.excerpt, tags: cs.tags,
+    cover_image: map.get(cs.card) ?? null, cover_image_alt: cs.cardAlt,
+    seo_title: cs.seoTitle, seo_description: cs.seoDescription, resource_url: body.behanceUrl || null,
+    status: 'published', visibility: 'public', is_featured: body.kind !== 'other', publish_date: now, updated_date: now,
     body_json: body, reading_time_minutes: reading.minutes, word_count: reading.words,
     author_id: author.userId, author_name: author.email,
   } as never);

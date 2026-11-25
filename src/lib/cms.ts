@@ -20,13 +20,49 @@ export interface CaseStudySection {
   descriptionJson?: unknown; // rich text (Tiptap JSON) — preferred when present
   image: string;
   imageAlt?: string;
+  /** Optional short clip played instead of the image (the image becomes its poster). */
+  video?: string;
   metrics?: CaseStudyMetric[];
 }
 export interface CaseStudyFrame {
   src: string;
   alt?: string;
   label?: string;
+  /** Optional clip for tall screens or motion; the image is its poster. */
+  video?: string;
 }
+/** A fact in the header row. `labelKey` uses the translated label (role, scope, platform, timeline). */
+export interface CaseStudyFact {
+  label: string;
+  value: string;
+  labelKey?: 'role' | 'scope' | 'platform' | 'timeline';
+}
+/** A clickable prototype, walked through in a video, with a link to try it. */
+export interface CaseStudyPrototype {
+  title?: string;
+  description?: string;
+  url?: string;
+  buttonLabel?: string;
+  video?: string;
+  poster?: string;
+}
+export type BlockPlacement = 'beforeFrames' | 'afterFrames';
+interface BlockBase { title: string; intro?: string; placement?: BlockPlacement; tone?: 'plain' | 'muted' }
+/** Extra sections a case study can add after its story (results, decisions, how it was built…). */
+export type CaseStudyBlock =
+  | (BlockBase & { type: 'stats'; items: { value: number; suffix?: string; label: string }[] })
+  | (BlockBase & { type: 'list'; numbered?: boolean; asideLabel?: string; items: { title: string; body: string; aside?: string }[] })
+  | (BlockBase & { type: 'feature'; items: { title: string; body: string }[]; image?: string; imageAlt?: string; caption?: string; zoomImage?: string })
+  | (BlockBase & { type: 'steps'; items: { title: string; body: string }[]; columns?: { title: string; items: string[] }[] })
+  | (BlockBase & { type: 'bullets'; items: string[] });
+export type CaseStudyBlockType = CaseStudyBlock['type'];
+export const BLOCK_TYPES: { value: CaseStudyBlockType; label: string; blurb: string }[] = [
+  { value: 'stats', label: 'Numbers', blurb: 'Big rolling numbers with a short label each.' },
+  { value: 'list', label: 'Numbered list', blurb: 'Title, text and an optional side note per item (e.g. decisions and trade-offs).' },
+  { value: 'feature', label: 'Text + image', blurb: 'A heading, short points and one image beside them.' },
+  { value: 'steps', label: 'Steps', blurb: 'Numbered steps in a row, plus optional bullet columns underneath.' },
+  { value: 'bullets', label: 'Short list', blurb: 'A plain numbered list of one-liners.' },
+];
 /** 'full' = complete case study; 'other' = redesigns / focused work with just a few frames. */
 export type ProjectKind = 'full' | 'other';
 export const PROJECT_KINDS: { value: ProjectKind; label: string; blurb: string }[] = [
@@ -44,8 +80,17 @@ export interface CaseStudyBody {
   platform?: string;     // e.g. "Web App (SaaS)"
   timeline?: string;     // e.g. "8 Weeks"
   behanceUrl?: string;   // external Behance / live link
+  liveLabel?: string;    // button text for the live link (default "View live")
+  facts?: CaseStudyFact[];        // header row; when empty, role/scope/platform/timeline are used
+  cardTitle?: string;    // title on the Projects card (defaults to the page title)
+  cardNote?: string;     // one line on the Projects card (defaults to scope)
   sections: CaseStudySection[];   // story steps (the page shows up to 3)
   gallery: CaseStudyFrame[];      // full-frame gallery
+  framesTitle?: string;
+  framesBlurb?: string;
+  prototype?: CaseStudyPrototype; // optional "tap by tap" section
+  blocks?: CaseStudyBlock[];      // optional extra sections
+  next?: { title: string; route: string; blurb?: string }; // the "next case study" link
 }
 
 export const emptyCaseStudyBody = (): CaseStudyBody => ({

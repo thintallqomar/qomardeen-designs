@@ -9,7 +9,8 @@ import { useHiddenProjects } from '@/hooks/useSiteSettings';
 import { Switch } from '@/components/ui/switch';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { canEditItem, canPublish } from '@/lib/roles';
-import { LEGACY_PROJECTS, importLegacyProject, legacyImageCount } from '@/lib/legacyProjects';
+import { LEGACY_PROJECTS, importLegacyProject, legacyImageCount, importBuiltInCaseStudy, builtInMediaCount } from '@/lib/legacyProjects';
+import { BUILT_IN_CASE_STUDIES } from '@/content/builtInCaseStudies';
 import { Plus, Search, Trash2, ExternalLink, DownloadCloud, Loader2 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
@@ -89,18 +90,26 @@ const ContentList = () => {
   const [importing, setImporting] = useState(false);
   const [importNote, setImportNote] = useState('');
   const importable = type === 'case_study' && !isLoading && canPublish(access)
-    ? LEGACY_PROJECTS.filter(p => !all.some(i => i.type === 'case_study' && i.slug === p.slug))
+    ? [
+      ...LEGACY_PROJECTS.map(p => ({ kind: 'legacy' as const, slug: p.slug, title: p.title, p })),
+      ...BUILT_IN_CASE_STUDIES.map(c => ({ kind: 'built' as const, slug: c.slug, title: c.body.cardTitle?.split(' — ')[0] || c.title, c })),
+    ].filter(p => !all.some(i => i.type === 'case_study' && i.slug === p.slug))
     : [];
 
-  const runImport = async () => {
+  const [importingSlug, setImportingSlug] = useState<string | null>(null);
+  const runImport = async (item: (typeof importable)[number]) => {
     setImporting(true);
+    setImportingSlug(item.slug);
     try {
-      for (const p of importable) {
-        setImportNote(`${p.title}: preparing ${legacyImageCount(p)} images…`);
-        await importLegacyProject(p, { userId: access.userId, email: access.email }, (done, total) =>
-          setImportNote(`${p.title}: uploaded image ${done} of ${total}`));
+      const who = { userId: access.userId, email: access.email };
+      if (item.kind === 'legacy') {
+        setImportNote(`preparing ${legacyImageCount(item.p)} images…`);
+        await importLegacyProject(item.p, who, (done, total) => setImportNote(`uploaded image ${done} of ${total}`));
+      } else {
+        setImportNote(`preparing ${builtInMediaCount(item.c)} images and videos…`);
+        await importBuiltInCaseStudy(item.c, who, (done, total) => setImportNote(`uploaded file ${done} of ${total}`));
       }
-      toast.success('Imported. You can now edit these projects here.');
+      toast.success(`${item.title} imported. You can now edit it here.`);
       qc.invalidateQueries({ queryKey: ['cms'] });
       qc.invalidateQueries({ queryKey: ['projects'] });
       qc.invalidateQueries({ queryKey: ['case-study'] });
@@ -108,6 +117,7 @@ const ContentList = () => {
       toast.error(e?.message ?? 'Import failed. Nothing was changed on your live site.');
     } finally {
       setImporting(false);
+      setImportingSlug(null);
       setImportNote('');
     }
   };
@@ -141,25 +151,32 @@ const ContentList = () => {
         </div>
 
         {importable.length > 0 && (
-          <div className="card-elegant p-4 mb-5 flex flex-wrap items-center gap-3 border-primary/30">
-            <DownloadCloud className="w-5 h-5 text-primary shrink-0" />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium">
-                {importable.map(p => p.title).join(' and ')} {importable.length > 1 ? 'were' : 'was'} added through chat and can't be edited here yet.
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Import copies the text and images into this dashboard. Your live pages keep working throughout.
-                {importing && importNote ? ` ${importNote}` : ''}
-              </p>
+          <div className="card-elegant p-4 mb-5 border-primary/30">
+            <div className="flex items-start gap-3 mb-3">
+              <DownloadCloud className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <div className="min-w-0">
+                <p className="text-sm font-medium">These case studies were built as fixed pages, so they can't be edited here yet.</p>
+                <p className="text-xs text-muted-foreground">
+                  Import copies the text, images and videos into this dashboard. The copy is published straight away and looks the same; your live pages keep working throughout.
+                </p>
+              </div>
             </div>
-            <button
-              onClick={runImport}
-              disabled={importing}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-60"
-            >
-              {importing ? <Loader2 className="w-4 h-4 animate-spin" /> : <DownloadCloud className="w-4 h-4" />}
-              {importing ? 'Importing…' : 'Import into admin'}
-            </button>
+            <ul className="divide-y divide-border">
+              {importable.map(item => (
+                <li key={item.slug} className="flex flex-wrap items-center gap-3 py-2.5">
+                  <span className="text-sm font-medium flex-1 min-w-0 truncate">{item.title}</span>
+                  {importingSlug === item.slug && importNote && <span className="text-xs text-muted-foreground">{importNote}</span>}
+                  <button
+                    onClick={() => runImport(item)}
+                    disabled={importing}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-60"
+                  >
+                    {importingSlug === item.slug ? <Loader2 className="w-4 h-4 animate-spin" /> : <DownloadCloud className="w-4 h-4" />}
+                    {importingSlug === item.slug ? 'Importing…' : 'Import'}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

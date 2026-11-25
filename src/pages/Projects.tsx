@@ -131,10 +131,10 @@ const Projects = () => {
     const body = (item.body_json as CaseStudyBody | null) ?? null;
     return {
       id: `cms-${item.id}`,
-      title: item.title,
-      context: item.subtitle || item.excerpt || '',
+      title: body?.cardTitle || item.title,
+      context: item.excerpt || item.subtitle || '',
       role: body?.role || '',
-      keyDecisions: body?.scope || '',
+      keyDecisions: body?.cardNote || body?.scope || '',
       thumbnail: item.cover_image || body?.gallery?.[0]?.src || body?.sections?.[0]?.image || uptimeCover,
       liveUrl: body?.behanceUrl || item.resource_url || '',
       technologies: (item.tags && item.tags.length ? item.tags : ['UI/UX', 'Case Study']),

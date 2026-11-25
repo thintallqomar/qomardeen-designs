@@ -6,10 +6,11 @@ interface Props {
   onClose: () => void;
   onSelect: (asset: MediaAsset) => void;
   title?: string;
+  kind?: 'image' | 'video';
 }
 
 /** Reusable media picker modal — used by the editor cover image and Tiptap. */
-const MediaPicker = ({ open, onClose, onSelect, title = 'Choose an image' }: Props) => {
+const MediaPicker = ({ open, onClose, onSelect, title = 'Choose an image', kind = 'image' }: Props) => {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-start justify-center p-3 md:p-8 overflow-y-auto" onClick={onClose}>
@@ -18,7 +19,7 @@ const MediaPicker = ({ open, onClose, onSelect, title = 'Choose an image' }: Pro
           <h2 className="text-base font-semibold">{title}</h2>
           <button onClick={onClose} className="text-sm text-muted-foreground hover:text-foreground">Close</button>
         </div>
-        <MediaBrowser compact onSelect={asset => { onSelect(asset); onClose(); }} />
+        <MediaBrowser compact kind={kind} onSelect={asset => { onSelect(asset); onClose(); }} />
       </div>
     </div>
   );

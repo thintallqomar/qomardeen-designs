@@ -113,7 +113,7 @@ const FragranceProject = () => {
                   <div className="mb-8 max-w-2xl">
                     <h2 className="t-h2 mb-3">The prototype, tap by tap</h2>
                     <p className="text-muted-foreground">
-                      Every link in the Figma prototype, in order: the brand filters, the tab bar, the cart, a product, scent and size, quantities, payment, and back home. Back arrows return to the screen you came from.
+                      Every link in the Figma prototype, in order: the sideways banner, brand and product rows, the brand filters, the tab bar, the cart, a product, scent and size, quantities, payment, and back home. Back arrows stay fixed while the page scrolls and return to the screen you came from. Buttons that aren't linked yet are tapped too, so you can see where the prototype stops.
                     </p>
                   </div>
                 </ScrollReveal>

@@ -115,7 +115,7 @@ const WellnessProject = () => {
                   <div className="mb-8 max-w-2xl">
                     <h2 className="t-h2 mb-3">The prototype, tap by tap</h2>
                     <p className="text-muted-foreground">
-                      Every link in the Figma prototype, in order: the five moods, the note field, Log Mood and its card, the tab bar, Start Exercise, each Next Step, Finish and back home. The tab bar and the back arrow stay fixed while the page scrolls. Buttons that aren't linked yet are tapped too, so you can see where the prototype stops.
+                      Every link in the Figma prototype, in order: the five moods, the note field, Log Mood and its card, the tab bar, Start Exercise, each Next Step, Finish and back home. Only linked parts are tapped. The motion is how I'd want the real app to feel: the chosen mood springs up and draws its ring, buttons press in, the progress bar fills, and the illustrations breathe instead of sitting still.
                     </p>
                   </div>
                 </ScrollReveal>

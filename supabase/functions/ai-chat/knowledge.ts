@@ -66,8 +66,8 @@ export const KNOWLEDGE = `
 - Mobile-first: thumb-friendly screens; the send-money flow was simplified (from 8 steps to 3) with real-time rate visibility and instant confirmation. Screens include onboarding, send money and wallet transactions, profile and settings, and a KYC verification flow.
 - Do not quote outcome percentages for WalPay; none were measured.
 
-# Other project: Fragrance Store (/projects/fragrance)
-- What: a four-screen mobile shopping flow for a fragrance store, designed by Qomardeen in Figma: home/product listing, product page, checkout, payment success.
+# Other project: Leafie, a fragrance shopping app (/projects/fragrance)
+- What: Leafie (working name), a four-screen mobile shopping flow for a fragrance store, designed by Qomardeen in Figma: home/product listing, product page, checkout, payment success.
 - Listed under "Other projects", not the full case studies. A design exercise: no research, users or results to report, so never claim any.
 - Decisions visible in the screens: one job per screen; product photo first, then price, rating, scent and size chips (selected chip = gold outline); Add To Cart pinned at the bottom; checkout on one page with quantity steppers, address, payment and shipping, and tax and shipping listed before the total; success screen with order summary and Track Order.
 - System: purple #551A8B for actions, gold #D4AF37 for prices and selection, Poppins for headings, Inter for text. There is a clickable Figma prototype linked on the page.

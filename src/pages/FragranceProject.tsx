@@ -25,14 +25,15 @@ import ScrollReveal from '@/components/ScrollReveal';
 import { ExternalLink } from 'lucide-react';
 
 /*
- * A short case study: a four-screen mobile shopping flow for a fragrance store, made in Figma.
+ * A short case study: Leafie, a four-screen mobile shopping flow for a fragrance store, made in Figma.
+ * ("Leafie" is a working name; the page address stays /projects/fragrance.)
  * Everything written here describes what the screens actually do. No research or results are
  * claimed, because this was a design exercise, not a shipped product.
  */
 const PROTOTYPE_URL = 'https://www.figma.com/proto/ajsn9pYWQaKwRDl1MOQRO9?node-id=52-753&starting-point-node-id=52%3A753';
 
 const frames = [
-  { src: cover, alt: 'Fragrance store app: the product, home and checkout screens', label: 'Cover' },
+  { src: cover, alt: 'Leafie, a fragrance shopping app: the product, home and checkout screens', label: 'Cover' },
   { src: flow, video: flowVideo, alt: 'The four screens in order, each scrolling: browse, choose, check out, paid', label: 'Four screens to a paid order' },
   { src: product, video: productVideo, alt: 'Product page scrolling while a scent and a size are chosen, next to the chip states', label: 'Pick a scent and a size' },
   { src: checkout, video: checkoutVideo, alt: 'Checkout scrolling down to the full total, next to the payment success screen', label: 'Everything on one page' },
@@ -44,7 +45,7 @@ const story = [
     subtitle: 'The brief',
     title: 'From browsing to paid in four screens',
     description:
-      'A small shopping flow for a fragrance store: find a scent, choose it, pay. I gave each screen one job, so nobody has to wonder what to do next.',
+      'Leafie is a small shopping flow for a fragrance store: find a scent, choose it, pay. I gave each screen one job, so nobody has to wonder what to do next.',
     image: flow,
     video: flowVideo,
     imageAlt: frames[1].alt,
@@ -79,8 +80,8 @@ const FragranceProject = () => {
     <>
       <Navigation />
       <PageSEO
-        title="Fragrance Store App — Mobile Shopping Flow by Qomardeen Tijani"
-        description="A four-screen mobile shopping flow for a fragrance store, designed in Figma: browse, choose, check out, paid."
+        title="Leafie — Fragrance Shopping App by Qomardeen Tijani"
+        description="Leafie: a four-screen mobile shopping flow for a fragrance store, designed in Figma. Browse, choose, check out, paid."
         path="/projects/fragrance"
       />
       <PageTransition>
@@ -91,8 +92,8 @@ const FragranceProject = () => {
           <main className="pt-14">
             <CaseStudyHeader
               badge="Mobile app"
-              title="Fragrance Store"
-              lead="A four-screen shopping flow, from browsing scents to a paid order."
+              title="Leafie"
+              lead="A fragrance shopping app: four screens from browsing scents to a paid order."
               facts={[
                 { label: t('caseStudy.role'), value: 'Product Designer (UI)' },
                 { label: t('caseStudy.scope'), value: 'Shopping flow, 4 screens' },

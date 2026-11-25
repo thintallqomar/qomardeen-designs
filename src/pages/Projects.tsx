@@ -84,7 +84,7 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: "Fragrance Store — Mobile Shopping Flow",
+      title: "Leafie — Fragrance Shopping App",
       context: "Four screens from browsing scents to a paid order",
       role: "Product Designer (UI)",
       keyDecisions: "One job per screen, one selected look, every cost shown before paying",

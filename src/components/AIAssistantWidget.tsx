@@ -72,7 +72,7 @@ const rememberedFacts = (content: string) =>
 const pageName = (path: string) => {
   const known: Record<string, string> = {
     '/': 'Home', '/projects': 'All projects', '/projects/uptime': 'UpTime case study',
-    '/projects/walpay': 'WalPay case study', '/projects/portfolio': 'Portfolio case study', '/projects/fragrance': 'Fragrance Store case study',
+    '/projects/walpay': 'WalPay case study', '/projects/portfolio': 'Portfolio case study', '/projects/fragrance': 'Leafie case study',
     '/hire': 'Hire page', '/hire#contact': 'Contact Qomardeen', '/about': 'About Qomardeen',
     '/explore': 'Explore', '/explore/articles': 'Articles', '/explore/thinking': 'Thinking',
     '/explore/architecture': 'Architecture',

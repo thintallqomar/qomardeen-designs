@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@4";
+import { mfaSatisfied } from "../_shared/admin-guard.ts";
 
 const AuditSchema = z.object({
   event_type: z.enum([
@@ -41,6 +42,7 @@ Deno.serve(async (req) => {
     const { data: userData, error: authError } = await admin.auth.getUser(authorization.slice(7));
     const user = userData.user;
     if (authError || !user) return json({ error: "Authentication required" }, 401);
+    if (!(await mfaSatisfied(admin as never, authorization.slice(7), user.id))) return json({ error: "Enter your authenticator code first" }, 401);
 
     const { data: roles, error: roleError } = await admin
       .from("user_roles")

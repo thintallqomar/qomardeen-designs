@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Lock, Loader2, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { Lock, Loader2, ArrowLeft, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Icon3D from '@/components/Icon3D';
+import { getMfaState, verifyCode, isSixDigits } from '@/lib/mfa';
+import { errorMessage } from '@/lib/errorMessage';
+
+/** Wrong authenticator codes allowed before the half-finished sign-in is cancelled. */
+const MAX_CODE_TRIES = 5;
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -18,6 +23,28 @@ const AdminLogin = () => {
   const [lockedUntil, setLockedUntil] = useState<number | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [resetSending, setResetSending] = useState(false);
+  // Second step: the 6-digit code from the authenticator app.
+  const [step, setStep] = useState<'password' | 'code'>('password');
+  const [code, setCode] = useState('');
+  const [codeTries, setCodeTries] = useState(0);
+  const codeRef = useRef<HTMLInputElement>(null);
+
+  // Arriving with the password already accepted (e.g. sent back from an admin page): ask for the code.
+  useEffect(() => {
+    let live = true;
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      const mfa = await getMfaState();
+      if (live && mfa.needsCode) {
+        setEmail(session.user.email ?? '');
+        setStep('code');
+      }
+    })();
+    return () => { live = false; };
+  }, []);
+
+  useEffect(() => { if (step === 'code') codeRef.current?.focus(); }, [step]);
 
   const handleForgot = async () => {
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
@@ -65,31 +92,80 @@ const AdminLogin = () => {
         throw error;
       }
 
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('No user found');
-
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin');
-
-      if (!roles || roles.length === 0) {
-        await supabase.auth.signOut();
-        await guard({ action: 'record', email, success: false });
-        toast.error('Access denied. Admin privileges required.');
+      // Password accepted. If this account has an authenticator, ask for its code next.
+      const mfa = await getMfaState();
+      if (mfa.needsCode) {
+        setStep('code');
         setLoading(false);
         return;
       }
-
-      await guard({ action: 'record', email, success: true });
-      toast.success('Welcome back!');
-      navigate(next ?? '/admin');
-    } catch (err: any) {
-      toast.error(err.message || 'Login failed');
+      await finishSignIn();
+    } catch (err) {
+      toast.error(errorMessage(err, 'Login failed'));
     } finally {
       setLoading(false);
     }
+  };
+
+  /** Last step for both paths: confirm the account is an admin, then open the studio. */
+  const finishSignIn = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('No user found');
+
+    const { data: roles } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .eq('role', 'admin');
+
+    if (!roles || roles.length === 0) {
+      await supabase.auth.signOut();
+      await guard({ action: 'record', email: user.email ?? email, success: false });
+      toast.error('Access denied. Admin privileges required.');
+      return;
+    }
+
+    await guard({ action: 'record', email: user.email ?? email, success: true });
+    toast.success('Welcome back!');
+    navigate(next ?? '/admin');
+  };
+
+  const handleCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isSixDigits(code)) {
+      toast.error('Enter the 6-digit code from your authenticator app.');
+      return;
+    }
+    setLoading(true);
+    try {
+      await verifyCode(code);
+      await finishSignIn();
+    } catch (err) {
+      const tries = codeTries + 1;
+      setCodeTries(tries);
+      setCode('');
+      if (tries >= MAX_CODE_TRIES) {
+        // Too many wrong codes: drop the half-signed-in session and count it as a failed sign-in.
+        await supabase.auth.signOut();
+        await guard({ action: 'record', email, success: false });
+        setStep('password');
+        setPassword('');
+        setCodeTries(0);
+        toast.error('Too many wrong codes. Sign in again.');
+      } else {
+        toast.error(errorMessage(err, 'That code did not work.'));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const useAnotherAccount = async () => {
+    await supabase.auth.signOut();
+    setStep('password');
+    setPassword('');
+    setCode('');
+    setCodeTries(0);
   };
 
   return (
@@ -102,12 +178,43 @@ const AdminLogin = () => {
         <div className="card-elegant p-8">
           <div className="flex justify-center mb-6">
             <Icon3D variant="primary" size="lg">
-              <Lock />
+              {step === 'code' ? <ShieldCheck /> : <Lock />}
             </Icon3D>
           </div>
-          <h1 className="text-xl font-bold text-center mb-1">Admin Access</h1>
-          <p className="text-sm text-muted-foreground text-center mb-6">Sign in to view analytics</p>
+          <h1 className="text-xl font-bold text-center mb-1">{step === 'code' ? 'Enter your code' : 'Admin Access'}</h1>
+          <p className="text-sm text-muted-foreground text-center mb-6">
+            {step === 'code' ? 'Open your authenticator app and type the 6-digit code for Qomardeen Studio.' : 'Sign in to your studio'}
+          </p>
 
+          {step === 'code' ? (
+            <form onSubmit={handleCode} className="space-y-4">
+              <input
+                ref={codeRef}
+                value={code}
+                onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                pattern="[0-9]{6}"
+                maxLength={6}
+                aria-label="6-digit code"
+                placeholder="000000"
+                className="w-full px-4 py-3 bg-secondary border border-border rounded-xl text-center text-2xl font-mono tracking-[0.5em] text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                type="submit"
+                disabled={loading || !isSixDigits(code)}
+                className="w-full py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify and sign in'}
+              </button>
+              {codeTries > 0 && (
+                <p className="text-xs text-muted-foreground text-center">{MAX_CODE_TRIES - codeTries} tries left before you need to sign in again.</p>
+              )}
+              <button type="button" onClick={useAnotherAccount} className="w-full text-xs text-muted-foreground hover:text-foreground">
+                Use a different account
+              </button>
+            </form>
+          ) : (
           <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="email"
@@ -158,6 +265,7 @@ const AdminLogin = () => {
               </p>
             )}
           </form>
+          )}
         </div>
 
         <button

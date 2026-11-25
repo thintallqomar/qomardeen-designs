@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
-import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
+import { rateLimit, clientIp, sha256, mfaSatisfied } from "../_shared/admin-guard.ts";
 import { KNOWLEDGE } from "./knowledge.ts";
 
 const corsHeaders = {
@@ -115,7 +115,8 @@ serve(async (req) => {
       );
       const { data: userData } = await admin.auth.getUser(token);
       const userId = userData?.user?.id;
-      if (userId) {
+      // Admin powers need the authenticator code too when two-step sign-in is on.
+      if (userId && await mfaSatisfied(admin as never, token, userId)) {
         const { data: roles } = await admin
           .from("user_roles")
           .select("role")

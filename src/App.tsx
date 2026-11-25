@@ -39,6 +39,7 @@ const AdminAtlasHistory = lazy(() => import("./pages/admin/AtlasHistory"));
 const AdminInquiries = lazy(() => import("./pages/admin/Inquiries"));
 const AdminSiteSettings = lazy(() => import("./pages/admin/SiteSettings"));
 const AdminAboutEditor = lazy(() => import("./pages/admin/AboutEditor"));
+const AdminSecurity = lazy(() => import("./pages/admin/Security"));
 const ExploreHub = lazy(() => import("./pages/explore/ExploreHub"));
 const ExploreSection = lazy(() => import("./pages/explore/ExploreSection"));
 const ContentDetail = lazy(() => import("./pages/explore/ContentDetail"));
@@ -172,8 +173,11 @@ const BlogSlugRedirect = () => {
 
 /** Route-level gate: every /admin route requires a server-verified staff session. */
 const RequireStaff = ({ children }: { children: React.ReactNode }) => {
-  const { loading, isStaff } = useStaffAuth();
+  const { loading, isStaff, needsMfa } = useStaffAuth();
+  const location = useLocation();
   if (loading) return <PageLoader />;
+  // Password done but no authenticator code yet: back to sign-in, which asks for the code.
+  if (needsMfa) return <Navigate to={`/admin/login?next=${encodeURIComponent(location.pathname)}`} replace />;
   if (!isStaff) return <Navigate to="/admin/login" replace />;
   return <>{children}</>;
 };
@@ -240,6 +244,7 @@ const AnimatedRoutes = () => {
           <Route path="/admin/media" element={<RequireStaff><AdminMediaLibrary /></RequireStaff>} />
           <Route path="/admin/site" element={<RequireStaff><AdminSiteSettings /></RequireStaff>} />
           <Route path="/admin/about" element={<RequireStaff><AdminAboutEditor /></RequireStaff>} />
+          <Route path="/admin/security" element={<RequireStaff><AdminSecurity /></RequireStaff>} />
           <Route path="/admin/inquiries" element={<RequireStaff><AdminInquiries /></RequireStaff>} />
           <Route path="/admin/atlas" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />
           <Route path="/admin/atlas/:threadId" element={<RequireStaff><AdminAtlasHistory /></RequireStaff>} />

@@ -23,6 +23,32 @@ export function clientIp(req: Request) {
   return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 }
 
+/** Reads the "aal" claim from a session token (already verified by auth.getUser). */
+function tokenAal(token: string): string | null {
+  try {
+    const part = token.split(".")[1] ?? "";
+    const json = atob(part.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(part.length / 4) * 4, "="));
+    return (JSON.parse(json) as { aal?: string }).aal ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Two-step sign-in: an account with an authenticator app must have entered its code
+ * (session level "aal2") before it can use staff features. Accounts without one pass.
+ */
+type FactorLister = {
+  auth: { admin: { mfa: { listFactors: (p: { userId: string }) => Promise<{ data: { factors?: { status: string }[] } | null; error: unknown }> } } };
+};
+
+export async function mfaSatisfied(admin: FactorLister, token: string, userId: string) {
+  if (tokenAal(token) === "aal2") return true;
+  const { data, error } = await admin.auth.admin.mfa.listFactors({ userId });
+  if (error) return false; // can't tell: refuse rather than let a password-only session through
+  return !(data?.factors ?? []).some((f) => f.status === "verified");
+}
+
 export interface Actor {
   id: string;
   email: string | null;
@@ -42,6 +68,7 @@ export async function requireActor(req: Request): Promise<Actor | null> {
   const { data, error } = await admin.auth.getUser(token);
   const user = data?.user;
   if (error || !user) return null;
+  if (!(await mfaSatisfied(admin as never, token, user.id))) return null;
   const { data: rows } = await admin.from("user_roles").select("role").eq("user_id", user.id);
   const roles = (rows ?? []).map((r: { role: string }) => r.role);
   return {

@@ -1,10 +1,10 @@
 import { useEffect, useCallback } from 'react';
-import { NavLink, useNavigate, Navigate } from 'react-router-dom';
+import { NavLink, useNavigate, Navigate, useLocation, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useStaffAuth } from '@/hooks/useStaffAuth';
 import { useTheme } from '@/hooks/useTheme';
 import {
-  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare, Inbox, SlidersHorizontal, UserRound,
+  LayoutDashboard, FileText, Lightbulb, Boxes, Download, BarChart3, LogOut, ArrowLeft, Images, Sun, Moon, Briefcase, MessageSquare, Inbox, SlidersHorizontal, UserRound, ShieldCheck, ShieldAlert,
 } from 'lucide-react';
 import IconTooltip from '@/components/IconTooltip';
 
@@ -21,6 +21,7 @@ const links = [
   { to: '/admin/site', label: 'Site', icon: SlidersHorizontal },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/admin/atlas', label: 'Atlas Memory', icon: MessageSquare },
+  { to: '/admin/security', label: 'Security', icon: ShieldCheck },
 ];
 
 /** Sign out automatically after this much inactivity. */
@@ -28,7 +29,8 @@ const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const { loading, isStaff, email, roles } = useStaffAuth();
+  const { loading, isStaff, needsMfa, mfaEnabled, email, roles } = useStaffAuth();
+  const { pathname } = useLocation();
   const { theme, toggleTheme } = useTheme();
 
   const signOut = useCallback(async () => {
@@ -61,6 +63,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
+  if (needsMfa) return <Navigate to={`/admin/login?next=${encodeURIComponent(pathname)}`} replace />;
   if (!isStaff) return <Navigate to="/admin/login" replace />;
 
   return (
@@ -128,7 +131,18 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         </IconTooltip>
       </div>
 
-      <main className="flex-1 min-w-0 overflow-x-hidden pb-24 md:pb-0">{children}</main>
+      <main className="flex-1 min-w-0 overflow-x-hidden pb-24 md:pb-0">
+        {!mfaEnabled && pathname !== '/admin/security' && (
+          <Link
+            to="/admin/security"
+            className="flex items-center gap-2 px-4 md:px-10 py-2.5 border-b border-border bg-amber-500/10 text-sm text-amber-700 dark:text-amber-300 hover:bg-amber-500/15 transition-colors"
+          >
+            <ShieldAlert className="w-4 h-4 shrink-0" />
+            <span>Two-step sign-in is off. Turn it on so a stolen password can't open your studio.</span>
+          </Link>
+        )}
+        {children}
+      </main>
     </div>
   );
 };

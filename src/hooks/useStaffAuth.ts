@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { computeStaffAccess, type StaffAccess, type StaffRole } from '@/lib/roles';
+import { getMfaState } from '@/lib/mfa';
 
 export type { StaffRole };
 
@@ -8,12 +9,18 @@ interface StaffAuthState extends StaffAccess {
   loading: boolean;
   userId: string | null;
   email: string | null;
+  /** Password accepted, but the authenticator code has not been entered yet. Not staff until it is. */
+  needsMfa: boolean;
+  /** The account has two-step sign-in turned on. */
+  mfaEnabled: boolean;
 }
 
 const EMPTY: StaffAuthState = {
   loading: true,
   userId: null,
   email: null,
+  needsMfa: false,
+  mfaEnabled: false,
   ...computeStaffAccess([]),
 };
 
@@ -31,6 +38,11 @@ export const useStaffAuth = (): StaffAuthState => {
         if (active) setState({ ...EMPTY, loading: false });
         return;
       }
+      const mfa = await getMfaState();
+      if (mfa.needsCode) {
+        if (active) setState({ ...EMPTY, loading: false, userId: user.id, email: user.email ?? null, needsMfa: true, mfaEnabled: true });
+        return;
+      }
       const { data } = await supabase
         .from('user_roles')
         .select('role')
@@ -41,6 +53,8 @@ export const useStaffAuth = (): StaffAuthState => {
         loading: false,
         userId: user.id,
         email: user.email ?? null,
+        needsMfa: false,
+        mfaEnabled: mfa.enabled,
         ...access,
       });
     };

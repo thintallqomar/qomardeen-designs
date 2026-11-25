@@ -81,7 +81,7 @@ export const KNOWLEDGE = `
 # Case study: This portfolio (/projects/portfolio)
 - What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages. It has its own admin ("the studio") where Qomardeen edits case studies, articles, the About page, hero photos and his CV without code, can switch anything off instead of deleting it, and signs in with a password plus a code from an authenticator app (two-step sign-in).
 - Problem: the first version said a lot and showed little ("designer at the intersection of UX, AI and systems thinking"); Hire, Contact and the footer repeated each other; every page had its own layout.
-- Measured results (same 1440px screen width, before vs after): footer 863px → 162px (81% less height); Hire page 5,615px → 4,360px (22% shorter); Hire sections 8 → 6 with a single "Book a call"; 11 languages; every change checked at 4 screen widths (1440, 768, 375, 320) in light and dark mode.
+- Measured results (same 1440px screen width, before vs after): footer 863px → 199px (77% less height; it now also carries faded scenes inspired by his favourite games, switchable in the admin); Hire page 5,615px → 4,360px (22% shorter); Hire sections 8 → 6 with a single "Book a call"; 11 languages; every change checked at 4 screen widths (1440, 768, 375, 320) in light and dark mode.
 - Key decisions and trade-offs:
   1. Split portrait instead of photo + job title, inspired by Adham Dannaway's designer/coder split. Cost: more motion, needs a tap toggle on phones and a still version for reduced motion.
   2. Honest 80/20 instead of "full-stack". Cost: a smaller claim, chosen over being caught out in an interview.
@@ -98,7 +98,7 @@ export const KNOWLEDGE = `
 3. Admin and content: one rich-text editor across the admin; projects built in chat imported into the admin; full case studies vs other projects; CV and hero image uploads; on/off switches for every item.
 4. Quality and trust: security fixes in the backend functions (AI chat, voice, contact email); translations into 11 languages; light mode 6am–6pm and dark mode at night, with a manual override; mobile fixes.
 5. Identity: the "designer who builds" split-portrait hero, a rewritten About page (80/20 split, random facts), honest claims only (unbacked metrics removed from older case studies).
-6. Consistency pass: one page opening and type scale everywhere, an 81% smaller footer, Contact folded into Hire, a streamlined Hire page, unified case study layout, the portfolio case study, text scramble and rolling numbers.
+6. Consistency pass: one page opening and type scale everywhere, a 77% smaller footer, Contact folded into Hire, a streamlined Hire page, unified case study layout, the portfolio case study, text scramble and rolling numbers.
 7. Atlas rebuilt with a modern interface, deeper knowledge of Qomardeen and the site, chat history saved on the visitor's own device, and an optional memory of what visitors share about themselves.
 - Division of labour: Qomardeen sets the direction, chooses the visual rules, spots problems in use and decides what ships. Claude writes most of the code, translates copy, audits security and tests every change.
 

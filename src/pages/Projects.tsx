@@ -70,7 +70,7 @@ const Projects = () => {
       title: "This Portfolio — Designed & Built",
       context: "The site you're on: one idea, one design system, every section earning its place",
       role: "Designer & builder (solo)",
-      keyDecisions: "Designer-who-builds positioning, one type scale across pages, measured cuts (81% smaller footer)",
+      keyDecisions: "Designer-who-builds positioning, one type scale across pages, measured cuts (77% smaller footer)",
       thumbnail: portfolioCover,
       liveUrl: "",
       technologies: ["Product Design", "Design System", "React", "Supabase"],

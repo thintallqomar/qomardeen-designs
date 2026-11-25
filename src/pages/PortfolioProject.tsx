@@ -18,6 +18,7 @@ import home from '@/assets/portfolio/home.webp';
 import hire from '@/assets/portfolio/hire.webp';
 import system from '@/assets/portfolio/system.webp';
 import footer from '@/assets/portfolio/footer.webp';
+import footerVideo from '@/assets/portfolio/footer.mp4';
 import themes from '@/assets/portfolio/themes.webp';
 import phones from '@/assets/portfolio/phones.webp';
 import phonesVideo from '@/assets/portfolio/phones.mp4';
@@ -27,7 +28,7 @@ import adminOverview from '@/assets/portfolio/admin-overview.webp';
 /*
  * Case study of this site. Every number here was measured on the real site:
  * before = the original version, after = the current one, both at 1440px wide.
- *   footer height 863px -> 162px (81% less) · Hire page 5,615px -> 4,360px (22% shorter)
+ *   footer height 863px -> 199px (77% less; it now carries the game scenery) · Hire page 5,615px -> 4,360px (22% shorter)
  *   Hire sections 8 -> 6 · 11 languages · checked at 4 screen widths.
  */
 
@@ -36,7 +37,7 @@ const frames = [
   { src: home, alt: 'Home page before and after the redesign', label: 'Home: before and after' },
   { src: hire, alt: 'Hire page before and after the redesign', label: 'Hire: before and after' },
   { src: system, alt: 'Projects and About pages sharing the same opening and type scale', label: 'One system across pages' },
-  { src: footer, alt: 'Footer before (863px tall) and after (162px tall)', label: 'The footer: 863px to 162px' },
+  { src: footer, video: footerVideo, alt: 'Footer before (863px tall) and after (199px tall), with the game scenery changing behind it in dark and light mode', label: 'The footer: 863px to 199px' },
   { src: themes, alt: 'Home page in light mode and dark mode', label: 'Light by day, dark by night' },
   { src: phones, video: phonesVideo, alt: 'Home, Projects and About pages scrolling on a phone, in light mode', label: 'On a phone' },
   { src: admin, alt: 'The admin: the overview, and the articles list with an on/off switch on each (email blurred)', label: 'The studio: my own admin' },
@@ -64,18 +65,19 @@ const story = [
     subtitle: 'Iteration',
     title: 'Every section had to earn its place',
     description:
-      'I cut anything a visitor would read twice. The footer kept every link but lost 81% of its height, Contact moved into Hire, and Hire dropped from 8 sections to 6 with one "Book a call".',
+      'I cut anything a visitor would read twice. The footer kept every link but lost 77% of its height (and gained faded scenes from the games I play), Contact moved into Hire, and Hire dropped from 8 sections to 6 with one "Book a call".',
     image: footer,
-    imageAlt: 'Footer before and after',
+    video: footerVideo,
+    imageAlt: 'Footer before and after, with the game scenery changing behind it',
     metrics: [
-      { label: 'Smaller footer', value: '81%' },
+      { label: 'Smaller footer', value: '77%' },
       { label: 'Hire sections', value: '8 → 6' },
     ],
   },
 ];
 
 const results = [
-  { value: 81, suffix: '%', label: 'less footer height, with the same links' },
+  { value: 77, suffix: '%', label: 'less footer height, with the same links' },
   { value: 22, suffix: '%', label: 'shorter Hire page, with one clear next step' },
   { value: 11, suffix: '', label: 'languages, including Yoruba, Hausa, Igbo and Pidgin' },
   { value: 1, suffix: '', label: 'editor for every piece of content in the admin' },

@@ -122,7 +122,7 @@ const Navigation = () => {
             title="Qomardeen Tijani"
             className="brand-link flex items-center shrink-0 rounded-md text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <BrandMark className="h-7 w-auto" />
+            <BrandMark className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

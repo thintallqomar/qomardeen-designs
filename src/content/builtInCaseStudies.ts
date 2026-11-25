@@ -318,7 +318,7 @@ export const LEAFIE_CASE_STUDY: BuiltInCaseStudy = {
 // "Unwind" is a working name; the page address stays /projects/wellness.
 const UNWIND_PROTOTYPE = 'https://www.figma.com/proto/xFT0ynq0VdlT2DLoQJFJIh?node-id=36-509&starting-point-node-id=36%3A509';
 const unwindFrames = [
-  { src: wCover, alt: 'Unwind, a mood and mindfulness app: the home, workout and session complete screens', label: 'Cover' },
+  { src: wCover, alt: 'Unwind, a mood and mindfulness app: the Home screen inside breathing rings, the five moods around it, with the progress and achievement cards floating free', label: 'Cover' },
   { src: wFlow, video: wFlowVideo, alt: 'The four screens in order: check in, pick a session, follow the steps, done', label: 'From check-in to done' },
   { src: wCheckin, video: wCheckinVideo, alt: 'Home screen picking a mood, adding a note and logging it, next to the mood and note field states', label: 'How are you feeling?' },
   { src: wSteps, video: wStepsVideo, alt: 'Exercise steps ticking off one by one, next to the session complete screen', label: 'One step at a time' },

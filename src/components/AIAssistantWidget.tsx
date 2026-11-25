@@ -15,6 +15,7 @@ import AtlasIntroCard, { type IntroDetails } from '@/components/atlas/AtlasIntro
 import * as store from '@/lib/atlasStore';
 import type { AtlasChatMessage } from '@/lib/atlasStore';
 import { invokeFunction } from '@/lib/invokeFunction';
+import { useAtlasConfig } from '@/hooks/useSiteSettings';
 
 /** Other parts of the app (e.g. /admin/atlas) can open Atlas on a saved conversation. */
 export const ATLAS_OPEN_EVENT = 'atlas:open-thread';
@@ -259,6 +260,9 @@ const AIAssistantWidget = () => {
   const location = useLocation();
   const reduceMotion = useReducedMotion();
   const { isAdmin } = useAdminAuth();
+  const atlasConfig = useAtlasConfig();
+  // Switched off in Admin › Site: hidden from visitors, still available inside the admin.
+  const hiddenForVisitors = !atlasConfig.enabled && !location.pathname.startsWith('/admin');
   const prompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
   const orbState: OrbState = isLoading ? 'thinking' : isSpeaking ? 'speaking' : 'idle';
 
@@ -361,7 +365,7 @@ const AIAssistantWidget = () => {
 
   // The greeting: ~10s into a visit, once per visit, never after an introduction or in the admin.
   useEffect(() => {
-    if (isAdmin || location.pathname.startsWith('/admin') || !store.shouldGreet()) return;
+    if (hiddenForVisitors || isAdmin || location.pathname.startsWith('/admin') || !store.shouldGreet()) return;
     const id = setTimeout(() => {
       if (!store.shouldGreet()) return;
       store.markGreeted();
@@ -446,6 +450,45 @@ const AIAssistantWidget = () => {
     document.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
   }, [isOpen, close]);
+
+  /* ── Close after inactivity ────────────────────────────────────────────────────────────
+   * Counts from the visitor's last tap, scroll, key or pointer move inside Atlas. Paused while
+   * Atlas is answering, speaking or listening, while something is typed, during the intro or a
+   * blog draft, and while the tab is in the background. A fresh answer adds reading time
+   * (about 4 words a second). The last 5 seconds show a countdown with a "Keep open" button.
+   */
+  const [closingIn, setClosingIn] = useState<number | null>(null);
+  const lastActivityRef = useRef(Date.now());
+  const busyRef = useRef(false);
+  const limitRef = useRef(0);
+  busyRef.current = isLoading || isSpeaking || isListening || introBusy || blogPublishing || !!pendingBlogDraft || input.trim().length > 0;
+  {
+    const last = [...messages].reverse().find(m => m.role === 'assistant');
+    const words = last ? last.content.split(/\s+/).filter(Boolean).length : 0;
+    limitRef.current = atlasConfig.idleSeconds * 1000 + Math.min(60_000, (words / 4) * 1000);
+  }
+  const keepOpen = useCallback(() => { lastActivityRef.current = Date.now(); setClosingIn(null); }, []);
+  // A new message counts as activity, so the reading time starts when the answer lands.
+  useEffect(() => { keepOpen(); }, [messages.length, isLoading, keepOpen]);
+  useEffect(() => {
+    if (!isOpen || !atlasConfig.idleSeconds) { setClosingIn(null); return; }
+    keepOpen();
+    const panel = panelRef.current;
+    const events = ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart', 'focusin', 'input'] as const;
+    events.forEach(e => panel?.addEventListener(e, keepOpen, { passive: true }));
+    panel?.addEventListener('scroll', keepOpen, { capture: true, passive: true });
+    const id = window.setInterval(() => {
+      if (busyRef.current || document.hidden) { keepOpen(); return; }
+      const left = limitRef.current - (Date.now() - lastActivityRef.current);
+      if (left <= 0) { setClosingIn(null); close(); return; }
+      setClosingIn(left <= 5000 ? Math.ceil(left / 1000) : null);
+    }, 250);
+    return () => {
+      window.clearInterval(id);
+      events.forEach(e => panel?.removeEventListener(e, keepOpen));
+      panel?.removeEventListener('scroll', keepOpen, { capture: true });
+    };
+  }, [isOpen, atlasConfig.idleSeconds, close, keepOpen]);
 
   // Phones: Atlas fills the screen, so the page behind shouldn't scroll.
   useEffect(() => {
@@ -651,6 +694,8 @@ const AIAssistantWidget = () => {
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : { initial: { opacity: 0, y: 16, scale: 0.98 }, animate: { opacity: 1, y: 0, scale: 1 }, exit: { opacity: 0, y: 16, scale: 0.98 } };
 
+  if (hiddenForVisitors) return null;
+
   return (
     <>
       {/* Launcher */}
@@ -688,7 +733,7 @@ const AIAssistantWidget = () => {
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-[5.25rem] right-5 z-50 w-[min(340px,calc(100vw-2.5rem))] rounded-3xl border border-border bg-background p-4 shadow-2xl"
+            className="atlas-glass fixed bottom-[5.25rem] right-5 z-50 w-[min(340px,calc(100vw-2.5rem))] rounded-3xl p-4"
           >
             <div className="flex items-start gap-3">
               <AtlasOrb size={36} state="speaking" />
@@ -725,9 +770,27 @@ const AIAssistantWidget = () => {
             aria-modal="false"
             {...panelMotion}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[70] flex flex-col bg-background sm:inset-auto sm:bottom-4 sm:right-4 sm:top-[4.5rem] sm:w-[420px] sm:rounded-[28px] sm:border sm:border-border sm:shadow-2xl overflow-hidden"
+            className="atlas-glass fixed inset-0 z-[70] isolate flex flex-col overflow-hidden sm:inset-auto sm:bottom-4 sm:right-4 sm:top-[4.5rem] sm:w-[420px] sm:rounded-[28px]"
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
+            {/* Soft light inside the glass */}
+            <div aria-hidden="true" className="atlas-sheen pointer-events-none absolute inset-0 -z-10" />
+
+            {/* Closes soon: thin bar along the top, and a way to keep it open */}
+            {closingIn !== null && (
+              <>
+                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 overflow-hidden">
+                  <div className="atlas-countdown h-full bg-primary" />
+                </div>
+                <div role="status" className="absolute left-1/2 top-16 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-border/60 bg-background/80 py-1 pl-3.5 pr-1 text-xs shadow-lg backdrop-blur-md">
+                  <span className="text-muted-foreground">Closing in <span className="tabular-nums font-medium text-foreground">{closingIn}s</span></span>
+                  <button type="button" onClick={keepOpen} className="rounded-full bg-foreground px-3 py-1 font-medium text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    Keep open
+                  </button>
+                </div>
+              </>
+            )}
+
             {/* Header */}
             <div className="flex items-center gap-3 px-3 py-2.5 sm:px-4">
               {view === 'chat' ? (
@@ -765,7 +828,7 @@ const AIAssistantWidget = () => {
                 <HeaderButton label="Close Atlas" onClick={close}><X className="h-4 w-4" /></HeaderButton>
               </div>
             </div>
-            <div className="h-px bg-border" />
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
             {/* Chats */}
             {view === 'chats' && (
@@ -956,7 +1019,7 @@ const AIAssistantWidget = () => {
             {/* Composer */}
             {view === 'chat' && (
               <div className="px-3 pb-3 pt-1 sm:px-4 sm:pb-4">
-                <div className="flex items-end gap-1.5 rounded-[22px] border border-border bg-foreground/[0.03] p-1.5 focus-within:border-primary/50">
+                <div className="atlas-composer flex items-end gap-1.5 rounded-[22px] p-1.5 transition-shadow focus-within:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)]">
                   {speechSupported && (
                     <IconTooltip label={isListening ? 'Stop listening' : 'Speak your question'} side="top">
                       <button

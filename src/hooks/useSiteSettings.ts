@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { cachedSiteSettings, getSiteSettings, heroStyleOf, hiddenProjectsOf, nowLineOf, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
+import { atlasConfigOf, cachedSiteSettings, getSiteSettings, heroStyleOf, hiddenProjectsOf, nowLineOf, type AtlasConfig, type HeroStyle, type SiteSettings } from '@/lib/siteSettings';
 
 /**
  * Uploaded hero images / CV. Returns the settings plus `ready`: true once we know whether anything was uploaded
@@ -34,3 +34,6 @@ export const useHeroConfig = (): { heroStyle: HeroStyle; nowLine: string } => {
 
 /** Projects switched off in the admin (built-in ones and their imported copies). */
 export const useHiddenProjects = (): Set<string> => hiddenProjectsOf(useSiteSettings());
+
+/** Atlas on/off and its auto-close time, from Admin › Site. */
+export const useAtlasConfig = (): AtlasConfig => atlasConfigOf(useSiteSettings());

@@ -5,7 +5,7 @@ import { motion, useTransform } from 'framer-motion';
 import { ArrowRight, Briefcase, Sparkles } from 'lucide-react';
 import HeroGlow from '@/components/HeroGlow';
 import SplitPortrait, { useSplit } from '@/components/SplitPortrait';
-import { useHeroConfig } from '@/hooks/useSiteSettings';
+import { useAtlasConfig, useHeroConfig } from '@/hooks/useSiteSettings';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -18,6 +18,7 @@ const rise = (delay: number) => ({ initial: { opacity: 0, y: 18 }, animate: { op
 const HeroBuilder = () => {
   const { t } = useTranslation();
   const { nowLine } = useHeroConfig();
+  const atlasOn = useAtlasConfig().enabled;
   const localizedPath = useLocalizedPath();
   const section = useRef<HTMLElement>(null);
   const split = useSplit(section);
@@ -87,6 +88,7 @@ const HeroBuilder = () => {
         </motion.div>
 
         <motion.div {...rise(0.34)} className="mt-10 w-full">
+          {atlasOn && <>
           <p className="mb-2.5 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             <Sparkles className="w-3.5 h-3.5 text-primary" /> {t('hero.atlasLabel')}
           </p>
@@ -102,6 +104,7 @@ const HeroBuilder = () => {
               </button>
             ))}
           </div>
+          </>}
           {nowLine && (
             <p className="mt-5 text-sm text-muted-foreground">
               <span className="font-semibold text-foreground">{t('hero.now')}</span> · {nowLine}

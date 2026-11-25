@@ -7,11 +7,13 @@ import { canPublish } from '@/lib/roles';
 import { uploadMedia, uploadDocument, formatBytes, MAX_UPLOAD_BYTES, MAX_DOC_BYTES } from '@/lib/media';
 import {
   fetchSiteSettings, saveSiteSetting, saveSiteValue, clearSiteSetting, heroStyleOf, nowLineOf, atlasNotesOf,
+  atlasConfigOf, atlasConfigValue, ATLAS_IDLE_CHOICES, type AtlasConfig,
   type SiteKey, type SiteSetting, type HeroStyle,
 } from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
 import { errorMessage } from '@/lib/errorMessage';
 import heroPortrait from '@/assets/split-designer.webp';
+import { Switch } from '@/components/ui/switch';
 
 const FADE =
   '[mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_closest-side_at_50%_50%,black_38%,rgba(0,0,0,0.55)_75%,transparent_100%)]';
@@ -183,6 +185,52 @@ const HeroControls = ({
 };
 
 /** Extra facts for Atlas, the site's AI guide. Atlas trusts these over older facts. */
+const AtlasSwitch = ({ config, busy, onChange }: { config: AtlasConfig; busy: boolean; onChange: (c: AtlasConfig) => void }) => (
+  <section className="card-elegant p-5 md:p-6">
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <h2 className="text-lg font-semibold">Atlas, the AI guide</h2>
+        <p className="text-sm text-muted-foreground mt-1">
+          {config.enabled
+            ? 'On: visitors see the Ask Atlas button and the Atlas prompts on Home.'
+            : 'Off: Atlas is hidden from visitors. You can still use it inside the admin.'}
+        </p>
+      </div>
+      <label className={`flex items-center gap-2 shrink-0 ${busy ? 'opacity-50' : 'cursor-pointer'}`}>
+        <span className={`w-6 text-right text-xs font-medium ${config.enabled ? 'text-foreground' : 'text-muted-foreground'}`}>{config.enabled ? 'On' : 'Off'}</span>
+        <Switch
+          checked={config.enabled}
+          disabled={busy}
+          onCheckedChange={on => onChange({ ...config, enabled: on })}
+          aria-label="Show Atlas on the site"
+        />
+      </label>
+    </div>
+    <div className="mt-5 border-t border-border pt-4">
+      <p className="text-sm font-medium">Close the chat when nobody is using it</p>
+      <p className="text-xs text-muted-foreground mt-0.5">Counts from the visitor's last tap, scroll or keypress. Longer answers get extra reading time, and it never closes while Atlas is answering or the visitor is typing.</p>
+      <div role="radiogroup" aria-label="Close after" className="mt-3 flex flex-wrap gap-2">
+        {ATLAS_IDLE_CHOICES.map(sec => {
+          const on = config.idleSeconds === sec;
+          return (
+            <button
+              key={sec}
+              type="button"
+              role="radio"
+              aria-checked={on}
+              disabled={busy || !config.enabled}
+              onClick={() => onChange({ ...config, idleSeconds: sec })}
+              className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors disabled:opacity-50 ${on ? 'border-primary bg-primary text-primary-foreground' : 'border-border hover:bg-secondary'}`}
+            >
+              {sec === 0 ? 'Never' : `After ${sec} seconds`}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+);
+
 const AtlasNotes = ({ value, busy, onSave }: { value: string; busy: boolean; onSave: (v: string) => void }) => {
   const [draft, setDraft] = useState(value);
   useEffect(() => setDraft(value), [value]);
@@ -311,6 +359,11 @@ const SiteSettingsPanel = () => {
         busy={busy === 'heroStyle' || busy === 'nowLine'}
         onStyle={st => saveValue('heroStyle', st === 'classic' ? 'classic' : '', st === 'classic' ? 'Home now uses the classic hero.' : 'Home now uses the new hero.')}
         onNow={v => saveValue('nowLine', v, v ? 'Now line saved.' : 'Now line removed.')}
+      />
+      <AtlasSwitch
+        config={atlasConfigOf(settings)}
+        busy={busy === 'atlas'}
+        onChange={c => saveValue('atlas', atlasConfigValue(c), c.enabled ? (c.idleSeconds ? `Atlas is on and closes after ${c.idleSeconds} seconds without activity.` : 'Atlas is on and stays open until closed.') : 'Atlas is off for visitors.')}
       />
       <AtlasNotes
         value={atlasNotesOf(settings)}

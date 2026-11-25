@@ -16,6 +16,7 @@ export const SITE_SLUGS = {
   nowLine: 'site-setting-now-line',
   hiddenProjects: 'site-setting-hidden-projects',
   atlasNotes: 'site-setting-atlas-notes',
+  atlas: 'site-setting-atlas',
 } as const;
 export type SiteKey = keyof typeof SITE_SLUGS;
 
@@ -27,10 +28,11 @@ const TITLES: Record<SiteKey, string> = {
   nowLine: 'Site setting: Now line',
   hiddenProjects: 'Site setting: Projects switched off',
   atlasNotes: 'Site setting: Notes for Atlas',
+  atlas: 'Site setting: Atlas on/off',
 };
 
 /** Keys that hold a short piece of text (kept in the entry's subtitle) instead of a file. */
-export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine', 'hiddenProjects', 'atlasNotes'];
+export const TEXT_KEYS: SiteKey[] = ['heroStyle', 'nowLine', 'hiddenProjects', 'atlasNotes', 'atlas'];
 
 export interface SiteSetting {
   url: string;
@@ -109,6 +111,21 @@ export type HeroStyle = 'new' | 'classic';
 export const heroStyleOf = (settings: SiteSettings): HeroStyle => (settings.heroStyle?.fileName === 'classic' ? 'classic' : 'new');
 export const nowLineOf = (settings: SiteSettings): string => settings.nowLine?.fileName?.trim() ?? '';
 export const atlasNotesOf = (settings: SiteSettings): string => settings.atlasNotes?.fileName ?? '';
+
+/** Choices for "close Atlas after this long without activity" (seconds; 0 = never). */
+export const ATLAS_IDLE_CHOICES = [15, 30, 60, 0] as const;
+export const ATLAS_IDLE_DEFAULT = 30;
+export type AtlasConfig = { enabled: boolean; idleSeconds: number };
+/** Stored as "on|30" / "off|30". Nothing saved = on, closing after 30 seconds. */
+export const atlasConfigOf = (settings: SiteSettings): AtlasConfig => {
+  const [state, secs] = (settings.atlas?.fileName ?? '').split('|');
+  const n = Number(secs);
+  return {
+    enabled: state !== 'off',
+    idleSeconds: secs !== undefined && Number.isFinite(n) && n >= 0 ? n : ATLAS_IDLE_DEFAULT,
+  };
+};
+export const atlasConfigValue = (c: AtlasConfig) => `${c.enabled ? 'on' : 'off'}|${c.idleSeconds}`;
 
 export async function saveSiteSetting(key: SiteKey, file: SavedFile, author: { userId: string | null; email: string | null }) {
   const slug = SITE_SLUGS[key];

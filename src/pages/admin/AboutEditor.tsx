@@ -1,3 +1,4 @@
+import { errorMessage } from '@/lib/errorMessage';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -147,7 +148,7 @@ const AboutEditor = () => {
       qc.invalidateQueries({ queryKey: ['about-content'] });
       toast.success(`About page (${languageNames[lang]}) saved. It's live now.`);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Could not save. Nothing on the site changed.');
+      toast.error(errorMessage(e, 'Could not save. Nothing on the site changed.'));
     } finally {
       setSaving(false);
     }
@@ -162,7 +163,7 @@ const AboutEditor = () => {
       qc.invalidateQueries({ queryKey: ['about-content'] });
       toast.success(`${languageNames[lang]} About text is back to the built-in version.`);
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Could not reset.');
+      toast.error(errorMessage(e, 'Could not reset.'));
     } finally {
       setSaving(false);
     }

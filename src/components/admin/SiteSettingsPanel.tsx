@@ -10,6 +10,7 @@ import {
   type SiteKey, type SiteSetting, type HeroStyle,
 } from '@/lib/siteSettings';
 import { downloadCv } from '@/lib/cv';
+import { errorMessage } from '@/lib/errorMessage';
 import heroPortrait from '@/assets/split-designer.webp';
 
 const FADE =
@@ -250,7 +251,7 @@ const SiteSettingsPanel = () => {
       toast.success(`${label} updated${cutout ? ' (cut-out detected: shown in the arch)' : ''}. Visitors see it within a few minutes.`);
       refresh();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Upload failed');
+      toast.error(errorMessage(e, 'Upload failed'), { duration: 12000 });
     } finally {
       setBusy(null);
     }
@@ -259,12 +260,14 @@ const SiteSettingsPanel = () => {
   const uploadCv = async (file: File) => {
     setBusy('cv');
     try {
-      const doc = await uploadDocument(file, 'site');
-      await saveSiteSetting('cv', { url: doc.url, fileName: file.name, size: doc.size, mime: 'application/pdf' }, author);
+      // Two steps, labelled, so a failure says which one broke.
+      const doc = await uploadDocument(file, 'site').catch(e => { throw new Error(`Saving the file failed: ${errorMessage(e)}`); });
+      await saveSiteSetting('cv', { url: doc.url, fileName: file.name, size: doc.size, mime: 'application/pdf' }, author)
+        .catch(e => { throw new Error(`The file uploaded, but switching the site to it failed: ${errorMessage(e)}`); });
       toast.success('CV updated. The CV buttons now use this file.');
       refresh();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Upload failed');
+      toast.error(errorMessage(e, 'Upload failed'), { duration: 12000 });
     } finally {
       setBusy(null);
     }
@@ -278,7 +281,7 @@ const SiteSettingsPanel = () => {
       toast.success(`${label} reset to the built-in one.`);
       refresh();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Could not reset');
+      toast.error(errorMessage(e, 'Could not reset'), { duration: 12000 });
     } finally {
       setBusy(null);
     }
@@ -292,7 +295,7 @@ const SiteSettingsPanel = () => {
       toast.success(done);
       refresh();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Could not save');
+      toast.error(errorMessage(e, 'Could not save'), { duration: 12000 });
     } finally {
       setBusy(null);
     }

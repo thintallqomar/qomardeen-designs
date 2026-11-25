@@ -1,3 +1,4 @@
+import { errorMessage } from '@/lib/errorMessage';
 import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -146,7 +147,7 @@ const RichTextField = ({
         editorRef.current?.chain().focus().setImage({ src: asset.public_url, alt: asset.alt_text ?? asset.file_name }).run();
         toast.success('Image added', { id: toastId });
       } catch (e) {
-        toast.error(e instanceof Error ? e.message : 'Upload failed', { id: toastId });
+        toast.error(errorMessage(e, 'Upload failed'), { id: toastId });
       }
     }
   }

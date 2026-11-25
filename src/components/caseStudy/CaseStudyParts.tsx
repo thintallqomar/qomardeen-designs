@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useLocalizedPath } from '@/hooks/useLocalizedNavigate';
 import { useHiddenProjects } from '@/hooks/useSiteSettings';
 import { safeHref } from '@/lib/safeUrl';
+import CaseVideo from './CaseVideo';
 
 /*
  * Shared building blocks for every case study (UpTime, WalPay, the portfolio, and any
@@ -68,7 +69,7 @@ export const CaseStudyHeader = ({
 export const CaseStudyFrames = ({
   title, blurb, frames, onOpen,
 }: {
-  title: string; blurb?: string; frames: { src: string; alt: string; label?: string }[]; onOpen: (i: number) => void;
+  title: string; blurb?: string; frames: { src: string; alt: string; label?: string; video?: string }[]; onOpen: (i: number) => void;
 }) => {
   const [loaded, setLoaded] = useState<Set<number>>(new Set());
   return (
@@ -87,6 +88,9 @@ export const CaseStudyFrames = ({
                 <span className="font-mono text-primary tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                 <span className="font-medium text-muted-foreground">{f.label || f.alt}</span>
               </figcaption>
+{f.video ? (
+                <CaseVideo src={f.video} poster={f.src} label={f.alt} />
+              ) : (
               <button
                 type="button"
                 onClick={() => onOpen(i)}
@@ -103,6 +107,7 @@ export const CaseStudyFrames = ({
                   className={`w-full h-auto transition-opacity duration-300 ${loaded.has(i) ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}
                 />
               </button>
+              )}
             </figure>
           ))}
         </div>

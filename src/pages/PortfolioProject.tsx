@@ -20,6 +20,7 @@ import system from '@/assets/portfolio/system.webp';
 import footer from '@/assets/portfolio/footer.webp';
 import themes from '@/assets/portfolio/themes.webp';
 import phones from '@/assets/portfolio/phones.webp';
+import phonesVideo from '@/assets/portfolio/phones.mp4';
 import admin from '@/assets/portfolio/admin.webp';
 import adminOverview from '@/assets/portfolio/admin-overview.webp';
 
@@ -37,7 +38,7 @@ const frames = [
   { src: system, alt: 'Projects and About pages sharing the same opening and type scale', label: 'One system across pages' },
   { src: footer, alt: 'Footer before (863px tall) and after (162px tall)', label: 'The footer: 863px to 162px' },
   { src: themes, alt: 'Home page in light mode and dark mode', label: 'Light by day, dark by night' },
-  { src: phones, alt: 'Home, Projects and About pages on a phone, in light mode', label: 'On a phone' },
+  { src: phones, video: phonesVideo, alt: 'Home, Projects and About pages scrolling on a phone, in light mode', label: 'On a phone' },
   { src: admin, alt: 'The admin: the overview, and the articles list with an on/off switch on each (email blurred)', label: 'The studio: my own admin' },
 ];
 const ADMIN_FRAME = frames.length - 1;

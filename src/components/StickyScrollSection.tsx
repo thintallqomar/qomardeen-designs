@@ -2,6 +2,7 @@ import { useState } from 'react';
 import RichText from '@/components/RichText';
 import ScrollReveal from '@/components/ScrollReveal';
 import ImageViewer from '@/components/ImageViewer';
+import CaseVideo from '@/components/caseStudy/CaseVideo';
 
 interface StoryItem {
   title: string;
@@ -10,6 +11,8 @@ interface StoryItem {
   descriptionJson?: unknown;
   image: string;
   imageAlt: string;
+  /** Optional short clip shown instead of the image (the image becomes its poster). */
+  video?: string;
   accent?: string;
   metrics?: { label: string; value: string }[];
 }
@@ -67,6 +70,9 @@ const CaseStudyStory = ({ items, className = '' }: StoryProps) => {
                     )}
                   </div>
 
+{item.video ? (
+                    <CaseVideo src={item.video} poster={item.image} label={item.imageAlt} />
+                  ) : (
                   <button
                     type="button"
                     onClick={() => setOpen(i)}
@@ -81,6 +87,7 @@ const CaseStudyStory = ({ items, className = '' }: StoryProps) => {
                       className="w-full h-auto max-h-[70vh] object-contain"
                     />
                   </button>
+                  )}
                 </div>
               </ScrollReveal>
             </li>

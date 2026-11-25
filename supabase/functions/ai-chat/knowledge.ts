@@ -67,7 +67,7 @@ export const KNOWLEDGE = `
 - Do not quote outcome percentages for WalPay; none were measured.
 
 # Case study: This portfolio (/projects/portfolio)
-- What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Responsive, 11 languages.
+- What: the site the visitor is on, designed by Qomardeen and built first in Lovable, then improved with Claude. Role: designer & builder (solo). Started in 2025 and still ongoing. Responsive, 11 languages.
 - Problem: the first version said a lot and showed little ("designer at the intersection of UX, AI and systems thinking"); Hire, Contact and the footer repeated each other; every page had its own layout.
 - Measured results (same 1440px screen width, before vs after): footer 863px → 162px (81% less height); Hire page 5,615px → 4,360px (22% shorter); Hire sections 8 → 6 with a single "Book a call"; 11 languages; every change checked at 4 screen widths (1440, 768, 375, 320) in light and dark mode.
 - Key decisions and trade-offs:
@@ -82,7 +82,7 @@ export const KNOWLEDGE = `
 
 # How the site was made, from inception to now
 1. Built in Lovable: React, Tailwind and a Supabase backend (database, storage, functions). First pages: Home, Projects, Hire, About, Contact, writing, and Atlas (this assistant).
-2. Moved to Claude when his Lovable credits ran out. He gives Claude the site's code from GitHub and describes changes in plain words, often with screenshots. Claude writes the code, tests it in a real browser at four screen widths in both themes, and returns one update package with a plain-English change list. Qomardeen reviews it, uploads it to GitHub, and Lovable deploys it.
+2. Moved to Claude when his Lovable credits ran out. He gives Claude the site's code from GitHub and describes changes in plain words, often with screenshots. Claude writes the code, tests it in a real browser at four screen widths in both themes, and returns one update package with a plain-English change list. Qomardeen reviews it, puts it on GitHub, then publishes it from Lovable.
 3. Admin and content: one rich-text editor across the admin; projects built in chat imported into the admin; full case studies vs other projects; CV and hero image uploads; on/off switches for every item.
 4. Quality and trust: security fixes in the backend functions (AI chat, voice, contact email); translations into 11 languages; light mode 6am–6pm and dark mode at night, with a manual override; mobile fixes.
 5. Identity: the "designer who builds" split-portrait hero, a rewritten About page (80/20 split, random facts), honest claims only (unbacked metrics removed from older case studies).

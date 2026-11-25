@@ -169,7 +169,7 @@ const PortfolioProject = () => {
                 { label: t('caseStudy.role'), value: 'Designer & builder (solo)' },
                 { label: t('caseStudy.platform'), value: 'Responsive web, 11 languages' },
                 { label: 'Built with', value: 'Lovable, then Claude (React, Supabase)' },
-                { label: t('caseStudy.timeline'), value: '2026, ongoing' },
+                { label: t('caseStudy.timeline'), value: '2025, ongoing' },
               ]}
             />
 

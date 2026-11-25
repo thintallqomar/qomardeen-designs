@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Kàn sí mi láti jíròrò iṣẹ́ rẹ.",
     "getInTouch": "Kàn sí mi",
     "notFoundTitle": "A kò rí ìwádìí iṣẹ́ náà",
-    "notFoundBody": "Ó ṣeé ṣe kí a ti gbé ìwádìí iṣẹ́ yìí lọ tàbí kí a ti yọ ọ́ kúrò."
+    "notFoundBody": "Ó ṣeé ṣe kí a ti gbé ìwádìí iṣẹ́ yìí lọ tàbí kí a ti yọ ọ́ kúrò.",
+    "next": "Ìwádìí iṣẹ́ tó kàn",
+    "allProjects": "Gbogbo iṣẹ́ àkànṣe",
+    "likeThis": "Ṣé ó wù ọ́?",
+    "letsTalk": "Jẹ́ ká sọ̀rọ̀"
   },
   "about": {
     "title": "Nípa Qomardeen Tijani — Olùṣàpẹẹrẹ Ọjà",
@@ -278,7 +282,7 @@
     "badgeTz": "Nàìjíríà (WAT, UTC+1)",
     "h1a": "Àpẹẹrẹ ọjà tó ń dé ìkẹyìn,",
     "h1b": "láti ìṣàwárí dé iṣẹ́-ṣíṣe.",
-    "intro": "Mo ń ṣe àwọn ojú-ìwé tó ṣe kedere tó sì lè dàgbà fún àwọn ọjà fintech àti SaaS, mo sì ń bá àwọn ẹ̀rọ-ẹ̀dá ṣiṣẹ́ ní tòsí kí àpẹẹrẹ lè dé ìparí láìsí ìpàdánù. Mo ṣetán fún iṣẹ́ Product Design àti UI/UX, látọ̀ọ́ọ̀ọ̀ré, ní àdúgbò tàbí lókè òkun.",
+    "intro": "Mo ń ṣe àpẹẹrẹ àwọn ọjà fintech àti SaaS láti ìwádìí dé ojú-ìwé tó parí, mo sì ń kọ́ àwọn àpẹẹrẹ ara mi di front-end tó ń ṣiṣẹ́ (ojú-ìwé yìí jẹ́ ọ̀kan), nítorí náà mo mọ ohun tó ń là á já nígbà ìfiránṣẹ́. Mo ṣetán fún iṣẹ́ Product Design àti UI/UX: látọ̀ọ́ọ̀ọ̀ré, ní àdúgbò tàbí lókè òkun.",
     "bookCall": "Ṣe ìpàdé",
     "downloadCv": "Gba CV",
     "waysTitle": "Àwọn ọ̀nà tí a lè gbà ṣiṣẹ́ pọ̀",
@@ -293,7 +297,7 @@
     "eng3Body": "Àwọn ibi ìkówèé ẹ̀yà, design tokens àti àwọn àlàyé tó ṣetán fún àwọn olùṣàgbékalẹ̀ tó ń jẹ́ kí ohun tí a gbé jáde dọ́gba pẹ̀lú ohun tí a ṣe àpẹẹrẹ rẹ̀.",
     "eng3Cta": "Jẹ́ ká sọ̀rọ̀",
     "proofTitle": "Ẹ̀rí, kì í ṣe àwọn ìlérí",
-    "proofSub": "Àwọn ìwádìí iṣẹ́ méjì láti ìbẹ̀rẹ̀ dé ìparí, láti ìwádìí dé ojú-ìwé ìkẹyìn.",
+    "proofSub": "Ìwádìí iṣẹ́ mẹ́ta láti ìbẹ̀rẹ̀ dé òpin, láti ìwádìí dé ọjà tí a ti tú jáde.",
     "tagSaas": "SaaS ilé-iṣẹ́",
     "tagFintech": "Fintech",
     "uptimeDesc": "Ìṣàkóso dúkìá pẹ̀lú àwọn ìṣàn ìtọ́jú tó díjú àti àwọn dashboard.",
@@ -315,7 +319,7 @@
     "how2T": "Ṣe àpẹẹrẹ",
     "how2D": "Wireframes, ojú-ìwé tó péye àti àwọn àwòkọ́ṣe aláṣepọ̀ tó dá lórí dátà gidi.",
     "how3T": "Fi lélẹ̀",
-    "how3D": "Àwọn àlàyé ètò àpẹẹrẹ àti ìwé tó ṣetán fún àwọn olùṣàgbékalẹ̀, pẹ̀lú àwòkọ́ṣe tí AI ń ràn lọ́wọ́ níbi tó bá wúlò.",
+    "how3D": "Àwọn fáìlì Figma pẹ̀lú auto-layout àti variants, design tokens, ìṣètò tó bá gbogbo ìwọ̀n ojú-ìwé mu, àti àlàyé tó ṣetán fún àwọn olùṣàgbékalẹ̀. Mo tún lè kọ́ àwòkọ́ṣe front-end fúnra mi láti fihàn pé ó ń ṣiṣẹ́.",
     "how4T": "Fi jíṣẹ́",
     "how4D": "QA, àtúnṣe àti ìrànlọ́wọ́ ìgbéjáde, pẹ̀lú ìwé tó ń jẹ́ kí iṣẹ́ rọrùn láti tọ́jú.",
     "getTitle": "Ohun tí o máa gbà",
@@ -339,7 +343,10 @@
     "faq6Q": "Ọ̀nà tó yára jù láti kàn sí ọ?",
     "faq6A": "Ṣe ìpàdé tàbí fi ímeèlì ránṣẹ́. O tún lè gba CV mi lókè, tàbí lo fọ́ọ̀mù ní ìsàlẹ̀.",
     "talkTitle": "Jẹ́ ká sọ̀rọ̀",
-    "talkBody": "Ṣe ìpàdé, tàbí pín àwọn àlàyé díẹ̀ ní ìsàlẹ̀, màá sì padà wá pẹ̀lú àwọn igbésẹ̀ tó kàn, àkókò àti ààlà iṣẹ́ tó bófin mu."
+    "talkBody": "Pín àwọn àlàyé díẹ̀, màá sì padà wá pẹ̀lú àwọn igbésẹ̀ tó kàn, àkókò àti ààlà iṣẹ́ tó bójú mu. Tàbí kàn sí mi tààrà:",
+    "portfolioTitle": "Portfolio yìí",
+    "tagBuilt": "Àpẹẹrẹ àti kíkọ́",
+    "portfolioDesc": "Ojú-ìwé tí o wà yìí: mo ṣe àpẹẹrẹ rẹ̀, mo sì kọ́ ọ fúnra mi, a sì wọn gbogbo àyípadà."
   },
   "inquiry": {
     "title": "Sọ nípa iṣẹ́ àkànṣe rẹ fún mi",

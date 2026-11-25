@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Reach me make we yarn about your project.",
     "getInTouch": "Reach me",
     "notFoundTitle": "We no find di case study",
-    "notFoundBody": "Dem fit don move dis case study or comot am from public."
+    "notFoundBody": "Dem fit don move dis case study or comot am from public.",
+    "next": "Next case study",
+    "allProjects": "All projects",
+    "likeThis": "You like wetin you see?",
+    "letsTalk": "Make we talk"
   },
   "about": {
     "title": "About Qomardeen Tijani — Product Designer",
@@ -278,7 +282,7 @@
     "badgeTz": "Nigeria (WAT, UTC+1)",
     "h1a": "Product design wey dey reach finish,",
     "h1b": "from discovery reach production.",
-    "intro": "I dey design clear interfaces wey fit grow for fintech and SaaS products, and I dey work close with engineers so di design no go spoil for handoff. I dey open to Product Design and UI/UX roles, remote, for inside country or abroad.",
+    "intro": "I dey design fintech and SaaS products from research reach clean UI, and I dey build my own designs into front-end wey dey work (dis site na one), so I sabi wetin go survive handoff. I dey open to Product Design and UI/UX roles: remote, for inside country or abroad.",
     "bookCall": "Book a call",
     "downloadCv": "Download CV",
     "waysTitle": "Ways wey we fit work together",
@@ -293,7 +297,7 @@
     "eng3Body": "Component libraries, design tokens and specs wey developers fit use directly, so wetin dem ship go match wetin dem design.",
     "eng3Cta": "Make we talk",
     "proofTitle": "Proof, no be promise",
-    "proofSub": "Two case studies from start to finish, from research reach final UI.",
+    "proofSub": "Three case studies from start to finish, from research reach product wey don ship.",
     "tagSaas": "Enterprise SaaS",
     "tagFintech": "Fintech",
     "uptimeDesc": "Asset management with hard maintenance workflows and dashboards.",
@@ -315,7 +319,7 @@
     "how2T": "Design",
     "how2D": "Wireframes, high-fidelity UI and interactive prototypes wey dey based on real data.",
     "how3T": "Hand off",
-    "how3D": "Design-system specs and documentation wey developers fit use, with AI-assisted prototyping where e help.",
+    "how3D": "Figma files with auto-layout and variants, design tokens, layouts wey fit any screen, and specs wey developers fit use straight. I fit also build di front-end prototype myself to show say e dey work.",
     "how4T": "Deliver",
     "how4D": "QA, iteration and launch support, with documentation wey make di work easy to maintain.",
     "getTitle": "Wetin you go get",
@@ -339,7 +343,10 @@
     "faq6Q": "Wetin be di fastest way to reach you?",
     "faq6A": "Book a call or send email. You fit also download my CV up there, or use di form for down.",
     "talkTitle": "Make we talk",
-    "talkBody": "Book a call, or share small details for down and I go come back with next steps, timing and scope wey make sense."
+    "talkBody": "Share small details and I go come back with next steps, timing and scope wey make sense. Or reach me direct:",
+    "portfolioTitle": "Dis portfolio",
+    "tagBuilt": "Designed & built",
+    "portfolioDesc": "Di site wey you dey so: I design am, then I build am myself, and I measure every change."
   },
   "inquiry": {
     "title": "Tell me about your project",

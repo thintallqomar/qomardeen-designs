@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Kpọtụrụ m ka anyị kwurịta ọrụ gị.",
     "getInTouch": "Kpọtụrụ m",
     "notFoundTitle": "Achọtaghị nyocha ọrụ ahụ",
-    "notFoundBody": "Ikekwe a kwagara nyocha ọrụ a ma ọ bụ wepụ ya n'ọha."
+    "notFoundBody": "Ikekwe a kwagara nyocha ọrụ a ma ọ bụ wepụ ya n'ọha.",
+    "next": "Ọmụmụ ihe ọzọ",
+    "allProjects": "Ọrụ niile",
+    "likeThis": "Ọ masịrị gị?",
+    "letsTalk": "Ka anyị kparịta"
   },
   "about": {
     "title": "Maka Qomardeen Tijani — Onye Nhazi Ngwaahịa",
@@ -278,7 +282,7 @@
     "badgeTz": "Naịjirịa (WAT, UTC+1)",
     "h1a": "Imewe ngwaahịa na-erute njedebe,",
     "h1b": "site na nchọpụta ruo na mmepụta.",
-    "intro": "Ana m ewu interface doro anya nke nwere ike itolite maka ngwaahịa fintech na SaaS, ana m arụkwa ọrụ nso ndị injinia ka imewe ghara ịla n'iyi mgbe nnyefe. Adị m njikere maka ọrụ Product Design na UI/UX, n'ime ime, n'ime obodo ma ọ bụ mba ofesi.",
+    "intro": "M na-emepụta ngwaahịa fintech na SaaS site na nchọpụta ruo UI zuru oke, ma na-ewu atụmatụ m n'onwe m ka ha bụrụ front-end na-arụ ọrụ (saịtị a bụ otu n'ime ha), ya mere amaara m ihe na-adịgide mgbe a na-enyefe ọrụ. Adị m njikere maka ọrụ Product Design na UI/UX: n'ime ụlọ, n'obodo ma ọ bụ mba ofesi.",
     "bookCall": "Debe oku",
     "downloadCv": "Budata CV",
     "waysTitle": "Ụzọ anyị nwere ike isi rụkọta ọrụ",
@@ -293,7 +297,7 @@
     "eng3Body": "Ọbá akwụkwọ ihe, design tokens na nkọwa dị njikere maka ndị mmepe na-eme ka ihe e wepụtara kwekọọ n'ihe e chepụtara.",
     "eng3Cta": "Ka anyị kwurịta",
     "proofTitle": "Ihe akaebe, ọ bụghị nkwa",
-    "proofSub": "Nyocha ọrụ abụọ site na mmalite ruo na njedebe, site na nyocha ruo UI ikpeazụ.",
+    "proofSub": "Ọmụmụ ọrụ atọ site na mbido ruo ọgwụgwụ, site na nchọpụta ruo ngwaahịa ewepụtara.",
     "tagSaas": "SaaS ụlọ ọrụ",
     "tagFintech": "Fintech",
     "uptimeDesc": "Njikwa akụ na usoro mmezi mgbagwoju anya na dashboard.",
@@ -315,7 +319,7 @@
     "how2T": "Chepụta",
     "how2D": "Wireframe, UI zuru ezu na ihe nlere na-emekọrịta ihe dabere na data n'ezie.",
     "how3T": "Nyefee",
-    "how3D": "Nkọwa usoro imewe na akwụkwọ dị njikere maka ndị mmepe, yana ihe nlere AI na-enyere aka ebe ọ bara uru.",
+    "how3D": "Faịlụ Figma nwere auto-layout na variants, design tokens, nhazi kwesịrị ọ bụla nha ihuenyo, na nkọwa ndị mmepe nwere ike iji ozugbo. Enwere m ike ịme ihe nlereanya front-end n'onwe m iji gosi na ọ na-arụ ọrụ.",
     "how4T": "Nyefee ya",
     "how4D": "QA, mmeghari na nkwado mmalite, yana akwụkwọ na-eme ka ọrụ dị mfe idebe.",
     "getTitle": "Ihe ị ga-enweta",
@@ -339,7 +343,10 @@
     "faq6Q": "Kedu ụzọ kacha ọsọ iru gị?",
     "faq6A": "Debe oku ma ọ bụ zipu ozi ịntanetị. Ị nwekwara ike ibudata CV m n'elu, ma ọ bụ jiri fọm dị n'okpuru.",
     "talkTitle": "Ka anyị kwurịta",
-    "talkBody": "Debe oku, ma ọ bụ kesaa obere nkọwa n'okpuru, aga m abịa na nzọụkwụ ndị na-esote, oge na oke ọrụ kwesịrị ekwesị."
+    "talkBody": "Kesaa ntakịrị nkọwa, m ga-azaghachi gị na usoro ndị ọzọ, oge na oke ọrụ ezi uche dị na ya. Ma ọ bụ kpọtụrụ m ozugbo:",
+    "portfolioTitle": "Portfolio a",
+    "tagBuilt": "Emepụtara ma wuo",
+    "portfolioDesc": "Saịtị ị nọ na ya: m mepụtara ya, wee wuo ya n'onwe m, a tụrụ mgbanwe ọ bụla."
   },
   "inquiry": {
     "title": "Gwa m banyere ọrụ gị",

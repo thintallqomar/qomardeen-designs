@@ -1,3 +1,4 @@
+import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
 
 const corsHeaders = {
@@ -23,6 +24,10 @@ Deno.serve(async (req) => {
     });
 
   try {
+    // Spam protection per visitor (by connection), on top of the database's per-email limit.
+    const limit = await rateLimit(`inquiry:${await sha256(clientIp(req))}`, 8, 3600);
+    if (!limit.allowed) return json({ error: "You've sent several messages recently. Please try again in an hour." }, 429);
+
     const body = await req.json();
 
     const name = str(body.name, 100);
@@ -34,7 +39,12 @@ Deno.serve(async (req) => {
     const timeline = str(body.timeline, 100);
 
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!name || !email || !emailRe.test(email) || !projectType || !message) {
+    // A visitor introducing themselves to Atlas: only a name is required, email is optional.
+    const isIntro = body.kind === "atlas-intro";
+    if (isIntro) {
+      if (!name) return json({ error: "Please add your name." }, 400);
+      if (email && !emailRe.test(email)) return json({ error: "That email doesn't look right. Fix it or leave it empty." }, 400);
+    } else if (!name || !email || !emailRe.test(email) || !projectType || !message) {
       return json({ error: "Please fill in your name, a valid email, project type and a message." }, 400);
     }
 
@@ -48,12 +58,14 @@ Deno.serve(async (req) => {
       .from("project_inquiries")
       .insert({
         name,
-        email,
+        // Introductions without an email get a unique placeholder, so they never share the
+        // database's per-email limit (a blank email for everyone would block all of them after 5).
+        email: email || `no-email+${crypto.randomUUID()}@intro.invalid`,
         company,
-        project_type: projectType,
+        project_type: isIntro ? `Atlas introduction${projectType ? `: ${projectType}` : ""}` : projectType,
         budget_range: budget,
         timeline,
-        message,
+        message: message || (isIntro ? "(No message, just saying hello.)" : message),
       })
       .select("id")
       .single();
@@ -68,7 +80,29 @@ Deno.serve(async (req) => {
     }
 
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-    if (RESEND_API_KEY) {
+    if (RESEND_API_KEY && isIntro) {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: "onboarding@resend.dev",
+          to: "qomardeentijani@gmail.com",
+          ...(email ? { reply_to: email } : {}),
+          subject: `${esc(name)} introduced themselves to Atlas`,
+          html: `
+            <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;padding:20px">
+              <h2 style="color:#111;border-bottom:2px solid #2563eb;padding-bottom:10px">Someone stopped by your portfolio</h2>
+              <p style="margin:4px 0"><strong>Name:</strong> ${esc(name)}</p>
+              <p style="margin:4px 0"><strong>What they do:</strong> ${esc(company ?? "Not given")}</p>
+              <p style="margin:4px 0"><strong>Why they're visiting:</strong> ${esc(projectType ?? "Not given")}</p>
+              <p style="margin:4px 0"><strong>Email:</strong> ${esc(email ?? "Not given")}</p>
+              ${message ? `<div style="background:#f9fafb;border-left:4px solid #2563eb;padding:16px;border-radius:4px;margin-top:16px"><p style="margin:0;white-space:pre-wrap">${esc(message)}</p></div>` : ""}
+              <p style="color:#9ca3af;font-size:12px;margin-top:20px">Shared with Atlas on your site. ${email ? "Reply directly to respond." : "They didn't leave an email."}</p>
+            </div>`,
+        }),
+      });
+      if (!res.ok) console.error("resend error:", res.status, await res.text());
+    } else if (RESEND_API_KEY) {
       const rows = [
         ["Name", name],
         ["Email", email],

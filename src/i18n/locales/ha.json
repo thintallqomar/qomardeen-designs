@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Tuntuɓe ni don tattauna aikinka.",
     "getInTouch": "Tuntuɓe ni",
     "notFoundTitle": "Ba a sami nazarin aikin ba",
-    "notFoundBody": "Wataƙila an canza wurin wannan nazarin aikin ko an cire shi daga bugawa."
+    "notFoundBody": "Wataƙila an canza wurin wannan nazarin aikin ko an cire shi daga bugawa.",
+    "next": "Nazarin aiki na gaba",
+    "allProjects": "Duk ayyuka",
+    "likeThis": "Kana son abin da ka gani?",
+    "letsTalk": "Mu tattauna"
   },
   "about": {
     "title": "Game da Qomardeen Tijani — Mai Tsara Samfura",
@@ -278,7 +282,7 @@
     "badgeTz": "Najeriya (WAT, UTC+1)",
     "h1a": "Ƙirar samfura da ke kaiwa ƙarshe,",
     "h1b": "daga gano abubuwa zuwa samarwa.",
-    "intro": "Ina tsara mu'amaloli masu haske da iya girma don samfuran fintech da SaaS, kuma ina aiki kusa da injiniyoyi don ƙira ta tsira daga miƙa aiki. A shirye nake don ayyukan Product Design da UI/UX, daga nesa, na cikin gida ko na ƙasashen waje.",
+    "intro": "Ina tsara kayayyakin fintech da SaaS tun daga bincike har zuwa cikakken UI, kuma ina gina zane-zanena da kaina su zama front-end masu aiki (wannan shafin ɗaya ne daga ciki), don haka na san abin da ke tsira lokacin miƙa aiki. A shirye nake don ayyukan Product Design da UI/UX: daga nesa, a cikin gida ko na ƙasashen waje.",
     "bookCall": "Yi ajiyar kira",
     "downloadCv": "Zazzage CV",
     "waysTitle": "Hanyoyin da za mu yi aiki tare",
@@ -293,7 +297,7 @@
     "eng3Body": "Dakunan ɗakin ɓangarori, design tokens da bayanai da suka shirya wa masu haɓakawa waɗanda ke tabbatar da abin da aka fitar ya yi daidai da abin da aka tsara.",
     "eng3Cta": "Mu tattauna",
     "proofTitle": "Shaida, ba alkawari ba",
-    "proofSub": "Nazarin aiki guda biyu daga farko zuwa ƙarshe, daga bincike zuwa UI na ƙarshe.",
+    "proofSub": "Nazarin ayyuka uku daga farko zuwa ƙarshe, daga bincike zuwa samfurin da aka fitar.",
     "tagSaas": "SaaS na kamfani",
     "tagFintech": "Fintech",
     "uptimeDesc": "Kula da kadarori tare da tsarin kulawa mai sarƙaƙiya da dashboards.",
@@ -315,7 +319,7 @@
     "how2T": "Tsara",
     "how2D": "Wireframes, UI mai cikakken bayani da samfuran gwaji masu mu'amala bisa bayanai na gaske.",
     "how3T": "Miƙa aiki",
-    "how3D": "Bayanan tsarin ƙira da takardu da suka shirya wa masu haɓakawa, tare da samfurin gwaji da AI ke taimakawa inda ya dace.",
+    "how3D": "Fayilolin Figma masu auto-layout da variants, design tokens, tsare-tsaren da suka dace da kowane girman allo, da bayanai da masu haɓakawa za su iya amfani da su kai tsaye. Zan iya kuma gina samfurin front-end da kaina don nuna cewa yana aiki.",
     "how4T": "Isarwa",
     "how4D": "QA, gyare-gyare da tallafin ƙaddamarwa, tare da takardu da ke sa aikin ya zama mai sauƙin kulawa.",
     "getTitle": "Abin da za ka samu",
@@ -339,7 +343,10 @@
     "faq6Q": "Mene ne hanya mafi sauri ta tuntuɓarka?",
     "faq6A": "Yi ajiyar kira ko aiko da imel. Hakanan za ka iya zazzage CV na a sama, ko ka yi amfani da fom ɗin da ke ƙasa.",
     "talkTitle": "Mu tattauna",
-    "talkBody": "Yi ajiyar kira, ko ka raba wasu bayanai a ƙasa, zan dawo maka da matakai na gaba, lokaci da faɗin aiki na gaskiya."
+    "talkBody": "Raba ɗan bayani, zan dawo maka da matakai na gaba, lokaci da girman aiki na gaskiya. Ko tuntuɓe ni kai tsaye:",
+    "portfolioTitle": "Wannan portfolio",
+    "tagBuilt": "An tsara kuma an gina",
+    "portfolioDesc": "Shafin da kake ciki: na tsara shi, sannan na gina shi da kaina, an auna kowane canji."
   },
   "inquiry": {
     "title": "Gaya mini game da aikinka",

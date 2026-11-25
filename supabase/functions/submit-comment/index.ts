@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@4";
+import { rateLimit, clientIp, sha256 } from "../_shared/admin-guard.ts";
 
 const CommentSchema = z.object({
   article_slug: z.string().trim().min(1).max(200).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
@@ -32,6 +33,10 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
   try {
+    // Spam protection: at most 10 comments an hour from one visitor.
+    const limit = await rateLimit(`comment:${await sha256(clientIp(req))}`, 10, 3600);
+    if (!limit.allowed) return json({ error: "You've posted several comments recently. Please try again later." }, 429);
+
     const parsed = CommentSchema.safeParse(await req.json().catch(() => null));
     if (!parsed.success) return json({ error: "Invalid comment details" }, 400);
 

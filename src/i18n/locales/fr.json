@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Contactez-moi pour discuter de votre projet.",
     "getInTouch": "Me contacter",
     "notFoundTitle": "Étude de cas introuvable",
-    "notFoundBody": "Cette étude de cas a peut-être été déplacée ou dépubliée."
+    "notFoundBody": "Cette étude de cas a peut-être été déplacée ou dépubliée.",
+    "next": "Étude de cas suivante",
+    "allProjects": "Tous les projets",
+    "likeThis": "Ça vous plaît ?",
+    "letsTalk": "Discutons"
   },
   "about": {
     "title": "À propos de Qomardeen Tijani — Product Designer",
@@ -278,7 +282,7 @@
     "badgeTz": "Nigéria (WAT, UTC+1)",
     "h1a": "Un design produit qui se livre,",
     "h1b": "de la découverte à la production.",
-    "intro": "Je conçois des interfaces claires et évolutives pour des produits fintech et SaaS, et je travaille au plus près de l'ingénierie pour que le design survive à la transmission. Ouvert aux postes de Product Design et UI/UX, à distance, locaux ou internationaux.",
+    "intro": "Je conçois des produits fintech et SaaS, de la recherche à l'interface finale, et je transforme mes propres designs en front-ends fonctionnels (ce site en est un). Je sais donc ce qui survit à la transmission. Ouvert aux postes de Product Design et UI/UX : à distance, locaux ou internationaux.",
     "bookCall": "Réserver un appel",
     "downloadCv": "Télécharger le CV",
     "waysTitle": "Comment collaborer",
@@ -293,7 +297,7 @@
     "eng3Body": "Bibliothèques de composants, design tokens et spécifications prêtes pour les développeurs, pour que ce qui est livré reste fidèle à ce qui a été conçu.",
     "eng3Cta": "En discuter",
     "proofTitle": "Des preuves, pas des promesses",
-    "proofSub": "Deux études de cas de bout en bout, de la recherche à l'UI finale.",
+    "proofSub": "Trois études de cas de bout en bout, de la recherche au produit livré.",
     "tagSaas": "SaaS d'entreprise",
     "tagFintech": "Fintech",
     "uptimeDesc": "Gestion d'actifs avec des workflows de maintenance et des tableaux de bord complexes.",
@@ -315,7 +319,7 @@
     "how2T": "Concevoir",
     "how2D": "Wireframes, UI haute fidélité et prototypes interactifs fondés sur des données réelles.",
     "how3T": "Transmettre",
-    "how3D": "Spécifications du design system et documentation prête pour les développeurs, avec du prototypage assisté par IA quand c'est utile.",
+    "how3D": "Fichiers Figma avec auto-layout et variantes, design tokens, mises en page responsives et spécifications prêtes pour les développeurs. Je peux aussi prototyper le front-end moi-même pour prouver que ça fonctionne.",
     "how4T": "Livrer",
     "how4D": "QA, itérations et accompagnement au lancement, avec une documentation qui rend le travail maintenable.",
     "getTitle": "Ce que vous obtenez",
@@ -339,7 +343,10 @@
     "faq6Q": "Quel est le moyen le plus rapide de vous joindre ?",
     "faq6A": "Réservez un appel ou envoyez un e-mail. Vous pouvez aussi télécharger mon CV ci-dessus ou utiliser le formulaire ci-dessous.",
     "talkTitle": "Parlons-en",
-    "talkBody": "Réservez un appel, ou partagez quelques détails ci-dessous et je reviendrai vers vous avec les prochaines étapes, le calendrier et un périmètre réaliste."
+    "talkBody": "Partagez quelques détails et je reviens vers vous avec les prochaines étapes, le calendrier et un périmètre réaliste. Ou contactez-moi directement :",
+    "portfolioTitle": "Ce portfolio",
+    "tagBuilt": "Conçu et développé",
+    "portfolioDesc": "Le site que vous consultez : conçu, puis développé par moi, chaque changement mesuré."
   },
   "inquiry": {
     "title": "Parlez-moi de votre projet",

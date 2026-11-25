@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Kontaktiere mich, um über dein Projekt zu sprechen.",
     "getInTouch": "Kontakt aufnehmen",
     "notFoundTitle": "Fallstudie nicht gefunden",
-    "notFoundBody": "Diese Fallstudie wurde möglicherweise verschoben oder nicht mehr veröffentlicht."
+    "notFoundBody": "Diese Fallstudie wurde möglicherweise verschoben oder nicht mehr veröffentlicht.",
+    "next": "Nächste Fallstudie",
+    "allProjects": "Alle Projekte",
+    "likeThis": "Gefällt Ihnen, was Sie sehen?",
+    "letsTalk": "Lassen Sie uns reden"
   },
   "about": {
     "title": "Über Qomardeen Tijani — Product Designer",
@@ -278,7 +282,7 @@
     "badgeTz": "Nigeria (WAT, UTC+1)",
     "h1a": "Produktdesign, das live geht,",
     "h1b": "von der Discovery bis zur Produktion.",
-    "intro": "Ich gestalte klare, skalierbare Oberflächen für Fintech- und SaaS-Produkte und arbeite eng mit der Entwicklung zusammen, damit das Design die Übergabe übersteht. Offen für Product-Design- und UI/UX-Rollen, remote, lokal oder international.",
+    "intro": "Ich gestalte Fintech- und SaaS-Produkte von der Recherche bis zur fertigen Oberfläche und setze meine eigenen Designs als funktionierende Frontends um (diese Website ist eines davon). So weiß ich, was die Übergabe übersteht. Offen für Product-Design- und UI/UX-Rollen: remote, lokal oder international.",
     "bookCall": "Gespräch buchen",
     "downloadCv": "Lebenslauf herunterladen",
     "waysTitle": "So können wir zusammenarbeiten",
@@ -293,7 +297,7 @@
     "eng3Body": "Komponentenbibliotheken, Design-Tokens und entwicklungsreife Spezifikationen, die dafür sorgen, dass das Ausgelieferte dem Entwurf treu bleibt.",
     "eng3Cta": "Gemeinsam besprechen",
     "proofTitle": "Belege statt Versprechen",
-    "proofSub": "Zwei durchgängige Fallstudien, von der Recherche bis zur finalen UI.",
+    "proofSub": "Drei durchgängige Fallstudien, von der Recherche bis zum ausgelieferten Produkt.",
     "tagSaas": "Enterprise-SaaS",
     "tagFintech": "Fintech",
     "uptimeDesc": "Asset-Management mit komplexen Wartungsabläufen und Dashboards.",
@@ -315,7 +319,7 @@
     "how2T": "Gestalten",
     "how2D": "Wireframes, High-Fidelity-UI und interaktive Prototypen auf Basis echter Daten.",
     "how3T": "Übergeben",
-    "how3D": "Designsystem-Spezifikationen und entwicklungsreife Dokumentation, bei Bedarf mit KI-gestütztem Prototyping.",
+    "how3D": "Figma-Dateien mit Auto-Layout und Varianten, Design Tokens, responsive Layouts und entwicklerfertige Spezifikationen. Ich kann das Frontend auch selbst prototypen, um zu zeigen, dass es funktioniert.",
     "how4T": "Liefern",
     "how4D": "QA, Iteration und Launch-Begleitung, mit Dokumentation, die die Arbeit wartbar hält.",
     "getTitle": "Was Sie erhalten",
@@ -339,7 +343,10 @@
     "faq6Q": "Wie erreiche ich Sie am schnellsten?",
     "faq6A": "Buchen Sie ein Gespräch oder schreiben Sie eine E-Mail. Meinen Lebenslauf können Sie oben herunterladen, oder nutzen Sie das Formular unten.",
     "talkTitle": "Lassen Sie uns sprechen",
-    "talkBody": "Buchen Sie ein Gespräch oder teilen Sie unten ein paar Details mit – ich melde mich mit nächsten Schritten, Zeitplan und einem realistischen Umfang."
+    "talkBody": "Teilen Sie ein paar Details, und ich melde mich mit nächsten Schritten, Zeitplan und einem realistischen Umfang. Oder direkt erreichen:",
+    "portfolioTitle": "Dieses Portfolio",
+    "tagBuilt": "Gestaltet & gebaut",
+    "portfolioDesc": "Die Website, auf der Sie gerade sind: von mir gestaltet und gebaut, jede Änderung gemessen."
   },
   "inquiry": {
     "title": "Erzählen Sie mir von Ihrem Projekt",

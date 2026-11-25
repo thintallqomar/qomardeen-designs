@@ -26,3 +26,4 @@ Qomardeen Tijani is a Product Designer focused on building scalable, user-center
 
 - [WalPay case study](/en/projects/walpay): Fintech case study on cross-border transfers.
 - [Uptime case study](/en/projects/uptime): SaaS asset-tracking platform case study.
+- [Portfolio case study](/en/projects/portfolio): How this site was designed and built, with measured before/after results.

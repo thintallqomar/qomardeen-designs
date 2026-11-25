@@ -238,7 +238,11 @@
     "wantMoreNoLive": "Get in touch to discuss your project.",
     "getInTouch": "Get in Touch",
     "notFoundTitle": "Case study not found",
-    "notFoundBody": "This case study may have been moved or unpublished."
+    "notFoundBody": "This case study may have been moved or unpublished.",
+    "next": "Next case study",
+    "allProjects": "All projects",
+    "likeThis": "Like what you see?",
+    "letsTalk": "Let's talk"
   },
   "about": {
     "title": "About Qomardeen Tijani — Product Designer",
@@ -304,7 +308,7 @@
     "badgeTz": "Nigeria (WAT, UTC+1)",
     "h1a": "Product design that ships,",
     "h1b": "from discovery to production.",
-    "intro": "I design clear, scalable interfaces for fintech and SaaS products, and I work close to engineering so the design survives handoff. Open to Product Design and UI/UX roles, remote, local or international.",
+    "intro": "I design fintech and SaaS products from research to polished UI, and I build my own designs into working front-ends (this site is one), so I know what survives handoff. Open to Product Design and UI/UX roles: remote, local or international.",
     "bookCall": "Book a call",
     "downloadCv": "Download CV",
     "waysTitle": "Ways we can work together",
@@ -319,7 +323,7 @@
     "eng3Body": "Component libraries, design tokens and developer-ready specs that keep what ships faithful to what was designed.",
     "eng3Cta": "Talk it through",
     "proofTitle": "Proof, not promises",
-    "proofSub": "Two end-to-end case studies, from research to final UI.",
+    "proofSub": "Three end-to-end case studies, from research to a shipped product.",
     "tagSaas": "Enterprise SaaS",
     "tagFintech": "Fintech",
     "uptimeDesc": "Asset management with complex maintenance workflows and dashboards.",
@@ -341,7 +345,7 @@
     "how2T": "Design",
     "how2D": "Wireframes, high-fidelity UI and interactive prototypes grounded in real data.",
     "how3T": "Hand off",
-    "how3D": "Design-system specs and developer-ready documentation, with AI-assisted prototyping where it helps.",
+    "how3D": "Figma files with auto-layout and variants, design tokens, responsive layouts and developer-ready specs. I can also prototype the front-end myself to prove it works.",
     "how4T": "Deliver",
     "how4D": "QA, iteration and launch support, with documentation that keeps the work maintainable.",
     "getTitle": "What you get",
@@ -365,7 +369,10 @@
     "faq6Q": "What is the fastest way to reach you?",
     "faq6A": "Book a call or send an email. You can also download my CV above, or use the form below.",
     "talkTitle": "Let's talk",
-    "talkBody": "Book a call, or share a few details below and I'll come back with next steps, timing and a realistic scope."
+    "talkBody": "Share a few details and I'll reply with next steps, timing and a realistic scope. Or reach me directly:",
+    "portfolioTitle": "This portfolio",
+    "tagBuilt": "Designed & built",
+    "portfolioDesc": "The site you're on: designed, then built by me, with every change measured."
   },
   "inquiry": {
     "title": "Tell me about your project",

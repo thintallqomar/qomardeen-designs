@@ -212,7 +212,11 @@
     "wantMoreNoLive": "Contáctame para hablar de tu proyecto.",
     "getInTouch": "Ponte en contacto",
     "notFoundTitle": "Caso de estudio no encontrado",
-    "notFoundBody": "Es posible que este caso de estudio se haya movido o despublicado."
+    "notFoundBody": "Es posible que este caso de estudio se haya movido o despublicado.",
+    "next": "Siguiente caso de estudio",
+    "allProjects": "Todos los proyectos",
+    "likeThis": "¿Te gusta lo que ves?",
+    "letsTalk": "Hablemos"
   },
   "about": {
     "title": "Sobre Qomardeen Tijani — Product Designer",
@@ -278,7 +282,7 @@
     "badgeTz": "Nigeria (WAT, UTC+1)",
     "h1a": "Diseño de producto que se entrega,",
     "h1b": "del descubrimiento a producción.",
-    "intro": "Diseño interfaces claras y escalables para productos fintech y SaaS, y trabajo muy cerca de ingeniería para que el diseño sobreviva a la entrega. Abierto a puestos de Product Design y UI/UX, en remoto, locales o internacionales.",
+    "intro": "Diseño productos fintech y SaaS, desde la investigación hasta la interfaz final, y convierto mis propios diseños en front-ends que funcionan (este sitio es uno), así que sé lo que sobrevive a la entrega. Abierto a puestos de Product Design y UI/UX: remotos, locales o internacionales.",
     "bookCall": "Reservar una llamada",
     "downloadCv": "Descargar CV",
     "waysTitle": "Formas de trabajar juntos",
@@ -293,7 +297,7 @@
     "eng3Body": "Bibliotecas de componentes, design tokens y especificaciones listas para desarrollo que mantienen lo publicado fiel a lo diseñado.",
     "eng3Cta": "Hablémoslo",
     "proofTitle": "Pruebas, no promesas",
-    "proofSub": "Dos casos de estudio de principio a fin, desde la investigación hasta la UI final.",
+    "proofSub": "Tres casos de estudio de principio a fin, de la investigación al producto lanzado.",
     "tagSaas": "SaaS empresarial",
     "tagFintech": "Fintech",
     "uptimeDesc": "Gestión de activos con flujos de mantenimiento complejos y paneles de control.",
@@ -315,7 +319,7 @@
     "how2T": "Diseñar",
     "how2D": "Wireframes, UI de alta fidelidad y prototipos interactivos basados en datos reales.",
     "how3T": "Entregar a desarrollo",
-    "how3D": "Especificaciones del sistema de diseño y documentación lista para desarrollo, con prototipado asistido por IA cuando ayuda.",
+    "how3D": "Archivos de Figma con auto-layout y variantes, design tokens, diseños responsivos y especificaciones listas para desarrollo. También puedo prototipar el front-end yo mismo para demostrar que funciona.",
     "how4T": "Lanzar",
     "how4D": "QA, iteración y apoyo al lanzamiento, con documentación que mantiene el trabajo sostenible.",
     "getTitle": "Qué recibes",
@@ -339,7 +343,10 @@
     "faq6Q": "¿Cuál es la forma más rápida de contactarte?",
     "faq6A": "Reserva una llamada o envía un correo. También puedes descargar mi CV arriba o usar el formulario de abajo.",
     "talkTitle": "Hablemos",
-    "talkBody": "Reserva una llamada o comparte unos detalles abajo y te responderé con los siguientes pasos, los plazos y un alcance realista."
+    "talkBody": "Comparte algunos detalles y te responderé con los próximos pasos, plazos y un alcance realista. O contáctame directamente:",
+    "portfolioTitle": "Este portafolio",
+    "tagBuilt": "Diseñado y construido",
+    "portfolioDesc": "El sitio en el que estás: diseñado y luego construido por mí, con cada cambio medido."
   },
   "inquiry": {
     "title": "Cuéntame sobre tu proyecto",

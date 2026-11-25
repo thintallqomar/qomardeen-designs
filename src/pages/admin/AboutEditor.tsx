@@ -70,6 +70,7 @@ const TextList = ({ items, onChange, label, multiline, max }: { items: string[];
 );
 
 /** A list of small records (jobs, schools, certificates, principles). */
+/* Type comes from `items`; JSX like <RecordList<School>> breaks Lovable's preview build, so don't add it. */
 function RecordList<T extends Record<string, string>>({
   items, onChange, label, fields, blank, max,
 }: { items: T[]; onChange: (v: T[]) => void; label: string; fields: { key: keyof T; label: string; long?: boolean; placeholder?: string }[]; blank: T; max: number }) {
@@ -242,7 +243,7 @@ const AboutEditor = () => {
 
             <Section title="Education">
               <Field label="Heading"><input value={form.educationTitle} onChange={e => set('educationTitle', e.target.value)} className={input} maxLength={60} /></Field>
-              <RecordList<School>
+              <RecordList
                 items={form.education} onChange={v => set('education', v)} label="School" max={12}
                 blank={{ dates: '', title: '', place: '' }}
                 fields={[{ key: 'title', label: 'Course or degree' }, { key: 'dates', label: 'Dates', placeholder: 'Sep 2026 – Present' }, { key: 'place', label: 'School and place', long: true }]}
@@ -251,7 +252,7 @@ const AboutEditor = () => {
 
             <Section title="Experience" description="Newest first. The first role gets the highlighted dot.">
               <Field label="Heading"><input value={form.experienceTitle} onChange={e => set('experienceTitle', e.target.value)} className={input} maxLength={60} /></Field>
-              <RecordList<Job>
+              <RecordList
                 items={form.experience} onChange={v => set('experience', v)} label="Role" max={15}
                 blank={{ title: '', meta: '', place: '', note: '', body: '' }}
                 fields={[
@@ -266,7 +267,7 @@ const AboutEditor = () => {
 
             <Section title="Certifications">
               <Field label="Heading"><input value={form.certificationsTitle} onChange={e => set('certificationsTitle', e.target.value)} className={input} maxLength={60} /></Field>
-              <RecordList<Cert>
+              <RecordList
                 items={form.certifications} onChange={v => set('certifications', v)} label="Certificate" max={30}
                 blank={{ title: '', meta: '' }}
                 fields={[{ key: 'title', label: 'Certificate' }, { key: 'meta', label: 'Issuer and date', placeholder: 'Google (Coursera) — Jan 2024' }]}
@@ -278,7 +279,7 @@ const AboutEditor = () => {
                 <Field label="Heading"><input value={form.philosophyTitle} onChange={e => set('philosophyTitle', e.target.value)} className={input} maxLength={80} /></Field>
                 <Field label="Line under the heading"><input value={form.philosophySubtitle} onChange={e => set('philosophySubtitle', e.target.value)} className={input} maxLength={300} /></Field>
               </div>
-              <RecordList<Principle>
+              <RecordList
                 items={form.principles} onChange={v => set('principles', v)} label="Principle" max={10}
                 blank={{ title: '', body: '' }}
                 fields={[{ key: 'title', label: 'Principle', long: true }, { key: 'body', label: 'Explanation', long: true }]}

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import {
   X, Volume2, VolumeX, Mic, MicOff, Loader2, ArrowUp, Square, FileText, Check, XCircle,
   MessagesSquare, Plus, Trash2, ArrowLeft, Brain, Copy, ExternalLink, Hand,
+  Sparkles, Briefcase, CalendarCheck, Code2, PenLine, ListChecks, Compass,
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -47,6 +48,8 @@ const ADMIN_PROMPTS = [
   'Summarise my case studies in one line each',
   'Write a blog post',
 ];
+const VISITOR_ICONS = [Sparkles, Briefcase, CalendarCheck, Code2];
+const ADMIN_ICONS = [Compass, ListChecks, PenLine];
 
 /* ── commands Atlas can put in a reply ─────────────────────────────── */
 const NAV_RE = /\[\[NAVIGATE:(\/[^\]]*)\]\]/g;
@@ -264,6 +267,10 @@ const AIAssistantWidget = () => {
   // Switched off in Admin › Site: hidden from visitors, still available inside the admin.
   const hiddenForVisitors = !atlasConfig.enabled && !location.pathname.startsWith('/admin');
   const prompts = isAdmin ? ADMIN_PROMPTS : VISITOR_PROMPTS;
+  const promptIcons = isAdmin ? ADMIN_ICONS : VISITOR_ICONS;
+  // "Hi Ada, let's get into it": the first name from Atlas's memory, Qomardeen in the admin, else "there".
+  const rememberedName = memory.map(m => /^Name is (.+)$/i.exec(m.text)?.[1]).find(Boolean)?.trim().split(/\s+/)[0];
+  const greetName = isAdmin ? 'Qomardeen' : (memoryOn && rememberedName) || 'there';
   const orbState: OrbState = isLoading ? 'thinking' : isSpeaking ? 'speaking' : 'idle';
 
   // Admins keep their conversations in the cloud (across devices); visitors keep theirs on this device.
@@ -715,7 +722,7 @@ const AIAssistantWidget = () => {
             {nudge && !reduceMotion && (
               <span aria-hidden="true" className="pointer-events-none absolute -inset-1 rounded-full ring-2 ring-primary/60 animate-ping" />
             )}
-            <span className={`grid h-9 w-9 place-items-center rounded-full bg-background ${nudge ? 'shadow-[0_0_18px_4px_hsl(var(--primary)/0.55)]' : ''}`}>
+            <span className={`atlas-launch-orb grid h-9 w-9 place-items-center rounded-full bg-background ${nudge ? 'shadow-[0_0_18px_4px_hsl(var(--primary)/0.55)]' : ''}`}>
               <AtlasOrb size={26} state={nudge ? 'speaking' : 'idle'} />
             </span>
             <span className="text-[15px] font-medium tracking-tight">Ask Atlas</span>
@@ -770,11 +777,14 @@ const AIAssistantWidget = () => {
             aria-modal="false"
             {...panelMotion}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="atlas-glass fixed inset-0 z-[70] isolate flex flex-col overflow-hidden sm:inset-auto sm:bottom-4 sm:right-4 sm:top-[4.5rem] sm:w-[420px] sm:rounded-[28px]"
+            data-state={orbState}
+            className="atlas-glass atlas-panel fixed inset-0 z-[70] isolate flex flex-col overflow-hidden sm:inset-auto sm:bottom-4 sm:right-4 sm:top-[4.5rem] sm:w-[420px] sm:rounded-[28px]"
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
-            {/* Soft light inside the glass */}
+            {/* Soft light inside the glass, and a slow aurora that circles behind the composer.
+                It turns faster and brighter while Atlas is thinking or speaking. */}
             <div aria-hidden="true" className="atlas-sheen pointer-events-none absolute inset-0 -z-10" />
+            <div aria-hidden="true" className="atlas-aurora pointer-events-none absolute -z-10"><span /><span /></div>
 
             {/* Closes soon: thin bar along the top, and a way to keep it open */}
             {closingIn !== null && (
@@ -932,37 +942,46 @@ const AIAssistantWidget = () => {
                 {historyLoading && <div className="flex justify-center py-10"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>}
 
                 {showSuggestions && (
-                  <div className="flex min-h-full flex-col justify-end">
-                    <h2 className="text-[1.75rem] font-bold leading-[1.1] tracking-tight">
-                      Ask me anything about Qomardeen.
-                    </h2>
-                    <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-                      His work, how he designs and builds, and this site from its first version to now.
-                      {memory.length > 0 && memoryOn && ' I remember what you told me last time.'}
-                    </p>
-                    <ul className="mt-6">
+                  <div className="flex min-h-full flex-col">
+                    <div className="flex flex-1 flex-col items-center justify-center py-8 text-center">
+                      <span className="atlas-hero-orb"><AtlasOrb size={52} state={orbState} /></span>
+                      <h2 className="mt-5 max-w-[18ch] text-[1.85rem] font-semibold leading-[1.12] tracking-tight">
+                        Hi <span className="atlas-name">{greetName}</span>, let's get into it
+                      </h2>
+                      <p className="mt-3 max-w-[32ch] text-[14px] leading-relaxed text-muted-foreground">
+                        {isAdmin
+                          ? 'Ask about your site, your visitors or your case studies, or draft a post.'
+                          : 'Ask about his work, how he designs and builds, or this site from its first version to now.'}
+                        {memory.length > 0 && memoryOn && ' I remember what you told me last time.'}
+                      </p>
+                    </div>
+                    <ul className="pb-1">
                       {!isAdmin && !introduced && (
-                        <li className="border-t border-border">
+                        <li>
                           <button
                             type="button"
                             onClick={startIntro}
-                            className="flex w-full items-center gap-2.5 rounded-xl px-1 py-3.5 text-left text-[15px] font-medium text-primary transition-colors hover:bg-foreground/[0.04] hover:px-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="atlas-suggestion flex w-full items-center gap-4 rounded-2xl px-3 py-3 text-left text-[15px] font-medium text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           >
-                            <Hand className="h-4 w-4" aria-hidden="true" /> Introduce yourself to Qomardeen
+                            <Hand className="h-5 w-5 shrink-0" aria-hidden="true" /> Introduce yourself to Qomardeen
                           </button>
                         </li>
                       )}
-                      {prompts.map(p => (
-                        <li key={p} className="border-t border-border last:border-b">
-                          <button
-                            type="button"
-                            onClick={() => send(p)}
-                            className="w-full rounded-xl px-1 py-3.5 text-left text-[15px] text-foreground/90 transition-colors hover:bg-foreground/[0.04] hover:px-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                          >
-                            {p}
-                          </button>
-                        </li>
-                      ))}
+                      {prompts.map((p, i) => {
+                        const Icon = promptIcons[i] ?? Sparkles;
+                        return (
+                          <li key={p}>
+                            <button
+                              type="button"
+                              onClick={() => send(p)}
+                              className="atlas-suggestion flex w-full items-center gap-4 rounded-2xl px-3 py-3 text-left text-[15px] font-medium text-foreground/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                              <Icon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" strokeWidth={1.6} />
+                              {p}
+                            </button>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
@@ -1019,7 +1038,8 @@ const AIAssistantWidget = () => {
             {/* Composer */}
             {view === 'chat' && (
               <div className="px-3 pb-3 pt-1 sm:px-4 sm:pb-4">
-                <div className="atlas-composer flex items-end gap-1.5 rounded-[22px] p-1.5 transition-shadow focus-within:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)]">
+                <div className="atlas-composer-ring rounded-[28px] p-px">
+                <div className="atlas-composer flex items-end gap-1.5 rounded-[27px] p-1.5">
                   {speechSupported && (
                     <IconTooltip label={isListening ? 'Stop listening' : 'Speak your question'} side="top">
                       <button
@@ -1056,11 +1076,12 @@ const AIAssistantWidget = () => {
                       onClick={() => void send(input)}
                       disabled={!input.trim()}
                       aria-label="Send"
-                      className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-foreground text-background transition-opacity disabled:opacity-25"
+                      className="atlas-send grid h-10 w-10 shrink-0 place-items-center rounded-full text-white transition-opacity disabled:opacity-30"
                     >
                       <ArrowUp className="h-4 w-4" />
                     </button>
                   )}
+                </div>
                 </div>
                 <p className="mt-2 px-2 text-center text-[11px] leading-snug text-muted-foreground">
                   {isAdmin ? 'Your chats are saved to your account.' : 'Chats stay on this device.'} Atlas can get things wrong, so check key facts with Qomardeen.

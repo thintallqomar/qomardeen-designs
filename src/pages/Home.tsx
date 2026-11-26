@@ -25,8 +25,8 @@ const Home = () => {
     <>
       <Navigation />
       <PageSEO
-        title="Qomardeen Tijani — Product Designer (UX, AI & Systems)"
-        description="Product Designer bridging design and development. See selected fintech and SaaS case studies, then get in touch."
+        title="Qomardeen Tijani — Product designer who builds"
+        description="I design products, then I build them. Case studies in fintech, SaaS and mobile, with the process and the trade-offs."
         path="/"
       />
       <PageTransition>

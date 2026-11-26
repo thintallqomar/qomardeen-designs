@@ -857,6 +857,78 @@ html { position: relative; }
     border: 1px solid hsl(var(--border) / 0.8);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25), 0 4px 16px -8px rgb(2 8 23 / 0.2);
   }
+  /* ── Aurora: slow colour that circles behind the composer (inspired by modern AI assistants) ── */
+  @property --atlas-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  .atlas-panel { --aurora-a: #4F8EF7; --aurora-b: #33D6E6; --aurora-c: #8B5CF6; --aurora-d: #EC4899; --aurora-e: #22C55E; }
+  .dark .atlas-panel { background: linear-gradient(180deg, hsl(var(--background) / 0.78) 0%, hsl(222 60% 6% / 0.86) 55%, hsl(228 55% 10% / 0.9) 100%); }
+  .atlas-aurora {
+    left: -25%; right: -25%; bottom: -30%; height: 72%;
+    filter: blur(42px) saturate(150%);
+    opacity: 0.45;
+    -webkit-mask-image: radial-gradient(75% 70% at 50% 80%, #000 30%, transparent 78%);
+    mask-image: radial-gradient(75% 70% at 50% 80%, #000 30%, transparent 78%);
+    transition: opacity .6s ease;
+  }
+  .dark .atlas-aurora { opacity: 0.85; }
+  .atlas-aurora span {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--aurora-a), var(--aurora-b), var(--aurora-c), var(--aurora-d), var(--aurora-a), var(--aurora-e), var(--aurora-b), var(--aurora-a));
+    animation: atlas-spin 18s linear infinite, atlas-breathe 7s ease-in-out infinite;
+  }
+  .atlas-aurora span + span {
+    inset: 18% 22%; opacity: .75; mix-blend-mode: screen;
+    animation: atlas-spin 12s linear infinite reverse, atlas-breathe 5s ease-in-out infinite;
+  }
+  .atlas-panel[data-state='thinking'] .atlas-aurora, .atlas-panel[data-state='speaking'] .atlas-aurora { opacity: 0.7; }
+  .dark .atlas-panel[data-state='thinking'] .atlas-aurora, .dark .atlas-panel[data-state='speaking'] .atlas-aurora { opacity: 1; }
+  .atlas-panel[data-state='thinking'] .atlas-aurora span { animation-duration: 4s, 2.4s; }
+  .atlas-panel[data-state='thinking'] .atlas-aurora span + span { animation-duration: 3s, 2s; }
+  @keyframes atlas-spin { to { transform: rotate(360deg); } }
+  @keyframes atlas-breathe { 0%, 100% { scale: 0.92; } 50% { scale: 1.06; } }
+
+  /* Greeting name: the same colours, slowly sliding */
+  .atlas-name {
+    background: linear-gradient(90deg, var(--aurora-a), var(--aurora-b), var(--aurora-c), var(--aurora-a));
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: atlas-slide 8s linear infinite;
+  }
+  @keyframes atlas-slide { to { background-position: 300% 0; } }
+  .atlas-hero-orb { display: inline-grid; place-items: center; width: 76px; height: 76px; border-radius: 9999px;
+    background: radial-gradient(circle, hsl(var(--primary) / .18), transparent 70%); }
+
+  /* Suggestions: icon + line, no borders, soft hover */
+  .atlas-suggestion { transition: background-color .2s ease, transform .2s ease; }
+  .atlas-suggestion:hover { background: hsl(var(--foreground) / 0.05); }
+  .atlas-suggestion:active { transform: scale(.99); }
+
+  /* Composer: a pill with a thin ring that lights up and turns while you type or Atlas thinks */
+  .atlas-composer-ring {
+    background: hsl(var(--border) / 0.8);
+    transition: box-shadow .3s ease;
+  }
+  .atlas-composer-ring:focus-within, .atlas-panel[data-state='thinking'] .atlas-composer-ring {
+    background: conic-gradient(from var(--atlas-angle), var(--aurora-a), var(--aurora-b), var(--aurora-c), var(--aurora-d), var(--aurora-a));
+    animation: atlas-angle 4s linear infinite;
+    box-shadow: 0 0 24px -6px hsl(var(--primary) / 0.55);
+  }
+  @keyframes atlas-angle { to { --atlas-angle: 360deg; } }
+  .atlas-composer-ring > .atlas-composer { background: hsl(var(--background) / 0.92); border: 0; }
+  .dark .atlas-composer-ring > .atlas-composer { background: hsl(222 40% 9% / 0.95); }
+  .atlas-send { background: linear-gradient(135deg, var(--aurora-a, #4F8EF7), var(--aurora-c, #8B5CF6)); box-shadow: 0 6px 18px -6px rgb(79 142 247 / .7); }
+
+  /* Launcher: a thin turning ring of the same colours around the orb */
+  .atlas-launch-orb { position: relative; }
+  .atlas-launch-orb::before {
+    content: ''; position: absolute; inset: -3px; border-radius: 9999px; z-index: -1;
+    background: conic-gradient(from var(--atlas-angle), #4F8EF7, #33D6E6, #8B5CF6, #EC4899, #4F8EF7);
+    animation: atlas-angle 6s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atlas-aurora span, .atlas-name, .atlas-composer-ring, .atlas-launch-orb::before { animation: none !important; }
+  }
+
   .atlas-countdown { animation: atlas-countdown 5s linear forwards; transform-origin: left; }
   @keyframes atlas-countdown { from { transform: scaleX(1); } to { transform: scaleX(0); } }
   @media (prefers-reduced-motion: reduce) { .atlas-countdown { animation: none; } }

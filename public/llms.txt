@@ -1,6 +1,6 @@
 # DesignQit — Qomardeen Tijani
 
-> Portfolio of Qomardeen Tijani, a Product Designer working at the intersection of UX, AI, and systems thinking. Case studies, essays, and contact.
+> Portfolio of Qomardeen Tijani, a product designer who builds: he designs products, then builds them. Case studies, essays, and contact.
 
 Qomardeen Tijani is a Product Designer focused on building scalable, user-centered digital products — fintech, SaaS dashboards, and AI-native tools. This site collects shipped case studies, written essays on design and AI, and the entry points for hiring or collaboration.
 

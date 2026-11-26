@@ -863,7 +863,6 @@ html { position: relative; }
   .dark .atlas-panel { background: linear-gradient(180deg, hsl(var(--background) / 0.78) 0%, hsl(222 60% 6% / 0.86) 55%, hsl(228 55% 10% / 0.9) 100%); }
   .atlas-aurora {
     left: -25%; right: -25%; bottom: -30%; height: 72%;
-    filter: blur(42px) saturate(150%);
     opacity: 0.45;
     -webkit-mask-image: radial-gradient(75% 70% at 50% 80%, #000 30%, transparent 78%);
     mask-image: radial-gradient(75% 70% at 50% 80%, #000 30%, transparent 78%);
@@ -872,6 +871,8 @@ html { position: relative; }
   .dark .atlas-aurora { opacity: 0.85; }
   .atlas-aurora span {
     position: absolute; inset: 0; border-radius: 50%;
+    /* Blur sits on the turning layer itself, so the browser blurs once and only rotates it (no repaint per frame). */
+    filter: blur(42px) saturate(150%); will-change: transform;
     background: conic-gradient(from 0deg, var(--aurora-a), var(--aurora-b), var(--aurora-c), var(--aurora-d), var(--aurora-a), var(--aurora-e), var(--aurora-b), var(--aurora-a));
     animation: atlas-spin 18s linear infinite, atlas-breathe 7s ease-in-out infinite;
   }
@@ -921,8 +922,9 @@ html { position: relative; }
   .atlas-launch-orb { position: relative; }
   .atlas-launch-orb::before {
     content: ''; position: absolute; inset: -3px; border-radius: 9999px; z-index: -1;
-    background: conic-gradient(from var(--atlas-angle), #4F8EF7, #33D6E6, #8B5CF6, #EC4899, #4F8EF7);
-    animation: atlas-angle 6s linear infinite;
+    /* Rotated with transform (GPU), not an animated gradient angle, so it never repaints while you scroll. */
+    background: conic-gradient(from 0deg, #4F8EF7, #33D6E6, #8B5CF6, #EC4899, #4F8EF7);
+    animation: atlas-spin 6s linear infinite; will-change: transform;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -47,21 +47,21 @@ const stickyScrollItems = [
   {
     title: 'The Challenge',
     subtitle: 'Discovery',
-    description: 'International money transfers were riddled with hidden fees, slow processing, and fragmented experiences — leaving users anxious about where their money was at any given moment.',
+    description: 'Cross-border transfers meant hidden fees, slow processing and no idea where the money was.',
     image: frame03,
     imageAlt: 'Frustrations and Solutions',
   },
   {
     title: 'Understanding Users',
     subtitle: 'Research',
-    description: 'We interviewed expatriates and freelancers who regularly send money across borders. Their core need: trust, speed, and transparency in every transaction.',
+    description: 'Expatriates and freelancers who send money abroad told us what they need: trust, speed and transparency.',
     image: frame05,
     imageAlt: 'User Persona - Sarah Jenkins',
   },
   {
     title: 'Mobile-First Experience',
     subtitle: 'Final Designs',
-    description: 'Every screen was designed for thumb-friendly interaction on mobile. The send-money flow was reduced from 8 steps to 3, with real-time rate visibility and instant confirmation.',
+    description: 'Built for thumbs. Sending money went from 8 steps to 3, with live rates and instant confirmation.',
     image: frame10,
     imageAlt: 'Onboarding Screens',
   },
@@ -93,7 +93,7 @@ const WalPayProject = () => {
             <CaseStudyHeader
               badge="UI/UX Case Study"
               title="WalPay"
-              lead="A digital wallet and currency exchange platform designed to take the friction out of international transfers."
+              lead="A digital wallet and currency exchange that takes the friction out of international transfers."
               facts={[{ label: t('caseStudy.role'), value: 'Product Designer (UI/UX)' }, { label: t('caseStudy.timeline'), value: '8 weeks' }, { label: t('caseStudy.platform'), value: 'iOS app & website' }]}
               liveUrl={BEHANCE_URL}
             />

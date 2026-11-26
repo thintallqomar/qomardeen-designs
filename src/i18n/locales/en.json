@@ -87,23 +87,23 @@
     "principles": [
       {
         "title": "Clarity over cleverness",
-        "body": "Good design should feel obvious — not because it's simple, but because it's well-structured and thoughtfully considered."
+        "body": "Good design feels obvious because it's well structured, not because it's simple."
       },
       {
         "title": "Solve the right problem first",
-        "body": "Visual polish matters, but only after layout, hierarchy, and usability are resolved. Every decision should earn its place."
+        "body": "Layout, hierarchy and usability first. Polish comes after, and every detail earns its place."
       },
       {
         "title": "Design for how people actually read",
-        "body": "Users scan, they don't study. Clear hierarchy, predictable layouts, and familiar patterns let people act with confidence and minimal effort."
+        "body": "People scan. Clear hierarchy and familiar patterns let them act fast and with confidence."
       },
       {
         "title": "Think in systems, not screens",
-        "body": "Consistent components, spacing rules, and type scales improve the experience for users and the velocity of the team building it."
+        "body": "Shared components, spacing and type make the product better and the team faster."
       },
       {
         "title": "Iterate toward better",
-        "body": "Design is a continuous process — sharpened through feedback, iteration, and contact with the real world."
+        "body": "Feedback, testing and real use make every version better."
       }
     ]
   },
@@ -141,7 +141,7 @@
   "hireCta": {
     "available": "Available for hire",
     "title": "Let's Build Something Great",
-    "subtitle": "Looking for a product designer who understands systems, ships real products, and communicates clearly? Let's talk.",
+    "subtitle": "Need a product designer who thinks in systems and ships? Let's talk.",
     "cta": "Hire Me",
     "schedule": "Schedule a Call"
   },
@@ -248,10 +248,10 @@
     "title": "About Qomardeen Tijani — Product Designer",
     "subtitle": "Product Designer building scalable, user-centered digital products.",
     "resume": "Download Resume",
-    "p1": "I'm a product designer who turns complex workflows into clear, confident interfaces across SaaS, internal tools and consumer apps.",
-    "p2": "I start with goals, workflows, constraints and edge cases before any high-fidelity screen, so the result stays simple as the product grows.",
-    "p3": "I've shipped CMMS platforms, dashboards, fintech flows and websites end to end, from research and wireframes to UI and production handoff.",
-    "p4": "Before product design I worked in fashion, which taught me to balance looks with structure, constraints and the people using the result.",
+    "p1": "I turn complex workflows into clear, confident interfaces for SaaS, internal tools and consumer apps.",
+    "p2": "I solve flows and edge cases before pixels, so products stay simple as they grow.",
+    "p3": "I've shipped CMMS platforms, dashboards, fintech flows and websites, from research to production handoff.",
+    "p4": "Fashion came first. It taught me to balance looks with structure and the people using them.",
     "p5": "I'm looking for a product design role where I can contribute from day one.",
     "education": "Education",
     "edu2": "B.Sc. Human Anatomy",
@@ -259,12 +259,12 @@
     "roleDesigner": "Product Designer",
     "job1Tag": "Product Design",
     "job1Sub": "FinTech mobile application",
-    "job1Desc": "Onboarding, wallet and payment screens for a fintech app, using research and prototypes to take friction out of transactions.",
-    "job2Desc": "Led UX/UI for a CMMS platform end to end: research, wireframes and Figma prototypes, plus landing pages and the core flows for sign-in, payments and support, in an Agile team.",
+    "job1Desc": "Onboarding, wallet and payment screens for a fintech app, shaped by research and prototypes.",
+    "job2Desc": "Led UX/UI for a CMMS platform in an Agile team: research, prototypes, landing pages, sign-in, payments and support.",
     "job3Title": "Project Manager",
     "present": "Present",
     "job3Promo": "Promoted from Project Manager Intern (2023–2024)",
-    "job3Desc": "Run planning, timelines and delivery across teams, keeping scope, budget and quality on track. Introduced workflows and reporting that made delivery predictable for clients.",
+    "job3Desc": "Run delivery across teams on scope, budget and quality, and introduced reporting that made it predictable.",
     "job4Title": "Independent Fashion Designer",
     "job4Desc": "Led creative direction, production, and client delivery",
     "certifications": "Certifications",
@@ -308,7 +308,7 @@
     "badgeTz": "Nigeria (WAT, UTC+1)",
     "h1a": "Product design that ships,",
     "h1b": "from discovery to production.",
-    "intro": "I design fintech and SaaS products from research to polished UI, then build them into working front-ends (this site is one). Open to Product Design and UI/UX roles: remote, local or international.",
+    "intro": "I design fintech and SaaS products, then build them (this site is one). Open to Product and UI/UX roles: remote, local or international.",
     "bookCall": "Book a call",
     "downloadCv": "Download CV",
     "waysTitle": "Ways we can work together",
@@ -345,7 +345,7 @@
     "how2T": "Design",
     "how2D": "Wireframes, high-fidelity UI and interactive prototypes grounded in real data.",
     "how3T": "Hand off",
-    "how3D": "Figma files with auto-layout, tokens and developer-ready specs. I can prototype the front-end myself to prove it works.",
+    "how3D": "Figma files with auto-layout, tokens and dev-ready specs. I can prototype the front-end to prove it.",
     "how4T": "Deliver",
     "how4D": "QA, iteration and launch support, with docs that keep it maintainable.",
     "getTitle": "What you get",
@@ -363,11 +363,11 @@
     "faq3Q": "Where are you based, and can you work across time zones?",
     "faq3A": "Nigeria (WAT, UTC+1). I work remotely with local and international teams.",
     "faq4Q": "What kind of products have you designed?",
-    "faq4A": "Fintech and enterprise SaaS: a CMMS platform, dashboards, a digital wallet and websites. Each one is a case study here.",
+    "faq4A": "Fintech and enterprise SaaS: CMMS, dashboards, a digital wallet and websites. All are case studies here.",
     "faq5Q": "How do you work with engineers?",
-    "faq5A": "Developer-ready specs, tokens and component docs, plus AI-assisted prototypes where they help, so what ships matches the design.",
+    "faq5A": "Dev-ready specs, tokens and component docs, plus AI prototypes where useful, so what ships matches the design.",
     "faq6Q": "What is the fastest way to reach you?",
-    "faq6A": "Book a call or send an email. You can also download my CV or use the form below.",
+    "faq6A": "Book a call, send an email, download my CV or use the form below.",
     "talkTitle": "Let's talk",
     "talkBody": "Share a few details and I'll reply with next steps, timing and scope. Or reach me directly:",
     "portfolioTitle": "This portfolio",
@@ -431,7 +431,7 @@
   },
   "aboutIntro": {
     "big": "about",
-    "lead": "I'm Qomardeen, a product designer based in Nigeria. I studied human anatomy, fell for design, and now I'm learning to build what I design.",
+    "lead": "I'm Qomardeen, a product designer in Nigeria. Anatomy graduate turned designer, now learning to build what I design.",
     "partDesigner": "Part designer",
     "partCoder": "part coder",
     "splitNote": "{{design}}% design · {{code}}% code",

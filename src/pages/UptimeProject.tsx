@@ -40,21 +40,21 @@ const stickyScrollItems = [
   {
     title: 'The Problem',
     subtitle: 'Discovery',
-    description: 'Maintenance teams relied on spreadsheets and paper logs to track equipment, leading to missed schedules, unplanned downtime, and costly reactive repairs.',
+    description: 'Teams tracked equipment in spreadsheets and paper logs, so schedules slipped and breakdowns got expensive.',
     image: frame02,
     imageAlt: 'Product Overview - Frustrations and Solutions',
   },
   {
     title: 'Research & Empathy',
     subtitle: 'Understanding Users',
-    description: 'Through interviews with facility managers and technicians, we mapped pain points into an empathy map and defined a primary persona — a maintenance lead juggling 200+ assets across multiple sites.',
+    description: 'Interviews with facility managers and technicians shaped our persona: a maintenance lead juggling 200+ assets across sites.',
     image: frame05,
     imageAlt: 'User Persona',
   },
   {
     title: 'The Dashboard',
     subtitle: 'Core Experience',
-    description: 'The central hub provides real-time asset health, upcoming maintenance schedules, and actionable alerts — transforming data overload into clear, prioritized insights.',
+    description: 'Live asset health, upcoming maintenance and alerts in one place, so data overload becomes a clear to-do list.',
     image: frame08,
     imageAlt: 'Dashboard Design',
   },
@@ -86,7 +86,7 @@ const UptimeProject = () => {
             <CaseStudyHeader
               badge="UI/UX Case Study"
               title="UpTime CMMS"
-              lead="A maintenance and equipment tracking tool that reduces downtime through scheduled tasks, offline functionality and smart reporting."
+              lead="Equipment tracking that cuts downtime with scheduled tasks, offline mode and smart reports."
               facts={[{ label: t('caseStudy.role'), value: 'Product Designer (UI/UX)' }, { label: t('caseStudy.scope'), value: 'End-to-end design' }, { label: t('caseStudy.platform'), value: 'Web app (SaaS)' }]}
               liveUrl={"https://www.behance.net/gallery/239892845/UpTime"}
             />
